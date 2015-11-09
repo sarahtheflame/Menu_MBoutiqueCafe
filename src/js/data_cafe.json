@@ -1,0 +1,93 @@
+{
+    "fond" : "coffee_wall.jpg",
+    "boites" : [
+        {
+            "type" : "header",
+            "contenu" : "Nos cafés",
+            "left" : "0%",
+            "top" : "0%",
+            "width" : "",
+            "height" : ""
+        },
+
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Les classiques",        "col2" : "",       "titre" : true},
+                {"col1" : "Espresso M Boutique, Guatemala Antigua, Costa Rica tarrazu, Sumatra mandheling, Colombien supremo.",   "col2" : "3,60$/100g",  "titre" : false}
+            ],
+            "left" : "38%",
+            "top" : "53%",
+            "width" : "60%",
+            "height" : ""
+        },
+
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Les verts et équitables",        "col2" : "",       "titre" : true},
+                {"col1" : "Éthiopien yirgacheffe, éthiopien Harrar, Cascadia déca, Tanzanie peaberry.",   "col2" : "3,80$/100g",  "titre" : false}
+            ],
+            "left" : "38%",
+            "top" : "70%",
+            "width" : "60%",
+            "height" : ""
+        },
+
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Les micro lots",        "col2" : "",       "titre" : true},
+                {"col1" : "Éthiopien Galena Abaya",   "col2" : "3,95$/100g",  "titre" : false}
+            ],
+            "left" : "38%",
+            "top" : "84.5%",
+            "width" : "60%",
+            "height" : ""
+        },
+
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Cafés",                       "col2" : "Petit",   "col3" : "Moyen",   "col4" : "Grand",   "titre" : true},
+                {"col1" : "Espresso simple c/al",        "col2" : "2,10$",   "col3" : "",        "col4" : "",        "titre" : false},
+                {"col1" : "Espresso double c/al",        "col2" : "2,70$",   "col3" : "",        "col4" : "",        "titre" : false},
+                {"col1" : "Viennois simple c/al",        "col2" : "2,80$",   "col3" : "",        "col4" : "",        "titre" : false},
+                {"col1" : "Viennois double c/al",        "col2" : "3,35$",   "col3" : "",        "col4" : "",        "titre" : false},
+                {"col1" : "Cappucino",                   "col2" : "2,40$",   "col3" : "2,80$",   "col4" : "3,20$",   "titre" : false},
+                {"col1" : "Mokaccino",                   "col2" : "3,25$",   "col3" : "3,60$",   "col4" : "3,95$",   "titre" : false},
+                {"col1" : "Latté",                       "col2" : "2,90$",   "col3" : "3,15$",   "col4" : "3,40$",   "titre" : false},
+                {"col1" : "M Café",                      "col2" : "3,35$",   "col3" : "3,75$",   "col4" : "4,25$",   "titre" : false},
+                {"col1" : "Café à l'australien",         "col2" : "",        "col3" : "2,95$",   "col4" : "",        "titre" : false},
+                {"col1" : "Café Buano filtre à froid",   "col2" : "2,95$",   "col3" : "",        "col4" : "",        "titre" : false},
+                {"col1" : "Café filtre du moment",       "col2" : "1,80$",   "col3" : "2,25$",   "col4" : "3,00$",   "titre" : false},
+                {"col1" : "Thé",                         "col2" : "",        "col3" : "1,95$",   "col4" : "2,50$",   "titre" : false},
+                {"col1" : "Chocolaté",                   "col2" : "2,75$",   "col3" : "3,25$",   "col4" : "3,75$",   "titre" : false},
+                {"col1" : "Chocolaté Suprême",           "col2" : "3,15$",   "col3" : "3,65$",   "col4" : "4,15$",   "titre" : false},
+                {"col1" : "Chaï",                        "col2" : "3,00$",   "col3" : "3,50$",   "col4" : "4,25$",   "titre" : false},
+                {"col1" : "Lait d'amande",               "col2" : "3,15$",   "col3" : "3,65$",   "col4" : "4,15$",   "titre" : false}
+
+            ],
+            "left" : "3%",
+            "top" : "18%",
+            "width" : "",
+            "height" : ""
+        },
+
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Extras",                                "col2" : "",      "titre" : true},
+                {"col1" : "Crème fouettée",                        "col2" : "0,65$", "titre" : false},
+                {"col1" : "Guimauve",                              "col2" : "0,45$", "titre" : false},
+                {"col1" : "Saveurs (noisette, vanille, caramel)",  "col2" : "0,40$", "titre" : false},
+                {"col1" : "Lait d'amande, soya, sans lactose",     "col2" : "0,65$", "titre" : false}
+            ],
+            "left" : "38%",
+            "top" : "18%",
+            "width" : "27%",
+            "height" : ""
+        }
+        
+    ]
+}

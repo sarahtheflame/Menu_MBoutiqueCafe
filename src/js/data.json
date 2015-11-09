@@ -1,0 +1,85 @@
+{
+    "fond" : "src/images/sandwich.jpg",
+    "boites" : [
+        {
+            "type" : "header",
+            "contenu" : "Nos repas",
+            "left" : "0%",
+            "top" : "0%",
+            "width" : "",
+            "height" : ""
+        },
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Nos verrines du four",                         "col2" : "",      "titre" : true},
+                {"col1" : "Caramel écossais Carotte-fromage Fromage NY",  "col2" : "2.95$ - 3.95$", "titre" : false},
+                {"col1" : "Les gourmandises",                             "col2" : "", "titre" : true},
+                {"col1" : "Brownies Brioche Chocolatine Viennoiseries",   "col2" : "2.25$", "titre" : false},
+                {"col1" : "Biscuits",   "col2" : "", "titre" : true},
+                {"col1" : "2/1.25$ - 3/2.00$ - 6/4.00$",   "col2" : "", "titre" : false}                
+            ],
+            "left" : "58%",
+            "top" : "59%",
+            "width" : "40%",
+            "height" : "37%"
+        },
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Nos à côtés et extra",   "col2" : "",      "titre" : true},
+                {"col1" : "Muffin",                 "col2" : "1.95$", "titre" : false},
+                {"col1" : "Crème/Soupe",            "col2" : "2.95$", "titre" : false},
+                {"col1" : "Coupe de fruit",         "col2" : "1.50$", "titre" : false},
+                {"col1" : "Confiture (2)",          "col2" : "0.50$", "titre" : false},
+                {"col1" : "Nutella",                "col2" : "0.75$", "titre" : false},
+                {"col1" : "Fromage à la crème",     "col2" : "0.75$", "titre" : false},
+                {"col1" : "Creton de M",            "col2" : "1.50$", "titre" : false} 
+            ],
+            "left" : "75.1%",
+            "top" : "18%",
+            "width" : "",
+            "height" : "<37></37>.5%"
+        },
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Salade repas",                                    "col2" : "",      "titre" : true},
+                {"col1" : "Choisissez 1,2,3 choix!",                         "col2" : "5.00$", "titre" : false},
+                {"col1" : "Choisissez votre option protéine!",               "col2" : "", "titre" : true},
+                {"col1" : "Oeufs, poulet, jambon, saumon, saucisse, végé",   "col2" : "1.95$", "titre" : false},
+                {"col1" : "Prenez la en trio!",                              "col2" : "",      "titre" : true},
+                {"col1" : "Déjeuner patate/salade de fruit café/breuvage régulier",   "col2" : "3.00$",      "titre" : false},
+                {"col1" : "Dîner soupe/salade café/breuvage régulier",                "col2" : "3.00$",      "titre" : false}
+            ],
+            "left" : "36%",
+            "top" : "18%",
+            "width" : "37%",
+            "height" : ""
+        },
+        {
+            "type" : "table",
+            "items" : [
+                {"col1" : "Nos Grill'wiches matin",   "col2" : "",      "titre" : true},
+                {"col1" : "Fromage",                  "col2" : "5.00$", "titre" : false},
+                {"col1" : "Fromage et fruit",         "col2" : "5.00$", "titre" : false},
+                {"col1" : "Oeuf bacon fromage",       "col2" : "5.00$", "titre" : false},
+                {"col1" : "Oeuf fromage",             "col2" : "5.00$", "titre" : false},
+                {"col1" : "Nos Grill'wiches diner",   "col2" : "",      "titre" : true},
+                {"col1" : "Poulet club",              "col2" : "5.00$", "titre" : false},
+                {"col1" : "Le pizza",                 "col2" : "5.00$", "titre" : false},
+                {"col1" : "Le cubain",                "col2" : "5.00$", "titre" : false},
+                {"col1" : "Croque-monsieur",        "col2" : "5.00$", "titre" : false},
+                {"col1" : "Sandwiches Européens",                                        "col2" : "",        "titre" : true},
+                {"col1" : "55 choix de saucisse et ses garnitures et croustilles",        "col2" : "5.00$",   "titre" : false},
+                {"col1" : "Assiette Européenne",                                       "col2" : "",        "titre" : true},
+                {"col1" : "55 choix de saucisse, choucroute et condiments, petit pain",  "col2" : "5.00$",   "titre" : false}
+            ],
+            "left" : "2%",
+            "top" : "18%",
+            "width" : "32%",
+            "height" : "78%"
+        }
+        
+    ]
+}

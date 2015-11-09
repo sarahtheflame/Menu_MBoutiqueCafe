@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="fr">
+	<script type="text/javascript">
+	</script> 
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Cafés</title>
+
+		<meta name="decription" content="Ceci est le 'template' web pour un menu de restaurant.">
+		<meta name="auteur" content="Daniel-Junior Dubé et Sarah Laflamme">
+
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="template.css">
+		<link rel="stylesheet" href="ionicons.min.css">
+
+		<!-- interact-1.2.5.min.JS -->
+        <script type='text/javascript' src='interact-1.2.5.min.js'></script>
+        <!-- interactApp.JS -->
+        <script type='text/javascript' src='interactApp.js'></script>
+
+        <!-- Jquery.min.JS -->
+        <script type='text/javascript' src='jquery-2.1.4.min.js'></script>
+
+        <!-- knockout.min.JS -->
+        <script type='text/javascript' src='knockout-3.3.0.js'></script>
+        <!-- knockout.min.JS -->
+        <script type='text/javascript' src='knockout.mapping-latest.js'></script>
+        <!-- KnockoutApp.JS -->
+        <script type='text/javascript' src='ko_menu_cafe.js' defer="defer"></script>
+	</head>
+
+	<body data-bind="attr: { 'background': fond() }">
+		<div class="interact-container" data-bind="foreach: boites">
+			
+				<!-- ko if: type() === "header" -->
+				<div class="boite_flottante" id="entete" data-bind="style: { left : left(), top : top() }">
+					<div id="titre" data-bind="text: contenu">
+						
+					</div>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: type() === "table" -->
+				<div class="boite_flottante" data-bind="style: { left : left(), top : top(), width : width() }">
+					<table>
+	    				<tbody data-bind="foreach: items">
+	    					<tr>
+		    					<!-- ko if: titre -->
+							        <th data-bind="text: col1"></th>
+							    <!-- /ko -->
+							    <!-- ko ifnot: titre -->
+							        <td data-bind="text: col1"></td>
+							    <!-- /ko -->
+							    <!-- ko if: typeof col2 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col2"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col3 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col3"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col4 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col4"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col5 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col5"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col6 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col6"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col7 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col7"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col8 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col8"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col9 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col9"></span>
+	    						</td>
+	    						<!-- /ko -->
+	    						<!-- ko if: typeof col10 !== 'undefined' -->
+	    						<td>
+	    							<span data-bind="text: col10"></span>
+	    						</td>
+	    						<!-- /ko -->
+
+	    					</tr>
+	    				</tbody>
+					</table>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: type() === "video" -->
+				<div class="boite_flottante" id="media" data-bind="style: { left : left(), top : top(), width: width(), height : height() }">
+					<video width="100%" height="100%" muted autoplay loop>
+						<source data-bind="attr: { 'src':filepath() }" type="video/mp4" />
+						Your browser does not support the video tag.
+					</video>
+				</div>
+				<!-- /ko -->
+		</div>
+	</body>
+</html>
