@@ -23,24 +23,24 @@ class Style(Base):
 	couleur_fond = Column(String(250))
 	opacite = Column(Integer)
 	bordure_id = Column(Integer, ForeignKey('Bordures.id'),nullable=False)
-	bordure = relationship(Bordure)
+	bordure = relationship(Bordure, uselist=False)
 
 class Theme(Base):
 	__tablename__ = 'Themes'
 	id = Column(Integer, primary_key=True)
 	nom = Column(String(250),nullable=False)
 	titre_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	titre = relationship(Style)
+	titre = relationship(Style, uselist=False)
 	sous_titre_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	sous_titre = relationship(Style)
+	sous_titre = relationship(Style, uselist=False)
 	texte_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	texte = relationship(Style)
+	texte = relationship(Style, uselist=False)
 	tableau_titre_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	tableau_titre = relationship(Style)
+	tableau_titre = relationship(Style, uselist=False)
 	tableau_sous_titre_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	tableau_sous_titre = relationship(Style)
+	tableau_sous_titre = relationship(Style, uselist=False)
 	tableau_texte_id = Column(Integer, ForeignKey('Styles.id'),nullable=False)
-	tableau_texte = relationship(Style)
+	tableau_texte = relationship(Style, uselist=False)
 
 engine = create_engine('sqlite:///src///data/database.db')
 
