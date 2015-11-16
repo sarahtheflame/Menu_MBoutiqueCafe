@@ -6,6 +6,8 @@ from modeles import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import json 
+import jsonpickle
 
 session = sessionmaker(bind=engine)
 
@@ -15,13 +17,29 @@ s = session()
 #zone_1_repas = Zone(nom='zone_1_repas')
 #zone_1_repas.fenetre = fenetre_repas
 
-theme_1 = Theme(nom='theme principal')
-
 
 #s.add(fenetre_repas)
-s.add(theme_1)
+fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 
-s.commit()
+for x in fenetre.zones[2].lignes:
+    print(x)
+    for y in x.cellules:
+        print(y.contenu)
+
+fen_dict = dict()
+
+fen_dict['id'] = fenetre.id
+fen_dict['nom'] = fenetre.nom
+fen_dict['fond'] = fenetre.fond
+
+for x in fenetre.zones:
+    fen_dict["zones"][x.id] = x.serialiser_en_json
+
+print(fen_dict)
+
+#test = json.loads(jsonpickle.encode(fenetre))
+
+#print(json.dumps(test, indent=4, separators=(',', ': ')))
 
 # for attr in vars(fenetre_repas):
 #     print(attr)

@@ -15,11 +15,16 @@ class Media(Base):
     chemin_fichier = Column(String)
     type = Column(String)
 
+    #def serialiser_en_json(self):
+
+    #def deserialiser_de_json(self):
+
+
 class Bordure(Base):
     __tablename__ = 'Bordures'
     id = Column(Integer, primary_key=True)
     couleur = Column(String(250))
-    taille = Column(Integer)
+    taille = Column(String(250))
     style = Column(String(250))
 
 class Style(Base):
@@ -29,7 +34,9 @@ class Style(Base):
     couleur = Column(String(250))
     taille = Column(Integer)
     couleur_fond = Column(String(250))
-    opacite = Column(Integer)
+    opacite_fond = Column(Integer)
+    gras = Column(String(250))
+    italique = Column(String(250))
     bordure_id = Column(
         Integer, 
         ForeignKey('Bordures.id'),
@@ -62,6 +69,16 @@ class Theme(Base):
         nullable=False
         )
     id_texte = Column(
+        Integer, 
+        ForeignKey('Styles.id'),
+        nullable=False
+        )
+    id_tableau = Column(
+        Integer, 
+        ForeignKey('Styles.id'),
+        nullable=False
+        )
+    id_tableau_ligne = Column(
         Integer, 
         ForeignKey('Styles.id'),
         nullable=False
@@ -99,6 +116,18 @@ class Theme(Base):
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_texte]
+        )
+    tableau = relationship(
+        Style, 
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_tableau]
+        )
+    tableau_ligne = relationship(
+        Style, 
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_tableau_ligne]
         )
     tableau_titre = relationship(
         Style, 
@@ -183,6 +212,13 @@ class ZoneBase(Zone):
     __tablename__ = 'ZonesBase'
     id = Column(Integer, ForeignKey('Zones.id'), primary_key=True)
     contenu = Column(String)
+    id_style = Column(Integer, ForeignKey('Styles.id'))
+    style = relationship(
+        Style,
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_style]
+    )
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneBase',
@@ -211,6 +247,13 @@ class ZoneVideo(Zone):
 class ZoneTable(Zone):
     __tablename__ = 'ZonesTable'
     id = Column(Integer, ForeignKey('Zones.id'), primary_key=True)
+    id_style = Column(Integer, ForeignKey('Styles.id'))
+    style = relationship(
+        Style,
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_style]
+    )
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneTable',
@@ -228,6 +271,12 @@ class Ligne(Base):
             uselist=True, 
             cascade='delete,all')
         )
+    style = relationship(
+        Style,
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_style]
+    )
     
 class Cellule(Base):
     __tablename__ = 'Cellules'
@@ -242,6 +291,12 @@ class Cellule(Base):
             uselist=True, 
             cascade='delete,all')
         )
+    style = relationship(
+        Style,
+        uselist=False, 
+        cascade='delete,all', 
+        foreign_keys=[id_style]
+    )
 
 class Administrateur(Base):
     __tablename__ = 'Administrateurs'
@@ -249,5 +304,6 @@ class Administrateur(Base):
     mot_de_passe = Column(String)
     adresse_courriel = Column(String)
 
-engine = create_engine('sqlite:///src//data//database.db')
+engine = create_engine(
+    'sqlite:///src//data//database.db')
 Base.metadata.create_all(engine)

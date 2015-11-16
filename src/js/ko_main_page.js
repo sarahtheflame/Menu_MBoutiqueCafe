@@ -1,14 +1,16 @@
-var test = {name};
-var viewModel = ko.mapping.fromJS(test);
-ko.applyBindings(viewModel);
+$.getJSON( "main_page.json", function( json ) {
+        var data = json;
+        var viewModel = ko.mapping.fromJS(data);
+        ko.applyBindings(viewModel);
+        var unmapped = ko.mapping.toJSON(viewModel);
+        console.log(unmapped);
+    });
 
-function exportJson(fileName) {
-    var vm = ko.dataFor(document.body);
-    var unmapped = ko.mapping.toJSON(vm);
+function exportJson() {
+    var unmapped = ko.mapping.toJS(viewModel);
     $.post("submit",
             {
-                fileName,
-                unmapped
+              unmapped
             }
         );
 }

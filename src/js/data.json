@@ -1,5 +1,5 @@
 {
-    "fond" : "src/images/sandwich.jpg",
+    "fond" : "sandwich.jpg",
     "boites" : [
         {
             "type" : "header",
