@@ -5,6 +5,7 @@ import datetime
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import json
 
 Base = declarative_base()
 
@@ -15,10 +16,17 @@ class Media(Base):
     chemin_fichier = Column(String)
     type = Column(String)
 
-    #def serialiser_en_json(self):
+    def serialiser_en_json(self):
+        return dict(
+            id = self.id,
+            nom = self.nom,
+            chemin_fichier = self.chemin_fichier,
+            type=self.type)
 
-    #def deserialiser_de_json(self):
-
+    def deserialiser_de_json(self, data):
+        self.nom = data.nom
+        self.chemin_fichier = data.chemin_fichier
+        self.type = data.type
 
 class Bordure(Base):
     __tablename__ = 'Bordures'
@@ -156,13 +164,26 @@ class Fenetre(Base):
     id_theme = Column(Integer, ForeignKey('Themes.id'))  
     theme = relationship(Theme, foreign_keys=[id_theme])
 
+    def serialiser_en_json(self):
+        return dict(
+            id = self.id,
+            nom = self.nom,
+            fond = self.fond,
+            id_theme=self.id_theme)
+
+    def deserialiser_de_json(self, session, data):
+        self.nom = data['nom']
+        self.fond = data['fond']
+        self.theme = session.query(Theme).filter(Theme.id == data['id_theme']).one()
+        session.commit()
+
 class Periode(Base):
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
     heure_debut = Column(DateTime)
-    id_fenetre_1 = Column(Integer, ForeignKey('Fenetres.id'))  
-    id_fenetre_2 = Column(Integer, ForeignKey('Fenetres.id'))  
-    id_fenetre_3 = Column(Integer, ForeignKey('Fenetres.id'))  
+    id_fenetre_1 = Column(Integer, ForeignKey('Fenetres.id'))
+    id_fenetre_2 = Column(Integer, ForeignKey('Fenetres.id'))
+    id_fenetre_3 = Column(Integer, ForeignKey('Fenetres.id'))
     id_fenetre_4 = Column(Integer, ForeignKey('Fenetres.id'))
     fenetre_1 = relationship(
         Fenetre, 

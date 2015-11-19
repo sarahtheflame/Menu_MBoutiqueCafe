@@ -26,16 +26,24 @@ for x in fenetre.zones[2].lignes:
     for y in x.cellules:
         print(y.contenu)
 
-fen_dict = dict()
+fen_dict = dict(
+id = fenetre.id,
+nom = fenetre.nom,
+fond = fenetre.fond)
 
-fen_dict['id'] = fenetre.id
-fen_dict['nom'] = fenetre.nom
-fen_dict['fond'] = fenetre.fond
+# for x in fenetre.zones:
+#     fen_dict["zones"][x.id] = x.serialiser_en_json
 
-for x in fenetre.zones:
-    fen_dict["zones"][x.id] = x.serialiser_en_json
+#print(fen_dict)
+test = fenetre.serialiser_en_json()
 
-print(fen_dict)
+print(test)
+
+test["nom"] = "Fenetre principale de repas WTF"
+
+fenetre.deserialiser_de_json(test)
+
+print(fenetre.nom)
 
 #test = json.loads(jsonpickle.encode(fenetre))
 
