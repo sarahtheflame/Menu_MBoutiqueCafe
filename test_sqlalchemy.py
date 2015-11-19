@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -8,7 +7,7 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import json 
 import jsonpickle
-
+engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 session = sessionmaker(bind=engine)
 
 s = session()
@@ -21,15 +20,11 @@ s = session()
 #s.add(fenetre_repas)
 fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 
-for x in fenetre.zones[2].lignes:
-    print(x)
-    for y in x.cellules:
-        print(y.contenu)
+# for x in fenetre.zones[2].lignes:
+#     print(x)
+#     for y in x.cellules:
+#         print(y.contenu)
 
-fen_dict = dict(
-id = fenetre.id,
-nom = fenetre.nom,
-fond = fenetre.fond)
 
 # for x in fenetre.zones:
 #     fen_dict["zones"][x.id] = x.serialiser_en_json
@@ -37,17 +32,20 @@ fond = fenetre.fond)
 #print(fen_dict)
 test = fenetre.serialiser_en_json()
 
-print(test)
+test['theme']['id'] = 2
 
-test["nom"] = "Fenetre principale de repas WTF"
+fenetre.deserialiser_de_json(s, test)
 
-fenetre.deserialiser_de_json(test)
+test = fenetre.serialiser_en_json()
 
-print(fenetre.nom)
-
+#print(test)
 #test = json.loads(jsonpickle.encode(fenetre))
+testdata = json.dumps(test, indent=4, separators=(',', ': '))
+print(testdata)
 
-#print(json.dumps(test, indent=4, separators=(',', ': ')))
+f = open('workfile', 'w')
+
+f.write(testdata)
 
 # for attr in vars(fenetre_repas):
 #     print(attr)

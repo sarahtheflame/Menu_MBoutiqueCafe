@@ -6,15 +6,14 @@ from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+engine = create_engine('mysql://root@localhost/boutique')
+#engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+Base.metadata.create_all(engine)
+
 session = sessionmaker(bind=engine)
 
 s = session()
 
-sans_bordure = Bordure(
-        couleur="#FFFFFF",
-        taille="0px",
-        style="solid"
-    )
 theme_1 = Theme(
     nom='theme principal',
     titre=Style(
@@ -25,7 +24,11 @@ theme_1 = Theme(
         opacite_fond="0.8",
         gras="",
         italique="",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     ),
     sous_titre=Style(
         police="'Oswald', sans-serif",
@@ -35,7 +38,11 @@ theme_1 = Theme(
         opacite_fond="1",
         gras="",
         italique="",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     ),
     texte=Style(
         police="'Oswald', sans-serif",
@@ -45,7 +52,11 @@ theme_1 = Theme(
         opacite_fond="1",
         gras="",
         italique="",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     ),
     tableau=Style(
         police="'Oswald', sans-serif",
@@ -83,7 +94,11 @@ theme_1 = Theme(
         opacite_fond="1",
         gras="",
         italique="",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     ),
     tableau_sous_titre=Style(
         police="'Oswald', sans-serif",
@@ -93,7 +108,11 @@ theme_1 = Theme(
         opacite_fond="1",
         gras="",
         italique="italic",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     ),
     tableau_texte=Style(
         police="'Oswald', sans-serif",
@@ -103,7 +122,126 @@ theme_1 = Theme(
         opacite_fond="1",
         gras="",
         italique="",
-        bordure=sans_bordure
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    )
+)
+theme_2 = Theme(
+    nom='theme secondaire',
+    titre=Style(
+        police="'KaushanScript', cursive",
+        couleur="#ff7400",
+        taille="4vw",
+        couleur_fond="#000000",
+        opacite_fond="0.8",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    sous_titre=Style(
+        police="'Oswald', sans-serif",
+        couleur="#ff8f32",
+        taille="3vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    texte=Style(
+        police="'Oswald', sans-serif",
+        couleur="#FFFFFF",
+        taille="1.5vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    tableau=Style(
+        police="'Oswald', sans-serif",
+        couleur="#FFFFFF",
+        taille="1.5vw",
+        couleur_fond="#000000",
+        opacite_fond="0.8",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    tableau_ligne=Style(
+        police="'Oswald', sans-serif",
+        couleur="#FFFFFF",
+        taille="1.5vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="1px",
+            style="solid"
+        )
+    ),
+    tableau_titre=Style(
+        police="'Oswald', sans-serif",
+        couleur="#ff8f32",
+        taille="2vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    tableau_sous_titre=Style(
+        police="'Oswald', sans-serif",
+        couleur="#ff8f32",
+        taille="1.5vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="italic",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
+    ),
+    tableau_texte=Style(
+        police="'Oswald', sans-serif",
+        couleur="#FFFFFF",
+        taille="1.5vw",
+        couleur_fond="",
+        opacite_fond="1",
+        gras="",
+        italique="",
+        bordure=Bordure(
+            couleur="#FFFFFF",
+            taille="0px",
+            style="solid"
+        )
     )
 )
 
@@ -317,9 +455,11 @@ cellule_2_ligne_4_salade = Cellule(
         style=theme_1.tableau_texte
 )
 
+print(cellule_1_ligne_4_salade.contenu)
+
 s.add_all([
-    sans_bordure,
     theme_1,
+    theme_2,
     fenetre_repas,
     zone_entete,
     zone_grillwiches,
