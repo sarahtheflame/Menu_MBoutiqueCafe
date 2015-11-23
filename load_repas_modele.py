@@ -6,8 +6,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('mysql://root@localhost/boutique')
-#engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 Base.metadata.create_all(engine)
 
 session = sessionmaker(bind=engine)
@@ -455,7 +454,24 @@ cellule_2_ligne_4_salade = Cellule(
         style=theme_1.tableau_texte
 )
 
-print(cellule_1_ligne_4_salade.contenu)
+zone_test = ZoneTable(
+    nom='zone test', 
+    position_x="2%",
+    position_y="18%",
+    largeur="32%",
+    hauteur="78%",
+    fenetre=fenetre_repas,
+    style=theme_1.tableau
+)
+ligne_1_test = Ligne(
+        zone_table=zone_test,
+        style=theme_1.tableau_ligne
+)
+cellule_1_ligne_1_test = Cellule(
+        contenu="ceci est un test de ZoneTable",
+        ligne=ligne_1_test,
+        style=theme_1.tableau_titre
+)
 
 s.add_all([
     theme_1,
@@ -499,7 +515,10 @@ s.add_all([
     cellule_2_ligne_3_salade,
     ligne_4_salade,
     cellule_1_ligne_4_salade,
-    cellule_2_ligne_4_salade]
+    cellule_2_ligne_4_salade,
+    zone_test,
+    ligne_1_test,
+    cellule_1_ligne_1_test]
 )
 
 s.commit()

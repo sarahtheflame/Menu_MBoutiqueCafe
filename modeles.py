@@ -333,6 +333,7 @@ class ZoneBase(Zone):
     def serialiser_en_json(self):
         return dict(
             id = self.id,
+            contenu = self.contenu,
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
@@ -340,11 +341,19 @@ class ZoneBase(Zone):
             hauteur = self.hauteur,
             type = self.type,
             id_style = self.id_style,
-            id_fenetre=self.id_fenetre
+            id_fenetre = self.id_fenetre
             )
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.contenu = data['contenu']
+        self.nom = data['nom']
+        self.position_x = data['position_x']
+        self.position_y = data['position_y']
+        self.largeur = data['largeur']
+        self.hauteur = data['hauteur']
+        self.type = data['type']
+        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneBase',
@@ -370,11 +379,18 @@ class ZoneImage(Zone):
             hauteur = self.hauteur,
             type = self.type,
             id_fenetre=self.id_fenetre,
-            media = self.image.serialiser_en_json()
+            image = self.image.serialiser_en_json()
             )
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.image = session.query(Media).filter(Media.id == data['media']['id']).one()
+        self.nom = data['nom']
+        self.position_x = data['position_x']
+        self.position_y = data['position_y']
+        self.largeur = data['largeur']
+        self.hauteur = data['hauteur']
+        self.type = data['type']
+        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
 
 
 class ZoneVideo(Zone):
@@ -401,7 +417,14 @@ class ZoneVideo(Zone):
             )
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.video = session.query(Media).filter(Media.id == data['media']['id']).one()
+        self.nom = data['nom']
+        self.position_x = data['position_x']
+        self.position_y = data['position_y']
+        self.largeur = data['largeur']
+        self.hauteur = data['hauteur']
+        self.type = data['type']
+        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
 
 class ZoneTable(Zone):
     __tablename__ = 'ZonesTable'
@@ -437,7 +460,30 @@ class ZoneTable(Zone):
         return data
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.nom = data['nom']
+        self.position_x = data['position_x']
+        self.position_y = data['position_y']
+        self.largeur = data['largeur']
+        self.hauteur = data['hauteur']
+        self.type = data['type']
+        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        for ligne in data['lignes']:
+            if (ligne['id'] == ""):
+                print('Nouvelle ligne')
+                nouvelle_ligne = Ligne(zone_table=self, style=self.fenetre.theme.tableau_ligne)
+                session.add(nouvelle_ligne)
+                for cellule in ligne['cellules']:
+                    print('Nouvelle cellule')
+                    session.add(
+                        Cellule(
+                            contenu=cellule['contenu'],
+                            ligne=nouvelle_ligne,
+                            style=self.fenetre.theme.tableau_texte # DÉFINIR LE THEME A ASSOCIER À CHAQUE CELLULE
+                            )
+                        )
+            else:
+                session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(ligne) # REQUETE POUR CHAQUE CELLULE??
+        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
 
 class Ligne(Base):
     __tablename__ = 'Lignes'
@@ -471,7 +517,10 @@ class Ligne(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        for cellule in data['cellules']:
+            cellule = session.query(Style).filter(Style.id == data['id_style']).one()
+        # self.zone_table ** ON NE PEUT PAS CHANGER LA ZONE D'UNE LIGNE
     
 class Cellule(Base):
     __tablename__ = 'Cellules'
@@ -502,7 +551,9 @@ class Cellule(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.contenu = data['contenu']
+        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        self.ligne = session.query(Ligne).filter(Ligne.id == data['id_ligne_table']).one()
 
 class Administrateur(Base):
     __tablename__ = 'Administrateurs'
@@ -518,4 +569,5 @@ class Administrateur(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        pass
+        self.mot_de_passe = data['mot_de_passe']
+        self.adresse_courriel = data['adresse_courriel']

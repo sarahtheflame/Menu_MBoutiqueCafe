@@ -1,155 +1,160 @@
 {
-    "id": 1,
     "theme": {
-        "nom": "theme secondaire",
-        "tableau_texte": {
-            "taille": "1.5vw",
-            "gras": "",
+        "texte": {
+            "id": 3,
             "italique": "",
             "couleur": "#FFFFFF",
-            "bordure": {
-                "id": 16,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "",
             "police": "'Oswald', sans-serif",
             "opacite_fond": 1,
-            "id": 16
-        },
-        "id": 2,
-        "sous_titre": {
-            "taille": "3vw",
             "gras": "",
-            "italique": "",
-            "couleur": "#ff8f32",
-            "bordure": {
-                "id": 10,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "",
-            "police": "'Oswald', sans-serif",
-            "opacite_fond": 1,
-            "id": 10
-        },
-        "tableau_titre": {
-            "taille": "2vw",
-            "gras": "",
-            "italique": "",
-            "couleur": "#ff8f32",
-            "bordure": {
-                "id": 14,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "",
-            "police": "'Oswald', sans-serif",
-            "opacite_fond": 1,
-            "id": 14
-        },
-        "tableau_sous_titre": {
             "taille": "1.5vw",
-            "gras": "",
+            "bordure": {
+                "id": 3,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": ""
+        },
+        "id": 1,
+        "tableau_sous_titre": {
+            "id": 7,
             "italique": "italic",
             "couleur": "#ff8f32",
-            "bordure": {
-                "id": 15,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "",
             "police": "'Oswald', sans-serif",
             "opacite_fond": 1,
-            "id": 15
-        },
-        "titre": {
-            "taille": "4vw",
             "gras": "",
-            "italique": "",
-            "couleur": "#ff7400",
-            "bordure": {
-                "id": 9,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "#000000",
-            "police": "'KaushanScript', cursive",
-            "opacite_fond": 0.8,
-            "id": 9
-        },
-        "texte": {
             "taille": "1.5vw",
-            "gras": "",
-            "italique": "",
-            "couleur": "#FFFFFF",
             "bordure": {
-                "id": 11,
+                "id": 7,
                 "style": "solid",
                 "taille": "0px",
                 "couleur": "#FFFFFF"
             },
-            "couleur_fond": "",
-            "police": "'Oswald', sans-serif",
-            "opacite_fond": 1,
-            "id": 11
-        },
-        "tableau": {
-            "taille": "1.5vw",
-            "gras": "",
-            "italique": "",
-            "couleur": "#FFFFFF",
-            "bordure": {
-                "id": 12,
-                "style": "solid",
-                "taille": "0px",
-                "couleur": "#FFFFFF"
-            },
-            "couleur_fond": "#000000",
-            "police": "'Oswald', sans-serif",
-            "opacite_fond": 0.8,
-            "id": 12
+            "couleur_fond": ""
         },
         "tableau_ligne": {
-            "taille": "1.5vw",
-            "gras": "",
+            "id": 5,
             "italique": "",
             "couleur": "#FFFFFF",
+            "police": "'Oswald', sans-serif",
+            "opacite_fond": 1,
+            "gras": "",
+            "taille": "1.5vw",
             "bordure": {
-                "id": 13,
+                "id": 5,
                 "style": "solid",
                 "taille": "1px",
                 "couleur": "#FFFFFF"
             },
-            "couleur_fond": "",
+            "couleur_fond": ""
+        },
+        "tableau_texte": {
+            "id": 8,
+            "italique": "",
+            "couleur": "#FFFFFF",
             "police": "'Oswald', sans-serif",
             "opacite_fond": 1,
-            "id": 13
-        }
+            "gras": "",
+            "taille": "1.5vw",
+            "bordure": {
+                "id": 8,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": ""
+        },
+        "tableau_titre": {
+            "id": 6,
+            "italique": "",
+            "couleur": "#ff8f32",
+            "police": "'Oswald', sans-serif",
+            "opacite_fond": 1,
+            "gras": "",
+            "taille": "2vw",
+            "bordure": {
+                "id": 6,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": ""
+        },
+        "titre": {
+            "id": 1,
+            "italique": "",
+            "couleur": "#ff7400",
+            "police": "'KaushanScript', cursive",
+            "opacite_fond": 0.8,
+            "gras": "",
+            "taille": "4vw",
+            "bordure": {
+                "id": 1,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": "#000000"
+        },
+        "tableau": {
+            "id": 4,
+            "italique": "",
+            "couleur": "#FFFFFF",
+            "police": "'Oswald', sans-serif",
+            "opacite_fond": 0.8,
+            "gras": "",
+            "taille": "1.5vw",
+            "bordure": {
+                "id": 4,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": "#000000"
+        },
+        "sous_titre": {
+            "id": 2,
+            "italique": "",
+            "couleur": "#ff8f32",
+            "police": "'Oswald', sans-serif",
+            "opacite_fond": 1,
+            "gras": "",
+            "taille": "3vw",
+            "bordure": {
+                "id": 2,
+                "style": "solid",
+                "taille": "0px",
+                "couleur": "#FFFFFF"
+            },
+            "couleur_fond": ""
+        },
+        "nom": "theme principal"
     },
+    "id": 1,
+    "fond": "sandwich.jpg",
     "zones": [
         {
-            "id_fenetre": 1,
-            "type": "ZoneBase",
-            "nom": "zone_grillwiches",
-            "position_y": "18%",
             "largeur": "32%",
-            "position_x": "2%",
             "id": 1,
+            "position_x": "2%",
+            "nom": "zone_grillwiches",
+            "type": "ZoneBase",
+            "id_fenetre": 1,
+            "position_y": "18%",
             "id_style": 1,
-            "hauteur": "78%"
+            "hauteur": "78%",
+            "contenu": "Nos repas"
         },
         {
+            "largeur": "32%",
+            "id": 2,
+            "position_x": "2%",
             "lignes": [
                 {
                     "id": 1,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 1,
@@ -167,8 +172,8 @@
                 },
                 {
                     "id": 2,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 3,
@@ -186,8 +191,8 @@
                 },
                 {
                     "id": 3,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 5,
@@ -205,8 +210,8 @@
                 },
                 {
                     "id": 4,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 7,
@@ -224,8 +229,8 @@
                 },
                 {
                     "id": 5,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 9,
@@ -243,8 +248,8 @@
                 },
                 {
                     "id": 6,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 11,
@@ -262,8 +267,8 @@
                 },
                 {
                     "id": 7,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 13,
@@ -281,8 +286,8 @@
                 },
                 {
                     "id": 8,
-                    "id_zone_table": 2,
                     "id_style": 5,
+                    "id_zone_table": 2,
                     "cellules": [
                         {
                             "id": 15,
@@ -299,22 +304,22 @@
                     ]
                 }
             ],
-            "id_fenetre": 1,
-            "type": "ZoneTable",
             "nom": "zone_grillwiches",
+            "type": "ZoneTable",
+            "id_fenetre": 1,
             "position_y": "18%",
-            "largeur": "32%",
-            "position_x": "2%",
-            "id": 2,
             "id_style": 4,
             "hauteur": "78%"
         },
         {
+            "largeur": "37%",
+            "id": 3,
+            "position_x": "36%",
             "lignes": [
                 {
                     "id": 9,
-                    "id_zone_table": 3,
                     "id_style": 5,
+                    "id_zone_table": 3,
                     "cellules": [
                         {
                             "id": 17,
@@ -332,8 +337,8 @@
                 },
                 {
                     "id": 10,
-                    "id_zone_table": 3,
                     "id_style": 5,
+                    "id_zone_table": 3,
                     "cellules": [
                         {
                             "id": 19,
@@ -351,8 +356,8 @@
                 },
                 {
                     "id": 11,
-                    "id_zone_table": 3,
                     "id_style": 5,
+                    "id_zone_table": 3,
                     "cellules": [
                         {
                             "id": 21,
@@ -370,8 +375,8 @@
                 },
                 {
                     "id": 12,
-                    "id_zone_table": 3,
                     "id_style": 5,
+                    "id_zone_table": 3,
                     "cellules": [
                         {
                             "id": 23,
@@ -388,17 +393,45 @@
                     ]
                 }
             ],
-            "id_fenetre": 1,
-            "type": "ZoneTable",
             "nom": "zone salade",
+            "type": "ZoneTable",
+            "id_fenetre": 1,
             "position_y": "18%",
-            "largeur": "37%",
-            "position_x": "36%",
-            "id": 3,
             "id_style": 4,
             "hauteur": ""
+        },
+        {
+            "largeur": "32%",
+            "id": 4,
+            "position_x": "2%",
+            "lignes": [
+                {
+                    "id": 13,
+                    "id_style": 5,
+                    "id_zone_table": 4,
+                    "cellules": [
+                        {
+                            "id": 25,
+                            "id_style": 6,
+                            "id_ligne_table": 13,
+                            "contenu": "ceci est un test de ZoneTable"
+                        },
+                        {
+                            "id": "",
+                            "id_style": 6,
+                            "id_ligne_table": 13,
+                            "contenu": "CHEVAL"
+                        }
+                    ]
+                }
+            ],
+            "nom": "zone test",
+            "type": "ZoneTable",
+            "id_fenetre": 1,
+            "position_y": "18%",
+            "id_style": 4,
+            "hauteur": "78%"
         }
     ],
-    "fond": "sandwich.jpg",
     "nom": "fenetre_repas"
 }

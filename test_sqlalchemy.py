@@ -32,21 +32,31 @@ fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 #print(fen_dict)
 test = fenetre.serialiser_en_json()
 
-test['theme']['id'] = 2
+# test['zones']['id'] = 2
 
-fenetre.deserialiser_de_json(s, test)
+# fenetre.deserialiser_de_json(s, test)
 
-test = fenetre.serialiser_en_json()
+# test = fenetre.serialiser_en_json()
 
 #print(test)
 #test = json.loads(jsonpickle.encode(fenetre))
 testdata = json.dumps(test, indent=4, separators=(',', ': '))
-print(testdata)
 
-f = open('workfile', 'w')
+# fw = open('workfile', 'w')
 
-f.write(testdata)
+# fw.write(testdata)
 
+
+fr = open('workfile', 'r')
+new_data = fr.read()
+
+new_data_json = json.loads(new_data)
+
+fenetre.deserialiser_de_json(s, new_data_json)
+
+fenetre.serialiser_en_json()
+
+s.commit()
 # for attr in vars(fenetre_repas):
 #     print(attr)
 # print("------")
