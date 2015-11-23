@@ -20,6 +20,10 @@ s = session()
 #s.add(fenetre_repas)
 fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 
+style = s.query(Style).filter(Style.id == 15).one()
+s.delete(style)
+s.commit()
+
 # for x in fenetre.zones[2].lignes:
 #     print(x)
 #     for y in x.cellules:
@@ -30,7 +34,7 @@ fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 #     fen_dict["zones"][x.id] = x.serialiser_en_json
 
 #print(fen_dict)
-test = fenetre.serialiser_en_json()
+#test = fenetre.serialiser_en_json()
 
 # test['zones']['id'] = 2
 
@@ -40,23 +44,29 @@ test = fenetre.serialiser_en_json()
 
 #print(test)
 #test = json.loads(jsonpickle.encode(fenetre))
-testdata = json.dumps(test, indent=4, separators=(',', ': '))
+#testdata = json.dumps(test, indent=4, separators=(',', ': '))
 
 # fw = open('workfile', 'w')
 
 # fw.write(testdata)
 
 
-fr = open('workfile', 'r')
-new_data = fr.read()
+# fr = open('workfile', 'r')
+# new_data = fr.read()
 
-new_data_json = json.loads(new_data)
+# new_data_json = json.loads(new_data)
 
-fenetre.deserialiser_de_json(s, new_data_json)
+# fenetre.deserialiser_de_json(s, new_data_json)
+# s.commit()
+# print(fenetre.serialiser_en_json())
 
-fenetre.serialiser_en_json()
 
-s.commit()
+
+# for zone in new_data_json['zones']:
+#     if zone["id"] == "":
+#         session.add
+
+
 # for attr in vars(fenetre_repas):
 #     print(attr)
 # print("------")

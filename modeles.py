@@ -20,13 +20,35 @@ class Media(Base):
         return dict(
             id = self.id,
             nom = self.nom,
-            chemin_fichier = self.chemin_fichier,
-            type=self.type)
+            chemin_fichier = self.chemin_fichier)
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.chemin_fichier = data['chemin_fichier']
-        self.type = data['type']
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.nom = data['nom']
+            self.chemin_fichier = data['chemin_fichier']
+        
+    __mapper_args__ = {
+        'polymorphic_identity':'Media',
+        'polymorphic_on':type
+    }
+
+class Image(Media):
+    __tablename__ = 'Images'
+    id = Column(Integer, ForeignKey('Medias.id'), primary_key=True)
+        
+    __mapper_args__ = {
+        'polymorphic_identity':'Image'
+    }
+
+class Video(Media):
+    __tablename__ = 'Videos'
+    id = Column(Integer, ForeignKey('Medias.id'), primary_key=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity':'Video'
+    }
 
 class Bordure(Base):
     __tablename__ = 'Bordures'
@@ -44,6 +66,9 @@ class Bordure(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        if data['id'] == -1:
+            session.delete(self)
+        else:
             self.couleur = data['couleur']
             self.taille = data['taille']
             self.style = data['style']
@@ -64,7 +89,7 @@ class Style(Base):
         nullable=False
         )
     bordure = relationship(
-        Bordure, 
+        Bordure,
         uselist=False, 
         cascade='delete,all'
         )
@@ -83,14 +108,23 @@ class Style(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.police = data['police']
-        self.couleur = data['couleur']
-        self.taille = data['taille']
-        self.couleur_fond = data['couleur_fond']
-        self.opacite_fond = data['opacite_fond']
-        self.gras = data['gras']
-        self.italique = data['italique']
-        self.bordure.deserialiser_de_json(session, data['bordure'])
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.police = data['police']
+            self.couleur = data['couleur']
+            self.taille = data['taille']
+            self.couleur_fond = data['couleur_fond']
+            self.opacite_fond = data['opacite_fond']
+            self.gras = data['gras']
+            self.italique = data['italique']
+        if (data['bordure']['id'] == ""):
+            nouvelle_bordure = Bordure()
+            nouvelle_bordure.deserialiser_de_json(session, data['bordure'])
+            session.add(nouvelle_bordure)
+            self.bordure = nouvelle_bordure
+        else:
+            self.bordure.deserialiser_de_json(session, data['bordure'])
 
 class Theme(Base):
     __tablename__ = 'Themes'
@@ -207,30 +241,97 @@ class Theme(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-            self.nom = data['nom']
-            self.titre.deserialiser_de_json(session, data['titre'])
-            self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
-            self.texte.deserialiser_de_json(session, data['texte'])
-            self.tableau.deserialiser_de_json(session, data['tableau'])
-            self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
-            self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
-            self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
-            self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
+            if data['id'] == -1:
+                session.delete(self)
+            else:
+                self.nom = data['nom']
+
+                # ----- VOIR SI IL N'Y A PAS UNE FACON PLUS EFFICACE DE CRÉER DE NOUVEAUX THEMES ------
+
+                if (data['titre']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['titre'])
+                    session.add(nouveau_style)
+                    self.titre = nouveau_style
+                else:
+                    self.titre.deserialiser_de_json(session, data['titre'])
+                if (data['sous_titre']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['sous_titre'])
+                    session.add(nouveau_style)
+                    self.sous_titre = nouveau_style
+                else:    
+                    self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
+                if (data['texte']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['texte'])
+                    session.add(nouveau_style)
+                    self.texte = nouveau_style
+                else:
+                    self.texte.deserialiser_de_json(session, data['texte'])
+                if (data['tableau']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['tableau'])
+                    session.add(nouveau_style)
+                    self.tableau = nouveau_style
+                else:
+                    self.tableau.deserialiser_de_json(session, data['tableau'])
+                if (data['tableau_ligne']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['tableau_ligne'])
+                    session.add(nouveau_style)
+                    self.tableau_ligne = nouveau_style
+                else:
+                    self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
+                if (data['tableau_titre']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['tableau_titre'])
+                    session.add(nouveau_style)
+                    self.tableau_titre = nouveau_style
+                else:
+                    self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
+                if (data['tableau_sous_titre']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['tableau_sous_titre'])
+                    session.add(nouveau_style)
+                    self.tableau_sous_titre = nouveau_style
+                else:
+                    self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
+                if (data['tableau_texte']['id'] == ""):
+                    print('Nouveau style')
+                    nouveau_style = Style()
+                    nouveau_style.deserialiser_de_json(session, data['tableau_texte'])
+                    session.add(nouveau_style)
+                    self.tableau_texte = nouveau_style
+                else:
+                    self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
+
+                # ----- VOIR SI IL N'Y A PAS UNE FACON PLUS EFFICACE DE CRÉER DE NOUVEAUX THEMES ------
 
 class Fenetre(Base):
     __tablename__ = 'Fenetres'
     id = Column(Integer, primary_key=True)
     nom = Column(String)
-    fond = Column(String)
+    id_image_fond = Column(Integer, ForeignKey('Images.id'))  
+    couleur_fond = Column(String)
     id_theme = Column(Integer, ForeignKey('Themes.id'))  
     theme = relationship(Theme, foreign_keys=[id_theme])
+    image_fond = relationship(Image, foreign_keys=[id_image_fond])
 
     def serialiser_en_json(self):
         zones_data = []
         data = dict(
             id = self.id,
             nom = self.nom,
-            fond = self.fond,
+            couleur_fond = self.couleur_fond,
+            image_fond = self.image_fond.serialiser_en_json(),
             theme = self.theme.serialiser_en_json()
             )
         for zone in self.zones:
@@ -239,10 +340,50 @@ class Fenetre(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.fond = data['fond']
-        if(self.theme != data['theme']['id']):
-            self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.nom = data['nom']
+            self.couleur_fond = data['couleur_fond']
+            if (self.id_theme != data['theme']['id']):
+                if (data['theme']['id'] == ""):
+                    print('Nouveau theme')
+                    nouveau_theme = Theme()
+                    nouveau_theme.deserialiser_de_json(session, data['theme'])
+                    session.add(nouveau_theme)
+                    self.theme = nouveau_theme
+                else:
+                    self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
+            if (self.id_image_fond != data['image_fond']['id']):
+                if (data['image_fond']['id'] == ""):
+                    nouvelle_image_fond = Image()
+                    nouvelle_image_fond.deserialiser_de_json(session, data['image_fond'])
+                    session.add(nouvelle_image_fond)
+                    self.image_fond = nouvelle_image_fond
+                else:
+                    self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+            for zone in data['zones']:
+                if zone['id'] == "":
+                    if zone['type'] == 'ZoneBase':
+                        nouvelle_zone = ZoneBase(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneTable':
+                        nouvelle_zone = ZoneTable(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneImage':
+                        nouvelle_zone = ZoneImage(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneVideo':
+                        nouvelle_zone = ZoneVideo(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    else:
+                        print("Type de zone inexistante!") # IMPLÉMENTER UNE ERREUR CORRECTE
+                else:
+                    session.query(Zone).filter(Zone.id == zone['id']).one().deserialiser_de_json(session, zone)
 
 class Periode(Base):
     __tablename__ = 'Periodes'
@@ -284,15 +425,18 @@ class Periode(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.heure_debut = data['heure_debut']
-        if(self.fenetre_1 != data['fenetre_1']['id']):
-            self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
-        if(self.fenetre_2 != data['fenetre_2']['id']):
-            self.fenetre_2 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_2']['id']).one()
-        if(self.fenetre_3 != data['fenetre_3']['id']):
-            self.fenetre_3 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_3']['id']).one()
-        if(self.fenetre_4 != data['fenetre_4']['id']):
-            self.fenetre_4 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_4']['id']).one()
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.heure_debut = data['heure_debut']
+            if(self.fenetre_1 != data['fenetre_1']['id']):
+                self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
+            if(self.fenetre_2 != data['fenetre_2']['id']):
+                self.fenetre_2 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_2']['id']).one()
+            if(self.fenetre_3 != data['fenetre_3']['id']):
+                self.fenetre_3 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_3']['id']).one()
+            if(self.fenetre_4 != data['fenetre_4']['id']):
+                self.fenetre_4 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_4']['id']).one()
 
 
 class Zone(Base):
@@ -340,20 +484,20 @@ class ZoneBase(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_style = self.id_style,
-            id_fenetre = self.id_fenetre
+            id_style = self.id_style
             )
 
     def deserialiser_de_json(self, session, data):
-        self.contenu = data['contenu']
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
-        self.type = data['type']
-        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
-        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.contenu = data['contenu']
+            self.nom = data['nom']
+            self.position_x = data['position_x']
+            self.position_y = data['position_y']
+            self.largeur = data['largeur']
+            self.hauteur = data['hauteur']
+            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneBase',
@@ -362,8 +506,8 @@ class ZoneBase(Zone):
 class ZoneImage(Zone):
     __tablename__ = 'ZonesImage'
     id = Column(Integer, ForeignKey('Zones.id'), primary_key=True)
-    id_media = Column(Integer, ForeignKey('Medias.id'))
-    image = relationship(Media)
+    id_image = Column(Integer, ForeignKey('Images.id'))
+    image = relationship(Image)
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneImage',
@@ -378,26 +522,32 @@ class ZoneImage(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_fenetre=self.id_fenetre,
             image = self.image.serialiser_en_json()
             )
 
     def deserialiser_de_json(self, session, data):
-        self.image = session.query(Media).filter(Media.id == data['media']['id']).one()
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
-        self.type = data['type']
-        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
-
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            if (self.id_image != data['image']['id']):
+                if data['image']['id'] == "":
+                    nouvelle_image = Image()
+                    nouvelle_image.deserialiser_de_json(session, data['image'])
+                    session.add(nouvelle_image)
+                    self.image = nouvelle_image
+                else:
+                    self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
+            self.nom = data['nom']
+            self.position_x = data['position_x']
+            self.position_y = data['position_y']
+            self.largeur = data['largeur']
+            self.hauteur = data['hauteur']
 
 class ZoneVideo(Zone):
     __tablename__ = 'ZonesVideo'
     id = Column(Integer, ForeignKey('Zones.id'), primary_key=True)
-    id_media = Column(Integer, ForeignKey('Medias.id'))
-    video = relationship(Media)
+    id_video = Column(Integer, ForeignKey('Videos.id'))
+    video = relationship(Video)
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneVideo',
@@ -412,19 +562,26 @@ class ZoneVideo(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_fenetre=self.id_fenetre,
-            media = self.video.serialiser_en_json()
+            video = self.video.serialiser_en_json()
             )
 
     def deserialiser_de_json(self, session, data):
-        self.video = session.query(Media).filter(Media.id == data['media']['id']).one()
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
-        self.type = data['type']
-        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            if (self.id_video != data['video']['id']):
+                if data['video']['id'] == "":
+                    nouvelle_video = Video()
+                    nouvelle_video.deserialiser_de_json(session, data['video'])
+                    session.add(nouvelle_video)
+                    self.video = nouvelle_video
+                else:
+                    self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
+            self.nom = data['nom']
+            self.position_x = data['position_x']
+            self.position_y = data['position_y']
+            self.largeur = data['largeur']
+            self.hauteur = data['hauteur']
 
 class ZoneTable(Zone):
     __tablename__ = 'ZonesTable'
@@ -451,8 +608,7 @@ class ZoneTable(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_style = self.id_style,
-            id_fenetre=self.id_fenetre
+            id_style = self.id_style
             )
         for ligne in self.lignes:
             lignes_data.append(ligne.serialiser_en_json())
@@ -460,30 +616,24 @@ class ZoneTable(Zone):
         return data
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
-        self.type = data['type']
-        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
-        for ligne in data['lignes']:
-            if (ligne['id'] == ""):
-                print('Nouvelle ligne')
-                nouvelle_ligne = Ligne(zone_table=self, style=self.fenetre.theme.tableau_ligne)
-                session.add(nouvelle_ligne)
-                for cellule in ligne['cellules']:
-                    print('Nouvelle cellule')
-                    session.add(
-                        Cellule(
-                            contenu=cellule['contenu'],
-                            ligne=nouvelle_ligne,
-                            style=self.fenetre.theme.tableau_texte # DÉFINIR LE THEME A ASSOCIER À CHAQUE CELLULE
-                            )
-                        )
-            else:
-                session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(ligne) # REQUETE POUR CHAQUE CELLULE??
-        # self.fenetre ** ON NE PEUT PAS CHANGER LA FENETRE D'UNE ZONE
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.nom = data['nom']
+            self.position_x = data['position_x']
+            self.position_y = data['position_y']
+            self.largeur = data['largeur']
+            self.hauteur = data['hauteur']
+            if self.id_style != data['id_style']:
+                self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+            for ligne in data['lignes']:
+                if (ligne['id'] == ""):
+                    print('Nouvelle ligne')
+                    nouvelle_ligne = Ligne(zone_table=self)
+                    nouvelle_ligne.deserialiser_de_json(session, ligne)
+                    session.add(nouvelle_ligne)
+                else:
+                    session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne) # REQUETE POUR CHAQUE CELLULE??
 
 class Ligne(Base):
     __tablename__ = 'Lignes'
@@ -508,8 +658,8 @@ class Ligne(Base):
         cellules_data = []
         data = dict(
             id = self.id,
-            id_style = self.id_style,
-            id_zone_table = self.id_zone_table
+            id_style = self.id_style
+            #id_zone_table = self.id_zone_table PAS NECESSAIRE??
             )
         for cellule in self.cellules:
             cellules_data.append(cellule.serialiser_en_json())
@@ -517,10 +667,18 @@ class Ligne(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
-        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
-        for cellule in data['cellules']:
-            cellule = session.query(Style).filter(Style.id == data['id_style']).one()
-        # self.zone_table ** ON NE PEUT PAS CHANGER LA ZONE D'UNE LIGNE
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+            for cellule in data['cellules']:
+                if cellule['id'] == "":
+                    print('Nouvelle cellule')
+                    nouvelle_cellule = Cellule(ligne=self)
+                    nouvelle_cellule.deserialiser_de_json(session, cellule)
+                    session.add(nouvelle_cellule)
+                else:
+                    session.query(Cellule).filter(Cellule.id == cellule['id']).one().deserialiser_de_json(session, cellule)
     
 class Cellule(Base):
     __tablename__ = 'Cellules'
@@ -546,14 +704,16 @@ class Cellule(Base):
         return dict(
             id = self.id,
             contenu = self.contenu,
-            id_style = self.id_style,
-            id_ligne_table = self.id_ligne_table
+            id_style = self.id_style
+            # id_ligne_table = self.id_ligne_table PAS NECESSAIRE??
             )
 
     def deserialiser_de_json(self, session, data):
-        self.contenu = data['contenu']
-        self.style = session.query(Style).filter(Style.id == data['id_style']).one()
-        self.ligne = session.query(Ligne).filter(Ligne.id == data['id_ligne_table']).one()
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.contenu = data['contenu']
+            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
 class Administrateur(Base):
     __tablename__ = 'Administrateurs'
@@ -569,5 +729,8 @@ class Administrateur(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.mot_de_passe = data['mot_de_passe']
-        self.adresse_courriel = data['adresse_courriel']
+        if data['id'] == -1:
+            session.delete(self)
+        else:
+            self.mot_de_passe = data['mot_de_passe'] # CRYPTER LE MOT DE PASSE DANS LA BD
+            self.adresse_courriel = data['adresse_courriel']

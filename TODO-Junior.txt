@@ -1,0 +1,7 @@
+TODO
+
+ [ ] - Appliquer les ON DELETE SET NULL au periodes
+
+ [ ] - Appliquer la fonctionnlité d'effacement d'objet dans la bd (session.delete)
+
+ [ ] - Améliorer le fonctionnement de suppression de bordure (n'affecte présentement pas le parent : le style associé)

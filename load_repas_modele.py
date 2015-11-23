@@ -244,13 +244,14 @@ theme_2 = Theme(
     )
 )
 
-image_sandwich_europeen = Media(
+image_sandwich_europeen = Image(
     nom='sandwich', 
     chemin_fichier='sandwich.jpg'
 )
 fenetre_repas = Fenetre(
     nom='fenetre_repas', 
-    fond=image_sandwich_europeen.chemin_fichier, 
+    image_fond=image_sandwich_europeen, 
+    couleur_fond = "#FFFFFF",
     theme=theme_1
 )
 
