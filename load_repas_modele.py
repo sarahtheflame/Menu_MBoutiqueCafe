@@ -473,8 +473,18 @@ cellule_1_ligne_1_test = Cellule(
         ligne=ligne_1_test,
         style=theme_1.tableau_titre
 )
+zone_test_image = ZoneImage(
+    nom='zone test', 
+    position_x="2%",
+    position_y="18%",
+    largeur="32%",
+    hauteur="78%",
+    fenetre=fenetre_repas,
+    image=image_sandwich_europeen
+)
 
 s.add_all([
+    image_sandwich_europeen,
     theme_1,
     theme_2,
     fenetre_repas,
@@ -519,7 +529,8 @@ s.add_all([
     cellule_2_ligne_4_salade,
     zone_test,
     ligne_1_test,
-    cellule_1_ligne_1_test]
+    cellule_1_ligne_1_test,
+    zone_test_image]
 )
 
 s.commit()

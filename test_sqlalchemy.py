@@ -20,7 +20,7 @@ s = session()
 #s.add(fenetre_repas)
 fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
 
-style = s.query(Style).filter(Style.id == 15).one()
+style = s.query(ZoneImage).filter(ZoneImage.id == 1).one()
 s.delete(style)
 s.commit()
 
