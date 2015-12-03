@@ -19,3 +19,5 @@ TODO
  [ ] - Vérifier les cascade:all,delete des relationship (si parent = delete alors child = ...)
 
  [ ] - Préciser qu'il est impossible de créer une zoneTable sans définir son attribut fenetre avant (en parametre dans le constructeur) !!!
+
+ [ ] - Vérifier s'il serait mieux de seulement ajouter une index qui pointe vers le style du theme de la fenêtre d'une zone

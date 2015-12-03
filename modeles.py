@@ -12,7 +12,7 @@ Base = declarative_base()
 class Media(Base):
     __tablename__ = 'Medias'
     id = Column(Integer, primary_key=True)
-    nom = Column(String)
+    nom = Column(String, default="Media sans nom")
     chemin_fichier = Column(String)
     type = Column(String)
 
@@ -23,8 +23,10 @@ class Media(Base):
             chemin_fichier = self.chemin_fichier)
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.chemin_fichier = data['chemin_fichier']
+        try : self.nom = data['nom']
+        except KeyError: print('Aucune valeur pour "nom"')
+        try : self.chemin_fichier = data['chemin_fichier']
+        except KeyError: print('Aucune valeur pour "chemin_fichier"') # Possible de modifier ces attributs??
         
     __mapper_args__ = {
         'polymorphic_identity':'Media',
@@ -63,9 +65,12 @@ class Bordure(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.couleur = data['couleur']
-        self.taille = data['taille']
-        self.style = data['style']
+        try : self.couleur = data['couleur']
+        except KeyError: print('Aucune valeur pour "couleur"')
+        try : self.taille = data['taille']
+        except KeyError: print('Aucune valeur pour "taille"')
+        try : self.style = data['style']
+        except KeyError: print('Aucune valeur pour "style"')
 
 class Style(Base):
     __tablename__ = 'Styles'
@@ -102,6 +107,8 @@ class Style(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        try : self.police = data['police']
+        except KeyError: print('Aucune valeur pour "style"')
         self.police = data['police']
         self.couleur = data['couleur']
         self.taille = data['taille']
@@ -306,9 +313,9 @@ class Theme(Base):
 class Fenetre(Base):
     __tablename__ = 'Fenetres'
     id = Column(Integer, primary_key=True)
-    nom = Column(String)
+    nom = Column(String, default="Fenetre sans nom")
     id_image_fond = Column(Integer, ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), default=1)    # DEFAULT VALIDE??
-    couleur_fond = Column(String)
+    couleur_fond = Column(String, default="#FFFFFF")
     id_theme = Column(Integer, ForeignKey('Themes.id', onupdate="cascade", ondelete="set default"), default=1)  # DEFAULT VALIDE??
     theme = relationship(Theme, foreign_keys=[id_theme])
     image_fond = relationship(Image, foreign_keys=[id_image_fond])
@@ -357,7 +364,7 @@ class Fenetre(Base):
             elif zone['id'] > 0:
                 session.query(Zone).filter(Zone.id == zone['id']).one().deserialiser_de_json(session, zone)
             else:
-                session.delete(session.query(Zone).filter(Zone.id == zone['id']).one())
+                session.delete(session.query(Zone).filter(Zone.id == -zone['id']).one())
 
 class Periode(Base):
     __tablename__ = 'Periodes'
@@ -412,11 +419,11 @@ class Periode(Base):
 class Zone(Base):
     __tablename__ = 'Zones'
     id = Column(Integer, primary_key=True)
-    nom = Column(String)
-    position_x = Column(String)
-    position_y = Column(String)
-    largeur = Column(String)
-    hauteur = Column(String)
+    nom = Column(String, default='Zone sans nom')
+    position_x = Column(String, default='0%')
+    position_y = Column(String, default='0%')
+    largeur = Column(String, default='0%')
+    hauteur = Column(String, default='0%')
     type = Column(String(50))
     id_fenetre = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='cascade'))
     fenetre = relationship(
@@ -435,12 +442,11 @@ class Zone(Base):
 class ZoneBase(Zone):
     __tablename__ = 'ZonesBase'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    contenu = Column(String)
+    contenu = Column(String, default="")
     id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=3)
     style = relationship(
         Style,
-        uselist=False, 
-        cascade='delete,all', 
+        uselist=False,
         foreign_keys=[id_style]
     )
 
@@ -458,13 +464,19 @@ class ZoneBase(Zone):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.contenu = data['contenu']
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
-        if (self.id_style != data['id_style']):
+        try : self.contenu = data['contenu'] 
+        except KeyError: print('Aucune valeur pour "contenu"')
+        try : self.nom = data['nom']
+        except KeyError: print('Aucune valeur pour "nom"')
+        try : self.position_x = data['position_x']
+        except KeyError: print('Aucune valeur pour "position_x"')
+        try : self.position_y = data['position_y']
+        except KeyError: print('Aucune valeur pour "position_y"')
+        try : self.largeur = data['largeur']
+        except KeyError: print('Aucune valeur pour "largeur"')
+        try : self.hauteur = data['hauteur']
+        except KeyError: print('Aucune valeur pour "hauteur"')
+        if (self.id_style != data['id_style']): # Ne peut être null...
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
     __mapper_args__ = {
@@ -474,7 +486,7 @@ class ZoneBase(Zone):
 class ZoneImage(Zone):
     __tablename__ = 'ZonesImage'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    id_image = Column(Integer, ForeignKey('Images.id', onupdate='cascade', ondelete='cascade'))
+    id_image = Column(Integer, ForeignKey('Images.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
     image = relationship(
         Image, 
         backref=backref(
@@ -503,20 +515,27 @@ class ZoneImage(Zone):
     def deserialiser_de_json(self, session, data):
         if (self.id_image != data['image']['id']):
             self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
+        try : self.nom = data['nom']
+        except KeyError: print('Aucune valeur pour "nom"')
+        try : self.position_x = data['position_x']
+        except KeyError: print('Aucune valeur pour "position_x"')
+        try : self.position_y = data['position_y']
+        except KeyError: print('Aucune valeur pour "position_y"')
+        try : self.largeur = data['largeur']
+        except KeyError: print('Aucune valeur pour "largeur"')
+        try : self.hauteur = data['hauteur']
+        except KeyError: print('Aucune valeur pour "hauteur"')
 
 class ZoneVideo(Zone):
     __tablename__ = 'ZonesVideo'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    id_video = Column(Integer, ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade'))
+    id_video = Column(Integer, ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
     video = relationship(
         Video, 
-        uselist=False,  
-        cascade='delete,all',
+        backref=backref(
+            'zones_videos', 
+            uselist=True,  
+            cascade='delete,all'),
         foreign_keys=[id_video]
         )
 
@@ -539,11 +558,16 @@ class ZoneVideo(Zone):
     def deserialiser_de_json(self, session, data):
         if (self.id_video != data['video']['id']):
             self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
+        try : self.nom = data['nom']
+        except KeyError: print('Aucune valeur pour "nom"')
+        try : self.position_x = data['position_x']
+        except KeyError: print('Aucune valeur pour "position_x"')
+        try : self.position_y = data['position_y']
+        except KeyError: print('Aucune valeur pour "position_y"')
+        try : self.largeur = data['largeur']
+        except KeyError: print('Aucune valeur pour "largeur"')
+        try : self.hauteur = data['hauteur']
+        except KeyError: print('Aucune valeur pour "hauteur"')
 
 class ZoneTable(Zone):
     __tablename__ = 'ZonesTable'
@@ -551,8 +575,7 @@ class ZoneTable(Zone):
     id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=4)
     style = relationship(
         Style,
-        uselist=False, 
-        cascade='delete,all', 
+        uselist=False,
         foreign_keys=[id_style]
     )
 
@@ -578,11 +601,16 @@ class ZoneTable(Zone):
         return data
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.position_x = data['position_x']
-        self.position_y = data['position_y']
-        self.largeur = data['largeur']
-        self.hauteur = data['hauteur']
+        try : self.nom = data['nom']
+        except KeyError: print('Aucune valeur pour "nom"')
+        try : self.position_x = data['position_x']
+        except KeyError: print('Aucune valeur pour "position_x"')
+        try : self.position_y = data['position_y']
+        except KeyError: print('Aucune valeur pour "position_y"')
+        try : self.largeur = data['largeur']
+        except KeyError: print('Aucune valeur pour "largeur"')
+        try : self.hauteur = data['hauteur']
+        except KeyError: print('Aucune valeur pour "hauteur"')
         if self.id_style != data['id_style']:
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for ligne in data['lignes']:
@@ -594,7 +622,7 @@ class ZoneTable(Zone):
             elif ligne['id'] > 0:
                 session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
             else:
-                session.delete(session.query(Ligne).filter(Ligne.id == ligne['id']).one())
+                session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
 
 class Ligne(Base):
     __tablename__ = 'Lignes'
@@ -611,8 +639,7 @@ class Ligne(Base):
         )
     style = relationship(
         Style,
-        uselist=False, 
-        cascade='delete,all', 
+        uselist=False,
         foreign_keys=[id_style]
     )
 
@@ -640,12 +667,12 @@ class Ligne(Base):
             elif cellule['id'] > 0:
                 session.query(Cellule).filter(Cellule.id == cellule['id']).one().deserialiser_de_json(session, cellule)
             else:
-                session.delete(session.query(Cellule).filter(Cellule.id == cellule['id']).one())
+                session.delete(session.query(Cellule).filter(Cellule.id == -cellule['id']).one())
     
 class Cellule(Base):
     __tablename__ = 'Cellules'
     id = Column(Integer, primary_key=True)
-    contenu = Column(String(150))
+    contenu = Column(String(150), default="")
     id_ligne_table = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
     id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=8)
     ligne = relationship(
@@ -657,8 +684,7 @@ class Cellule(Base):
         )
     style = relationship(
         Style,
-        uselist=False, 
-        cascade='delete,all', 
+        uselist=False,
         foreign_keys=[id_style]
     )
 
@@ -667,19 +693,19 @@ class Cellule(Base):
             id = self.id,
             contenu = self.contenu,
             id_style = self.id_style
-            # id_ligne_table = self.id_ligne_table PAS NECESSAIRE??
             )
 
     def deserialiser_de_json(self, session, data):
-        self.contenu = data['contenu']
+        try : self.contenu = data['contenu']
+        except KeyError: print('Aucune valeur pour "contenu"')
         if (self.id_style != data['id_style']):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
 class Administrateur(Base):
     __tablename__ = 'Administrateurs'
     id = Column(Integer, primary_key=True)
-    mot_de_passe = Column(String)
-    adresse_courriel = Column(String)
+    mot_de_passe = Column(String, default='admin') #PAS SÉCURE
+    adresse_courriel = Column(String, default='da.junior.du@gmail.com') #CHANGER LA VALEUR PAR DEFAUT
 
     def serialiser_en_json(self):
         return dict(
@@ -689,5 +715,7 @@ class Administrateur(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.mot_de_passe = data['mot_de_passe'] # CRYPTER LE MOT DE PASSE DANS LA BD
-        self.adresse_courriel = data['adresse_courriel']
+        try : self.mot_de_passe = data['mot_de_passe']
+        except KeyError: print('Aucune valeur pour "mot_de_passe"')
+        try : self.adresse_courriel = data['adresse_courriel']
+        except KeyError: print('Aucune valeur pour "adresse_courriel"')

@@ -16,12 +16,27 @@ s = session()
 #zone_1_repas = Zone(nom='zone_1_repas')
 #zone_1_repas.fenetre = fenetre_repas
 
-
+new_zone = {
+            "id": "",
+            "id_style": 1,
+            "type": "ZoneBase"
+        }
 #s.add(fenetre_repas)
-fenetre = s.query(Fenetre).filter(Fenetre.nom == 'fenetre_repas').one()
+fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
+test = fenetre.serialiser_en_json()
 
-style = s.query(ZoneImage).filter(ZoneImage.id == 1).one()
-s.delete(style)
+
+# for zone in test['zones']:
+#     if zone['id'] == 2:
+#         zone['id'] = -2
+#     print(zone['nom'])
+test['zones'].append(new_zone)
+
+# fw = open('workfile', 'w')
+
+# fw.write(json.dumps(test, indent=4, separators=(',', ': ')))
+
+fenetre.deserialiser_de_json(s, test)
 s.commit()
 
 # for x in fenetre.zones[2].lignes:
@@ -46,9 +61,6 @@ s.commit()
 #test = json.loads(jsonpickle.encode(fenetre))
 #testdata = json.dumps(test, indent=4, separators=(',', ': '))
 
-# fw = open('workfile', 'w')
-
-# fw.write(testdata)
 
 
 # fr = open('workfile', 'r')
