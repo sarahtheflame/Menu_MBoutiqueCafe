@@ -77,6 +77,7 @@ class Style(Base):
     opacite_fond = Column(Integer, default='0')
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
+    soulignement = Column(String(250), default='none')
     type = Column(String(250), default='texte')
     bordure_id = Column(
         Integer, 
@@ -99,6 +100,7 @@ class Style(Base):
             opacite_fond = self.opacite_fond,
             gras = self.gras,
             italique = self.italique,
+            soulignement = self.soulignement,
             bordure = self.bordure.serialiser_en_json()
             )
 
@@ -110,6 +112,7 @@ class Style(Base):
         if data.get('opacite_fond') != None : self.opacite_fond = data['opacite_fond']
         if data.get('gras') != None : self.gras = data['gras']
         if data.get('italique') != None : self.italique = data['italique']
+        if data.get('soulignement') != None : self.soulignement = data['soulignement']
         if (data['bordure']['id'] == 0):
             nouvelle_bordure = Bordure()
             nouvelle_bordure.deserialiser_de_json(session, data['bordure'])
@@ -339,7 +342,7 @@ class Fenetre(Base):
 class Periode(Base):
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
-    heure_debut = Column(DateTime)
+    heure_debut = Column(Time, unique=True)
     id_fenetre_1 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
     id_fenetre_2 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
     id_fenetre_3 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
