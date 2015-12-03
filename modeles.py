@@ -451,6 +451,17 @@ class ZoneBase(Zone):
     }
 
 class ZoneImage(Zone):
+    """
+        Description: 
+            La 'ZoneImage' hérite de la classe 'Zone'. Contient une 'Image'.
+
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données
+            id (Entier) : Identifiant unique généré par SQLAlchemy
+            id_image (Entier) : Référence à l'identifiant d'un objet 'Image'
+            image (Relationship) : Référence à l'objet 'Image' associé
+            __mapper_args__ (Dictionnaire) : Contient les options qui configurent le polymorphisme de la classe 
+    """
     __tablename__ = 'ZonesImage'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
     id_image = Column(Integer, ForeignKey('Images.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
@@ -489,6 +500,17 @@ class ZoneImage(Zone):
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
 class ZoneVideo(Zone):
+    """
+        Description: 
+            La 'ZoneVideo' hérite de la classe 'Zone'. Contient un 'Video'.
+
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données
+            id (Entier) : Identifiant unique généré par SQLAlchemy
+            id_video (Entier) : Référence à l'identifiant d'un objet 'Video'
+            video (Relationship) : Référence à l'objet 'Video' associé. Dans cet objet, la fonction 'backref' crée une liste des 'ZoneVideo' qui l'utilisent
+            __mapper_args__ (Dictionnaire) : Contient les options qui configurent le polymorphisme de la classe 
+    """
     __tablename__ = 'ZonesVideo'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
     id_video = Column(Integer, ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
@@ -527,6 +549,17 @@ class ZoneVideo(Zone):
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
 class ZoneTable(Zone):
+    """
+        Description: 
+            La 'ZoneTable' hérite de la classe 'Zone'. Contient des lignes, qui elles contiennent des cellules, ce qui constitue une table.
+
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données
+            id (Entier) : Identifiant unique généré par SQLAlchemy
+            id_style (Entier) : Référence à l'identifiant d'un objet 'Style'
+            style (Relationship) : Référence à l'objet 'Style' associé
+            __mapper_args__ (Dictionnaire) : Contient les options qui configurent le polymorphisme de la classe 
+    """
     __tablename__ = 'ZonesTable'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
     id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=4)
@@ -536,9 +569,7 @@ class ZoneTable(Zone):
         foreign_keys=[id_style]
     )
 
-    __mapper_args__ = {
-        'polymorphic_identity':'ZoneTable',
-    }
+    __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 
     def serialiser_en_json(self):
         lignes_data = []
@@ -579,6 +610,19 @@ class ZoneTable(Zone):
                 print('Impossible de déserialiser la ligne')
 
 class Ligne(Base):
+    """
+        Description: 
+            Chaque 'Ligne' correspond à une ligne d'une 'ZoneTable' et chacune d'elles est reliée à un 'Style'. Le lien créé vers l'objet 'ZoneTable' crée une liste d'objets 'Ligne' dans la classe 'ZoneTable'
+        
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données
+            id (Entier) : Identifiant unique généré par SQLAlchemy
+            contenu (Texte) : Représente le texte contenu dans la cellule
+            id_zone_table (Entier) : Référence à l'identifiant d'un objet 'ZoneTable'
+            id_style (Entier) : Référence à l'identifiant d'un objet 'Style'
+            zone_table (Relationship) : Référence à l'objet 'ZoneTable' associé. Crée une liste d'objets 'Ligne' dans cet objet grâce à 'Backref' d'SQLAlchemy
+            style (Relationship) : Référence à l'objet 'Style' associé
+    """
     __tablename__ = 'Lignes'
     id = Column(Integer, primary_key=True)
     id_zone_table = Column(Integer, ForeignKey('ZonesTable.id', onupdate='cascade', ondelete='cascade'))
@@ -626,17 +670,31 @@ class Ligne(Base):
                 print('Impossible de déserialiser la cellule')
     
 class Cellule(Base):
+    """
+        Description: 
+            Chaque 'Cellule' correspond à une cellule d'une 'ZoneTable' et chacune d'elles est reliée à une 'Ligne' et un 'Style'. Le lien créé vers l'objet 'Ligne' crée une liste d'objets 'Cellule' dans la classe 'Ligne'.
+        
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données.
+            id (Entier) : Identifiant unique généré par SQLAlchemy.
+            contenu (Texte) : Représente le texte contenu dans la cellule.
+            id_ligne_table (Entier) : Référence à l'identifiant d'un objet 'Ligne'.
+            id_style (Entier) : Référence à l'identifiant d'un objet 'Style'.
+            ligne (Relationship) : Référence à l'objet 'Ligne' associé. La fonction 'backref' crée une liste d'objets 'Cellule' dans cet objet.
+            style (Relationship) : Référence à l'objet 'Style' associé.
+    """
     __tablename__ = 'Cellules'
     id = Column(Integer, primary_key=True)
     contenu = Column(String(150), default="")
-    id_ligne_table = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
+    id_ligne = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
     id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=8)
     ligne = relationship(
         Ligne, 
         backref=backref(
             'cellules', 
             uselist=True, 
-            cascade='delete,all')
+            cascade='delete,all'),
+        foreign_keys=[id_ligne]
         )
     style = relationship(
         Style,
@@ -657,6 +715,16 @@ class Cellule(Base):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
 class Administrateur(Base):
+    """
+        Description: 
+            L'objet 'Administrateur' sert à l'authentification d'un utilisateur dans le système.
+
+        Attributs:
+            __tablename__ (Texte) : Représente le nom de la table qui sera créée dans la base de données.
+            id (Entier) : Identifiant unique généré par SQLAlchemy.
+            adresse_courriel (Texte) : Représente le courriel qui sert à la récupération du mot de passe.
+            mot_de_passe (Texte) : Représente la phrase de sécurité. Est nécessaire pour l'authentification d'un administrateur au système de gestion.
+    """
     __tablename__ = 'Administrateurs'
     id = Column(Integer, primary_key=True)
     mot_de_passe = Column(String, default='admin') #PAS SÉCURE
