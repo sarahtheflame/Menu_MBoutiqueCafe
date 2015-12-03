@@ -248,11 +248,17 @@ image_sandwich_europeen = Image(
     nom='sandwich', 
     chemin_fichier='sandwich.jpg'
 )
+
+image_sandwich_europeen2 = Image(
+    nom='sandwich2', 
+    chemin_fichier='sandwich.jpg'
+)
+
 fenetre_repas = Fenetre(
     nom='fenetre_repas', 
     image_fond=image_sandwich_europeen, 
     couleur_fond = "#FFFFFF",
-    theme=theme_1
+    theme=theme_2
 )
 
 
@@ -485,6 +491,7 @@ zone_test_image = ZoneImage(
 
 s.add_all([
     image_sandwich_europeen,
+    image_sandwich_europeen2,
     theme_1,
     theme_2,
     fenetre_repas,
