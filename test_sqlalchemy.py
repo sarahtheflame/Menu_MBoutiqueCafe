@@ -145,12 +145,12 @@ new_theme = {
 #         }
 
 #s.add(fenetre_repas)
-#fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
-#test = fenetre.serialiser_en_json()
+fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
+test = fenetre.serialiser_en_json()
 
 
-# for zone in test['zones']:
-#     print(zone['nom'])
+for zone in test['zones']:
+    print(zone['nom'])
 
 # test['zones'].append(new_zone_base)
 
@@ -163,10 +163,10 @@ new_theme = {
 
 
 theme = s.query(Theme).filter(Theme.id == 1).one()
-test2 = theme.serialiser_en_json()
-fw = open('workfile', 'w')
-fw.write(json.dumps(test2, indent=4, separators=(',', ': ')))
-theme.deserialiser_de_json(s, new_theme)
+# test2 = theme.serialiser_en_json()
+# fw = open('workfile', 'w')
+# fw.write(json.dumps(test2, indent=4, separators=(',', ': ')))
+# theme.deserialiser_de_json(s, new_theme)
 s.commit()
 # for x in fenetre.zones[2].lignes:
 #     print(x)
