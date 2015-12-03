@@ -278,8 +278,15 @@ class Fenetre(Base):
     id_image_fond = Column(Integer, ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), default=1)    # DEFAULT VALIDE??
     couleur_fond = Column(String, default="#FFFFFF")
     id_theme = Column(Integer, ForeignKey('Themes.id', onupdate="cascade", ondelete="set default"), default=1)  # DEFAULT VALIDE??
-    theme = relationship(Theme, foreign_keys=[id_theme])
-    image_fond = relationship(Image, foreign_keys=[id_image_fond])
+    theme = relationship(
+        Theme, 
+        backref=backref(
+            'fenetres', 
+            uselist=True),
+        foreign_keys=[id_theme])
+    image_fond = relationship(
+        Image, 
+        foreign_keys=[id_image_fond])
 
     def serialiser_en_json(self):
         zones_data = []
