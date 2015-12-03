@@ -1,394 +1,132 @@
 {
-    "nom": "fenetre principale",
-    "id": 1,
-    "couleur_fond": "#999999",
-    "image_fond": {
-        "nom": "sandwich",
-        "chemin_fichier": "sandwich.jpg",
+    "tableau": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 4
+        },
+        "couleur": "#FFFFFF",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 0.8,
+        "couleur_fond": "#000000",
+        "italique": "",
+        "taille": "1.5vw",
+        "id": 4
+    },
+    "titre": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 1
+        },
+        "couleur": "#ff7400",
+        "gras": "",
+        "police": "'KaushanScript', cursive",
+        "opacite_fond": 0.8,
+        "couleur_fond": "#000000",
+        "italique": "",
+        "taille": "4vw",
         "id": 1
     },
-    "zones": [
-        {
-            "id": 2,
-            "id_style": 1,
-            "contenu": "HOLY CRAP",
-            "position_x": "2%",
-            "nom": "zone_grillwiches",
-            "largeur": "77px",
-            "hauteur": "78%",
-            "position_y": "18%",
-            "type": "ZoneBase"
+    "nom": "theme principal",
+    "tableau_titre": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 6
         },
-        {
-            "id": 3,
-            "id_style": 4,
-            "position_x": "2%",
-            "nom": "zone_grillwiches",
-            "largeur": "77px",
-            "hauteur": "78%",
-            "position_y": "18%",
-            "lignes": [
-                {
-                    "id": 1,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Nos Grill'wiches matin",
-                            "id": 1,
-                            "id_style": 6
-                        },
-                        {
-                            "contenu": "",
-                            "id": 2,
-                            "id_style": 6
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Fromage",
-                            "id": 3,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 4,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Fromage et fruit",
-                            "id": 5,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 6,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Oeuf bacon fromage",
-                            "id": 7,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 8,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 5,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Oeuf fromage",
-                            "id": 9,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 10,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 6,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Nos Grill'wiches diner",
-                            "id": 11,
-                            "id_style": 6
-                        },
-                        {
-                            "contenu": "",
-                            "id": 12,
-                            "id_style": 6
-                        }
-                    ]
-                },
-                {
-                    "id": 7,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Poulet club",
-                            "id": 13,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 14,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 8,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Le pizza",
-                            "id": 15,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 16,
-                            "id_style": 8
-                        }
-                    ]
-                }
-            ],
-            "type": "ZoneTable"
+        "couleur": "#ff8f32",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "",
+        "taille": "2vw",
+        "id": 6
+    },
+    "tableau_sous_titre": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 7
         },
-        {
-            "id": 4,
-            "id_style": 4,
-            "position_x": "36%",
-            "nom": "zone salade",
-            "largeur": "77px",
-            "hauteur": "",
-            "position_y": "18%",
-            "lignes": [
-                {
-                    "id": 9,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Salade repas",
-                            "id": 17,
-                            "id_style": 6
-                        },
-                        {
-                            "contenu": "",
-                            "id": 18,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 10,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Choisissez 1,2,3 choix!",
-                            "id": 19,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "5.00$",
-                            "id": 20,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 11,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Choisissez votre option prot\u00e9ine!",
-                            "id": 21,
-                            "id_style": 6
-                        },
-                        {
-                            "contenu": "",
-                            "id": 22,
-                            "id_style": 8
-                        }
-                    ]
-                },
-                {
-                    "id": 12,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "Oeufs, poulet, jambon, saumon, saucisse, v\u00e9g\u00e9",
-                            "id": 23,
-                            "id_style": 8
-                        },
-                        {
-                            "contenu": "1.95$",
-                            "id": 24,
-                            "id_style": 8
-                        }
-                    ]
-                }
-            ],
-            "type": "ZoneTable"
+        "couleur": "#ff8f32",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "italic",
+        "taille": "1.5vw",
+        "id": 7
+    },
+    "sous_titre": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 2
         },
-        {
-            "id": 5,
-            "id_style": 4,
-            "position_x": "2%",
-            "nom": "zone test",
-            "largeur": "77px",
-            "hauteur": "78%",
-            "position_y": "18%",
-            "lignes": [
-                {
-                    "id": 13,
-                    "id_style": 5,
-                    "cellules": [
-                        {
-                            "contenu": "ceci est un test de ZoneTable",
-                            "id": 25,
-                            "id_style": 6
-                        }
-                    ]
-                }
-            ],
-            "type": "ZoneTable"
-        }
-    ],
-    "theme": {
-        "id": 1,
-        "tableau_titre": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 6,
-                "couleur": "#FFFFFF"
-            },
-            "id": 6,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "2vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#ff8f32"
+        "couleur": "#ff8f32",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "",
+        "taille": "3vw",
+        "id": 2
+    },
+    "tableau_ligne": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "1px",
+            "id": 5
         },
-        "texte": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 3,
-                "couleur": "#FFFFFF"
-            },
-            "id": 3,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "1.5vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#FFFFFF"
+        "couleur": "#FFFFFF",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "",
+        "taille": "1.5vw",
+        "id": 5
+    },
+    "tableau_texte": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 8
         },
-        "tableau_sous_titre": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 7,
-                "couleur": "#FFFFFF"
-            },
-            "id": 7,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "1.5vw",
-            "italique": "italic",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#ff8f32"
+        "couleur": "#FFFFFF",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "",
+        "taille": "1.5vw",
+        "id": 8
+    },
+    "texte": {
+        "bordure": {
+            "style": "solid",
+            "couleur": "#FFFFFF",
+            "taille": "0px",
+            "id": 3
         },
-        "titre": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 1,
-                "couleur": "#FFFFFF"
-            },
-            "id": 1,
-            "couleur_fond": "#000000",
-            "opacite_fond": 0.8,
-            "taille": "4vw",
-            "italique": "",
-            "police": "'KaushanScript', cursive",
-            "gras": "",
-            "couleur": "#ff7400"
-        },
-        "tableau_ligne": {
-            "bordure": {
-                "taille": "1px",
-                "style": "solid",
-                "id": 5,
-                "couleur": "#FFFFFF"
-            },
-            "id": 5,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "1.5vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#FFFFFF"
-        },
-        "nom": "theme principal",
-        "tableau": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 4,
-                "couleur": "#FFFFFF"
-            },
-            "id": 4,
-            "couleur_fond": "#000000",
-            "opacite_fond": 0.8,
-            "taille": "1.5vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#FFFFFF"
-        },
-        "sous_titre": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 2,
-                "couleur": "#FFFFFF"
-            },
-            "id": 2,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "3vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#ff8f32"
-        },
-        "tableau_texte": {
-            "bordure": {
-                "taille": "0px",
-                "style": "solid",
-                "id": 8,
-                "couleur": "#FFFFFF"
-            },
-            "id": 8,
-            "couleur_fond": "",
-            "opacite_fond": 1,
-            "taille": "1.5vw",
-            "italique": "",
-            "police": "'Oswald', sans-serif",
-            "gras": "",
-            "couleur": "#FFFFFF"
-        }
-    }
+        "couleur": "#FFFFFF",
+        "gras": "",
+        "police": "'Oswald', sans-serif",
+        "opacite_fond": 1,
+        "couleur_fond": "",
+        "italique": "",
+        "taille": "1.5vw",
+        "id": 3
+    },
+    "id": 1
 }

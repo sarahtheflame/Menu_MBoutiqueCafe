@@ -16,21 +16,129 @@ s = session()
 #zone_1_repas = Zone(nom='zone_1_repas')
 #zone_1_repas.fenetre = fenetre_repas
 
-new_zone = {
+new_zone_base = {
             "id": "",
             "id_style": 1,
             "type": "ZoneBase"
         }
+new_zone_image = {
+            "id": "",
+            "image": {
+                "id": 1,
+                "nom": "sandwich",
+                "chemin_fichier": "sandwich.jpg"
+            },
+            "type": "ZoneImage",
+        }
+new_zone_table = {
+            "lignes": [
+                {
+                    "cellules": [
+                        {
+                            "id_style": 6,
+                            "id": ""
+                        }
+                    ],
+                    "id_style": 5,
+                    "id": ""
+                }
+            ],
+            "id": "",
+            "type": "ZoneTable",
+            "id_style": 4
+        }
+new_theme = {
+    "tableau_sous_titre": {
+        "id": 0,
+        "type" : "tableau_sous_titre",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "tableau_ligne": {
+        "id": 0,
+        "type" : "tableau_ligne",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "tableau": {
+        "id": 0,
+        "type" : "tableau",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "tableau_titre": {
+        "id": 0,
+        "type" : "tableau_titre",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "texte": {
+        "id": 0,
+        "type" : "texte",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "nom": "Nouveau theme!",
+    "id": 1,
+    "tableau_texte": {
+        "id": 0,
+        "type" : "tableau_texte",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "titre": {
+        "id": 0,
+        "type" : "titre",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    },
+    "sous_titre": {
+        "id": 0,
+        "type" : "sous_titre",
+        "bordure": {
+            "couleur": "#FFFFFF",
+            "style": "solid",
+            "taille": "0px",
+            "id": 7
+        }
+    }
+}
 #s.add(fenetre_repas)
 fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
 test = fenetre.serialiser_en_json()
 
 
 # for zone in test['zones']:
-#     if zone['id'] == 2:
-#         zone['id'] = -2
 #     print(zone['nom'])
-test['zones'].append(new_zone)
+# test['zones'].append(new_zone_base)
 
 # fw = open('workfile', 'w')
 
@@ -39,6 +147,12 @@ test['zones'].append(new_zone)
 fenetre.deserialiser_de_json(s, test)
 s.commit()
 
+theme = s.query(Theme).filter(Theme.id == 1).one()
+test2 = theme.serialiser_en_json()
+fw = open('workfile', 'w')
+fw.write(json.dumps(test2, indent=4, separators=(',', ': ')))
+theme.deserialiser_de_json(s, new_theme)
+s.commit()
 # for x in fenetre.zones[2].lignes:
 #     print(x)
 #     for y in x.cellules:

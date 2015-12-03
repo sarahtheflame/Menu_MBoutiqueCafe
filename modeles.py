@@ -23,10 +23,8 @@ class Media(Base):
             chemin_fichier = self.chemin_fichier)
 
     def deserialiser_de_json(self, session, data):
-        try : self.nom = data['nom']
-        except KeyError: print('Aucune valeur pour "nom"')
-        try : self.chemin_fichier = data['chemin_fichier']
-        except KeyError: print('Aucune valeur pour "chemin_fichier"') # Possible de modifier ces attributs??
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('chemin_fichier') != None : self.chemin_fichier = data['chemin_fichier']
         
     __mapper_args__ = {
         'polymorphic_identity':'Media',
@@ -65,23 +63,21 @@ class Bordure(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        try : self.couleur = data['couleur']
-        except KeyError: print('Aucune valeur pour "couleur"')
-        try : self.taille = data['taille']
-        except KeyError: print('Aucune valeur pour "taille"')
-        try : self.style = data['style']
-        except KeyError: print('Aucune valeur pour "style"')
+        if data.get('couleur') != None : self.couleur = data['couleur']
+        if data.get('taille') != None : self.taille = data['taille']
+        if data.get('style') != None : self.style = data['style']
 
 class Style(Base):
     __tablename__ = 'Styles'
     id = Column(Integer, primary_key=True)
-    police = Column(String(250), default='1.5vw')
+    police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
     taille = Column(Integer, default='1.5vw')
     couleur_fond = Column(String(250), default='#FFFFFF')
     opacite_fond = Column(Integer, default='0')
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
+    type = Column(String(250), default='texte')
     bordure_id = Column(
         Integer, 
         ForeignKey('Bordures.id', onupdate="cascade", ondelete="cascade"),
@@ -107,22 +103,23 @@ class Style(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        try : self.police = data['police']
-        except KeyError: print('Aucune valeur pour "style"')
-        self.police = data['police']
-        self.couleur = data['couleur']
-        self.taille = data['taille']
-        self.couleur_fond = data['couleur_fond']
-        self.opacite_fond = data['opacite_fond']
-        self.gras = data['gras']
-        self.italique = data['italique']
-        if (data['bordure']['id'] == ""):
+        if data.get('police') != None : self.police = data['police']
+        if data.get('couleur') != None : self.couleur = data['couleur']
+        if data.get('taille') != None : self.taille = data['taille']
+        if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
+        if data.get('opacite_fond') != None : self.opacite_fond = data['opacite_fond']
+        if data.get('gras') != None : self.gras = data['gras']
+        if data.get('italique') != None : self.italique = data['italique']
+        if (data['bordure']['id'] == 0):
             nouvelle_bordure = Bordure()
             nouvelle_bordure.deserialiser_de_json(session, data['bordure'])
             session.add(nouvelle_bordure)
             self.bordure = nouvelle_bordure
-        else:
+        elif (data['bordure']['id'] > 0):
             self.bordure.deserialiser_de_json(session, data['bordure'])
+        else:  
+            print('Impossible de déserialiser la bordure')
+            
 
 class Theme(Base):
     __tablename__ = 'Themes'
@@ -239,76 +236,40 @@ class Theme(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
+        if data.get('nom') != None : self.nom = data['nom']
+        # On ne peut supprimer un style lors de la déserialisation d'un theme??
+        for style in data:
+            print(data[style])
+            if isinstance(data[style], dict):
+                print("in")
+                if (data[style]['id'] == 0):
+                    print('Nouveau style')
+                    nouveau_style = Style(bordure=Bordure())
+                    nouveau_style.deserialiser_de_json(session, data[style])
+                    session.add(nouveau_style)
+                    if data[style]['type'] == 'titre':
+                        self.titre = nouveau_style
+                    elif data[style]['type'] == 'sous_titre':
+                        self.sous_titre = nouveau_style
+                    elif data[style]['type'] == 'texte':
+                        self.texte = nouveau_style
+                    elif data[style]['type'] == 'tableau':
+                        self.tableau = nouveau_style
+                    elif data[style]['type'] == 'tableau_titre': 
+                        self.tableau_titre = nouveau_style
+                    elif data[style]['type'] == 'tableau_sous_titre': 
+                        self.tableau_sous_titre = nouveau_style
+                    elif data[style]['type'] == 'tableau_ligne':
+                        self.tableau_ligne = nouveau_style
+                    elif data[style]['type'] == 'tableau_texte':
+                        self.tableau_texte = nouveau_style
+                    else:
+                        print("Type de style invalide")
+                elif (data[style]['id'] > 0):
+                    self.titre.deserialiser_de_json(session, data[style])
+                else:
+                    print('Impossible de déserialiser le style \'titre\'')
 
-        # ----- VOIR SI IL N'Y A PAS UNE FACON PLUS EFFICACE DE CRÉER DE NOUVEAUX THEMES ------
-
-        if (data['titre']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['titre'])
-            session.add(nouveau_style)
-            self.titre = nouveau_style
-        else:
-            self.titre.deserialiser_de_json(session, data['titre'])
-        if (data['sous_titre']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['sous_titre'])
-            session.add(nouveau_style)
-            self.sous_titre = nouveau_style
-        else:    
-            self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
-        if (data['texte']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['texte'])
-            session.add(nouveau_style)
-            self.texte = nouveau_style
-        else:
-            self.texte.deserialiser_de_json(session, data['texte'])
-        if (data['tableau']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['tableau'])
-            session.add(nouveau_style)
-            self.tableau = nouveau_style
-        else:
-            self.tableau.deserialiser_de_json(session, data['tableau'])
-        if (data['tableau_ligne']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['tableau_ligne'])
-            session.add(nouveau_style)
-            self.tableau_ligne = nouveau_style
-        else:
-            self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
-        if (data['tableau_titre']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['tableau_titre'])
-            session.add(nouveau_style)
-            self.tableau_titre = nouveau_style
-        else:
-            self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
-        if (data['tableau_sous_titre']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['tableau_sous_titre'])
-            session.add(nouveau_style)
-            self.tableau_sous_titre = nouveau_style
-        else:
-            self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
-        if (data['tableau_texte']['id'] == ""):
-            print('Nouveau style')
-            nouveau_style = Style()
-            nouveau_style.deserialiser_de_json(session, data['tableau_texte'])
-            session.add(nouveau_style)
-            self.tableau_texte = nouveau_style
-        else:
-            self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
-
-        # ----- VOIR SI IL N'Y A PAS UNE FACON PLUS EFFICACE DE CRÉER DE NOUVEAUX THEMES ------
 
 class Fenetre(Base):
     __tablename__ = 'Fenetres'
@@ -335,14 +296,14 @@ class Fenetre(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
-        self.nom = data['nom']
-        self.couleur_fond = data['couleur_fond']
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if (self.id_theme != data['theme']['id']):
             self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
         if (self.id_image_fond != data['image_fond']['id']):
             self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
         for zone in data['zones']:
-            if zone['id'] == "":
+            if zone['id'] == 0:
                 if zone['type'] == 'ZoneBase':
                     nouvelle_zone = ZoneBase(fenetre=self)
                     nouvelle_zone.deserialiser_de_json(session, zone)
@@ -363,8 +324,10 @@ class Fenetre(Base):
                     print("Type de zone inexistante!") # IMPLÉMENTER UNE ERREUR CORRECTE
             elif zone['id'] > 0:
                 session.query(Zone).filter(Zone.id == zone['id']).one().deserialiser_de_json(session, zone)
-            else:
+            elif zone['id'] < 0:
                 session.delete(session.query(Zone).filter(Zone.id == -zone['id']).one())
+            else:
+                print('Impossible de déserialiser la zone')
 
 class Periode(Base):
     __tablename__ = 'Periodes'
@@ -406,7 +369,7 @@ class Periode(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        self.heure_debut = data['heure_debut']
+        if data.get('heure_debut') != None : self.heure_debut = data['heure_debut']
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):
@@ -464,18 +427,12 @@ class ZoneBase(Zone):
             )
 
     def deserialiser_de_json(self, session, data):
-        try : self.contenu = data['contenu'] 
-        except KeyError: print('Aucune valeur pour "contenu"')
-        try : self.nom = data['nom']
-        except KeyError: print('Aucune valeur pour "nom"')
-        try : self.position_x = data['position_x']
-        except KeyError: print('Aucune valeur pour "position_x"')
-        try : self.position_y = data['position_y']
-        except KeyError: print('Aucune valeur pour "position_y"')
-        try : self.largeur = data['largeur']
-        except KeyError: print('Aucune valeur pour "largeur"')
-        try : self.hauteur = data['hauteur']
-        except KeyError: print('Aucune valeur pour "hauteur"')
+        if data.get('contenu') != None : self.contenu = data['contenu']
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('position_x') != None : self.position_x = data['position_x']
+        if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('largeur') != None : self.largeur = data['largeur']
+        if data.get('hauteur') != None : self.hauteur = data['hauteur']
         if (self.id_style != data['id_style']): # Ne peut être null...
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
@@ -515,16 +472,11 @@ class ZoneImage(Zone):
     def deserialiser_de_json(self, session, data):
         if (self.id_image != data['image']['id']):
             self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
-        try : self.nom = data['nom']
-        except KeyError: print('Aucune valeur pour "nom"')
-        try : self.position_x = data['position_x']
-        except KeyError: print('Aucune valeur pour "position_x"')
-        try : self.position_y = data['position_y']
-        except KeyError: print('Aucune valeur pour "position_y"')
-        try : self.largeur = data['largeur']
-        except KeyError: print('Aucune valeur pour "largeur"')
-        try : self.hauteur = data['hauteur']
-        except KeyError: print('Aucune valeur pour "hauteur"')
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('position_x') != None : self.position_x = data['position_x']
+        if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('largeur') != None : self.largeur = data['largeur']
+        if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
 class ZoneVideo(Zone):
     __tablename__ = 'ZonesVideo'
@@ -558,16 +510,11 @@ class ZoneVideo(Zone):
     def deserialiser_de_json(self, session, data):
         if (self.id_video != data['video']['id']):
             self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
-        try : self.nom = data['nom']
-        except KeyError: print('Aucune valeur pour "nom"')
-        try : self.position_x = data['position_x']
-        except KeyError: print('Aucune valeur pour "position_x"')
-        try : self.position_y = data['position_y']
-        except KeyError: print('Aucune valeur pour "position_y"')
-        try : self.largeur = data['largeur']
-        except KeyError: print('Aucune valeur pour "largeur"')
-        try : self.hauteur = data['hauteur']
-        except KeyError: print('Aucune valeur pour "hauteur"')
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('position_x') != None : self.position_x = data['position_x']
+        if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('largeur') != None : self.largeur = data['largeur']
+        if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
 class ZoneTable(Zone):
     __tablename__ = 'ZonesTable'
@@ -601,28 +548,25 @@ class ZoneTable(Zone):
         return data
 
     def deserialiser_de_json(self, session, data):
-        try : self.nom = data['nom']
-        except KeyError: print('Aucune valeur pour "nom"')
-        try : self.position_x = data['position_x']
-        except KeyError: print('Aucune valeur pour "position_x"')
-        try : self.position_y = data['position_y']
-        except KeyError: print('Aucune valeur pour "position_y"')
-        try : self.largeur = data['largeur']
-        except KeyError: print('Aucune valeur pour "largeur"')
-        try : self.hauteur = data['hauteur']
-        except KeyError: print('Aucune valeur pour "hauteur"')
+        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('position_x') != None : self.position_x = data['position_x']
+        if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('largeur') != None : self.largeur = data['largeur']
+        if data.get('hauteur') != None : self.hauteur = data['hauteur']
         if self.id_style != data['id_style']:
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for ligne in data['lignes']:
-            if (ligne['id'] == ""):
+            if (ligne['id'] == 0):
                 print('Nouvelle ligne')
                 nouvelle_ligne = Ligne(zone_table=self)
                 nouvelle_ligne.deserialiser_de_json(session, ligne)
                 session.add(nouvelle_ligne)
             elif ligne['id'] > 0:
                 session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
-            else:
+            elif ligne['id'] < 0:
                 session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
+            else:
+                print('Impossible de déserialiser la ligne')
 
 class Ligne(Base):
     __tablename__ = 'Lignes'
@@ -659,15 +603,17 @@ class Ligne(Base):
         if (self.id_style != data['id_style']):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for cellule in data['cellules']:
-            if cellule['id'] == "":
+            if cellule['id'] == 0:
                 print('Nouvelle cellule')
                 nouvelle_cellule = Cellule(ligne=self)
                 nouvelle_cellule.deserialiser_de_json(session, cellule)
                 session.add(nouvelle_cellule)
             elif cellule['id'] > 0:
                 session.query(Cellule).filter(Cellule.id == cellule['id']).one().deserialiser_de_json(session, cellule)
-            else:
+            elif cellule['id'] < 0:
                 session.delete(session.query(Cellule).filter(Cellule.id == -cellule['id']).one())
+            else:
+                print('Impossible de déserialiser la cellule')
     
 class Cellule(Base):
     __tablename__ = 'Cellules'
@@ -696,8 +642,7 @@ class Cellule(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        try : self.contenu = data['contenu']
-        except KeyError: print('Aucune valeur pour "contenu"')
+        if data.get('contenu') != None : self.contenu = data['contenu']
         if (self.id_style != data['id_style']):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
 
@@ -715,7 +660,5 @@ class Administrateur(Base):
             )
 
     def deserialiser_de_json(self, session, data):
-        try : self.mot_de_passe = data['mot_de_passe']
-        except KeyError: print('Aucune valeur pour "mot_de_passe"')
-        try : self.adresse_courriel = data['adresse_courriel']
-        except KeyError: print('Aucune valeur pour "adresse_courriel"')
+        if data.get('mot_de_passe') != None : self.mot_de_passe = data['mot_de_passe']
+        if data.get('adresse_courriel') != None : self.adresse_courriel = data['adresse_courriel']
