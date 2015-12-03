@@ -12,32 +12,35 @@ session = sessionmaker(bind=engine)
 
 s = session()
 
-#fenetre_repas = Fenetre(nom='fenetre_repas')
-#zone_1_repas = Zone(nom='zone_1_repas')
-#zone_1_repas.fenetre = fenetre_repas
+#fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
+#fenetre_repas.id_theme = 2
+s.delete(s.query(Zone).filter(Zone.id == 3).one())
 
-new_zone = {
-            "id": "",
-            "id_style": 1,
-            "type": "ZoneBase"
-        }
+s.commit()
+
+
+# new_zone = {
+#             "id": "",
+#             "id_style": 1,
+#             "type": "ZoneBase"
+#         }
 #s.add(fenetre_repas)
-fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
-test = fenetre.serialiser_en_json()
+#fenetre = s.query(Fenetre).filter(Fenetre.id == 1).one()
+#test = fenetre.serialiser_en_json()
 
 
 # for zone in test['zones']:
 #     if zone['id'] == 2:
 #         zone['id'] = -2
 #     print(zone['nom'])
-test['zones'].append(new_zone)
+#test['zones'].append(new_zone)
 
 # fw = open('workfile', 'w')
 
 # fw.write(json.dumps(test, indent=4, separators=(',', ': ')))
 
-fenetre.deserialiser_de_json(s, test)
-s.commit()
+#fenetre.deserialiser_de_json(s, test)
+
 
 # for x in fenetre.zones[2].lignes:
 #     print(x)
@@ -61,10 +64,6 @@ s.commit()
 #test = json.loads(jsonpickle.encode(fenetre))
 #testdata = json.dumps(test, indent=4, separators=(',', ': '))
 
-
-
-# fr = open('workfile', 'r')
-# new_data = fr.read()
 
 # new_data_json = json.loads(new_data)
 
