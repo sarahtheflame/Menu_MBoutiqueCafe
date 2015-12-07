@@ -29,12 +29,26 @@ class Media(Base):
     type = Column(String)
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             nom = self.nom,
-            chemin_fichier = self.chemin_fichier)
+            chemin_fichier = self.chemin_fichier
+            )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('chemin_fichier') != None : self.chemin_fichier = data['chemin_fichier']
         
@@ -54,7 +68,11 @@ class Image(Media):
             __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
     """
     __tablename__ = 'Images'
-    id = Column(Integer, ForeignKey('Medias.id', onupdate="cascade", ondelete="cascade"), primary_key=True)
+    id = Column(
+        Integer, 
+        ForeignKey('Medias.id', onupdate="cascade", ondelete="cascade"), 
+        primary_key=True
+        )
         
     __mapper_args__ = {
         'polymorphic_identity':'Image'
@@ -71,7 +89,11 @@ class Video(Media):
             __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
     """
     __tablename__ = 'Videos'
-    id = Column(Integer, ForeignKey('Medias.id', onupdate="cascade", ondelete="cascade"), primary_key=True)
+    id = Column(
+        Integer, 
+        ForeignKey('Medias.id', onupdate="cascade", ondelete="cascade"), 
+        primary_key=True
+        )
 
     __mapper_args__ = {
         'polymorphic_identity':'Video'
@@ -96,6 +118,10 @@ class Bordure(Base):
     couleur = Column(String(250), default='#000000')
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             taille = self.taille,
@@ -104,6 +130,15 @@ class Bordure(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('taille') != None : self.taille = data['taille']
         if data.get('style') != None : self.style = data['style']
         if data.get('couleur') != None : self.couleur = data['couleur']
@@ -151,6 +186,10 @@ class Style(Base):
         )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             police = self.police,
@@ -165,6 +204,15 @@ class Style(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('police') != None : self.police = data['police']
         if data.get('couleur') != None : self.couleur = data['couleur']
         if data.get('taille') != None : self.taille = data['taille']
@@ -311,6 +359,10 @@ class Theme(Base):
         )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             nom = self.nom,
@@ -325,8 +377,16 @@ class Theme(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('nom') != None : self.nom = data['nom']
-        # On ne peut supprimer un style lors de la déserialisation d'un theme??
         for style in data:
             print(data[style])
             if isinstance(data[style], dict):
@@ -380,19 +440,33 @@ class Fenetre(Base):
     id = Column(Integer, primary_key=True)
     nom = Column(String, default="Fenetre sans nom")
     couleur_fond = Column(String, default="#FFFFFF")
-    id_image_fond = Column(Integer, ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), default=1)    # DEFAULT VALIDE??
-    id_theme = Column(Integer, ForeignKey('Themes.id', onupdate="cascade", ondelete="set default"), default=1)  # DEFAULT VALIDE??
+    id_image_fond = Column(
+        Integer, 
+        ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), 
+        default=1
+        )    # DEFAULT VALIDE??
+    id_theme = Column(
+        Integer, 
+        ForeignKey('Themes.id', onupdate="cascade", ondelete="set default"), 
+        default=1
+        )  # DEFAULT VALIDE??
     image_fond = relationship(
         Image, 
-        foreign_keys=[id_image_fond])
+        foreign_keys=[id_image_fond]
+        )
     theme = relationship(
         Theme, 
         backref=backref(
             'fenetres', 
             uselist=True),
-        foreign_keys=[id_theme])
+        foreign_keys=[id_theme]
+        )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         zones_data = []
         data = dict(
             id = self.id,
@@ -407,6 +481,15 @@ class Fenetre(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if (self.id_theme != data['theme']['id']):
@@ -461,10 +544,26 @@ class Periode(Base):
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
     heure_debut = Column(Time, unique=True)
-    id_fenetre_1 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
-    id_fenetre_2 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
-    id_fenetre_3 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
-    id_fenetre_4 = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), default=1)
+    id_fenetre_1 = Column(
+        Integer, 
+        ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
+        default=1
+        )
+    id_fenetre_2 = Column(
+        Integer, 
+        ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
+        default=1
+        )
+    id_fenetre_3 = Column(
+        Integer, 
+        ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
+        default=1
+        )
+    id_fenetre_4 = Column(
+        Integer, 
+        ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
+        default=1
+        )
     fenetre_1 = relationship(
         Fenetre, 
         uselist=False, 
@@ -487,6 +586,10 @@ class Periode(Base):
         )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             heure_debut = self.heure_debut,
@@ -497,6 +600,15 @@ class Periode(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('heure_debut') != None : self.heure_debut = data['heure_debut']
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
@@ -561,14 +673,22 @@ class ZoneBase(Zone):
             __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
     """
     __tablename__ = 'ZonesBase'
-    id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
+    id = Column(
+        Integer, 
+        ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
+        primary_key=True
+        )
     contenu = Column(String, default="")
-    id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=3)
+    id_style = Column(
+        Integer, 
+        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
+        default=3
+        )
     style = relationship(
         Style,
         uselist=False,
         foreign_keys=[id_style]
-    )
+        )
 
     def serialiser_en_json(self):
         """
@@ -594,7 +714,7 @@ class ZoneBase(Zone):
 
             Arguments:
                 session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
-                à la base de données.
+                                    à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('contenu') != None : self.contenu = data['contenu']
@@ -623,14 +743,18 @@ class ZoneImage(Zone):
             __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
     """
     __tablename__ = 'ZonesImage'
-    id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    id_image = Column(Integer, ForeignKey('Images.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
+    id = Column(
+        Integer, 
+        ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
+        primary_key=True
+        )
+    id_image = Column(
+        Integer, 
+        ForeignKey('Images.id', onupdate='cascade', ondelete='cascade')
+        )
     image = relationship(
         Image, 
-        backref=backref(
-            'zones_images', 
-            uselist=True, 
-            cascade='delete,all'),
+        backref=backref('zones_images', uselist=True, cascade='delete,all'),
         foreign_keys=[id_image]
         )
 
@@ -639,6 +763,10 @@ class ZoneImage(Zone):
     }
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             nom = self.nom,
@@ -651,6 +779,15 @@ class ZoneImage(Zone):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if (self.id_image != data['image']['id']):
             self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
         if data.get('nom') != None : self.nom = data['nom']
@@ -672,14 +809,18 @@ class ZoneVideo(Zone):
             __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
     """
     __tablename__ = 'ZonesVideo'
-    id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    id_video = Column(Integer, ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')) # NULLABLE?
+    id = Column(
+        Integer, 
+        ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
+        primary_key=True
+        )
+    id_video = Column(
+        Integer, 
+        ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')
+        )
     video = relationship(
         Video, 
-        backref=backref(
-            'zones_videos', 
-            uselist=True,
-            cascade='delete,all'),
+        backref=backref('zones_videos', uselist=True, cascade='delete,all'),
         foreign_keys=[id_video]
         )
 
@@ -688,6 +829,10 @@ class ZoneVideo(Zone):
     }
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             nom = self.nom,
@@ -700,6 +845,15 @@ class ZoneVideo(Zone):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if (self.id_video != data['video']['id']):
             self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
         if data.get('nom') != None : self.nom = data['nom']
@@ -722,8 +876,16 @@ class ZoneTable(Zone):
             ** lignes (List) : Liste d'objets 'Ligne' (créée par la fonction 'backref' lancée par la classe 'Ligne').
     """
     __tablename__ = 'ZonesTable'
-    id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
-    id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=4)
+    id = Column(
+        Integer, 
+        ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
+        primary_key=True
+        )
+    id_style = Column(
+        Integer, 
+        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
+        default=4
+        )
     style = relationship(
         Style,
         uselist=False,
@@ -733,6 +895,10 @@ class ZoneTable(Zone):
     __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         lignes_data = []
         data = dict(
             id = self.id,
@@ -750,6 +916,15 @@ class ZoneTable(Zone):
         return data
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
@@ -786,8 +961,15 @@ class Ligne(Base):
     """
     __tablename__ = 'Lignes'
     id = Column(Integer, primary_key=True)
-    id_zone_table = Column(Integer, ForeignKey('ZonesTable.id', onupdate='cascade', ondelete='cascade'))
-    id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=5)
+    id_zone_table = Column(
+        Integer, 
+        ForeignKey('ZonesTable.id', onupdate='cascade', ondelete='cascade')
+        )
+    id_style = Column(
+        Integer, 
+        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
+        default=5
+        )
     zone_table = relationship(
         ZoneTable, 
         backref=backref(
@@ -803,6 +985,10 @@ class Ligne(Base):
     )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         cellules_data = []
         data = dict(
             id = self.id,
@@ -815,6 +1001,15 @@ class Ligne(Base):
         return data
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if (self.id_style != data['id_style']):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for cellule in data['cellules']:
@@ -848,7 +1043,11 @@ class Cellule(Base):
     id = Column(Integer, primary_key=True)
     contenu = Column(String(150), default="")
     id_ligne = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
-    id_style = Column(Integer, ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), default=8)
+    id_style = Column(
+        Integer, 
+        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
+        default=8
+        )
     ligne = relationship(
         Ligne, 
         backref=backref(
@@ -864,6 +1063,10 @@ class Cellule(Base):
     )
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             contenu = self.contenu,
@@ -871,6 +1074,15 @@ class Cellule(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('contenu') != None : self.contenu = data['contenu']
         if (self.id_style != data['id_style']):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
@@ -888,10 +1100,14 @@ class Administrateur(Base):
     """
     __tablename__ = 'Administrateurs'
     id = Column(Integer, primary_key=True)
-    adresse_courriel = Column(String, default='da.junior.du@gmail.com') #CHANGER LA VALEUR PAR DEFAUT
-    mot_de_passe = Column(String, default='admin') #PAS SÉCURE
+    adresse_courriel = Column(String, default='da.junior.du@gmail.com')
+    mot_de_passe = Column(String, default='admin')
 
     def serialiser_en_json(self):
+        """
+            Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
+            puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
+        """
         return dict(
             id = self.id,
             adresse_courriel = self.adresse_courriel
@@ -899,5 +1115,14 @@ class Administrateur(Base):
             )
 
     def deserialiser_de_json(self, session, data):
+        """
+            Assigne la valeur des attributs de l'objet à l'aide d'un 'dict' contenant les valeurs 
+            à assigner.
+
+            Arguments:
+                session (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python 
+                                    à la base de données.
+                data (Dict) : Dictionnaire qui contient les valeurs à assigner.
+        """
         if data.get('adresse_courriel') != None : self.adresse_courriel = data['adresse_courriel']
         if data.get('mot_de_passe') != None : self.mot_de_passe = data['mot_de_passe']
