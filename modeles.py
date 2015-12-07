@@ -275,21 +275,35 @@ class Theme(Base):
 
 
 class Fenetre(Base):
+    """
+        Description: 
+            La classe 'Fenetre'
+
+        Attributs:
+            __tablename__ (Texte) : Nom de la table qui sera créée dans la base de données.
+            id (Entier) : Identifiant unique généré par SQLAlchemy.
+            nom (Texte) : Nom de la fenêtre
+            couleur_fond (Texte) : Code de couleur hexadécimal représentant la couleur de fond.
+            id_image_fond (Entier) : Référence à l'identifiant d'un objet 'Image'. Est associé à l'attribut 'image_fond'.
+            id_theme (Entier) : Référence à l'identifiant d'un objet 'Theme'.  Est associé à l'attribut 'theme'.
+            image_fond (Relationship) : Référence à l'objet 'Image' utilisé pour le fond. 
+            theme (Relationship) : Référence à l'objet 'Theme' associé.
+    """
     __tablename__ = 'Fenetres'
     id = Column(Integer, primary_key=True)
     nom = Column(String, default="Fenetre sans nom")
-    id_image_fond = Column(Integer, ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), default=1)    # DEFAULT VALIDE??
     couleur_fond = Column(String, default="#FFFFFF")
+    id_image_fond = Column(Integer, ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), default=1)    # DEFAULT VALIDE??
     id_theme = Column(Integer, ForeignKey('Themes.id', onupdate="cascade", ondelete="set default"), default=1)  # DEFAULT VALIDE??
+    image_fond = relationship(
+        Image, 
+        foreign_keys=[id_image_fond])
     theme = relationship(
         Theme, 
         backref=backref(
             'fenetres', 
             uselist=True),
         foreign_keys=[id_theme])
-    image_fond = relationship(
-        Image, 
-        foreign_keys=[id_image_fond])
 
     def serialiser_en_json(self):
         zones_data = []
@@ -342,15 +356,20 @@ class Fenetre(Base):
 class Periode(Base):
     """
         Description: 
-            Représente la liste des objets 'Fenetre' à afficher selon l'heure définie pour cette même 'Periode'.
+            La classe 'Periode' représente les objets 'Fenetre' à afficher dans les écrans selon l'heure définie pour cette même 'Periode'.
 
         Attributs:
             __tablename__ (Texte) : Nom de la table qui sera créée dans la base de données.
             id (Entier) : Identifiant unique généré par SQLAlchemy.
             heure_debut (Time) : Heure à laquelle commence la 'Periode'.
             id_fenetre_1 (Entier) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à l'attribut 'fenetre_1'.
-            fenetre_1 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 'id_fenetre_1'. La fonction 'backref' crée une liste d'objets 'Zone' dans cet objet.
-            __mapper_args__ (Dictionnaire) : Contient les options qui configurent le polymorphisme de la classe.
+            fenetre_1 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 'id_fenetre_1'.
+            id_fenetre_2 (Entier) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à l'attribut 'fenetre_2'.
+            fenetre_2 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 'id_fenetre_2'.
+            id_fenetre_3 (Entier) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à l'attribut 'fenetre_3'.
+            fenetre_3 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 'id_fenetre_3'.
+            id_fenetre_4 (Entier) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à l'attribut 'fenetre_4'.
+            fenetre_4 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 'id_fenetre_4'.
     """
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
