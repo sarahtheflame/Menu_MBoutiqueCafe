@@ -495,18 +495,18 @@ class Periode(Base):
                 l'attribut 'fenetre_1'.
             fenetre_1 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 
                 'id_fenetre_1'.
-            id_fenetre_2 (Integer)   : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
-                                       l'attribut 'fenetre_2'.
+            id_fenetre_2 (Integer) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
+                l'attribut 'fenetre_2'.
             fenetre_2 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 
-                                       'id_fenetre_2'.
-            id_fenetre_3 (Integer)   : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
-                                       l'attribut 'fenetre_3'.
+                'id_fenetre_2'.
+            id_fenetre_3 (Integer) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
+                l'attribut 'fenetre_3'.
             fenetre_3 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 
-                                       'id_fenetre_3'.
-            id_fenetre_4 (Integer)   : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
-                                       l'attribut 'fenetre_4'.
+                'id_fenetre_3'.
+            id_fenetre_4 (Integer) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
+                l'attribut 'fenetre_4'.
             fenetre_4 (Relationship) : Référence à un objet 'Fenetre'. Est associé par l'attribut 
-                                       'id_fenetre_4'.
+                'id_fenetre_4'.
     """
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
@@ -560,7 +560,8 @@ class Periode(Base):
 class Zone(Base):
     """
         Description: 
-            Hérite de la classe 'Base' de SQLAlchemy. Est une classe abstraite qui contient les informations de base communes à tous les types de zones.
+            Hérite de la classe 'Base' de SQLAlchemy. Est une classe abstraite qui contient les
+            informations de base communes à tous les types de zones.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
@@ -572,8 +573,10 @@ class Zone(Base):
             hauteur (String) : Attribut CSS de la hauteur de la zone (ex: "10%").
             type (String) : Type polymorphique de la zone (voir l'attribut '__mapper_args___').
             id_fenetre (Integer) : Référence à l'identifiant d'un objet 'Fenetre'.
-            fenetre (Relationship) : Référence à l'objet 'Fenetre' associé. La fonction 'backref' crée une liste d'objets 'Zone' dans cet objet.
-            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
+            fenetre (Relationship) : Référence à l'objet 'Fenetre' associé. La fonction 'backref'
+                crée une liste d'objets 'Zone' dans cet objet.
+            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de
+                la classe.
     """
     __tablename__ = 'Zones'
     id = Column(Integer, primary_key=True)
@@ -600,7 +603,8 @@ class Zone(Base):
 class ZoneBase(Zone):
     """
         Description: 
-            La classe 'ZoneBase' hérite de la classe 'Zone'. Sert à représenter un rectangle contenant ou non du texte.
+            La classe 'ZoneBase' hérite de la classe 'Zone'. Sert à représenter un rectangle
+            contenant ou non du texte.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
@@ -608,7 +612,8 @@ class ZoneBase(Zone):
             contenu (String) : Texte contenu dans la zone. 
             id_style (Integer) : Référence à l'identifiant d'un objet 'Style'.
             style (Relationship) : Référence à l'objet 'Style' associé.
-            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
+            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de
+                la classe.
     """
     __tablename__ = 'ZonesBase'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
@@ -669,8 +674,10 @@ class ZoneImage(Zone):
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
             id (Integer) : Référence à l'identifiant unique d'une 'Zone'.
             id_image (Integer) : Référence à l'identifiant d'un objet 'Image'.
-            image (Relationship) : Référence à l'objet 'Image' associé.
-            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
+            image (Relationship) : Référence à l'objet 'Image' associé. Dans cet objet, la fonction
+                'backref' crée une liste des 'ZoneImage' qui l'utilisent.
+            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de
+                la classe.
     """
     __tablename__ = 'ZonesImage'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
@@ -718,8 +725,10 @@ class ZoneVideo(Zone):
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
             id (Integer) : Référence à l'identifiant unique d'une 'Zone'.
             id_video (Integer) : Référence à l'identifiant d'un objet 'Video'
-            video (Relationship) : Référence à l'objet 'Video' associé. Dans cet objet, la fonction 'backref' crée une liste des 'ZoneVideo' qui l'utilisent.
-            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
+            video (Relationship) : Référence à l'objet 'Video' associé. Dans cet objet, la fonction
+                'backref' crée une liste des 'ZoneVideo' qui l'utilisent.
+            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de
+                la classe.
     """
     __tablename__ = 'ZonesVideo'
     id = Column(Integer, ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), primary_key=True)
