@@ -5,7 +5,6 @@ import datetime
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-import json
 
 Base = declarative_base()
 
@@ -135,8 +134,8 @@ class Bordure(Base):
         return dict(
             id = self.id,
             taille = self.taille,
-            style = self.style
-            couleur = self.couleur,
+            style = self.style,
+            couleur = self.couleur
             )
 
     def deserialiser_de_json(self, session, data):
@@ -249,7 +248,6 @@ class Style(Base):
         else:  
             print('Impossible de déserialiser la bordure')
             
-
 class Theme(Base):
     """
         Description: 
@@ -454,7 +452,6 @@ class Theme(Base):
                     self.titre.deserialiser_de_json(session, data[style])
                 else:
                     print('Impossible de déserialiser le style \'titre\'')
-
 
 class Fenetre(Base):
     """
@@ -1177,8 +1174,8 @@ class Administrateur(Base):
         """
         return dict(
             id = self.id,
-            adresse_courriel = self.adresse_courriel
-            mot_de_passe = self.mot_de_passe,
+            adresse_courriel = self.adresse_courriel,
+            mot_de_passe = self.mot_de_passe
             )
 
     def deserialiser_de_json(self, session, data):
