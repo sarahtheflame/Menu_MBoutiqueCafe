@@ -915,15 +915,18 @@ class ZoneVideo(Zone):
 class ZoneTable(Zone):
     """
         Description: 
-            Hérite de la classe 'Zone'. Contient des lignes, qui elles contiennent des cellules, ce qui constitue une table.
+            Hérite de la classe 'Zone'. Contient des lignes, qui elles contiennent des cellules, ce 
+            qui constitue une table.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
             id (Integer) : Référence à l'identifiant unique d'une 'Zone'.
             id_style (Integer) : Référence à l'identifiant d'un objet 'Style'.
             style (Relationship) : Référence à l'objet 'Style' associé.
-            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de la classe.
-            ** lignes (List) : Liste d'objets 'Ligne' (créée par la fonction 'backref' lancée par la classe 'Ligne').
+            __mapper_args__ (Dictionary) : Contient les options qui configurent le polymorphisme de 
+                la classe.
+            ** lignes (List) : Liste d'objets 'Ligne' (créée par la fonction 'backref' lancée par la 
+                classe 'Ligne').
     """
     __tablename__ = 'ZonesTable'
     id = Column(
@@ -1005,9 +1008,11 @@ class Ligne(Base):
             id (Integer) : Identifiant unique généré par SQLAlchemy.
             id_zone_table (Integer) : Référence à l'identifiant d'un objet 'ZoneTable'.
             id_style (Integer) : Référence à l'identifiant d'un objet 'Style'.
-            zone_table (Relationship) : Référence à l'objet 'ZoneTable' associé. La fonction 'backref' crée une liste d'objets 'Ligne' dans cet objet.
+            zone_table (Relationship) : Référence à l'objet 'ZoneTable' associé. La fonction 
+                'backref' crée une liste d'objets 'Ligne' dans cet objet.
             style (Relationship) : Référence à l'objet 'Style' associé.
-            ** cellules (List) : Liste d'objets 'Cellule' (créée par la fonction 'backref' lancée par la classe 'Cellule').
+            ** cellules (List) : Liste d'objets 'Cellule' (créée par la fonction 'backref' lancée 
+                par la classe 'Cellule').
     """
     __tablename__ = 'Lignes'
     id = Column(Integer, primary_key=True)
@@ -1086,7 +1091,8 @@ class Cellule(Base):
             contenu (String) : Texte contenu dans la cellule.
             id_ligne_table (Integer) : Référence à l'identifiant d'un objet 'Ligne'.
             id_style (Integer) : Référence à l'identifiant d'un objet 'Style'.
-            ligne (Relationship) : Référence à l'objet 'Ligne' associé. La fonction 'backref' crée une liste d'objets 'Cellule' dans cet objet.
+            ligne (Relationship) : Référence à l'objet 'Ligne' associé. La fonction 'backref' crée 
+                une liste d'objets 'Cellule' dans cet objet.
             style (Relationship) : Référence à l'objet 'Style' associé.
     """
     __tablename__ = 'Cellules'
@@ -1140,13 +1146,15 @@ class Cellule(Base):
 class Administrateur(Base):
     """
         Description: 
-            Hérite de la classe 'Base' de SQLAlchemy. Sert à l'authentification d'un utilisateur dans le système.
+            Hérite de la classe 'Base' de SQLAlchemy. Sert à l'authentification d'un utilisateur 
+            dans le système.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
             id (Integer) : Identifiant unique généré par SQLAlchemy.
             adresse_courriel (String) : Courriel qui sert à la récupération du mot de passe.
-            mot_de_passe (String) : Phrase de sécurité. Est nécessaire pour l'authentification d'un administrateur au système de gestion.
+            mot_de_passe (String) : Phrase de sécurité. Est nécessaire pour l'authentification d'un 
+                administrateur au système de gestion.
     """
     __tablename__ = 'Administrateurs'
     id = Column(Integer, primary_key=True)
