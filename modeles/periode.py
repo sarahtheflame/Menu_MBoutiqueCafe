@@ -67,22 +67,30 @@ class Periode(Base):
         )
     fenetre_1 = relationship(
         Fenetre, 
-        uselist=False, 
+        backref=backref(
+            'periodes_ecran_1', 
+            uselist=True), 
         foreign_keys=[id_fenetre_1]
         )
     fenetre_2 = relationship(
         Fenetre, 
-        uselist=False, 
+        backref=backref(
+            'periodes_ecran_2', 
+            uselist=True), 
         foreign_keys=[id_fenetre_2]
         )
     fenetre_3 = relationship(
         Fenetre, 
-        uselist=False, 
+        backref=backref(
+            'periodes_ecran_3', 
+            uselist=True),  
         foreign_keys=[id_fenetre_3]
         )
     fenetre_4 = relationship(
         Fenetre, 
-        uselist=False, 
+        backref=backref(
+            'periodes_ecran_4', 
+            uselist=True), 
         foreign_keys=[id_fenetre_4]
         )
 
