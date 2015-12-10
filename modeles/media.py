@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    Définition de la classe 'ZoneVideo'. Fait partie du paquet des modèles.
+    Définition de la classe 'Media'. Fait partie du paquet des modèles.
     Fait par : Daniel-Junior Dubé et Sarah Laflamme
     Date : 10-12-2015
 """
