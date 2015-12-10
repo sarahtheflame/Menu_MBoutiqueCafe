@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-    Définition de la classe 'ZoneVideo'. Fait partie du paquet des modèles.
+    Définition de la classe 'Zone'. Fait partie du paquet des modèles.
     Fait par : Daniel-Junior Dubé et Sarah Laflamme
     Date : 10-12-2015
 """
 
+import fenetre
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
