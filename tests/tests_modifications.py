@@ -1,26 +1,51 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from modeles import *
+from modeles_temporaires import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import json 
 import jsonpickle
-engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+
+engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
 session = sessionmaker(bind=engine)
 
 s = session()
 
-#fenetre_repas = Fenetre(nom='fenetre_repas')
-#zone_1_repas = Zone(nom='zone_1_repas')
-#zone_1_repas.fenetre = fenetre_repas
+# EXEMPLE 1 : Sérialiser une fenêtre
+fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
+data_fenetre_repas = fenetre_repas.serialiser_en_json()
+fw = open('workfile', 'w')
+fw.write(json.dumps(data_fenetre_repas, indent=4, separators=(',', ': ')))
+# Résultat : Le contenu de la fenêtre se trouve dans le fichier « workfile »
+
+
+# EXEMPLE 2 : Modifier le nom d'une fenêtre
+fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
+fenetre_repas.nom = "nouveau nom"
+s.commit()
+# Résultat : Le nom de la fenêtre a été modifié dans la base de données
+
+
+# EXEMPLE 3 : Créer une nouvelle zone dans une fenêtre
 
 new_zone_base = {
             "id": "",
             "id_style": 1,
             "type": "ZoneBase"
         }
+
+
+
+
+
+#fenetre_repas = Fenetre(nom='fenetre_repas')
+#zone_1_repas = Zone(nom='zone_1_repas')
+#zone_1_repas.fenetre = fenetre_repas
+
+
+
 new_zone_image = {
             "id": "",
             "image": {
@@ -30,6 +55,7 @@ new_zone_image = {
             },
             "type": "ZoneImage",
         }
+
 new_zone_table = {
             "lignes": [
                 {
@@ -47,90 +73,8 @@ new_zone_table = {
             "type": "ZoneTable",
             "id_style": 4
         }
-new_theme = {
-    "tableau_sous_titre": {
-        "id": 0,
-        "type" : "tableau_sous_titre",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "tableau_ligne": {
-        "id": 0,
-        "type" : "tableau_ligne",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "tableau": {
-        "id": 0,
-        "type" : "tableau",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "tableau_titre": {
-        "id": 0,
-        "type" : "tableau_titre",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "texte": {
-        "id": 0,
-        "type" : "texte",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "nom": "Nouveau theme!",
-    "id": 1,
-    "tableau_texte": {
-        "id": 0,
-        "type" : "tableau_texte",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "titre": {
-        "id": 0,
-        "type" : "titre",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    },
-    "sous_titre": {
-        "id": 0,
-        "type" : "sous_titre",
-        "bordure": {
-            "couleur": "#FFFFFF",
-            "style": "solid",
-            "taille": "0px",
-            "id": 7
-        }
-    }
-}
+
+
 #fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
 #fenetre_repas.id_theme = 2
 # s.delete(s.query(Zone).filter(Zone.id == 3).one())
@@ -155,9 +99,7 @@ for zone in test['zones']:
 # test['zones'].append(new_zone_base)
 
 
-# fw = open('workfile', 'w')
 
-# fw.write(json.dumps(test, indent=4, separators=(',', ': ')))
 
 #fenetre.deserialiser_de_json(s, test)
 

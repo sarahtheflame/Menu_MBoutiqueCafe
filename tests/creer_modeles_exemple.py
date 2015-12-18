@@ -6,7 +6,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
 Base.metadata.create_all(engine)
 
 session = sessionmaker(bind=engine)
