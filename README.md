@@ -34,3 +34,7 @@ https://www.python.org/downloads/release/python-340/.
 3. Dans le répertoire racine du projet, ouvrez le répertoire 'src', puis ouvrez le répertoire 'data'.
 4. À l'aide d'SQLite3, ouvrez la base de données 'Database.db'.
 5. À l'aide de commande SQLite, vous serez en mesure de voir que des données on été ajouté à la base de données.
+
+##Exemple de script : 
+1. Dans le répertoire racine du projet (où ce trouve ce readme), ouvrez le dossier 'tests'.
+2. Lancez les fichiers 'exemple1.py', 'exemple2.py', 'exemple3.py' avec l'interpéteur Python (exemple : 'python exemple1.py')
