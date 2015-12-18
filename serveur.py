@@ -19,7 +19,7 @@ app = Bottle()
 @app.route('/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
     """
-        Function associée à une route dynamique qui retourne le fichier statique de type 'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -29,7 +29,7 @@ def javascripts(filename):
 @app.route('/<filename:re:.*\.css>')
 def stylesheets(filename):
     """
-        Function associée à une route dynamique qui retourne le fichier statique de type 'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -39,7 +39,7 @@ def stylesheets(filename):
 @app.route('/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
 def images(filename):
     """
-        Function associée à une route dynamique qui retourne le fichier statique de type 'images' s'il existe dans le répertoire '<<appPath>>/src/images'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' s'il existe dans le répertoire '<<appPath>>/src/images'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -49,7 +49,7 @@ def images(filename):
 @app.route('/<filename:re:.*\.(mp4)>')
 def videos(filename):
     """
-        Function associée à une route dynamique qui retourne le fichier statique de type 'videos' s'il existe dans le répertoire '<<appPath>>/src/videos'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' s'il existe dans le répertoire '<<appPath>>/src/videos'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -59,7 +59,7 @@ def videos(filename):
 @app.route('/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
     """
-        Function associée à une route dynamique qui retourne le fichier statique de type 'fonts' s'il existe dans le répertoire '<<appPath>>/src/fonts'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' s'il existe dans le répertoire '<<appPath>>/src/fonts'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -78,7 +78,7 @@ def main():
 @app.error(404)
 def notFound(error):
     """
-        Function associée à une route inconnue au système (Erreur 404).
+        Fonction associée à une route inconnue au système (Erreur 404).
 
         Argument(s) :
             error (?) : ---
