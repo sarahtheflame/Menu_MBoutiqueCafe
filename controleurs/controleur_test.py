@@ -9,15 +9,16 @@
 
 from controleur_donnees import *
 
-class ControleurTest:
+class ControleurTest(ControleurDonnees):
     """
 
     """
-    def __init__(ControleurDonnees):
+    def __init__(self, a_session):
         """
         
         """
-        self.fenetre = session.query(Fenetre).filter(Fenetre.id == 1).one()
+        ControleurDonnees.__init__(self, a_session)
+        self.fenetre = self.session.query(Fenetre).filter(Fenetre.id == 1).one()
 
     def generer_json(self):
         return self.fenetre.serialiser_en_json()
