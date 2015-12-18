@@ -27,7 +27,7 @@ https://www.python.org/downloads/release/python-340/.
 ###SQLite3 :
 1. Installez la version qui correspond à votre système d'exploitation grâce au lien suivant : https://www.sqlite.org/download.html.
 
-##Utilisation :
+##Comment générer les données de la base de données :
 
 1. Dans le répertoire racine du projet (où se trouve ce readme), ouvrez le dossier 'tests'.
 2. Lancez le fichier 'creer_modeles_exemple.py' avec l'interpréteur python (commande : 'python creer_modeles_exemple.py').
@@ -35,6 +35,9 @@ https://www.python.org/downloads/release/python-340/.
 4. À l'aide d'SQLite3, ouvrez la base de données 'database.db'.
 5. À l'aide de commande SQLite, vous serez en mesure de voir que des données ont été ajoutées à la base de données.
 
-##Exemple de script : 
+##Quelques exemples : 
 1. Dans le répertoire racine du projet (où se trouve ce readme), ouvrez le dossier 'tests'.
 2. Lancez les fichiers 'exemple1.py', 'exemple2.py', 'exemple3.py' et 'exemple4.py' avec l'interpéteur Python (exemple : 'python exemple1.py')
+
+#NOTE : 
+Puisque nous sommes en train d'effectuer la division des modèles en modules séparés, nous avons créé un fichier nommé 'modeles_temporaire.py' afin de démontrer les fonctionnalités implémentées.
