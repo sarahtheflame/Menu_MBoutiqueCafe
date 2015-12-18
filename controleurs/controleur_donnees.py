@@ -15,7 +15,7 @@ class ControleurDonnees:
         """
         
         """
-        self.session = a_session
+        self.test = "bonjour"
 
     def generer_json(self):
         pass
