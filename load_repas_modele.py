@@ -1,17 +1,34 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from modeles import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+from modeles.media import *
+from modeles.image import *
+from modeles.video import *
+from modeles.bordure import *
+from modeles.style import *
+from modeles.theme import *
+from modeles.fenetre import *
+from modeles.periode import *
+from modeles.zone import *
+from modeles.zone_base import *
+from modeles.zone_image import *
+from modeles.zone_video import *
+from modeles.zone_table import *
+from modeles.ligne import *
+from modeles.cellule import *
+from modeles.administrateur import *
+
 engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
-Base.metadata.create_all(engine)
 
 session = sessionmaker(bind=engine)
 
 s = session()
+
+s.commit()
 
 theme_1 = Theme(
     nom='theme principal',

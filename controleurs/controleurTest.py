@@ -9,9 +9,6 @@
 
 from controleurDonnees import *
 
-session = sessionmaker(bind=create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True))
-s = session()
-
 class ControleurTest:
     """
 

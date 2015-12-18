@@ -7,8 +7,8 @@
     Date : 10-12-2015
 """
 
-from style import *
-from zone_table import *
+from modeles.style import *
+from modeles.zone_table import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base

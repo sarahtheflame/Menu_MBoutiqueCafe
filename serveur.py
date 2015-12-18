@@ -12,7 +12,6 @@ __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 import json
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
 from os.path import join, dirname, isfile
-from controleurs.controleurTest import *
 from modeles import *
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
@@ -20,7 +19,7 @@ from sqlalchemy.orm import sessionmaker
 session = sessionmaker(bind=create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True))
 s = session()
 
-controleur_test = ControleurTest(s)
+test = s.query(fenetre.Fenetre).filter(fenetre.Fenetre.id == 1).one()
 
 appPath = dirname(__file__)
 

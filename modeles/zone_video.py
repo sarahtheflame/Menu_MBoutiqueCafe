@@ -7,8 +7,8 @@
     Date : 10-12-2015
 """
 
-from zone import *
-from video import *
+from modeles.zone import *
+from modeles.video import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
