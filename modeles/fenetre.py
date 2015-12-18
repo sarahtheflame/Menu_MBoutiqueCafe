@@ -6,6 +6,7 @@
     Fait par : Daniel-Junior Dubé et Sarah Laflamme
     Date : 10-12-2015
 """
+__author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 from theme import *
 from image import *

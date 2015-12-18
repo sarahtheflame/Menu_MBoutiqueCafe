@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+"""
+    Création d'objets dans la base de données servant d'exemples
+    Fait par : Daniel-Junior Dubé et Sarah Laflamme
+    Date : 10-12-2015
+"""
+__author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
+
 from modeles_temporaires import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
