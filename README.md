@@ -1,31 +1,31 @@
 
 #Système de gestion d'affichage de menu
 
-
+Par : Daniel-Junior Dubé et Sarah Laflamme
 
 ###Voici les dépendances et comment les installer
 
-- Python 3.4 avec PIP
+- Python 3.4 avec pip
 - Bottle (librairie python)
 - SQLAlchemy (librairie python)
 - SQLite3
 
 ##Installation
 
-###Python : 
-1. Téléchargez et suivez les indications de l'interpréteur suivant : 
-https://www.python.org/downloads/release/python-340/.
+###Python 3.4 : 
+1. Téléchargez et installer l'interpréteur suivant à l'aide du site officiel : 
+https://www.python.org/downloads/release/python-340/
 
 ###Bottle :
 1. Ouvrez une invite de commande en tant qu'administrateur.
 2. Lancez la commande suivante : pip install Bottle.
 
 ###SQLAlchemy :
-1. Ouvrez une invite de commande en administrateur.
+1. Ouvrez une invite de commande en tant qu'administrateur.
 2. Lancez la commande suivante : pip install SQLAlchemy.
 
 ###SQLite3 :
-1. Installez la version qui correspond à votre système d'exploitation grâce au lien suivant : https://www.sqlite.org/download.html.
+1. Installez la version qui correspond à votre système d'exploitation grâce au lien suivant : https://www.sqlite.org/download.html
 
 ##Comment lancer le serveur :
 
@@ -44,5 +44,5 @@ https://www.python.org/downloads/release/python-340/.
 1. Dans le répertoire racine du projet (où se trouve ce readme), ouvrez le dossier 'tests'.
 2. Lancez les fichiers 'exemple1.py', 'exemple2.py', 'exemple3.py' et 'exemple4.py' avec l'interpéteur Python (exemple : 'python exemple1.py')
 
-#NOTE : 
+#NOTE IMPORTANTE : 
 Puisque nous sommes en train d'effectuer la division des modèles en modules séparés, nous avons créé un fichier nommé 'modeles_temporaire.py' afin de démontrer les fonctionnalités implémentées.
