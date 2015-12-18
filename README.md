@@ -12,17 +12,17 @@
 
 ##Installation de :
 
-**Python** : 
+###Python : 
 1. téléchargez et suivez les indications de l'interpréteur suivant : 
 https://www.python.org/downloads/release/python-340/
 
-**Bottle** :
+###Bottle :
 1. Ouvrez une invite de commande en administrateur
 2. Lancez la commande suivante : pip install Bottle
 
-**SQLAlchemy** :
+###SQLAlchemy :
 1. Ouvrez une invite de commande en administrateur
 2. Lancez la commande suivante : pip install SQLAlchemy
 
-**SQLite3** :
+###SQLite3 :
 1 - Installer la version qui convient avec votre système d'exploitation grâce au lien suivant : https://www.sqlite.org/download.html
