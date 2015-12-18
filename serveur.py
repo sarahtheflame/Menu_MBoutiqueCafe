@@ -1,57 +1,90 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+"""
+    Fichier principal du projet. Définition des routes du serveur.
+    Fait par : Daniel-Junior Dubé et Sarah Laflamme
+    Date : 10-12-2015
+"""
+
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from bottle import Bottle, route, run, request, response, template, static_file, abort, get, post, parse_auth
+from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
 from os.path import join, dirname, isfile
 
 appPath = dirname(__file__)
 
-# Static Routes
-@route('/<filename:re:.*\.(js|json)>')
+app = Bottle()
+
+@app.route('/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
+    """
+        Function associée à une route dynamique qui retourne le fichier statique de type 'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
     return static_file(filename, root=join(appPath, 'src', 'js'))
 
-@route('/<filename:re:.*\.css>')
+@app.route('/<filename:re:.*\.css>')
 def stylesheets(filename):
+    """
+        Function associée à une route dynamique qui retourne le fichier statique de type 'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
     return static_file(filename, root=join(appPath, 'src', 'css'))
 
-@route('/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
+@app.route('/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
 def images(filename):
+    """
+        Function associée à une route dynamique qui retourne le fichier statique de type 'images' s'il existe dans le répertoire '<<appPath>>/src/images'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
     return static_file(filename, root=join(appPath, 'src', 'images'))
 
-@route('/<filename:re:.*\.(mp4)>')
+@app.route('/<filename:re:.*\.(mp4)>')
 def videos(filename):
+    """
+        Function associée à une route dynamique qui retourne le fichier statique de type 'videos' s'il existe dans le répertoire '<<appPath>>/src/videos'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
     return static_file(filename, root=join(appPath, 'src', 'videos'))
 
-@route('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+@app.route('/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
+    """
+        Function associée à une route dynamique qui retourne le fichier statique de type 'fonts' s'il existe dans le répertoire '<<appPath>>/src/fonts'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
     return static_file(filename, root=join(appPath, 'src', 'fonts'))
     
 # Main Route
-
-@route('/')
-
+@app.route('/')
 def main():
     return "Main Page"
 
-@route('/repas')
+@app.route('/repas')
 def main():
     return template(join(appPath, 'base_repas.html'))
 
-@route('/cafe')
-def main():
-    return template(join(appPath, 'base_cafe.html'))
+@app.error(404)
+def notFound(error):
+    """
+        Function associée à une route inconnue au système (Erreur 404).
 
-@route('/dessert')
-def main():
-    return template(join(appPath, 'base_dessert.html'))
+        Argument(s) :
+            error (?) : ---
+    """
+    return 'Erreur 404'
 
-@route('/titre')
-def main():
-    return template(join(appPath, 'base_titre.html'))
 
-        
 if __name__ == "__main__":
-    run(host='0.0.0.0', port=8080, debug=True)
+    run(app, host='0.0.0.0', port=80, debug=True)

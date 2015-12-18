@@ -26,7 +26,7 @@ class Style(Base):
             police (String) : Attribut CSS de la police d'écriture (ex: "'KaushanScript', cursive").
             couleur (String) : Attribut CSS de la couleur du texte (ex: "#FFFFFF").
             taille (String) : Attribut CSS de la taille du texte (ex: "4vw").
-            fond (String) : Attribut CSS de la couleur et de l'opacité du fond 
+            couleur_fond (String) : Attribut CSS de la couleur et de l'opacité du fond 
                 (ex: "rgba(0, 0, 0, 0.8)").
             gras (String) : Attribut CSS indiquant si le texte est en gras 
                 (valeurs : normal|bold|bolder|lighter|'integer'|initial|inherit).
@@ -46,8 +46,7 @@ class Style(Base):
     police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
     taille = Column(Integer, default='1.5vw')
-    couleur_fond = Column(String(250), default='#FFFFFF')
-    opacite_fond = Column(String, default='0')
+    couleur_fond = Column(String(250), default='rgba(0, 0, 0, 0.8)')
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
     soulignement = Column(String(250), default='none')
