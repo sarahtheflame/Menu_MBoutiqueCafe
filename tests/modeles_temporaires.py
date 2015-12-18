@@ -1,6 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+"""
+    Définition des classes de modèles. (Sera divisé en plusieurs fichiers éventuellement)
+    Fait par : Daniel-Junior Dubé et Sarah Laflamme
+    Date : 10-12-2015
+"""
+
 import datetime
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
