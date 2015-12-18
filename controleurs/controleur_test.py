@@ -2,15 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-    Définition de la classe 'ControlleurTest'. Fait partie du paquet des controlleurs.
+    Définition de la classe 'ControleurTest'. Fait partie du paquet des controleurs.
     Fait par : Daniel-Junior Dubé et Sarah Laflamme
     Date : 15-12-2015
 """
 
-from controleurDonnees import *
-
-session = sessionmaker(bind=create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True))
-s = session()
+from controleur_donnees import *
 
 class ControleurTest:
     """
