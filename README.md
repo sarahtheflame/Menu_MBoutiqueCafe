@@ -27,6 +27,11 @@ https://www.python.org/downloads/release/python-340/.
 ###SQLite3 :
 1. Installez la version qui correspond à votre système d'exploitation grâce au lien suivant : https://www.sqlite.org/download.html.
 
+##Comment lancer le serveur :
+
+1. Dans le répertoire racine du projet (où se trouve ce readme), lancez le fichier 'serveur.py' avec l'interpréteur python (commande : 'python creer_modeles_exemple.py').
+3. À l'aide d'un navigateur web, dirigez-vous vers l'URL 'localhost/', vous devriez voir la phrase 'Page d'exemple!' apparaître.
+
 ##Comment générer les données de la base de données :
 
 1. Dans le répertoire racine du projet (où se trouve ce readme), ouvrez le dossier 'tests'.

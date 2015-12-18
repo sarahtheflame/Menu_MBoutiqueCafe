@@ -13,14 +13,14 @@ import json
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
 from os.path import join, dirname, isfile
 
-appPath = dirname(__file__)
-
-app = Bottle()
+appPath = dirname(__file__) # Représente le chemin vers le répertoire racine du système.
+app = Bottle() # Représente l'application qui gère les routes de notre système.
 
 @app.route('/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
     """
-        Fonction associée à une route dynamique qui retourne le fichier statique de type 'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 
+        'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -30,7 +30,8 @@ def javascripts(filename):
 @app.route('/<filename:re:.*\.css>')
 def stylesheets(filename):
     """
-        Fonction associée à une route dynamique qui retourne le fichier statique de type 'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 
+        'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -40,7 +41,8 @@ def stylesheets(filename):
 @app.route('/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
 def images(filename):
     """
-        Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' s'il existe dans le répertoire '<<appPath>>/src/images'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' 
+        s'il existe dans le répertoire '<<appPath>>/src/images'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -50,7 +52,8 @@ def images(filename):
 @app.route('/<filename:re:.*\.(mp4)>')
 def videos(filename):
     """
-        Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' s'il existe dans le répertoire '<<appPath>>/src/videos'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' 
+        s'il existe dans le répertoire '<<appPath>>/src/videos'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
@@ -60,21 +63,20 @@ def videos(filename):
 @app.route('/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
     """
-        Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' s'il existe dans le répertoire '<<appPath>>/src/fonts'.
+        Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' 
+        s'il existe dans le répertoire '<<appPath>>/src/fonts'.
 
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
     return static_file(filename, root=join(appPath, 'src', 'fonts'))
     
-# Main Route
 @app.route('/')
 def main():
-    return "Main Page"
-
-@app.route('/repas')
-def main():
-    return template(join(appPath, 'base_repas.html'))
+    """
+        Exemple de route fonctionnelle.
+    """
+    return "Page d'exemple!"
 
 @app.error(404)
 def notFound(error):
@@ -86,6 +88,9 @@ def notFound(error):
     """
     return 'Erreur 404'
 
-
+"""
+    Lancement de l'application 'app' sur le port '80' de l'hébergeur '0.0.0.0' (localhost) en mode 
+    'debug'.
+"""
 if __name__ == "__main__":
     run(app, host='0.0.0.0', port=80, debug=True)
