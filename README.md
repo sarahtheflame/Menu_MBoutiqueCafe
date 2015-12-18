@@ -29,7 +29,7 @@ https://www.python.org/downloads/release/python-340/.
 
 ##Comment lancer le serveur :
 
-1. Dans le répertoire racine du projet (où se trouve ce readme), lancez le fichier 'serveur.py' avec l'interpréteur python (commande : 'python creer_modeles_exemple.py').
+1. Dans le répertoire racine du projet (où se trouve ce readme), lancez le fichier 'serveur.py' avec l'interpréteur python (commande : 'python serveur.py').
 3. À l'aide d'un navigateur web, dirigez-vous vers l'URL 'localhost/', vous devriez voir la phrase 'Page d'exemple!' apparaître.
 
 ##Comment générer les données de la base de données :
