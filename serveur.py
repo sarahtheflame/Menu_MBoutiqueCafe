@@ -12,13 +12,22 @@ __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 import json
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
 from os.path import join, dirname, isfile
+# from controleur_affichage import *
+# from modeles import *
 
 appPath = dirname(__file__) # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
 
+# # DATABASE ENGINE
+# engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+# session = sessionmaker(bind=engine)
+# s = session()
+
+# # CONTROLEURS
+# c_affichage = ControleurAffichage()
 
 @app.route('/<filename>')
-def views(filename):
+def gestion(filename):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
@@ -26,7 +35,29 @@ def views(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return template(join(appPath, 'src', 'views', filename + '.html'))
+    path = join(appPath, 'src', 'views', 'base_gestion.html')
+    data = {
+        'titre' : filename,
+        'path' : path
+    }
+    return template(join(appPath, 'src', 'views', filename + '.html'), data)
+
+# @app.route('/a/<filename>')
+# def affichage(filename):
+#     """
+#         Fonction associée à une route dynamique qui retourne le 'template' de type 
+#         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+#         Argument(s) :
+#             filename (String) : Nom du fichier entrée dans l'URL
+#     """
+#     menu = c_affichage.generer_json(s, 'fenetre_repas')
+#     data = {
+#         'titre' : filename,
+#         'path' : path,
+#         'menu' : menu
+#     }
+#     return template(join(appPath, 'src', 'views', filename + '.html'), data)
 
 @app.route('/src/<filename:re:.*\.(js|json)>')
 def javascripts(filename):

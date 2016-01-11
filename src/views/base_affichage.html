@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- HTML BASE DOCUMENT -->
+
+<HTML lang="fr">
+    <HEAD>
+        <meta charset="utf-8">
+
+        <title>{{!titre}}</title>
+
+        <meta name="decription" content="Ceci est le 'template' web pour un menu de restaurant.">
+        <meta name="auteur" content="Daniel-Junior Dubé et Sarah Laflamme">
+
+        <link rel="stylesheet" href="/src/bootstrap.min.css">
+        <link rel="stylesheet" href="/src/affichage.css">
+
+        <!-- interact-1.2.5.min.JS -->
+        <script type='text/javascript' src='/src/interact-1.2.5.min.js'></script>
+        <!-- interactApp.JS -->
+        <script type='text/javascript' src='/src/interactApp.js'></script>
+
+        <!-- Jquery.min.JS -->
+        <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
+
+        <!-- knockout.min.JS -->
+        <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
+
+        <!-- knockout.min.JS -->
+        <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
+
+        <!-- KnockoutApp.JS -->
+        <script type='text/javascript' defer="defer">
+            menu_texte = {{!menu}};
+            menu_json = JSON.parse(menu_texte);
+            var viewModel = ko.mapping.fromJS(menu_json);
+            ko.applyBindings(viewModel);
+        </script>
+
+    </HEAD>
+    {{ name }}
+    <BODY data-bind="attr: { 'background': fond() }">
+        <div class="interact-container" data-bind="foreach: zones">
+            
+                <!-- ko if: type() === "ZoneBase" -->
+                <div class="boite_flottante" id="entete" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur() }">
+                    <div id="titre" data-bind="text: contenu"></div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: type() === "ZoneImage" -->
+                <div class="boite_flottante" id="media" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur(), background : rgb(0,0,0) }">
+                    <img data-bind="attr: { 'src': image.chemin_fichier() }">
+                </div>
+                <!-- /ko -->
+                <!-- ko if: type() === "ZoneVideo" -->
+                <div class="boite_flottante" id="media" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur() }">
+                    <video width="100%" height="100%" muted autoplay loop>
+                        <source data-bind="attr: { 'src': video.chemin_fichier() }" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <!-- /ko -->
+        </div>
+    </BODY>
+</html>

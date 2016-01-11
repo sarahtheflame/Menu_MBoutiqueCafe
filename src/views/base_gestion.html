@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<!-- HTML BASE DOCUMENT -->
+
+<HTML>
+  <HEAD>
+    <title>test</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Hege Refsnes">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("input").click(function(){
+            $("#content").toggleClass("visible");
+        });
+      });
+          
+    </script>
+    <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/accueil.css">
+  </HEAD>
+  <BODY>
+    <div id="sidebar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Project</a></li>
+        <li><a href="#">Other</a></li>
+        <li><a href="#">Other</a></li>
+        <li><a href="#">Other</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      {{!base}}
+    </div>
+  </BODY>
+</HTML>
