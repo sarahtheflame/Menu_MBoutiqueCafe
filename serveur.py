@@ -16,7 +16,19 @@ from os.path import join, dirname, isfile
 appPath = dirname(__file__) # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
 
-@app.route('/<filename:re:.*\.(js|json)>')
+
+@app.route('/<filename>')
+def views(filename):
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
+    return template(join(appPath, 'src', 'views', filename + '.html'))
+
+@app.route('/src/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
@@ -27,7 +39,7 @@ def javascripts(filename):
     """
     return static_file(filename, root=join(appPath, 'src', 'js'))
 
-@app.route('/<filename:re:.*\.css>')
+@app.route('/src/<filename:re:.*\.css>')
 def stylesheets(filename):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
@@ -38,7 +50,7 @@ def stylesheets(filename):
     """
     return static_file(filename, root=join(appPath, 'src', 'css'))
 
-@app.route('/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
+@app.route('/src/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
 def images(filename):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' 
@@ -49,7 +61,7 @@ def images(filename):
     """
     return static_file(filename, root=join(appPath, 'src', 'images'))
 
-@app.route('/<filename:re:.*\.(mp4)>')
+@app.route('/src/<filename:re:.*\.(mp4)>')
 def videos(filename):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' 
@@ -60,7 +72,7 @@ def videos(filename):
     """
     return static_file(filename, root=join(appPath, 'src', 'videos'))
 
-@app.route('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+@app.route('/src/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' 
