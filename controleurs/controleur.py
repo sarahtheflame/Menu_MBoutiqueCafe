@@ -52,9 +52,7 @@ def get_medias(s):
     return resultats
 
 def get_modifier_theme(s, id_theme):
-    resultats = { 
-        'theme' : ''
-    }
+    resultats = { 'theme' : '' }
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
     return resultats
 
@@ -77,39 +75,77 @@ def get_lister_periodes(s):
     return resultats
 
 def get_modifier_zone_image(s, id_zone):
-    resultats = { 
-        'zone_image' : ''
-    }
+    resultats = { 'zone_image' : '' }
     resultats['zone_image'] = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one().serialiser_en_json()
     return resultats
 
 def get_modifier_zone_video(s, id_zone):
-    resultats = { 
-        'zone_video' : ''
-    }
+    resultats = { 'zone_video' : '' }
     resultats['zone_video'] = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one().serialiser_en_json()
     return resultats
 
 def get_modifier_zone_table(s, id_zone):
-    resultats = { 
-        'zone_table' : ''
-    }
+    resultats = { 'zone_table' : '' }
     resultats['zone_table'] = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one().serialiser_en_json()
     return resultats
 
 def get_modifier_zone_base(s, id_zone):
-    resultats = { 
-        'zone_base' : ''
-    }
+    resultats = { 'zone_base' : '' }
     resultats['zone_base'] = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one().serialiser_en_json()
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 
-        'fenetre' : ''
-    }
+    resultats = { 'fenetre' : '' }
     resultats['fenetre'] = s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     return resultats
+
+def post_lister_fenetres(s, data):
+    for fenetre in data['fenetres']:
+        if fenetre['id'] == 0:
+            nouvelle_fenetre = Fenetre()
+            nouvelle_fenetre.deserialiser_de_json(s, fenetre)
+            s.add(nouvelle_fenetre)
+        else if fenetre['id'] > 0:
+            s.query(Fenetre).filter(Fenetre.id == fenetre['id']).one().deserialiser_de_json(s, fenetre)
+        else if fenetre['id'] < 0:
+            s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())
+    return True
+
+def post_medias(s, data):
+    for media in data['medias']:
+        if media['id'] == 0:
+            nouveau_media = Media()
+            nouveau_media.deserialiser_de_json(s, media)
+            s.add(nouveau_media)
+        else if media['id'] > 0:
+            s.query(Media).filter(Media.id == media['id']).one().deserialiser_de_json(s, media)
+        else if media['id'] < 0:
+            s.delete(s.query(Media).filter(Media.id == -media['id']).one())
+    return True
+
+def post_modifier_theme(s, data):
+    theme = data['theme']
+    if theme['id'] == 0:
+        nouveau_theme = Theme()
+        nouveau_theme.deserialiser_de_json(s, theme)
+        s.add(nouveau_theme)
+    else if theme['id'] > 0:
+        s.query(Theme).filter(Theme.id == theme['id']).one().deserialiser_de_json(s, theme)
+    else if theme['id'] < 0:
+        s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
+    return True
+
+def post_lister_themes(s, data):
+    for theme in data['themes']:
+        if theme['id'] == 0:
+            nouveau_theme = Theme()
+            nouveau_theme.deserialiser_de_json(s, theme)
+            s.add(nouveau_theme)
+        else if theme['id'] > 0:
+            s.query(Theme).filter(Theme.id == theme['id']).one().deserialiser_de_json(s, theme)
+        else if theme['id'] < 0:
+            s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
+    return True
 
 data = get_gestion(s, {'nom_vue' : 'modifier_theme', 'id' : '1'})
 print(json.dumps(data, indent=4, separators=(',', ': ')))
