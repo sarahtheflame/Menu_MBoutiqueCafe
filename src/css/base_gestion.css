@@ -158,4 +158,29 @@ body {
     padding: 20px;
 }
 
+/* LISTES */
+
+.panel-group .panel {
+    margin: 20px 0px;
+}
+
+.panel-default>.panel-heading {
+    background-color: 
+}
+
+.panel-title {
+
+}
+
+.badge {
+    border-radius: 6px;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.panel-collapse ul li:last-child {
+    background-color: #EFEFEF;
+}
+
 
