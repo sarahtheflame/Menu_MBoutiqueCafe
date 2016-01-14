@@ -11,22 +11,41 @@ __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 import json
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
-from os.path import join, dirname, isfile
+from os.path import join, dirname, isfile, abspath
 # from controleur_affichage import *
-# from modeles import *
+from modeles_temporaires import *
 
-appPath = dirname(__file__) # Représente le chemin vers le répertoire racine du système.
+appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
+print(appPath)
+# --- testing ---
+from bottle import HTTPError
+from bottle.ext import sqlalchemy
+from sqlalchemy import create_engine, Column, Integer, Sequence, String
+from sqlalchemy.ext.declarative import declarative_base
 
-# # DATABASE ENGINE
+Base = declarative_base()
+engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+
+plugin = sqlalchemy.Plugin(
+    engine, # SQLAlchemy engine created with create_engine function.
+    keyword='db', # Keyword used to inject session database in a route (default 'db').
+    commit=True, # If it is true, plugin commit changes after route is executed (default True).
+    use_kwargs=False # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
+)
+app.install(plugin)
+# --- testing-end --- 
+
+
+# DATABASE ENGINE
 # engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 # session = sessionmaker(bind=engine)
 # s = session()
 
-# # CONTROLEURS
+# CONTROLEURS
 # c_affichage = ControleurAffichage()
 
-@app.route('/<filename>')
+@app.route('/g/<filename>')
 def gestion(filename):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
@@ -35,30 +54,29 @@ def gestion(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    path = join(appPath, 'src', 'views', 'base_gestion.html')
+    path = "src\\views\\base_gestion.html"
     data = {
         'titre' : filename,
         'path' : path
     }
-    print(path)
-    return template(join(appPath, 'src', 'views', filename + '.html'), data)
 
-# @app.route('/a/<filename>')
-# def affichage(filename):
-#     """
-#         Fonction associée à une route dynamique qui retourne le 'template' de type 
-#         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+    return template("src\\views\\"+filename+".html", data)
 
-#         Argument(s) :
-#             filename (String) : Nom du fichier entrée dans l'URL
-#     """
-#     menu = c_affichage.generer_json(s, 'fenetre_repas')
-#     data = {
-#         'titre' : filename,
-#         'path' : path,
-#         'menu' : menu
-#     }
-#     return template(join(appPath, 'src', 'views', filename + '.html'), data)
+@app.route('/a/<nom_fenetre>')
+def affichage(nom_fenetre, db):
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            filename (String) : Nom du fichier entrée dans l'URL
+    """
+    menu = db.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
+    data = {
+        'titre' : nom_fenetre,
+        'menu' : menu
+    }
+    return template('src\\views\\base_affichage.html', data)
 
 @app.route('/src/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
@@ -69,7 +87,7 @@ def javascripts(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root=join(appPath, 'src', 'js'))
+    return static_file(filename, root="src\\js")
 
 @app.route('/src/<filename:re:.*\.css>')
 def stylesheets(filename):
@@ -80,7 +98,8 @@ def stylesheets(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root=join(appPath, 'src', 'css'))
+    print("ok")
+    return static_file(filename, root="src\\css")
 
 @app.route('/src/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
 def images(filename):
@@ -91,7 +110,7 @@ def images(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root=join(appPath, 'src', 'images'))
+    return static_file(filename, root="src\\images")
 
 @app.route('/src/<filename:re:.*\.(mp4)>')
 def videos(filename):
@@ -102,7 +121,7 @@ def videos(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root=join(appPath, 'src', 'videos'))
+    return static_file(filename, root="src\\videos")
 
 @app.route('/src/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
@@ -113,7 +132,7 @@ def fonts(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root=join(appPath, 'src', 'fonts'))
+    return static_file(filename, root="src\\fonts")
     
 @app.route('/')
 def main():

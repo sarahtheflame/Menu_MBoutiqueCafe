@@ -1,0 +1,10 @@
+
+|---------------- TODO ----------------|
+    [  ] - need to fix : packages
+    [  ] - need to fix : module imports
+    [  ] - need to fix : controllers
+
+|---------------- NOTES ----------------|
+
+    - Installed (pip) bottle-sqlalchemy
+    - 
