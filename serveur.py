@@ -10,19 +10,16 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 import json
-from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth
+from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
+from bottle.ext import sqlalchemy
+from sqlalchemy import create_engine, Column, Integer, Sequence, String
+from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
 # from controleur_affichage import *
 from modeles_temporaires import *
 
 appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
-print(appPath)
-# --- testing ---
-from bottle import HTTPError
-from bottle.ext import sqlalchemy
-from sqlalchemy import create_engine, Column, Integer, Sequence, String
-from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
@@ -34,16 +31,6 @@ plugin = sqlalchemy.Plugin(
     use_kwargs=False # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
 )
 app.install(plugin)
-# --- testing-end --- 
-
-
-# DATABASE ENGINE
-# engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
-# session = sessionmaker(bind=engine)
-# s = session()
-
-# CONTROLEURS
-# c_affichage = ControleurAffichage()
 
 @app.route('/g/<filename>')
 def gestion(filename):
@@ -59,7 +46,6 @@ def gestion(filename):
         'titre' : filename,
         'path' : path
     }
-
     return template("src\\views\\"+filename+".html", data)
 
 @app.route('/a/<nom_fenetre>')
