@@ -129,14 +129,11 @@ body {
     width: 100vw;
     height: 100vh;
     float: right;
-    word-wrap: break-word;
-    margin: 100px;
-    margin: 0;
     margin-top: 50px;
-    padding: 30px 60px;
+    word-wrap: break-word;
     background: #fff;
     transition: width 0.2s;
-    overflow: auto; 
+    overflow: hidden; 
 }
 
 #content.show_sidebar {
@@ -144,6 +141,9 @@ body {
     transition: width 0.2s;
 }
 
+#content .entete {
+    padding: 10px 25px;
+}
 
 #content h1 {
     display: inline-block;
@@ -159,7 +159,11 @@ body {
 }
 
 /* LISTES */
-
+.panel-group {
+    height: 72vh;
+    overflow: auto;
+    padding: 0px 25px;
+}
 .panel-group .panel {
     margin: 20px 0px;
 }

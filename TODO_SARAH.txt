@@ -1,0 +1,8 @@
+BASE_GESTION : 
+- bouton toggle_sidebar (changer état quand ouvert ou fermé)
+- btn_default : changer background-color quand :active
+- séparer css content
+
+LISTE FENÊTRES : 
+- ajouter sélection du thème dans l'entête de chaque fenêtre
+- haut fixe avec option « nouvelle fenêtre »
