@@ -41,12 +41,12 @@ def gestion(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    path = "src\\views\\base_gestion.html"
+    path = "src\\views\\gestion\\base_gestion.html"
     data = {
         'titre' : filename,
         'path' : path
     }
-    return template("src\\views\\"+filename+".html", data)
+    return template("src\\views\\gestion\\"+filename+".html", data)
 
 @app.route('/a/<nom_fenetre>')
 def affichage(nom_fenetre, db):
@@ -62,7 +62,7 @@ def affichage(nom_fenetre, db):
         'titre' : nom_fenetre,
         'menu' : menu
     }
-    return template('src\\views\\base_affichage.html', data)
+    return template('src\\views\\affichage\\base_affichage.html', data)
 
 @app.route('/src/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
