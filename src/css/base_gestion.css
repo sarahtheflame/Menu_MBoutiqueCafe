@@ -36,13 +36,14 @@ body {
 
 #header .toggle_sidebar {
     width: 6vh;
-    height:;
     text-align: center;
 }
 
-#header .toggle_sidebar .btn-primary {
-    font-size: 18px;
+#header .toggle_sidebar span {
     text-align: center;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
 }
 
 #header .logo {
@@ -61,32 +62,32 @@ body {
 
 #header .colonne {
     display: table-cell;
-    vertical-align: middle;
     float: none;
+    vertical-align: middle;
 }
 
 /* SIDEBAR */
 
 #sidebar {
-    margin:0;
-    font-size: 16px;
-    background: #444444;
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 45px;
+    float: left;
     width: 14vw;
     min-width: 10vw;
     height: 100vh;
-    display: block;
-    position: fixed;
-    float: left;
-    left: 0px;
-    top: 45px;
+    margin:0;
+    font-size: 16px;
+    background: #444444;
     padding: 10px;  
 }
 
 #sidebar ul {
+    height: 80vh;
     margin: 0px;
     padding: 0px;
     overflow: auto;
-    height: 80vh;
 }
 
 #sidebar ul li {
@@ -94,10 +95,10 @@ body {
 }
 
 #sidebar ul li a {
-    color:#ccc;
     display: block;
     width: 100%;
     padding: 10px;
+    color:#ccc;
     text-decoration: none;
 }
 
@@ -111,8 +112,8 @@ body {
 }
 
 #sidebar #deconnexion {
-    height: 20vh;
     width: 100%;
+    height: 20vh;
 }
 
 #sidebar #deconnexion .bouton_deconnexion {
@@ -124,18 +125,18 @@ body {
 /* CONTENU */
 
 #content {
-    margin: 100px;
-    word-wrap: break-word;
+    position: relative;
     width: 100vw;
     height: 100vh;
+    float: right;
+    word-wrap: break-word;
+    margin: 100px;
     margin: 0;
     margin-top: 50px;
+    padding: 30px 60px;
     background: #fff;
-    position: relative;
-    float: right;
     transition: width 0.2s;
-    overflow: auto;
-    padding: 30px;
+    overflow: auto; 
 }
 
 #content.show_sidebar {
@@ -144,9 +145,42 @@ body {
 }
 
 
-/* TITRES */
-
 #content h1 {
-    padding-left: 50px;
+    display: inline-block;
+    width: 60%;
 }
+
+#content .aide {
+    display: inline-block;
+    width: 35%;
+    text-align: right;
+    vertical-align: top;
+    padding: 20px;
+}
+
+/* LISTES */
+
+.panel-group .panel {
+    margin: 20px 0px;
+}
+
+.panel-default>.panel-heading {
+    background-color: 
+}
+
+.panel-title {
+
+}
+
+.badge {
+    border-radius: 6px;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.panel-collapse ul li:last-child {
+    background-color: #EFEFEF;
+}
+
 
