@@ -40,6 +40,7 @@ def gestion(filename):
         'titre' : filename,
         'path' : path
     }
+    print(path)
     return template(join(appPath, 'src', 'views', filename + '.html'), data)
 
 # @app.route('/a/<filename>')
