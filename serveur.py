@@ -15,7 +15,7 @@ from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
-# from controleur_affichage import *
+# from controleurs import *
 from modeles_temporaires import *
 
 appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
@@ -84,7 +84,6 @@ def stylesheets(filename):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    print("ok")
     return static_file(filename, root="src\\css")
 
 @app.route('/src/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
