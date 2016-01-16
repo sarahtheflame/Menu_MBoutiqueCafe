@@ -16,28 +16,17 @@ def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
 
 def get_gestion(s, data):
-    if data['nom_vue'] == "lister_fenetres":
-        return get_lister_fenetres(s)
-    elif data['nom_vue'] == "medias":
-        return get_medias(s)
-    elif data['nom_vue'] == "themes":
-        return get_lister_themes(s)
-    elif data['nom_vue'] == "parametres":
-        return get_parametres(s)
-    elif data['nom_vue'] == "periodes":
-        return get_lister_periodes(s)
-    elif data['nom_vue'] == "modifier_zone_image":
-        return get_modifier_zone_image(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_table":
-        return get_modifier_zone_table(s, data['id'])
-    elif data['nom_vue'] == "modifier_fenetre":
-        return get_modifier_fenetre(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_base":
-        return get_modifier_zone_base(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_video":
-        return get_modifier_zone_video(s, data['id'])
-    elif data['nom_vue'] == "modifier_theme":
-        return get_modifier_theme(s, data['id'])
+    if data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
+    elif data['nom_vue'] == "medias": return get_medias(s)
+    elif data['nom_vue'] == "themes": return get_lister_themes(s)
+    elif data['nom_vue'] == "parametres": return get_parametres(s)
+    elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
+    elif data['nom_vue'] == "modifier_zone_image": return get_modifier_zone_image(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_table": return get_modifier_zone_table(s, data['id'])
+    elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_base": return get_modifier_zone_base(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_video": return get_modifier_zone_video(s, data['id'])
+    elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
 
 def get_lister_fenetres(s):
     resultats = { 'fenetres' : [] }
@@ -105,9 +94,9 @@ def post_lister_fenetres(s, data):
             nouvelle_fenetre = Fenetre()
             nouvelle_fenetre.deserialiser_de_json(s, fenetre)
             s.add(nouvelle_fenetre)
-        else if fenetre['id'] > 0:
+        elif fenetre['id'] > 0:
             s.query(Fenetre).filter(Fenetre.id == fenetre['id']).one().deserialiser_de_json(s, fenetre)
-        else if fenetre['id'] < 0:
+        elif fenetre['id'] < 0:
             s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())
     return True
 
@@ -117,9 +106,9 @@ def post_medias(s, data):
             nouveau_media = Media()
             nouveau_media.deserialiser_de_json(s, media)
             s.add(nouveau_media)
-        else if media['id'] > 0:
+        elif media['id'] > 0:
             s.query(Media).filter(Media.id == media['id']).one().deserialiser_de_json(s, media)
-        else if media['id'] < 0:
+        elif media['id'] < 0:
             s.delete(s.query(Media).filter(Media.id == -media['id']).one())
     return True
 
@@ -129,9 +118,9 @@ def post_modifier_theme(s, data):
         nouveau_theme = Theme()
         nouveau_theme.deserialiser_de_json(s, theme)
         s.add(nouveau_theme)
-    else if theme['id'] > 0:
+    elif theme['id'] > 0:
         s.query(Theme).filter(Theme.id == theme['id']).one().deserialiser_de_json(s, theme)
-    else if theme['id'] < 0:
+    elif theme['id'] < 0:
         s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
     return True
 
@@ -141,9 +130,9 @@ def post_lister_themes(s, data):
             nouveau_theme = Theme()
             nouveau_theme.deserialiser_de_json(s, theme)
             s.add(nouveau_theme)
-        else if theme['id'] > 0:
+        elif theme['id'] > 0:
             s.query(Theme).filter(Theme.id == theme['id']).one().deserialiser_de_json(s, theme)
-        else if theme['id'] < 0:
+        elif theme['id'] < 0:
             s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
     return True
 
