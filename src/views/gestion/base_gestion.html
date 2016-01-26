@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="/src/tab.ico">
     <script src="/src/jquery-2.1.4.min.js"></script>
     <script src="/src/bootstrap.js"></script>
+    <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
+    <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     <script>
       $(document).ready(function(){
         $("#toggle_sidebar").click(function(){
@@ -51,5 +53,9 @@
       </div>
     </div>
     <div id="content" class="show_sidebar">{{!base}}</div>
+    <script type='text/javascript' defer="defer">
+      var viewModel = ko.mapping.fromJS({{!data}});
+      ko.applyBindings(viewModel);
+    </script>
   </BODY>
 </HTML>

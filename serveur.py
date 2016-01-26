@@ -58,13 +58,12 @@ def gestion(filename, db):
             filename (String) : Nom du fichier entrée dans l'URL
     """
     path = "src\\views\\gestion\\base_gestion.html"
-    data = {
+    variables = {
         'titre' : filename,
         'path' : path,
         'data' : get_gestion(db, {'nom_vue' : filename})
     }
-    print(get_gestion(db, {'nom_vue' : filename}))
-    return template("src\\views\\gestion\\"+filename+".html", data)
+    return template("src\\views\\gestion\\"+filename+".html", variables)
 
 @app.route('/a/<nom_fenetre>')
 def affichage(nom_fenetre, db):
@@ -75,12 +74,12 @@ def affichage(nom_fenetre, db):
         Argument(s) :
             filename (String) : Nom du fichier entrée dans l'URL
     """
-    menu = db.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
-    data = {
+    fenetre = db.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
+    variables = {
         'titre' : nom_fenetre,
-        'menu' : menu
+        'fenetre' : fenetre
     }
-    return template('src\\views\\affichage\\base_affichage.html', data)
+    return template('src\\views\\affichage\\base_affichage.html', variables)
 
 @app.route('/src/<filename:re:.*\.(js|json)>')
 def javascripts(filename):
