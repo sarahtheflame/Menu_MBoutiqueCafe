@@ -7,11 +7,6 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from modeles_temporaires import *
 
-engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
-session = sessionmaker(bind=engine)
-
-s = session()
-
 def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
 
@@ -174,7 +169,7 @@ def post_lister_periodes(s, data):
     return True
 
 def post_modifier_zone_image(s, data):
-    zone_image = data['zone_image']:
+    zone_image = data['zone_image']
     if zone_image['id'] == 0:
         nouvelle_zone_image = ZoneImage()
         nouvelle_zone_image.deserialiser_de_json(s, zone_image)
@@ -186,7 +181,7 @@ def post_modifier_zone_image(s, data):
     return True
 
 def post_modifier_zone_video(s, data):
-    zone_video = data['zone_video']:
+    zone_video = data['zone_video']
     if zone_video['id'] == 0:
         nouvelle_zone_video = ZoneVideo()
         nouvelle_zone_video.deserialiser_de_json(s, zone_video)
@@ -198,7 +193,7 @@ def post_modifier_zone_video(s, data):
     return True
 
 def post_modifier_zone_table(s, data):
-    zone_table = data['zone_table']:
+    zone_table = data['zone_table']
     if zone_table['id'] == 0:
         nouvelle_zone_table = ZoneTable()
         nouvelle_zone_table.deserialiser_de_json(s, zone_table)
@@ -210,7 +205,7 @@ def post_modifier_zone_table(s, data):
     return True
 
 def post_modifier_zone_base(s, data):
-    zone_base = data['zone_base']:
+    zone_base = data['zone_base']
     if zone_base['id'] == 0:
         nouvelle_zone_base = ZoneBase()
         nouvelle_zone_base.deserialiser_de_json(s, zone_base)
@@ -222,7 +217,7 @@ def post_modifier_zone_base(s, data):
     return True
 
 def post_modifier_fenetre(s, data):
-    fenetre = data['fenetre']:
+    fenetre = data['fenetre']
     if fenetre['id'] == 0:
         nouvelle_fenetre = Fenetre()
         nouvelle_fenetre.deserialiser_de_json(s, fenetre)
@@ -232,10 +227,3 @@ def post_modifier_fenetre(s, data):
     elif fenetre['id'] < 0:
         s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())
     return True
-
-data = get_gestion(s, {'nom_vue' : 'modifier_theme', 'id' : '1'})
-print(json.dumps(data, indent=4, separators=(',', ': ')))
-
-# fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
-# json_fenetre = fenetre_repas.serialiser_en_json()
-# print(json.dumps(json_fenetre, indent=4, separators=(',', ': ')))
