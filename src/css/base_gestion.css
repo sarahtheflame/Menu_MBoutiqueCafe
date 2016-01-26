@@ -183,7 +183,7 @@ body {
     font-weight: normal;
     text-transform: uppercase;
 }
-.panel-collapse ul li:last-child {
+.panel-collapse > .list-group-item {
     background-color: #EFEFEF;
 }
 
