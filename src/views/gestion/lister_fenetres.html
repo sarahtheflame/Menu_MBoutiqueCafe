@@ -12,9 +12,27 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="row">
+            <div class="col-md-2">
+              <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Fenêtre #1
-        </a>
+              </a>
+            </div>
+             <div class="col-md-1">
+              <!--<label>Thème : </label>-->
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Thème
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">Thème matin</a></li>
+                  <li><a href="#">Thème midi</a></li>
+                  <li><a href="#">Thème Noël</a></li>
+                </ul> 
+              </div>
+            </div>
+        </div> 
       </h4>
     </div>
      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
