@@ -37,9 +37,11 @@ def post_gestion(s, data):
     elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['id'])
 
 def get_lister_fenetres(s):
-    resultats = { 'fenetres' : [] }
+    resultats = { 'fenetres' : [], 'themes' : [] }
     for fenetre in s.query(Fenetre).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
+    for theme in s.query(Theme).all():
+        resultats['themes'].append(theme.serialiser_en_json())    
     return resultats
 
 def get_medias(s):

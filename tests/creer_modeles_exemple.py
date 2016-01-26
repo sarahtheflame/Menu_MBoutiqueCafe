@@ -21,7 +21,7 @@ session = sessionmaker(bind=engine)
 s = session()
 
 theme_1 = Theme(
-    nom='theme principal',
+    nom='Thème principal',
     titre=Style(
         police="'KaushanScript', cursive",
         couleur="#ff7400",
@@ -144,7 +144,7 @@ theme_1 = Theme(
     )
 )
 theme_2 = Theme(
-    nom='theme secondaire',
+    nom='Thème secondaire',
     titre=Style(
         police="'KaushanScript', cursive",
         couleur="#ff7400",
@@ -278,10 +278,17 @@ image_sandwich_europeen2 = Image(
 )
 
 fenetre_repas = Fenetre(
-    nom='fenetre_repas', 
+    nom='Fenêtre Repas', 
     image_fond=image_sandwich_europeen, 
     couleur_fond = "#FFFFFF",
     theme=theme_2
+)
+
+fenetre_dessert = Fenetre(
+    nom='Fenêtre Dessert', 
+    image_fond=image_sandwich_europeen, 
+    couleur_fond = "#FFFFFF",
+    theme=theme_1
 )
 
 
