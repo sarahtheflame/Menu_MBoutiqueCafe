@@ -15,8 +15,24 @@ from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
-# from controleurs import *
-from modeles_temporaires import *
+from controleurs.controleur import *
+from controleurs.modeles_temporaires import *
+# from modeles.media import *
+# from modeles.image import *
+# from modeles.video import *
+# from modeles.bordure import *
+# from modeles.style import *
+# from modeles.theme import *
+# from modeles.fenetre import *
+# from modeles.periode import *
+# from modeles.zone import *
+# from modeles.zone_base import *
+# from modeles.zone_image import *
+# from modeles.zone_video import *
+# from modeles.zone_table import *
+# from modeles.ligne import *
+# from modeles.cellule import *
+# from modeles.administrateur import *
 
 appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
@@ -25,15 +41,15 @@ Base = declarative_base()
 engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 
 plugin = sqlalchemy.Plugin(
-    engine, # SQLAlchemy engine created with create_engine function.
-    keyword='db', # Keyword used to inject session database in a route (default 'db').
-    commit=True, # If it is true, plugin commit changes after route is executed (default True).
-    use_kwargs=False # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
+    engine,
+    keyword='db',
+    commit=True,
+    use_kwargs=False
 )
 app.install(plugin)
 
 @app.route('/g/<filename>')
-def gestion(filename):
+def gestion(filename, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
@@ -44,8 +60,10 @@ def gestion(filename):
     path = "src\\views\\gestion\\base_gestion.html"
     data = {
         'titre' : filename,
-        'path' : path
+        'path' : path,
+        'data' : get_gestion(db, {'nom_vue' : filename})
     }
+    print(get_gestion(db, {'nom_vue' : filename}))
     return template("src\\views\\gestion\\"+filename+".html", data)
 
 @app.route('/a/<nom_fenetre>')

@@ -8,8 +8,8 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from theme import *
-from image import *
+from modeles.theme import *
+from modeles.image import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base

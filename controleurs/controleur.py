@@ -5,12 +5,7 @@ import json
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from modeles_temporaires import *
-
-engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
-session = sessionmaker(bind=engine)
-
-s = session()
+from controleurs.modeles_temporaires import *
 
 def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
@@ -27,6 +22,19 @@ def get_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone_base": return get_modifier_zone_base(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_video": return get_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
+
+def post_gestion(s, data):
+    if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s)
+    elif data['nom_vue'] == "medias": return post_medias(s)
+    elif data['nom_vue'] == "themes": return post_lister_themes(s)
+    elif data['nom_vue'] == "parametres": return post_parametres(s)
+    elif data['nom_vue'] == "periodes": return post_lister_periodes(s)
+    elif data['nom_vue'] == "modifier_zone_image": return post_modifier_zone_image(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_table": return post_modifier_zone_table(s, data['id'])
+    elif data['nom_vue'] == "modifier_fenetre": return post_modifier_fenetre(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['id'])
+    elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['id'])
 
 def get_lister_fenetres(s):
     resultats = { 'fenetres' : [] }
@@ -136,9 +144,86 @@ def post_lister_themes(s, data):
             s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
     return True
 
-data = get_gestion(s, {'nom_vue' : 'modifier_theme', 'id' : '1'})
-print(json.dumps(data, indent=4, separators=(',', ': ')))
+def post_parametres(s, data):
+    for administrateur in data['administrateurs']:
+        if administrateur['id'] == 0:
+            nouvel_administrateur = Administrateur()
+            nouvel_administrateur.deserialiser_de_json(s, administrateur)
+            s.add(nouvel_administrateur)
+        elif administrateur['id'] > 0:
+            s.query(Administrateur).filter(Administrateur.id == administrateur['id']).one().deserialiser_de_json(s, administrateur)
+        elif administrateur['id'] < 0:
+            s.delete(s.query(Administrateur).filter(Administrateur.id == -administrateur['id']).one())
+    return True
 
-# fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
-# json_fenetre = fenetre_repas.serialiser_en_json()
-# print(json.dumps(json_fenetre, indent=4, separators=(',', ': ')))
+def post_lister_periodes(s, data):
+    for periode in data['periodes']:
+        if periode['id'] == 0:
+            nouvelle_periode = Periode()
+            nouvelle_periode.deserialiser_de_json(s, periode)
+            s.add(nouvelle_periode)
+        elif periode['id'] > 0:
+            s.query(Periode).filter(Periode.id == periode['id']).one().deserialiser_de_json(s, periode)
+        elif periode['id'] < 0:
+            s.delete(s.query(Periode).filter(Periode.id == -periode['id']).one())
+    return True
+
+def post_modifier_zone_image(s, data):
+    zone_image = data['zone_image']
+    if zone_image['id'] == 0:
+        nouvelle_zone_image = ZoneImage()
+        nouvelle_zone_image.deserialiser_de_json(s, zone_image)
+        s.add(nouvelle_zone_image)
+    elif zone_image['id'] > 0:
+        s.query(ZoneImage).filter(ZoneImage.id == zone_image['id']).one().deserialiser_de_json(s, zone_image)
+    elif zone_image['id'] < 0:
+        s.delete(s.query(ZoneImage).filter(ZoneImage.id == -zone_image['id']).one())
+    return True
+
+def post_modifier_zone_video(s, data):
+    zone_video = data['zone_video']
+    if zone_video['id'] == 0:
+        nouvelle_zone_video = ZoneVideo()
+        nouvelle_zone_video.deserialiser_de_json(s, zone_video)
+        s.add(nouvelle_zone_video)
+    elif zone_video['id'] > 0:
+        s.query(ZoneVideo).filter(ZoneVideo.id == zone_video['id']).one().deserialiser_de_json(s, zone_video)
+    elif zone_video['id'] < 0:
+        s.delete(s.query(ZoneVideo).filter(ZoneVideo.id == -zone_video['id']).one())
+    return True
+
+def post_modifier_zone_table(s, data):
+    zone_table = data['zone_table']
+    if zone_table['id'] == 0:
+        nouvelle_zone_table = ZoneTable()
+        nouvelle_zone_table.deserialiser_de_json(s, zone_table)
+        s.add(nouvelle_zone_table)
+    elif zone_table['id'] > 0:
+        s.query(ZoneTable).filter(ZoneTable.id == zone_table['id']).one().deserialiser_de_json(s, zone_table)
+    elif zone_table['id'] < 0:
+        s.delete(s.query(ZoneTable).filter(ZoneTable.id == -zone_table['id']).one())
+    return True
+
+def post_modifier_zone_base(s, data):
+    zone_base = data['zone_base']
+    if zone_base['id'] == 0:
+        nouvelle_zone_base = ZoneBase()
+        nouvelle_zone_base.deserialiser_de_json(s, zone_base)
+        s.add(nouvelle_zone_base)
+    elif zone_base['id'] > 0:
+        s.query(ZoneBase).filter(ZoneBase.id == zone_base['id']).one().deserialiser_de_json(s, zone_base)
+    elif zone_base['id'] < 0:
+        s.delete(s.query(ZoneBase).filter(ZoneBase.id == -zone_base['id']).one())
+    return True
+
+def post_modifier_fenetre(s, data):
+    fenetre = data['fenetre']
+    if fenetre['id'] == 0:
+        nouvelle_fenetre = Fenetre()
+        nouvelle_fenetre.deserialiser_de_json(s, fenetre)
+        s.add(nouvelle_fenetre)
+    elif fenetre['id'] > 0:
+        s.query(Fenetre).filter(Fenetre.id == fenetre['id']).one().deserialiser_de_json(s, fenetre)
+    elif fenetre['id'] < 0:
+        s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())
+    return True
