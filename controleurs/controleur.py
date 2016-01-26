@@ -5,7 +5,7 @@ import json
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from modeles_temporaires import *
+from controleurs.modeles_temporaires import *
 
 def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()

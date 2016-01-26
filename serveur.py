@@ -16,7 +16,23 @@ from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
 from controleurs.controleur import *
-from modeles import *
+from controleurs.modeles_temporaires import *
+# from modeles.media import *
+# from modeles.image import *
+# from modeles.video import *
+# from modeles.bordure import *
+# from modeles.style import *
+# from modeles.theme import *
+# from modeles.fenetre import *
+# from modeles.periode import *
+# from modeles.zone import *
+# from modeles.zone_base import *
+# from modeles.zone_image import *
+# from modeles.zone_video import *
+# from modeles.zone_table import *
+# from modeles.ligne import *
+# from modeles.cellule import *
+# from modeles.administrateur import *
 
 appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
