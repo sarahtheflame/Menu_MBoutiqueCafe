@@ -1,0 +1,9 @@
+* {
+    margin : 0px;
+    padding : 0px;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+body {
+    overflow-x: hidden;
+}
