@@ -22,6 +22,7 @@ def get_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone_base": return get_modifier_zone_base(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_video": return get_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
+    else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def post_gestion(s, data):
     if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s)
@@ -35,6 +36,7 @@ def post_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['id'])
+    else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
 def get_lister_fenetres(s):
     resultats = { 'fenetres' : [] }

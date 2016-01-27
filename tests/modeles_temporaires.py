@@ -45,7 +45,8 @@ class Media(Base):
         return dict(
             id = self.id,
             nom = self.nom,
-            chemin_fichier = self.chemin_fichier
+            chemin_fichier = self.chemin_fichier,
+            type = self.type
             )
 
     def deserialiser_de_json(self, session, data):

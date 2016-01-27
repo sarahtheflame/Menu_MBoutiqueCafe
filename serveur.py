@@ -64,6 +64,7 @@ def gestion(filename, db):
         'data' : get_gestion(db, {'nom_vue' : filename})
     }
     return template("src\\views\\gestion\\"+filename+".html", variables)
+    
 
 @app.route('/a/<nom_fenetre>')
 def affichage(nom_fenetre, db):
