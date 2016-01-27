@@ -277,6 +277,11 @@ image_sandwich_europeen2 = Image(
     chemin_fichier='sandwich.jpg'
 )
 
+video_cafe = Video(
+    nom='Annonce Café', 
+    chemin_fichier='coffee.mp4'
+)
+
 fenetre_repas = Fenetre(
     nom='Fenêtre Repas', 
     image_fond=image_sandwich_europeen, 
@@ -520,6 +525,7 @@ zone_test_image = ZoneImage(
 )
 
 s.add_all([
+    video_cafe,
     image_sandwich_europeen,
     image_sandwich_europeen2,
     theme_1,
