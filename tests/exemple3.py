@@ -26,6 +26,8 @@ nouvelle_zone_base = {
             "id_style": 1,
             "type": "ZoneBase"
         }
+
+
 json_fenetre['zones'].append(nouvelle_zone_base)
 fenetre_repas.deserialiser_de_json(s, json_fenetre)
 s.commit()

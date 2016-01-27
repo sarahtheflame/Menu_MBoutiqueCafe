@@ -39,9 +39,11 @@ def post_gestion(s, data):
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
 def get_lister_fenetres(s):
-    resultats = { 'fenetres' : [] }
+    resultats = { 'fenetres' : [], 'themes' : [] }
     for fenetre in s.query(Fenetre).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
+    for theme in s.query(Theme).all():
+        resultats['themes'].append(theme.serialiser_en_json())    
     return resultats
 
 def get_medias(s):

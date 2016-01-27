@@ -7,34 +7,25 @@
   <button type="button" class="btn btn-primary">+ Ajouter une fenêtre</button>
 </div>
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" data-bind="foreach: fenetres">
   <!-- Fenêtre 1 -->
-  <div class="panel panel-default" data-bind="foreach: fenetres">
+  <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <div class="row">
           <div class="col-md-2">
-            <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"  data-bind="text: nom()">
+            <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom(),attr: { href: '#'+id()}">
             </a>
           </div>
-          <div class="col-md-1">
-            <!--<label>Thème : </label>-->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Thème
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">Thème matin</a></li>
-                <li><a href="#">Thème midi</a></li>
-                <li><a href="#">Thème Noël</a></li>
-              </ul> 
-            </div>
+          <div class="col-md-3">
+            <select class="form-control" data-role="none" data-bind="foreach: $root.themes">
+              <option data-bind="value: id(), text:nom()"></option>
+            </select>
           </div>
         </div> 
       </h4>
     </div>
-     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+     <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" data-bind="attr: { id: id()}">
       <ul class="list-group" data-bind="foreach: zones">
         <li class="list-group-item">
           <a href="" class="badge">X</a>
