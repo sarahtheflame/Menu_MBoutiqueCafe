@@ -29,6 +29,8 @@
           $("#content").removeClass('show_sidebar');
         });
         window.scrollTo(0, 1);
+
+        
       });
     </script>
     <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
@@ -99,8 +101,35 @@
     </div>
     <div id="content" class="show_sidebar">{{!base}}</div>
     <script type='text/javascript' defer="defer">
+
       var viewModel = ko.mapping.fromJS({{!data}});
       ko.applyBindings(viewModel);
+
+      $("body").on("click", ".remove", function() {
+          //retrieve the context
+          var context = ko.contextFor(this),
+              id = context.$data.id();
+          context.$data.id(-id);
+          console.log(context.$data.id());
+          //fenetres = context.$fenetres;
+          
+          //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
+          //fenetres.remove(context.$data);
+       
+          return false;
+      });
+
+      function appliquer_modifications(fileName) {
+          //var vm = ko.dataFor(document.body);
+          var unmapped = ko.mapping.toJSON(viewModel);
+          $.post("submit",
+                  {
+                      fileName,
+                      unmapped
+                  }
+              );
+      }
+      
     </script>
   </BODY>
 </HTML>
