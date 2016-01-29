@@ -32,6 +32,7 @@
       });
     </script>
     <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/principal.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/src/base_gestion.css">
   </HEAD>
@@ -43,8 +44,8 @@
       <div class="toggle_sidebar colonne">
         <span id="toggle_sidebar">»</span>
       </div>
-      <div class="appliquer_modifications colonne">
-        <button type="button" class="btn btn-primary btn-sm">Appliquer les modifications</button>
+      <div class="appliquer_modifications">
+        <button type="button" class="b_gris">Appliquer les modifications</button>
       </div>
     </div>
     <div id="sidebar">
@@ -92,7 +93,7 @@
         </li>
       </ul>
       <div id="deconnexion">
-        <button class="bouton_deconnexion btn btn-primary btn-block" type="submit">
+        <button class="b_gris" type="submit" onclick="location.href = '/g/connexion';" >
           Déconnexion
         </button>
       </div>

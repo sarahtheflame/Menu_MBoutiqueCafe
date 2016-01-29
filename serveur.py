@@ -17,6 +17,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
 from controleurs.controleur import *
 from controleurs.modeles_temporaires import *
+from functools import wraps
 # from modeles.media import *
 # from modeles.image import *
 # from modeles.video import *
@@ -47,103 +48,158 @@ plugin = sqlalchemy.Plugin(
     use_kwargs=False
 )
 app.install(plugin)
+    
+def check_auth(func):
+    @wraps(func)
+    def check(*args, **kwargs):
+        cookie_courriel = request.get_cookie("administrateur", secret="secret_temporaire")
+        if cookie_courriel:
+            return func(*args, **kwargs)
+        else:
+            variables = {}
+            return template("src\\views\\autre\\connexion.html", variables)
+    return check
 
-@app.route('/g/<filename>')
-def gestion(filename, db):
+@app.route('/g/connexion', method='GET')
+def get_connexion(db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    path = "src\\views\\gestion\\base_gestion.html"
+    variables = {}
+    return template("src\\views\\autre\\connexion.html", variables)
+
+@app.route('/g/connexion', method='POST')
+def post_connexion(db):
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
+    """
     variables = {
-        'titre' : filename,
-        'path' : path,
-        'data' : get_gestion(db, {'nom_vue' : filename})
+        'titre' : 'accueil',
+        'path' : "src\\views\\gestion\\base_gestion.html",
+        'data' : obtenir_donnees_gestion(db, {'nom_vue' : 'accueil'})
     }
-    return template("src\\views\\gestion\\"+filename+".html", variables)
+    courriel = request.forms.get('courriel')
+    mot_de_passe = request.forms.get('mot_de_passe')
+    if est_autorise(db, courriel, mot_de_passe):
+        response.set_cookie("administrateur", courriel, secret="secret_temporaire")
+        return template("src\\views\\gestion\\accueil.html", variables)
+    else:
+        return template("src\\views\\autre\\connexion.html", variables)
+
+@app.route('/g/<nom_fichier>')
+@check_auth
+def gestion(nom_fichier, db):
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
+    """
+    variables = {
+        'titre' : nom_fichier,
+        'path' : "src\\views\\gestion\\base_gestion.html",
+        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier})
+    }
+    return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
+    
+@app.route('/g/<nom_fichier>/<identifiant>')
+@check_auth
+def gestion_element(nom_fichier, identifiant, db): # Modifier le nom de la fonction
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
+    """
+    variables = {
+        'titre' : nom_fichier,
+        'path' : "src\\views\\gestion\\base_gestion.html",
+        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : identifiant})
+    }
+    return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
     
 
-@app.route('/a/<nom_fenetre>')
-def affichage(nom_fenetre, db):
+@app.route('/a/<id_fenetre>')
+def affichage(id_fenetre, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    fenetre = db.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
+    fenetre = db.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     variables = {
-        'titre' : nom_fenetre,
+        'titre' : id_fenetre,
         'fenetre' : fenetre
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
 
-@app.route('/src/<filename:re:.*\.(js|json)>')
-def javascripts(filename):
+@app.route('/src/<nom_fichier:re:.*\.(js|json)>')
+def javascripts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
         'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root="src\\js")
+    return static_file(nom_fichier, root="src\\js")
 
-@app.route('/src/<filename:re:.*\.css>')
-def stylesheets(filename):
+@app.route('/src/<nom_fichier:re:.*\.css>')
+def stylesheets(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
         'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root="src\\css")
+    return static_file(nom_fichier, root="src\\css")
 
-@app.route('/src/<filename:re:.*\.(jpg|png|gif|ico|jpeg)>')
-def images(filename):
+@app.route('/src/<nom_fichier:re:.*\.(jpg|png|gif|ico|jpeg)>')
+def images(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' 
         s'il existe dans le répertoire '<<appPath>>/src/images'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root="src\\images")
+    return static_file(nom_fichier, root="src\\images")
 
-@app.route('/src/<filename:re:.*\.(mp4)>')
-def videos(filename):
+@app.route('/src/<nom_fichier:re:.*\.(mp4)>')
+def videos(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' 
         s'il existe dans le répertoire '<<appPath>>/src/videos'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root="src\\videos")
+    return static_file(nom_fichier, root="src\\videos")
 
-@app.route('/src/<filename:re:.*\.(eot|ttf|woff|svg)>')
-def fonts(filename):
+@app.route('/src/<nom_fichier:re:.*\.(eot|ttf|woff|svg)>')
+def fonts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' 
         s'il existe dans le répertoire '<<appPath>>/src/fonts'.
 
         Argument(s) :
-            filename (String) : Nom du fichier entrée dans l'URL
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    return static_file(filename, root="src\\fonts")
+    return static_file(nom_fichier, root="src\\fonts")
     
-@app.route('/')
-def main():
-    """
-        Exemple de route fonctionnelle.
-    """
-    return "Page d'exemple!"
-
 @app.error(404)
 def notFound(error):
     """
@@ -152,7 +208,7 @@ def notFound(error):
         Argument(s) :
             error (?) : ---
     """
-    return 'Erreur 404'
+    return '<h1>Erreur 404</h1>'
 
 """
     Lancement de l'application 'app' sur le port '80' de l'hébergeur '0.0.0.0' (localhost) en mode 

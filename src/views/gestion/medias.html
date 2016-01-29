@@ -19,7 +19,7 @@
         <!-- /ko -->
         <!-- ko if: type() === "Video" -->
           <a class="thumbnail" href="#">
-              <video width="100%" height="100%" muted autoplay loop>
+              <video preload="none" poster="/src/coffee.png" width="100%" height="100%">
                         <source data-bind="attr: { 'src': '../src/'+ chemin_fichier() }" type="video/mp4" />
                         Your browser does not support the video tag.
               </video>

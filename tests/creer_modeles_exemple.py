@@ -317,6 +317,22 @@ zone_grillwiches = ZoneTable(
     fenetre=fenetre_repas,
     style=theme_1.tableau
 )
+
+administrateur_1 = Administrateur(
+    adresse_courriel='da.junior.du@gmail.com', 
+    mot_de_passe="test"
+)
+
+administrateur_2 = Administrateur(
+    adresse_courriel='test@gmail.com', 
+    mot_de_passe="123"
+)
+
+administrateur_3 = Administrateur(
+    adresse_courriel='allo@gmail.com', 
+    mot_de_passe="allo"
+)
+
 ligne_1_grillwiches = Ligne(
         zone_table=zone_grillwiches,
         style=theme_1.tableau_ligne
@@ -525,6 +541,9 @@ zone_test_image = ZoneImage(
 )
 
 s.add_all([
+    administrateur_1,
+    administrateur_2,
+    administrateur_3,
     video_cafe,
     image_sandwich_europeen,
     image_sandwich_europeen2,

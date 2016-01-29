@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<!-- HTML BASE DOCUMENT -->
+
+<HTML>
+  <HEAD>
+    <title>Système de gestion d'affichage</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="auteurs" content="Daniel-Junior Dubé et Sarah Laflamme">
+
+    <link rel="shortcut icon" href="/src/tab.ico">
+    <script src="/src/jquery-2.1.4.min.js"></script>
+    <script src="/src/bootstrap.js"></script>
+    <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
+    <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#myModal').modal('show');
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/principal.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/src/connexion.css">
+  </HEAD>
+  <BODY>
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+          <!-- TEST EN COURS -->
+            <form class="form-horizontal" action="/g/connexion" method="post">
+              <div class="form-group">
+                <h1>Connexion au système de gestion</h1>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="email" name="courriel" placeholder="Courriel">
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="password" name="mot_de_passe" placeholder="Mot de passe">
+              </div>
+              <div class="form-group">  
+                <button class="b_gris" type="submit" name="connexion">Connexion</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </BODY>
+</HTML>

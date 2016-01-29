@@ -7,14 +7,26 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from controleurs.modeles_temporaires import *
 
+def est_autorise(s, a_adresse_courriel, a_mot_de_passe):
+    # ***** NOTE : Encrypter et Décrypter les informations de connexion *****
+    try:
+        utilisateur = s.query(Administrateur).filter(Administrateur.adresse_courriel == a_adresse_courriel).one()
+        if utilisateur.adresse_courriel == a_adresse_courriel and utilisateur.mot_de_passe == a_mot_de_passe:
+            return True
+        else:
+            raise NameError("Les données de connexion entrées sont invalides!")
+    except ValueError:
+        raise NameError("Aucun administrateur ne possède cette adresse courriel!")
+
 def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
 
-def get_gestion(s, data):
-    if data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
+def obtenir_donnees_gestion(s, data):
+    if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!'}
+    elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
     elif data['nom_vue'] == "themes": return get_lister_themes(s)
-    elif data['nom_vue'] == "parametres": return get_parametres(s)
+    elif data['nom_vue'] == "parametres": return get_parametres(s, data['id'])
     elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
     elif data['nom_vue'] == "modifier_zone_image": return get_modifier_zone_image(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_table": return get_modifier_zone_table(s, data['id'])
@@ -22,9 +34,10 @@ def get_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone_base": return get_modifier_zone_base(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_video": return get_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
+    elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
-def post_gestion(s, data):
+def retourner_donnees_gestion(s, data):
     if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return post_medias(s)
     elif data['nom_vue'] == "themes": return post_lister_themes(s)
@@ -36,6 +49,7 @@ def post_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['id'])
     elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['id'])
+    elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
 def get_lister_fenetres(s):
@@ -63,10 +77,9 @@ def get_lister_themes(s):
         resultats['themes'].append(theme.serialiser_en_json())
     return resultats
 
-def get_parametres(s):
-    resultats = { 'administrateurs' : [] }
-    for administrateur in s.query(Administrateur).all():
-        resultats['administrateurs'].append(administrateur.serialiser_en_json())
+def get_parametres(s, id_administrateur):
+    resultats = { 'administrateur' : [] }
+    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.id == id_administrateur).one().serialiser_en_json()
     return resultats
 
 def get_lister_periodes(s):
