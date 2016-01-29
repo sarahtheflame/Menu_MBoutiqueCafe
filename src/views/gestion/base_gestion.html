@@ -47,7 +47,7 @@
         <span id="toggle_sidebar">»</span>
       </div>
       <div class="appliquer_modifications">
-        <button type="button" class="b_gris">Appliquer les modifications</button>
+        <button type="button" class="b_gris" onclick="appliquer_modifications('test')">Appliquer les modifications</button>
       </div>
     </div>
     <div id="sidebar">
@@ -111,11 +111,6 @@
           var context = ko.contextFor(this),
               id = context.$data.id();
           context.$data.id(-id);
-          console.log(context.$data.id());
-          //fenetres = context.$fenetres;
-          
-          //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
-          //fenetres.remove(context.$data);
        
           return false;
       });
@@ -123,12 +118,13 @@
       function appliquer_modifications(fileName) {
           //var vm = ko.dataFor(document.body);
           var unmapped = ko.mapping.toJSON(viewModel);
-          $.post("submit",
-                  {
-                      fileName,
-                      unmapped
-                  }
-              );
+          console.log(unmapped);
+          // $.post("submit",
+          //         {
+          //             fileName,
+          //             unmapped
+          //         }
+          //     );
       }
       
     </script>
