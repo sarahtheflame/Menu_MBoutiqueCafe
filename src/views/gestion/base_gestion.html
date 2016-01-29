@@ -47,7 +47,7 @@
         <span id="toggle_sidebar">»</span>
       </div>
       <div class="appliquer_modifications">
-        <button type="button" class="b_gris" onclick="appliquer_modifications('test')">Appliquer les modifications</button>
+        <button type="button" class="b_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
       </div>
     </div>
     <div id="sidebar">
@@ -119,12 +119,12 @@
           //var vm = ko.dataFor(document.body);
           var unmapped = ko.mapping.toJSON(viewModel);
           console.log(unmapped);
-          // $.post("submit",
-          //         {
-          //             fileName,
-          //             unmapped
-          //         }
-          //     );
+          $.post("/g/" + fileName,
+                  {
+                      fileName,
+                      unmapped
+                  }
+              );
       }
       
     </script>

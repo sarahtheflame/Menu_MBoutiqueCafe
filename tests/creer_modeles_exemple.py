@@ -540,6 +540,8 @@ zone_test_image = ZoneImage(
     image=image_sandwich_europeen
 )
 
+periode = Periode()
+
 s.add_all([
     administrateur_1,
     administrateur_2,
@@ -592,7 +594,8 @@ s.add_all([
     zone_test,
     ligne_1_test,
     cellule_1_ligne_1_test,
-    zone_test_image]
+    zone_test_image,
+    periode]
 )
 
 s.commit()

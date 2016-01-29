@@ -55,7 +55,8 @@ class Style(Base):
     id_bordure = Column(
         Integer, 
         ForeignKey('Bordures.id', onupdate="cascade", ondelete="cascade"),
-        nullable=False
+        nullable=False, 
+        default=0
         )
     bordure = relationship(
         Bordure,

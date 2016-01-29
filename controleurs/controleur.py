@@ -38,17 +38,17 @@ def obtenir_donnees_gestion(s, data):
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def retourner_donnees_gestion(s, data):
-    if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s)
-    elif data['nom_vue'] == "medias": return post_medias(s)
-    elif data['nom_vue'] == "themes": return post_lister_themes(s)
-    elif data['nom_vue'] == "parametres": return post_parametres(s)
-    elif data['nom_vue'] == "periodes": return post_lister_periodes(s)
-    elif data['nom_vue'] == "modifier_zone_image": return post_modifier_zone_image(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_table": return post_modifier_zone_table(s, data['id'])
-    elif data['nom_vue'] == "modifier_fenetre": return post_modifier_fenetre(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['id'])
-    elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['id'])
+    if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "medias": return post_medias(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "parametres": return post_parametres(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "periodes": return post_lister_periodes(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_zone_image": return post_modifier_zone_image(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_zone_table": return post_modifier_zone_table(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_fenetre": return post_modifier_fenetre(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
@@ -114,6 +114,7 @@ def get_modifier_fenetre(s, id_fenetre):
     return resultats
 
 def post_lister_fenetres(s, data):
+    print(type(data))
     for fenetre in data['fenetres']:
         if fenetre['id'] == 0:
             nouvelle_fenetre = Fenetre()

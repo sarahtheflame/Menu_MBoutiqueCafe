@@ -598,7 +598,7 @@ class Periode(Base):
     """
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
-    heure_debut = Column(Time, unique=True)
+    heure_debut = Column(Time, unique=True, default=datetime.time(0,0,0))
     id_fenetre_1 = Column(
         Integer, 
         ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
