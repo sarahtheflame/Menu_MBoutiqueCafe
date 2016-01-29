@@ -94,9 +94,26 @@ def post_connexion(db):
     else:
         return template("src\\views\\autre\\connexion.html", variables)
 
-@app.route('/g/<nom_fichier>')
+@app.route('/g/<nom_fichier>', method='GET')
 @check_auth
-def gestion(nom_fichier, db):
+def get_gestion(nom_fichier, db):
+    """
+        Fonction associée à une route dynamique qui retourne le 'template' de type 
+        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+
+        Argument(s) :
+            nom_fichier (String) : Nom du fichier entrée dans l'URL
+    """
+    variables = {
+        'titre' : nom_fichier,
+        'path' : "src\\views\\gestion\\base_gestion.html",
+        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier})
+    }
+    return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
+    
+@app.route('/g/<nom_fichier>', method='POST')
+@check_auth
+def post_gestion(nom_fichier, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
