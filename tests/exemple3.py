@@ -19,17 +19,22 @@ session = sessionmaker(bind=engine)
 
 s = session()
 
-fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
-json_fenetre = fenetre_repas.serialiser_en_json()
-nouvelle_zone_base = {
-            "id": 0,
-            "id_style": 1,
-            "type": "ZoneBase"
-        }
+# fenetre_repas = s.query(Fenetre).filter(Fenetre.id == 1).one()
+# json_fenetre = fenetre_repas.serialiser_en_json()
+# nouvelle_zone_base = {
+#             "id": 0,
+#             "id_style": 1,
+#             "type": "ZoneBase"
+#         }
 
 
-json_fenetre['zones'].append(nouvelle_zone_base)
-fenetre_repas.deserialiser_de_json(s, json_fenetre)
+# json_fenetre['zones'].append(nouvelle_zone_base)
+# fenetre_repas.deserialiser_de_json(s, json_fenetre)
+test = Administrateur()
+s.add(test)
 s.commit()
+
+
+
 
 # Résultat : Une nouvelle zone a été ajoutée à la liste des zones de la fenêtre dont l'identifiant est 1
