@@ -12,20 +12,24 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-12">
             <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom,attr: { href: '#'+id()}">
             </a>
           </div>
-          <div class="col-md-4"><select class="form-control" data-role="none" data-bind="foreach: $root.themes">
+          <div class="col-md-4  col-xs-12">
+            <label>Thème : </label>
+            <select class="form-control" data-role="none" data-bind="foreach: $root.themes">
               <option data-bind="value: id, text:nom"></option>
             </select>
           </div>
-          <div class="col-md-6">
+          <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
             <a href="#" class="badge">Modifier</a>
             <a href="#" class="badge remove">X</a>
           </div>
         </div> 
+        </div>
       </h4>
     </div>
      <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" data-bind="attr: { id: id()}">
