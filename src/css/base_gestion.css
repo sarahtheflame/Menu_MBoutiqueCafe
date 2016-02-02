@@ -68,17 +68,24 @@ body {
 /* SIDEBAR */
 
 #sidebar {
+    width: 3vw;
+    height: 100vh;
     display: block;
     position: fixed;
     left: 0px;
-    top: 45px;
-    float: left;
-    width: 14vw;
-    min-width: 10vw;
-    height: 100vh;
+    top: 49px;
     font-size: 16px;
     background: #2F2F2F;
-    padding: 10px;  
+    transition: all 0.2s;
+}
+
+#sidebar.show {
+    width: 10vw;
+    transition: all 0.2s;
+}
+
+#sidebar .navigation_element_detail {
+    
 }
 
 #sidebar ul {
@@ -88,6 +95,8 @@ body {
 
 #sidebar ul li {
     width: 100%;
+    max-height: 25px;
+    margin-top: 10px;
     display: block;
     list-style: none;
     vertical-align: middle;
@@ -114,6 +123,7 @@ body {
 }
 
 #sidebar .glyphicon {
+    margin: 0px 10px 0px 10px;
     height:100%;
     display: block;
     margin-right: 20px;
@@ -130,25 +140,17 @@ body {
 
 }
 
-
-
 /* CONTENU */
 
 #content {
-    position: relative;
-    width: 100vw;
+    width: 97vw;
     height: 100vh;
     float: right;
+    position: relative;
     margin-top: 50px;
     word-wrap: break-word;
     background: #fff;
-    transition: width 0.2s;
-    overflow: hidden; 
-}
-
-#content.show_sidebar {
-    width: 86vw;
-    transition: width 0.2s;
+    overflow-y: auto; 
 }
 
 #content .entete {

@@ -47,8 +47,13 @@ plugin = sqlalchemy.Plugin(
     commit=True,
     use_kwargs=False
 )
+
 app.install(plugin)
     
+#===============================================================================
+# Authentification
+#===============================================================================
+
 def check_auth(func):
     @wraps(func)
     def check(*args, **kwargs):
@@ -59,6 +64,10 @@ def check_auth(func):
             variables = {}
             return template("src\\views\\autre\\connexion.html", variables)
     return check
+
+#===============================================================================
+# Page de connexion
+#===============================================================================
 
 @app.route('/g/connexion', method='GET')
 def get_connexion(db):
@@ -94,6 +103,10 @@ def post_connexion(db):
     else:
         return template("src\\views\\autre\\connexion.html", variables)
 
+#===============================================================================
+# Pages du système de gestion
+#===============================================================================
+
 @app.route('/g/<nom_fichier>', method='GET')
 @check_auth
 def get_gestion(nom_fichier, db):
@@ -127,7 +140,7 @@ def post_gestion(nom_fichier, db):
     }
     retourner_donnees_gestion(db, variables)
     
-@app.route('/g/<nom_fichier>/<identifiant>', method='GET')
+@app.route('/g/<nom_fichier>/<identifiant:int>', method='GET')
 @check_auth
 def get_gestion_element(nom_fichier, identifiant, db): # Modifier le nom de la fonction
     """
@@ -160,6 +173,10 @@ def post_gestion_element(nom_fichier, identifiant, db): # Modifier le nom de la 
     }
     retourner_donnees_gestion(db, variables)
 
+#===============================================================================
+# Pages du système d'affichage
+#===============================================================================
+
 @app.route('/a/<id_fenetre>')
 def affichage(id_fenetre, db):
     """
@@ -175,6 +192,10 @@ def affichage(id_fenetre, db):
         'fenetre' : fenetre
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
+
+#===============================================================================
+# Fichiers statiques
+#===============================================================================
 
 @app.route('/src/<nom_fichier:re:.*\.(js|json)>')
 def javascripts(nom_fichier):
@@ -230,7 +251,11 @@ def fonts(nom_fichier):
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
     return static_file(nom_fichier, root="src\\fonts")
-    
+
+#===============================================================================
+# Erreurs
+#===============================================================================
+
 @app.error(404)
 def notFound(error):
     """
@@ -241,9 +266,10 @@ def notFound(error):
     """
     return '<h1>Erreur 404</h1>'
 
-"""
-    Lancement de l'application 'app' sur le port '80' de l'hébergeur '0.0.0.0' (localhost) en mode 
-    'debug'.
-"""
+#===============================================================================
+# Lancement de l'application 'app' sur le port '80' de l'hébergeur '0.0.0.0' (localhost) en mode 
+# 'debug'.
+#===============================================================================
+
 if __name__ == "__main__":
     run(app, host='0.0.0.0', port=80, debug=True)

@@ -5,6 +5,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial;
 }
 
+/*html {
+    overflow-y: auto;
+}*/
+
 body {
     overflow-x: hidden;
 }
