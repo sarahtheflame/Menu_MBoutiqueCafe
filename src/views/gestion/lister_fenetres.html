@@ -4,18 +4,18 @@
   <div class="aide">
   	<a href="">Qu'est-ce qu'une fenêtre?</a>
   </div>
-  <button type="button" class="addFenetre btn btn-primary">+ Ajouter une fenêtre</button>
+  <button type="button" class="ajouter_fenetre btn btn-primary">+ Ajouter une fenêtre</button>
 </div>
 
 <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: fenetres">
   <!-- ko if: id() > -1 -->
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel-heading" role="tab">
       <h4 class="panel-title">
         <div class="row">
           <div class="col-md-2 col-xs-12">
             <h2>
-              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom,attr: { href: '#'+id()}">
+              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom, attr: { href: '#'+id()}">
               </a>
             </h2>
           </div>
@@ -26,18 +26,18 @@
             </select>
           </div>
           <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
-            <a href="#" class="remove">X</a>
+            <a href="#" class="retirer">X</a>
             <a href="#" class="btn">Modifier</a>
           </div>
         
         </div>
       </h4>
     </div>
-     <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" data-bind="attr: { id: id()}">
+     <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: id()}">
       <ul class="list-group" id="zones" data-bind="foreach: zones">
         <!-- ko if: id() > -1 -->
         <li class="list-group-item">
-          <a href="#" class="remove">X</a>
+          <a href="#" class="retirer">X</a>
           <a href="#" class="modifier">Modifier</a>
           
           <strong data-bind="text: nom()"></strong> (<span data-bind="text: type()"></span>)
@@ -46,7 +46,7 @@
         <!-- /ko -->
       </ul>
       <div class="list-group-item">
-          <a href="">+ Ajouter une zone</a>
+          <a href="#" class="ajouter_zone">+ Ajouter une zone</a>
           Nouvelle zone
       </div>
     </div>
