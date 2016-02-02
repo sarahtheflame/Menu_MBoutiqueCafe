@@ -103,7 +103,7 @@
         </button>
       </div>
     </div>
-    
+
     <div id="content" class="show_sidebar">{{!base}}
     </div>
     
@@ -113,16 +113,17 @@
       var viewModel = ko.mapping.fromJS({{!data}});
       ko.applyBindings(viewModel);
 
-      $("body").on("click", ".remove", function() {
-          //retrieve the context
+      $("body").on("click", ".retirer", function() {
           var context = ko.contextFor(this),
               id = context.$data.id();
-          context.$data.id(-id);
-       
-          return false;
+            if (id != 0) {
+              context.$data.id(-id);
+            } else {
+              context.$parent.zones.remove(context.$data);
+            }
       });
 
-      $("body").on("click", ".addFenetre", function() {
+      $("body").on("click", ".ajouter_fenetre", function() {
         var context = ko.contextFor(this),
             nom_fenetre = prompt("Nom de la nouvelle fenêtre : ", "");
         if (nom_fenetre != null) {
@@ -137,22 +138,32 @@
         }
       });
 
+      $("body").on("click", ".ajouter_zone", function() {
+        var context = ko.contextFor(this),
+            nom_zone = prompt("Nom de la nouvelle zone : ", ""),
+            type_zone = prompt("Type de la zone : ", "ZoneBase");
+        if (nom_zone != null) {
+          var Zone = function(nom_zone, type_zone){
+            this.id = ko.observable(0);
+            this.nom = ko.observable(nom_zone);
+            this.type = ko.observable(type_zone);
+          };
+
+          context.$data.zones.push(new Zone(nom_zone, type_zone));
+        }
+      });
+
       function appliquer_modifications(fileName) {
-          //var vm = ko.dataFor(document.body);
-          var unmapped = ko.mapping.toJSON(viewModel);
-          console.log(unmapped);
-          $.post("/g/" + fileName,
-                  {
-                      fileName,
-                      unmapped
-                  }
-              );
+        var unmapped = ko.mapping.toJSON(viewModel);
+        console.log(unmapped);
+        $.post("/g/" + fileName,
+                {
+                    fileName,
+                    unmapped
+          }
+        );
       }
 
-      function modifier() {
-
-      }
- 
     </script>
   </BODY>
 </HTML>
