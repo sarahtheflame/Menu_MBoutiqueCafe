@@ -48,7 +48,7 @@
         <img alt="MBoutique Café" src="/src/logo_mboutique.png">
       </div>
       <div class="toggle_sidebar colonne">
-        <span id="toggle_sidebar">»</span>
+        <span id="toggle_sidebar"></span>
       </div>
       <div class="appliquer_modifications">
         <button type="button" class="b_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
@@ -126,7 +126,12 @@
         var context = ko.contextFor(this),
             nom_fenetre = prompt("Nom de la nouvelle fenêtre : ", "");
         if (nom_fenetre != null) {
-            var nouvelle_fenetre = new Object();
+            var nouvelle_fenetre = {
+              id : 0,
+              nom : nom_fenetre,
+              theme : context.$root.themes()[0]
+            };
+
             context.$root.fenetres().push(nouvelle_fenetre);
             console.log(context.$root.fenetres());
         }
