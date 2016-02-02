@@ -66,17 +66,24 @@ body {
 /* SIDEBAR */
 
 #sidebar {
-    font-size: 16px;
-    position: fixed;
-    top: 45px;
-    left: 0;
-    display: block;
-    float: left;
-    width: 14vw;
-    min-width: 10vw;
+    width: 3vw;
     height: 100vh;
-    padding: 10px;
-    background: #2f2f2f;
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 49px;
+    font-size: 16px;
+    background: #2F2F2F;
+    transition: all 0.2s;
+}
+
+#sidebar.show {
+    width: 10vw;
+    transition: all 0.2s;
+}
+
+#sidebar .navigation_element_detail {
+    
 }
 
 #sidebar ul {
@@ -85,8 +92,10 @@ body {
 }
 
 #sidebar ul li {
-    display: block;
     width: 100%;
+    max-height: 25px;
+    margin-top: 10px;
+    display: block;
     list-style: none;
     vertical-align: middle;
 }
@@ -113,9 +122,9 @@ body {
 
 #sidebar .glyphicon {
     font-size: 14px;
+    margin: 0px 10px 0px 10px;
     display: block;
     height: 100%;
-    margin-right: 20px;
     vertical-align: middle;
 }
 
@@ -125,23 +134,21 @@ body {
 }
 
 
+#sidebar #deconnexion .bouton_deconnexion {
+
+}
+
 /* CONTENU */
 
 #content {
-    position: relative;
-    float: right;
-    overflow: hidden;
-    width: 100vw;
+    width: 97vw;
     height: 100vh;
+    float: right;
+    position: relative;
     margin-top: 50px;
-    transition: width .2s;
     word-wrap: break-word;
     background: #fff;
-}
-
-#content.show_sidebar {
-    width: 86vw;
-    transition: width .2s;
+    overflow-y: auto; 
 }
 
 #content .entete {

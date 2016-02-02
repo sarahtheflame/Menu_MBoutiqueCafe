@@ -8,25 +8,29 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="auteurs" content="Daniel-Junior Dubé et Sarah Laflamme">
+<!-- 
     <meta content="width=device-width, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes">
+ -->
     <link rel="shortcut icon" href="/src/tab.ico">
     <script src="/src/jquery-2.1.4.min.js"></script>
+<!-- 
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+     -->
     <script src="/src/bootstrap.js"></script>
     <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
     <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     <script>
       $(document).ready(function(){
         $("#toggle_sidebar").click(function(){
-            $("#content").toggleClass("show_sidebar");
+            $("#sidebar").toggleClass("show");
         });
         $("body").on("swiperight",function(){
-          $("#content").addClass("show_sidebar");
+          $("#sidebar").addClass("show");
         });
         $("body").on("swipeleft",function(){
-          $("#content").removeClass('show_sidebar');
+          $("#sidebar").removeClass('show');
         });
         window.scrollTo(0, 1);
 
@@ -35,7 +39,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/src/principal.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/src/base_gestion.css">
   </HEAD>
   <BODY>
@@ -50,6 +54,10 @@
         <button type="button" class="b_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
       </div>
     </div>
+    
+    <div id="content" class="show_sidebar">{{!base}}
+    </div>
+    
     <div id="sidebar">
       <ul>
         <li>
@@ -100,7 +108,6 @@
         </button>
       </div>
     </div>
-    <div id="content" class="show_sidebar">{{!base}}</div>
     <script type='text/javascript' defer="defer">
 
       var viewModel = ko.mapping.fromJS({{!data}});
