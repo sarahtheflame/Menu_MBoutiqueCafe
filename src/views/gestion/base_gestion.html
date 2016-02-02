@@ -53,9 +53,6 @@
       </div>
     </div>
     
-    <div id="content" class="show_sidebar">{{!base}}
-    </div>
-    
     <div id="sidebar">
       <ul>
         <li>
@@ -106,6 +103,11 @@
         </button>
       </div>
     </div>
+    
+    <div id="content" class="show_sidebar">{{!base}}
+    </div>
+    
+    
     <script type='text/javascript' defer="defer">
 
       var viewModel = ko.mapping.fromJS({{!data}});
@@ -132,19 +134,7 @@
             };
 
             context.$root.fenetres.push(new Fenetre(nom_fenetre));
-            console.log(context.$root.fenetres());
         }
-
-
-          // //retrieve the context
-          
-          //     childName = context.$data.name() + " child",
-          //     parentArray = context.$data.people || context.$data.children;
-       
-          // //add a child to the appropriate parent, calling a method off of the main view model (context.$root)
-          // context.$root.addChild(childName, parentArray);
-       
-          // return false;
       });
 
       function appliquer_modifications(fileName) {
