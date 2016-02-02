@@ -114,7 +114,7 @@ def get_modifier_fenetre(s, id_fenetre):
     return resultats
 
 def post_lister_fenetres(s, data):
-    print(type(data))
+    print(data)
     for fenetre in data['fenetres']:
         if fenetre['id'] == 0:
             nouvelle_fenetre = Fenetre()

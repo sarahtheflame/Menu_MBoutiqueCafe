@@ -120,7 +120,7 @@ def get_gestion(nom_fichier, db):
     variables = {
         'titre' : nom_fichier,
         'path' : "src\\views\\gestion\\base_gestion.html",
-        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier})
+        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : request.query.id})
     }
     return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
     
@@ -135,8 +135,8 @@ def post_gestion(nom_fichier, db):
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
     variables = {
-        'nom_vue' : request.forms.get('fileName'),
-        'nouvelles_donnees' : json.loads(request.forms.get('unmapped'))
+        'nom_vue' : request.forms.getunicode('fileName'),
+        'nouvelles_donnees' : json.loads(request.forms.getunicode('unmapped'))
     }
     retourner_donnees_gestion(db, variables)
     

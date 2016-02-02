@@ -24,13 +24,13 @@
     <script>
       $(document).ready(function(){
         $("#toggle_sidebar").click(function(){
-            $("#sidebar").toggleClass("show");
+            $("#content").toggleClass("show_sidebar");
         });
         $("body").on("swiperight",function(){
-          $("#sidebar").addClass("show");
+          $("#content").addClass("show_sidebar");
         });
         $("body").on("swipeleft",function(){
-          $("#sidebar").removeClass('show');
+          $("#content").removeClass('show_sidebar');
         });
         window.scrollTo(0, 1);
       });
@@ -46,7 +46,7 @@
         <img alt="MBoutique Café" src="/src/logo_mboutique.png">
       </div>
       <div class="toggle_sidebar colonne">
-        <span id="toggle_sidebar"></span>
+        <span id="toggle_sidebar">»</span>
       </div>
       <div class="appliquer_modifications">
         <button type="button" class="b_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
