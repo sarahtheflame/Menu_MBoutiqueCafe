@@ -115,6 +115,27 @@
           return false;
       });
 
+      $("body").on("click", ".addFenetre", function() {
+        var context = ko.contextFor(this),
+            nom_fenetre = prompt("Nom de la nouvelle fenêtre : ", "");
+        if (nom_fenetre != null) {
+            var nouvelle_fenetre = new Object();
+            context.$root.fenetres().push(nouvelle_fenetre);
+            console.log(context.$root.fenetres());
+        }
+
+
+          // //retrieve the context
+          
+          //     childName = context.$data.name() + " child",
+          //     parentArray = context.$data.people || context.$data.children;
+       
+          // //add a child to the appropriate parent, calling a method off of the main view model (context.$root)
+          // context.$root.addChild(childName, parentArray);
+       
+          // return false;
+      });
+
       function appliquer_modifications(fileName) {
           //var vm = ko.dataFor(document.body);
           var unmapped = ko.mapping.toJSON(viewModel);
@@ -126,7 +147,11 @@
                   }
               );
       }
-      
+
+      function modifier() {
+
+      }
+ 
     </script>
   </BODY>
 </HTML>

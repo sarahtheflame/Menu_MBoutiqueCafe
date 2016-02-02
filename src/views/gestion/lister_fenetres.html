@@ -4,7 +4,7 @@
   <div class="aide">
   	<a href="">Qu'est-ce qu'une fenêtre?</a>
   </div>
-  <button type="button" class="btn btn-primary">+ Ajouter une fenêtre</button>
+  <button type="button" class="addFenetre btn btn-primary">+ Ajouter une fenêtre</button>
 </div>
 
 <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: fenetres">
@@ -12,11 +12,12 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-      <div class="container-fluid">
         <div class="row">
           <div class="col-md-2 col-xs-12">
-            <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom,attr: { href: '#'+id()}">
-            </a>
+            <h2>
+              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: nom,attr: { href: '#'+id()}">
+              </a>
+            </h2>
           </div>
           <div class="col-md-4  col-xs-12">
             <label>Thème : </label>
@@ -25,10 +26,10 @@
             </select>
           </div>
           <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
-            <a href="#" class="badge">Modifier</a>
-            <a href="#" class="badge remove">X</a>
+            <a href="#" class="remove">X</a>
+            <a href="#" class="btn">Modifier</a>
           </div>
-        </div> 
+        
         </div>
       </h4>
     </div>
@@ -36,8 +37,8 @@
       <ul class="list-group" id="zones" data-bind="foreach: zones">
         <!-- ko if: id() > 0 -->
         <li class="list-group-item">
-          <a href="#" class="badge remove">X</a>
-          <a href="#" class="badge">Modifier</a>
+          <a href="#" class="remove">X</a>
+          <a href="#" class="modifier">Modifier</a>
           
           <strong data-bind="text: nom()"></strong> (<span data-bind="text: type()"></span>)
         </li>
@@ -45,7 +46,7 @@
         <!-- /ko -->
       </ul>
       <div class="list-group-item">
-          <a href="" class="badge">+ Ajouter une zone</a>
+          <a href="">+ Ajouter une zone</a>
           Nouvelle zone
       </div>
     </div>

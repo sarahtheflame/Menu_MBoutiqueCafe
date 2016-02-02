@@ -176,13 +176,40 @@ body {
     width: 75%;
 }
 
-.badge {
+#fenetres h2 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#fenetres h2 a {
+    text-decoration: none;
+}
+
+#fenetres .col-xs-12 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#fenetres .list-group-item a,
+#fenetres .boutons a {
     font-size: 11px;
     font-weight: normal;
+    line-height: 1;
+    display: inline-block;
+    float: right;
+    min-width: 10px;
+    margin-right: 5px;
     padding: 5px 9px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
     text-transform: uppercase;
+    color: #fff;
     border-radius: 6px;
+    background-color: #444;
 }
+
 .panel-collapse > .list-group-item {
     background-color: #efefef;
 }
