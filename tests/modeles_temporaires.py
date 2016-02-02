@@ -489,7 +489,7 @@ class Fenetre(Base):
     id_image_fond = Column(
         Integer, 
         ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), 
-        default=1
+        nullable=True
         )    # DEFAULT VALIDE??
     id_theme = Column(
         Integer, 
@@ -540,8 +540,9 @@ class Fenetre(Base):
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if (self.id_theme != data['theme']['id']):
             self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
-        if (self.id_image_fond != data['image_fond']['id']):
-            self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        if data.get('image_fond') != None :
+            if (self.id_image_fond != data['image_fond']['id']):
+                self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
         for zone in data['zones']:
             if zone['id'] == 0:
                 if zone['type'] == 'ZoneBase':
