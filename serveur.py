@@ -140,39 +140,6 @@ def post_gestion(nom_fichier, db):
     }
     retourner_donnees_gestion(db, variables)
     
-@app.route('/g/<nom_fichier>/<identifiant:int>', method='GET')
-@check_auth
-def get_gestion_element(nom_fichier, identifiant, db): # Modifier le nom de la fonction
-    """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
-
-        Argument(s) :
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
-    """
-    variables = {
-        'titre' : nom_fichier,
-        'path' : "src\\views\\gestion\\base_gestion.html",
-        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : identifiant})
-    }
-    return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
-    
-@app.route('/g/<nom_fichier>/<identifiant>', method='POST')
-@check_auth
-def post_gestion_element(nom_fichier, identifiant, db): # Modifier le nom de la fonction
-    """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
-
-        Argument(s) :
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
-    """
-    variables = {
-        'nom_vue' : request.forms.get('fileName'),
-        'nouvelles_donnees' : request.forms.get('unmapped')
-    }
-    retourner_donnees_gestion(db, variables)
-
 #===============================================================================
 # Pages du système d'affichage
 #===============================================================================
