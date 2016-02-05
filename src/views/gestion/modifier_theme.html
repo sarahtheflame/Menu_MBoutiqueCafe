@@ -1,1 +1,36 @@
 % rebase(path)
+<link rel="stylesheet" type="text/css" href="/src/modifier_theme.css">
+<div class="entete">
+  <h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
+</div>
+
+
+<div data-bind="template: { name: 'style-template', data: theme.texte }">
+</div>
+
+{{!data}}
+
+<script type="text/html" id="style-template">
+    <h2 data-bind="text: type"></h2>
+    <div class="container">
+    	<div class="row">
+          <div class="col-md-6 col-xs-12">
+		    <select class="form-control" data-role="none">
+		    	<option>Arial</option>
+		    	<option>Times New Roman</option>
+		    </select>
+		    </div>
+
+		    <div class="col-md-6 col-xs-12">
+		    	<span data-bind="text: type, style: {
+                        fontFamily : $root.theme.titre.police(),
+                        fontSize : $root.theme.titre.taille(),
+                        color : $root.theme.titre.couleur(),
+                        bold : $root.theme.titre.gras(),
+                        fontStyle : $root.theme.titre.gras(),
+                        textDecoration : $root.theme.titre.soulignement()
+                    }"></span>
+		    </div>
+		</div>
+    </div>
+</script>
