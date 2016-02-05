@@ -27,7 +27,7 @@
 </div>
 
 <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: fenetres, as: 'fenetre' }">
-  <!-- ko if: id() > -1 -->
+  <!-- ko if: $data.id() > -1 -->
   <div class="panel panel-default">
     <div class="panel-heading" role="tab">
       <h4 class="panel-title">
@@ -40,37 +40,24 @@
           </div>
           <div class="col-md-4  col-xs-12">
             <label>Thème : </label>
-            <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', value: $data.theme">
+            <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
             </select>
-            <input type="text" data-bind="value: fenetre.theme.nom">
-             <span data-bind="text: $data.theme.nom"></span>
           </div>
           <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
             <a href="#" class="retirer">X</a>
-            <a class="btn" data-bind="attr: { href: '/g/modifier_fenetre?id='+id()}">Modifier</a>
+            <a class="btn" data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier</a>
           </div>
         
         </div>
       </h4>
     </div>
-     <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: id()}">
-      <ul class="list-group" id="zones" data-bind="foreach: { data: zones, as: 'zone' }">
-        <!-- ko if: id() > -1 -->
+     <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
+      <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
+        <!-- ko if: $data.id() > -1 -->
         <li class="list-group-item">
           <a href="#" class="retirer">X</a>
-          <!-- ko if: type() == 'ZoneTable' -->
-          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_table?id='+id()}">Modifier</a>
-          <!-- /ko -->
-          <!-- ko if: type() == 'ZoneImage' -->
-          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_image?id='+id()}">Modifier</a>
-          <!-- /ko -->
-          <!-- ko if: type() == 'ZoneVideo' -->
-          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_video?id='+id()}">Modifier</a>
-          <!-- /ko -->
-          <!-- ko if: type() == 'ZoneBase' -->
-          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_base?id='+id()}">Modifier</a>
-          <!-- /ko -->
-          <strong data-bind="text: nom()"></strong> (<span data-bind="text: type()"></span>)
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone?id='+$data.id()}">Modifier</a>
+          <strong data-bind="text: $data.nom()"></strong> (<span data-bind="text: $data.type()"></span>)
         </li>
         
         <!-- /ko -->
