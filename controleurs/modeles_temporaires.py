@@ -215,6 +215,7 @@ class Style(Base):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
+        print(self.type)
         return dict(
             id = self.id,
             police = self.police,
@@ -225,7 +226,8 @@ class Style(Base):
             gras = self.gras,
             italique = self.italique,
             soulignement = self.soulignement,
-            bordure = self.bordure.serialiser_en_json()
+            bordure = self.bordure.serialiser_en_json(),
+            type = self.type
             )
 
     def deserialiser_de_json(self, session, data):
@@ -430,11 +432,8 @@ class Theme(Base):
         """
         if data.get('nom') != None : self.nom = data['nom']
         for style in data:
-            print(data[style])
             if isinstance(data[style], dict):
-                print("in")
                 if (data[style]['id'] == 0):
-                    print('Nouveau style')
                     nouveau_style = Style(bordure=Bordure())
                     nouveau_style.deserialiser_de_json(session, data[style])
                     session.add(nouveau_style)
@@ -517,11 +516,12 @@ class Fenetre(Base):
         data = dict(
             id = self.id,
             nom = self.nom,
-            couleur_fond = self.couleur_fond,
             theme = self.theme.serialiser_en_json()
             )
         if self.image_fond != None:
-            data['image_fond'] = self.image_fond.serialiser_en_json()
+            data['fond'] = self.image_fond.serialiser_en_json()['chemin_fichier']
+        else:
+            data['fond'] = self.couleur_fond
         for zone in self.zones:
             zones_data.append(zone.serialiser_en_json())
         data['zones'] = zones_data
@@ -1004,7 +1004,6 @@ class ZoneTable(Zone):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for ligne in data['lignes']:
             if (ligne['id'] == 0):
-                print('Nouvelle ligne')
                 nouvelle_ligne = Ligne(zone_table=self)
                 nouvelle_ligne.deserialiser_de_json(session, ligne)
                 session.add(nouvelle_ligne)
@@ -1065,7 +1064,6 @@ class Ligne(Base):
         data = dict(
             id = self.id,
             id_style = self.id_style
-            #id_zone_table = self.id_zone_table PAS NECESSAIRE??
             )
         for cellule in self.cellules:
             cellules_data.append(cellule.serialiser_en_json())
@@ -1086,7 +1084,6 @@ class Ligne(Base):
             self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for cellule in data['cellules']:
             if cellule['id'] == 0:
-                print('Nouvelle cellule')
                 nouvelle_cellule = Cellule(ligne=self)
                 nouvelle_cellule.deserialiser_de_json(session, cellule)
                 session.add(nouvelle_cellule)
@@ -1143,7 +1140,8 @@ class Cellule(Base):
         return dict(
             id = self.id,
             contenu = self.contenu,
-            id_style = self.id_style
+            id_style = self.id_style,
+            type = self.style.type
             )
 
     def deserialiser_de_json(self, session, data):

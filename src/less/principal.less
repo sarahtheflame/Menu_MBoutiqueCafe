@@ -3,6 +3,7 @@
   padding: 0px;
   border: 0px;
   font-family: "Helvetica Neue", Helvetica, Arial;
+  list-style: none;
 }
 /*html {
     overflow-y: auto;
@@ -10,34 +11,7 @@
 body {
   overflow-x: hidden;
 }
-.b_orange {
-  position: relative;
-  width: 100%;
-  height: 40px;
-  font-size: 18px;
-  color: white;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  background: #d35400;
-  border-bottom: 2px solid #c54e00;
-  cursor: pointer;
-  -webkit-box-shadow: inset 0 -2px #c54e00;
-  box-shadow: inset 0 -2px #c54e00;
-  transition: all 0.3s;
-  top: 0px;
-}
-.b_orange:hover {
-  transition: all 0.3s;
-  top: 1px;
-  border-bottom: 1px solid #c54e00;
-}
-.b_orange:active {
-  transition: all 0.3s;
-  top: 2px;
-  border-bottom: 0px solid #c54e00;
-}
-.b_gris {
-  /*    margin: 5px;*/
+.b_base {
   padding-left: 15px;
   padding-right: 15px;
   position: relative;
@@ -52,19 +26,47 @@ body {
   cursor: pointer;
   -webkit-box-shadow: inset 0 -2px #383838;
   box-shadow: inset 0 -2px #383838;
-  transition: all 0.3s;
+  transition: top 0.2s;
   top: 0px;
+  &:hover {
+    transition: top 0.2s;
+    top: 1px;
+  }
+  &:active {
+    transition: top 0.2s;
+    top: 2px;
+  }
 }
-.b_gris:hover {
-  transition: all 0.3s;
-  top: 1px;
-  border-bottom: 1px solid #383838;
+
+.b_orange {
+  .b_base;
+  background: #d35400;
+  border-bottom: 2px solid #c54e00;
+  -webkit-box-shadow: inset 0 -2px #c54e00;
+  box-shadow: inset 0 -2px #c54e00;
+  top: 0px;
+  &:hover {
+    border-bottom: 1px solid #c54e00;
+  }
+  &:active {
+    border-bottom: 0px solid #c54e00;
+  }
 }
-.b_gris:active {
-  transition: all 0.3s;
-  top: 2px;
-  border-bottom: 0px solid #383838;
+
+.b_gris {
+  .b_base;
+  background: #444444;
+  border-bottom: 2px solid #383838;
+  -webkit-box-shadow: inset 0 -2px #383838;
+  box-shadow: inset 0 -2px #383838;
+  &:hover {
+    border-bottom: 1px solid #383838;
+  }
+  &:active {
+    border-bottom: 0px solid #383838;
+  }
 }
+
 input {
   outline: none !important;
   border: solid 1px #dcdcdc !important;

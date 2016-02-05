@@ -3,6 +3,8 @@
     [  ] - need to fix : packages
     [  ] - need to fix : module imports
     [  ] - need to fix : controllers
+    [  ] - single link to modify any type of zones
+    [  ] - 
 
 |---------------- NOTES ----------------|
 

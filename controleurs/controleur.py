@@ -28,11 +28,8 @@ def obtenir_donnees_gestion(s, data):
     elif data['nom_vue'] == "themes": return get_lister_themes(s)
     elif data['nom_vue'] == "parametres": return get_parametres(s, data['id'])
     elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
-    elif data['nom_vue'] == "modifier_zone_image": return get_modifier_zone_image(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_table": return get_modifier_zone_table(s, data['id'])
+    elif data['nom_vue'] == "modifier_zone": return get_modifier_zone(s, data['id'])
     elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_base": return get_modifier_zone_base(s, data['id'])
-    elif data['nom_vue'] == "modifier_zone_video": return get_modifier_zone_video(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
     elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
@@ -88,24 +85,17 @@ def get_lister_periodes(s):
         resultats['periodes'].append(periode.serialiser_en_json())
     return resultats
 
-def get_modifier_zone_image(s, id_zone):
-    resultats = { 'zone_image' : '' }
-    resultats['zone_image'] = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one().serialiser_en_json()
-    return resultats
-
-def get_modifier_zone_video(s, id_zone):
-    resultats = { 'zone_video' : '' }
-    resultats['zone_video'] = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one().serialiser_en_json()
-    return resultats
-
-def get_modifier_zone_table(s, id_zone):
-    resultats = { 'zone_table' : '' }
-    resultats['zone_table'] = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one().serialiser_en_json()
-    return resultats
-
-def get_modifier_zone_base(s, id_zone):
-    resultats = { 'zone_base' : '' }
-    resultats['zone_base'] = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one().serialiser_en_json()
+def get_modifier_zone(s, id_zone):
+    resultats = { 'zone' : '' }
+    type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
+    if type_zone == "ZoneBase":
+        resultats['zone'] = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one().serialiser_en_json()
+    elif type_zone == "ZoneTable":
+        resultats['zone'] = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one().serialiser_en_json()
+    elif type_zone == "ZoneImage":
+        resultats['zone'] = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one().serialiser_en_json()
+    elif type_zone == "ZoneVideo":
+        resultats['zone'] = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one().serialiser_en_json()
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
@@ -114,7 +104,6 @@ def get_modifier_fenetre(s, id_fenetre):
     return resultats
 
 def post_lister_fenetres(s, data):
-    print(data)
     for fenetre in data['fenetres']:
         if fenetre['id'] == 0:
             nouvelle_fenetre = Fenetre()

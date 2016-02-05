@@ -9,37 +9,135 @@
         <meta name="decription" content="Ceci est le 'template' web pour un menu de restaurant.">
         <meta name="auteur" content="Daniel-Junior Dubé et Sarah Laflamme">
         <link rel="shortcut icon" href="/src/tab.ico">
-        <link rel="stylesheet" href="/src/bootstrap.min.css">
         <link rel="stylesheet" href="/src/affichage.css">
         <script type='text/javascript' src='/src/interact-1.2.5.min.js'></script>
         <script type='text/javascript' src='/src/interactApp.js'></script>
         <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
-    
     </HEAD>
-    <BODY data-bind="attr: { 'background': couleur_fond() }">
-        <div class="interact-container" data-bind="foreach: zones">
-            
-                <!-- ko if: type() === "ZoneBase" -->
-                <div class="boite_flottante" id="entete" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur() }">
-                    <div id="titre" data-bind="text: contenu"></div>
+        <BODY data-bind="attr: { 'background': '../src/'+$data.fond() }">
+            <div class="interact-container" data-bind="foreach: { data: zones, as: 'zone' }">
+                <!-- ko if: zone.type() === "ZoneBase" -->
+                <div class="zone base" data-bind="style: { 
+                    left : $data.position_x(), 
+                    top : $data.position_y(), 
+                    width : $data.largeur(), 
+                    height : $data.hauteur()
+                }">
+                    <div data-bind="text: contenu, style: {
+                        fontFamily : $root.theme.titre.police(),
+                        fontSize : $root.theme.titre.taille(),
+                        color : $root.theme.titre.couleur(),
+                        background : $root.theme.titre.couleur_fond(),
+                        opacity : $root.theme.titre.opacite_fond(),
+                        bold : $root.theme.titre.gras(),
+                        fontStyle : $root.theme.titre.gras(),
+                        textDecoration : $root.theme.titre.soulignement(),
+                        borderColor :  $root.theme.titre.bordure.couleur(),
+                        borderStyle : $root.theme.titre.bordure.style(),
+                        borderWidth : $root.theme.titre.bordure.taille()
+                    }"></div>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: type() === "ZoneImage" -->
-                <div class="boite_flottante" id="media" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur(), background : 'rgb(0,0,0)' }">
-                    <img data-bind="attr: { 'src': '../src/'+image.chemin_fichier() }">
+                <!-- ko if: zone.type() === "ZoneImage" -->
+                <div class="zone media" data-bind="style: { 
+                    left : $data.position_x(), 
+                    top : $data.position_y(), 
+                    width : $data.largeur(), 
+                    height : $data.hauteur(), 
+                    background : 'rgb(0,0,0)' 
+                }">
+                    <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
                 </div>
                 <!-- /ko -->
-                <!-- ko if: type() === "ZoneVideo" -->
-                <div class="boite_flottante" id="media" data-bind="style: { left : position_x(), top : position_y(), width : largeur(), height : hauteur() }">
+                <!-- ko if: zone.type() === "ZoneVideo" -->
+                <div class="zone media" data-bind="style: { 
+                    left : $data.position_x(), 
+                    top : $data.position_y(), 
+                    width : $data.largeur(), 
+                    height : $data.hauteur() 
+                }">
                     <video width="100%" height="100%" muted autoplay loop>
-                        <source data-bind="attr: { 'src': video.chemin_fichier() }" type="video/mp4" />
+                        <source data-bind="attr: { 
+                            'src': $data.video.chemin_fichier() 
+                        }" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <!-- /ko -->
-        </div>
+                <!-- ko if: zone.type() === "ZoneTable" -->
+                <div class="zone" data-bind="style: { 
+                    left : $data.position_x(), 
+                    top : $data.position_y(), 
+                    width : $data.largeur(), 
+                    height : $data.hauteur() 
+                }">
+                    <table data-bind="attr : {
+                        fontFamily : $root.theme.tableau.police(),
+                        fontSize : $root.theme.tableau.taille(),
+                        color : $root.theme.tableau.couleur(),
+                        background : $root.theme.tableau.couleur_fond(),
+                        opacity : $root.theme.tableau.opacite_fond(),
+                        bold : $root.theme.tableau.gras(),
+                        fontStyle : $root.theme.tableau.gras(),
+                        textDecoration : $root.theme.tableau.soulignement(),
+                        borderColor :  $root.theme.tableau.bordure.couleur(),
+                        borderStyle : $root.theme.tableau.bordure.style(),
+                        borderWidth : $root.theme.tableau.bordure.taille()
+                        }">
+                        <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
+                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, attr : {
+                                fontFamily : $root.theme.tableau_ligne.police(),
+                                fontSize : $root.theme.tableau_ligne.taille(),
+                                color : $root.theme.tableau_ligne.couleur(),
+                                background : $root.theme.tableau_ligne.couleur_fond(),
+                                opacity : $root.theme.tableau_ligne.opacite_fond(),
+                                bold : $root.theme.tableau_ligne.gras(),
+                                fontStyle : $root.theme.tableau_ligne.gras(),
+                                textDecoration : $root.theme.tableau_ligne.soulignement(),
+                                borderColor :  $root.theme.tableau_ligne.bordure.couleur(),
+                                borderStyle : $root.theme.tableau_ligne.bordure.style(),
+                                borderWidth : $root.theme.tableau_ligne.bordure.taille()
+                            }">
+                                <!-- Définir le style selon les attributs json -->
+                                <!-- ko if: cellule.type() === "tableau_titre" -->
+                                <th data-bind="text: $data.contenu, style: { 
+                                    fontFamily : $root.theme.tableau_titre.police(),
+                                    fontSize : $root.theme.tableau_titre.taille(),
+                                    color : $root.theme.tableau_titre.couleur(),
+                                    background : $root.theme.tableau_titre.couleur_fond(),
+                                    opacity : $root.theme.tableau_titre.opacite_fond(),
+                                    bold : $root.theme.tableau_titre.gras(),
+                                    fontStyle : $root.theme.tableau_titre.gras(),
+                                    textDecoration : $root.theme.tableau_titre.soulignement(),
+                                    borderColor :  $root.theme.tableau_titre.bordure.couleur(),
+                                    borderStyle : $root.theme.tableau_titre.bordure.style(),
+                                    borderWidth : $root.theme.tableau_titre.bordure.taille()
+                                }"></th> 
+                                <!-- /ko -->
+                                <!-- ko if: cellule.type() === "tableau_texte" -->
+                                <td data-bind="text: $data.contenu, style: { 
+                                    fontFamily : $root.theme.tableau_texte.police(),
+                                    fontSize : $root.theme.tableau_texte.taille(),
+                                    color : $root.theme.tableau_texte.couleur(),
+                                    background : $root.theme.tableau_texte.couleur_fond(),
+                                    opacity : $root.theme.tableau_texte.opacite_fond(),
+                                    bold : $root.theme.tableau_texte.gras(),
+                                    fontStyle : $root.theme.tableau_texte.gras(),
+                                    textDecoration : $root.theme.tableau_texte.soulignement(),
+                                    borderColor :  $root.theme.tableau_texte.bordure.couleur(),
+                                    borderStyle : $root.theme.tableau_texte.bordure.style(),
+                                    borderWidth : $root.theme.tableau_texte.bordure.taille()
+                                }"></td> 
+                                <!-- /ko -->
+  
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /ko -->
+            </div>
         <script type='text/javascript' defer="defer">
             var viewModel = ko.mapping.fromJS({{!fenetre}});
             ko.applyBindings(viewModel);
