@@ -33,7 +33,7 @@ theme_1 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="1px",
             style="solid"
         )
     ),
@@ -48,7 +48,7 @@ theme_1 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="2px",
             style="solid"
         )
     ),
@@ -63,7 +63,7 @@ theme_1 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="3px",
             style="solid"
         )
     ),
@@ -78,7 +78,7 @@ theme_1 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="4px",
             style="solid"
         )
     ),
@@ -93,7 +93,7 @@ theme_1 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1px",
+            taille="5px",
             style="solid"
         )
     ),
@@ -108,7 +108,7 @@ theme_1 = Theme(
         type="tableau_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="6px",
             style="solid"
         )
     ),
@@ -123,7 +123,7 @@ theme_1 = Theme(
         type="tableau_sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="7px",
             style="solid"
         )
     ),
@@ -138,7 +138,7 @@ theme_1 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="8px",
             style="solid"
         )
     )
@@ -156,7 +156,7 @@ theme_2 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="9px",
             style="solid"
         )
     ),
@@ -171,7 +171,7 @@ theme_2 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="1px",
             style="solid"
         )
     ),
@@ -186,7 +186,7 @@ theme_2 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="2px",
             style="solid"
         )
     ),
@@ -201,7 +201,7 @@ theme_2 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="3px",
             style="solid"
         )
     ),
@@ -261,7 +261,7 @@ theme_2 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="1px",
             style="solid"
         )
     )
@@ -295,7 +295,6 @@ fenetre_dessert = Fenetre(
     couleur_fond = "#FFFFFF",
     theme=theme_1
 )
-
 
 zone_entete = ZoneBase(
     nom='zone_grillwiches', 

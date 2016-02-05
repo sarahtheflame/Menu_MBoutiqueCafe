@@ -39,14 +39,9 @@ appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chem
 app = Bottle() # Représente l'application qui gère les routes de notre système.
 
 Base = declarative_base()
-engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
+engine = create_engine('sqlite:///src//data//database.db')
 
-plugin = sqlalchemy.Plugin(
-    engine,
-    keyword='db',
-    commit=True,
-    use_kwargs=False
-)
+plugin = sqlalchemy.Plugin(engine, keyword='db', commit=True, use_kwargs=False)
 
 app.install(plugin)
     

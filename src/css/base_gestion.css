@@ -5,15 +5,11 @@ body {
   overflow: hidden;
   width: 100%;
 }
-/* HEADER */
 #header {
-  top: 0;
-  left: 0;
   display: table;
   width: 100vw;
   height: 50px;
-  table-layout: fixed;
-  background: #2f2f2f;
+  background: #2F2F2F;
 }
 #header .toggle_sidebar {
   width: 6vh;
@@ -43,34 +39,34 @@ body {
   float: none;
   vertical-align: middle;
 }
-/* SIDEBAR */
 #sidebar {
   width: 10vw;
   height: 100vh;
   display: block;
   position: fixed;
   left: 0px;
-  top: 49px;
   background: #2F2F2F;
-  transition: all 0.2s;
+  transition: width 0.2s;
 }
 #sidebar ul {
-  overflow: auto;
+  width: 100%;
   height: 80vh;
+  position: absolute;
+  top: 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-overflow: ellipsis;
 }
 #sidebar ul li {
   width: 100%;
-  max-height: 25px;
+  height: 25px;
   margin-top: 10px;
-  display: block;
-  list-style: none;
-  vertical-align: middle;
+  display: inline-block;
 }
 #sidebar ul li a {
-  display: block;
+  display: inline-block;
   width: 100%;
   padding: 10px;
-  vertical-align: middle;
   text-decoration: none;
   color: #ddd;
 }
@@ -78,23 +74,20 @@ body {
   color: #fff;
   background-color: #d35400;
 }
-#sidebar span {
+#sidebar .glyphicon {
   float: left;
   height: 100%;
-  margin-right: 50px;
-}
-#sidebar .glyphicon {
   font-size: 14px;
   margin: 0px 10px 0px 10px;
-  display: block;
-  height: 100%;
+  display: inline-block;
   vertical-align: middle;
 }
 #sidebar #deconnexion {
+  position: absolute;
+  top: 80vh;
   width: 100%;
   height: 20vh;
 }
-/* CONTENU */
 #content {
   width: 100vw;
   height: 100vh;
@@ -102,13 +95,9 @@ body {
   position: relative;
   margin-top: 50px;
   word-wrap: break-word;
-  background: #fff;
+  background: #FFF;
   overflow-y: auto;
-  transition: all 0.2s;
-}
-#content.show_sidebar {
-  width: 90vw;
-  transition: all 0.2s;
+  transition: width 0.2s;
 }
 #content .entete {
   padding: 10px 25px;
@@ -124,7 +113,10 @@ body {
   text-align: right;
   vertical-align: top;
 }
-/* LISTES */
+#content.show_sidebar {
+  width: 90vw;
+  transition: width 0.2s;
+}
 .panel-group {
   overflow: auto;
   height: 72vh;
@@ -170,6 +162,22 @@ body {
 .panel-collapse > .list-group-item {
   background-color: #efefef;
 }
+@media only screen and (max-width: 1170px) {
+  #content.show_sidebar {
+    width: 70vw;
+  }
+  #sidebar {
+    width: 20vw;
+  }
+}
+@media only screen and (max-width: 970px) {
+  #content.show_sidebar {
+    width: 60vw;
+  }
+  #sidebar {
+    width: 40vw;
+  }
+}
 @media only screen and (max-width: 768px) {
   #content {
     left: 0;
@@ -181,11 +189,7 @@ body {
     width: 100vw;
     transition: left .2s;
   }
-  .navigation_element_detail {
-    visibility: visible;
-  }
   #sidebar {
-    font-size: 5vw;
     width: 100vw;
     text-align: center;
   }
@@ -202,5 +206,8 @@ body {
     width: 30%;
     margin-right: 4vw;
     text-align: right;
+  }
+  #sidebar .navigation_element_detail {
+    visibility: visible;
   }
 }

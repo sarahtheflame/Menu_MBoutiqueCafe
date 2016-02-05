@@ -1,5 +1,5 @@
 
-interact('.boite_flottante')
+interact('.zone')
   .draggable({
     inertia: true,
     restrict: {
