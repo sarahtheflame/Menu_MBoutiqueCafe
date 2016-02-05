@@ -130,7 +130,7 @@ class Bordure(Base):
     """
     __tablename__ = 'Bordures'
     id = Column(Integer, primary_key=True)
-    taille = Column(String(250), default='0px')
+    taille = Column(Integer, default=0)
     style = Column(String(250), default='solid')
     couleur = Column(String(250), default='#000000')
 
@@ -191,9 +191,9 @@ class Style(Base):
     id = Column(Integer, primary_key=True)
     police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
-    taille = Column(Integer, default='1.5vw')
+    taille = Column(Integer, default=12)
     couleur_fond = Column(String(250), default='#FFFFFF')
-    opacite_fond = Column(String, default='0')
+    opacite_fond = Column(Integer, default=0)
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
     soulignement = Column(String(250), default='none')
@@ -600,7 +600,7 @@ class Periode(Base):
     """
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
-    heure_debut = Column(Time, unique=True)
+    heure_debut = Column(Time, default=datetime.time(0,0)) #unique=True
     id_fenetre_1 = Column(
         Integer, 
         ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
@@ -649,7 +649,8 @@ class Periode(Base):
         """
         return dict(
             id = self.id,
-            heure_debut = self.heure_debut,
+            heure_debut = self.heure_debut.hour,
+            minute_debut = self.heure_debut.minute,
             fenetre_1 = self.fenetre_1.serialiser_en_json(),
             fenetre_2 = self.fenetre_2.serialiser_en_json(),
             fenetre_3 = self.fenetre_3.serialiser_en_json(),
@@ -666,7 +667,7 @@ class Periode(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('heure_debut') != None : self.heure_debut = data['heure_debut']
+        if data.get('heure_debut') != None : self.heure_debut = datetime.time(data['heure_debut'], data['minute_debut'])
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):
