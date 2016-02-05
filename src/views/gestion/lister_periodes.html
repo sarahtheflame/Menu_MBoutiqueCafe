@@ -32,38 +32,67 @@
         <div class="row">
           <div class="col-md-2 col-xs-12">
             <h2>
-              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: $data.nom, attr: { href: '#'+$data.id()}">
+              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}">
+              Période #<span data-bind="text: $data.id"></span>
               </a>
             </h2>
           </div>
-<!--           <div class="col-md-4  col-xs-12">
-            <label>Thème : </label>
-            <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: periode.theme.id">
-            </select>
-          </div> -->
+           <div class="col-md-2  col-xs-4">
+            <label>Heure de début : </label>
+            <input type="time" class="form-control" placeholder="HH:MM" required="" data-bind="value: heure_debut">
+          </div> 
           <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+          <!-- ko if: $data.id() > 1 -->
             <a href="#" class="retirer">X</a>
-            <a class="btn" data-bind="attr: { href: '/g/modifier_periode?id='+$data.id()}">Modifier</a>
+          <!-- /ko --> 
           </div>
         
         </div>
       </h4>
     </div>
      <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
-      <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
-        <!-- ko if: $data.id() > -1 -->
+      <ul class="list-group" id="zones">
         <li class="list-group-item">
-          <a href="#" class="retirer">X</a>
-          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone?id='+$data.id()}">Modifier</a>
-          <strong data-bind="text: $data.nom()"></strong> (<span data-bind="text: $data.type()"></span>)
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <label>Fenêtre #1:</label>
+                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_1.id"></select>
+                    </div>
+                </div>
+            </div>
         </li>
-        
-        <!-- /ko -->
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <label>Fenêtre #2:</label>
+                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_2.id"></select>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <label>Fenêtre #3:</label>
+                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_3.id"></select>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <label>Fenêtre #4:</label>
+                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
+                    </div>
+                </div>
+            </div>
+        </li>
       </ul>
-      <div class="list-group-item">
-          <a href="#" class="ajouter_zone">+ Ajouter une zone</a>
-          Nouvelle zone
-      </div>
     </div>
   </div>
   <!-- /ko -->

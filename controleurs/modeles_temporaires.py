@@ -649,8 +649,7 @@ class Periode(Base):
         """
         return dict(
             id = self.id,
-            heure_debut = self.heure_debut.hour,
-            minute_debut = self.heure_debut.minute,
+            heure_debut = self.heure_debut.strftime("%H:%M"),
             fenetre_1 = self.fenetre_1.serialiser_en_json(),
             fenetre_2 = self.fenetre_2.serialiser_en_json(),
             fenetre_3 = self.fenetre_3.serialiser_en_json(),
@@ -667,7 +666,8 @@ class Periode(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('heure_debut') != None : self.heure_debut = datetime.time(data['heure_debut'], data['minute_debut'])
+        nouvel_heure_debut = data['heure_debut'].split(':')
+        if data.get('heure_debut') != None : self.heure_debut = datetime.time(int(nouvel_heure_debut[0]), int(nouvel_heure_debut[1]))
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):

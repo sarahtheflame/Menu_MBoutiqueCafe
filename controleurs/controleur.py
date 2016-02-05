@@ -80,9 +80,11 @@ def get_parametres(s, id_administrateur):
     return resultats
 
 def get_lister_periodes(s):
-    resultats = { 'periodes' : [], 'vue_associe' : 'lister_periodes'  }
+    resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'lister_periodes'  }
     for periode in s.query(Periode).all():
         resultats['periodes'].append(periode.serialiser_en_json())
+    for fenetre in s.query(Fenetre).all():
+        resultats['fenetres'].append(fenetre.serialiser_en_json())
     return resultats
 
 def get_modifier_zone(s, id_zone):

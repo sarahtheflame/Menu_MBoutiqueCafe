@@ -8,6 +8,7 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
+import datetime
 from modeles_temporaires import *
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
@@ -539,7 +540,14 @@ zone_test_image = ZoneImage(
     image=image_sandwich_europeen
 )
 
-periode = Periode()
+periode1 = Periode(
+    heure_debut = datetime.time(10, 21))
+
+periode2 = Periode(
+    heure_debut = datetime.time(13, 4))
+
+periode3 = Periode(
+    heure_debut = datetime.time(15, 1))
 
 s.add_all([
     administrateur_1,
@@ -594,7 +602,9 @@ s.add_all([
     ligne_1_test,
     cellule_1_ligne_1_test,
     zone_test_image,
-    periode]
+    periode1,
+    periode2,
+    periode3]
 )
 
 s.commit()
