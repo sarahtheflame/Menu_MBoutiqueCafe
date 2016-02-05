@@ -7,12 +7,12 @@
         <h4 class="modal-title" id="myModalLabel">Ajouter une fenêtre</h4>
       </div>
       <div class="modal-body">
-        <p>Nom de la nouvelle fenêtre: <input type="text" class="form-control" /></p>
+        <p>Nom de la nouvelle fenêtre: <input id="nom_fenetre_input" type="text" class="form-control" /></p>
         <!-- <span data-bind="text: nom_nouvelle-fenetre"></span> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="ajouter_fenetre btn btn-primary">Save changes</button>
+        <button type="button" class="ajouter_fenetre btn btn-primary" data-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -83,18 +83,15 @@
       });
 
       $("body").on("click", ".ajouter_fenetre", function() {
-        var context = ko.contextFor(this),
-            nom_fenetre = 'TEST';
-        if (nom_fenetre != null) {
-            var Fenetre = function(nom_fenetre){
+        var context = ko.contextFor(this);
+            var Fenetre = function(){
               this.id = ko.observable(0);
-              this.nom = ko.observable(nom_fenetre);
+              this.nom = ko.observable($("#nom_fenetre_input").val());
               this.theme = ko.observable(context.$root.themes()[0]);
               this.zones = ko.observableArray([]);
             };
 
-            context.$root.fenetres.push(new Fenetre(nom_fenetre));
-        }
+            context.$root.fenetres.push(new Fenetre());
       });
 
       $("body").on("click", ".ajouter_zone", function() {
