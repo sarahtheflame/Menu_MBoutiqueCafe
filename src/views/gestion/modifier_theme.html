@@ -1,1 +1,260 @@
 % rebase(path)
+<link rel="stylesheet" type="text/css" href="/src/modifier_theme.css">
+<link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.css">
+<link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.min.css">
+<script type='text/javascript' src="/src/bootstrap-colorpicker.js"></script>
+<script type='text/javascript' src="/src/bootstrap-colorpicker.min.js"></script>
+
+<div class="entete">
+  <h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
+</div>
+
+<div data-bind="template: { name: 'styles-texte-template', data: theme.titre }">
+</div>
+<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre }">
+</div>
+<div data-bind="template: { name: 'styles-texte-template', data: theme.texte }">
+</div>
+
+<div class="container">
+    	<div class="row">
+        	<div class="col-md-7 col-xs-12">
+        		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
+				</div>
+				<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
+				</div>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre}">
+				</div>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre}">
+				</div>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte}">
+				</div>
+			</div>
+			<div class="col-md-5 col-xs-12">
+			<table data-bind="style : {
+			                        background : theme.tableau.couleur_fond(),
+			                        opacity : theme.tableau.opacite_fond(),
+			                        borderColor :  theme.tableau.bordure.couleur(),
+			                        borderStyle : theme.tableau.bordure.style(),
+			                        borderWidth : theme.tableau.bordure.taille()+'px'
+			                        }">
+				<tr data-bind="style : {
+			                        background : theme.tableau_ligne.couleur_fond(),
+			                        opacity : theme.tableau_ligne.opacite_fond(),
+			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+			                        borderStyle : theme.tableau_ligne.bordure.style(),
+			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+			                        }">
+					<th data-bind="style: { 
+			                        fontFamily : theme.tableau_titre.police(),
+			                        fontSize : theme.tableau_titre.taille(),
+			                        color : theme.tableau_titre.couleur(),
+			                        bold : theme.tableau_titre.gras(),
+			                        fontStyle : theme.tableau_titre.gras(),
+			                        textDecoration : theme.tableau_titre.soulignement()
+			                    }">Extras
+					</th>
+					<th data-bind="style: { 
+			                        fontFamily : theme.tableau_titre.police(),
+			                        fontSize : theme.tableau_titre.taille(),
+			                        color : theme.tableau_titre.couleur(),
+			                        bold : theme.tableau_titre.gras(),
+			                        fontStyle : theme.tableau_titre.gras(),
+			                        textDecoration : theme.tableau_titre.soulignement()
+			                    }">
+					</th>
+				</tr>
+				<tr data-bind="style : {
+			                        background : theme.tableau_ligne.couleur_fond(),
+			                        opacity : theme.tableau_ligne.opacite_fond(),
+			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+			                        borderStyle : theme.tableau_ligne.bordure.style(),
+			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+			                        }">
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_sous_titre.police(),
+			                        fontSize : theme.tableau_sous_titre.taille(),
+			                        color : theme.tableau_sous_titre.couleur(),
+			                        bold : theme.tableau_sous_titre.gras(),
+			                        fontStyle : theme.tableau_sous_titre.gras(),
+			                        textDecoration : theme.tableau_sous_titre.soulignement()
+			                    }">Sous-titre</td>
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_sous_titre.police(),
+			                        fontSize : theme.tableau_sous_titre.taille(),
+			                        color : theme.tableau_sous_titre.couleur(),
+			                        bold : theme.tableau_sous_titre.gras(),
+			                        fontStyle : theme.tableau_sous_titre.gras(),
+			                        textDecoration : theme.tableau_sous_titre.soulignement()
+			                    }"></td>
+				</tr>
+				<tr data-bind="style : {
+			                        background : theme.tableau_ligne.couleur_fond(),
+			                        opacity : theme.tableau_ligne.opacite_fond(),
+			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+			                        borderStyle : theme.tableau_ligne.bordure.style(),
+			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+			                        }">
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_texte.police(),
+			                        fontSize : theme.tableau_texte.taille(),
+			                        color : theme.tableau_texte.couleur(),
+			                        bold : theme.tableau_texte.gras(),
+			                        fontStyle : theme.tableau_texte.gras(),
+			                        textDecoration : theme.tableau_texte.soulignement()
+			                    }">Crème fouettée</td>
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_texte.police(),
+			                        fontSize : theme.tableau_texte.taille(),
+			                        color : theme.tableau_texte.couleur(),
+			                        bold : theme.tableau_texte.gras(),
+			                        fontStyle : theme.tableau_texte.gras(),
+			                        textDecoration : theme.tableau_texte.soulignement()
+			                    }">0,65$</td>
+				</tr>
+				<tr data-bind="style : {
+			                        background : theme.tableau_ligne.couleur_fond(),
+			                        opacity : theme.tableau_ligne.opacite_fond(),
+			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+			                        borderStyle : theme.tableau_ligne.bordure.style(),
+			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+			                        }">
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_texte.police(),
+			                        fontSize : theme.tableau_texte.taille(),
+			                        color : theme.tableau_texte.couleur(),
+			                        bold : theme.tableau_texte.gras(),
+			                        fontStyle : theme.tableau_texte.gras(),
+			                        textDecoration : theme.tableau_texte.soulignement()
+			                    }">Guimauve</td>
+					<td  data-bind="style: { 
+			                        fontFamily : theme.tableau_texte.police(),
+			                        fontSize : theme.tableau_texte.taille(),
+			                        color : theme.tableau_texte.couleur(),
+			                        bold : theme.tableau_texte.gras(),
+			                        fontStyle : theme.tableau_texte.gras(),
+			                        textDecoration : theme.tableau_texte.soulignement()
+			                    }">0,45$</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+{{!data}}
+
+<script type="text/html" id="styles-texte-template">
+    <h2 data-bind="text: type"></h2>
+    <div class="container">
+    	<div class="row">
+        	<div class="col-md-7 col-xs-12">
+	          	<div class="col-md-3 col-xs-12">
+		          	<div class="input-group">
+	  					<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-font"></span></span>
+					    <select class="form-control" data-role="none">
+					    	<option>Arial</option>
+					    	<option>Times New Roman</option>
+					    </select>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-12">
+		          	<div class="input-group">
+	  					<span class="input-group-addon"><span class="glyphicon glyphicon-text-size"></span></span>
+					    <input type="number" min="0" class="form-control" data-bind="textInput: taille">
+					</div>
+					<span data-bind="text: taille"></span>
+				</div>
+				<div class="col-md-3 col-xs-12">
+				    <div class="btn-group" role="group" aria-label="...">
+					  <button type="button" class="btn btn-default">
+					  	<span class="glyphicon glyphicon-bold"></span>
+					  </button>
+					  <button type="button" class="btn btn-default">
+					  	<span class="glyphicon glyphicon-italic"></span>
+					  </button>
+					  <button type="button" class="btn btn-default">
+					  	<span class="glyphicon glyphicon-text-color"></span>
+					  </button>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-12">
+					<div class="input-group choix_couleur">
+					    <input type="text" class="form-control" data-bind="textInput: couleur"/>
+					    <span class="input-group-addon"><i></i></span>
+					</div>
+					<span data-bind="text: couleur"></span>
+				</div>
+		    </div>
+
+		    <div class="col-md-5 col-xs-12">
+		    	<span data-bind="text: type, style: {
+                        fontFamily : police,
+                        fontSize : taille()+'px',
+                        color : couleur(),
+                        bold : gras(),
+                        fontStyle : gras(),
+                        textDecoration : soulignement()
+                    }"></span>
+		    </div>
+		</div>
+    </div>
+</script>
+
+<script type="text/html" id="styles-tableau-template">
+<h2 data-bind="text: type"></h2>
+    <div class="container">
+    	<div class="row">
+        	<div class="col-md-7 col-xs-12">
+	          	<div class="col-md-3 col-xs-12">
+		          	<div class="input-group">
+		          		<label>Style de bordure</label>
+	  					// <select class="form-control">
+	  					// 	<option value="solid">Solide</option>
+	  					// 	<option value="dotted">Pointillée</option>
+	  					// 	<option value="none">Aucune</option>
+	  					// </select>
+	  					<select class="form-control" data-role="none" data-bind="options: {'solid', 'dotted', 'none'}, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
+            </select>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-12">
+		          	<div class="input-group">
+		          		<label>Taille bordure</label>
+	  					<span class="input-group-addon"><span class="glyphicon glyphicon-text-size"></span></span>
+					    <input type="number" min="0" class="form-control" data-bind="textInput: bordure.taille">
+					</div>
+					<span data-bind="text: taille"></span>
+				</div>
+				<div class="col-md-3 col-xs-12">
+				    <div class="input-group choix_couleur">
+				    	<label>Couleur bordure</label>
+					    <input type="text" class="form-control" data-bind="textInput: bordure.couleur"/>
+					    <span class="input-group-addon"><i></i></span>
+					</div>
+					<span data-bind="text: couleur"></span>
+				</div>
+				<div class="col-md-3 col-xs-12">
+				    <div class="input-group choix_couleur">
+				    	<label>Couleur fond</label>
+					    <input type="text" class="form-control" data-bind="textInput: couleur_fond"/>
+					    <span class="input-group-addon"><i></i></span>
+					</div>
+					<span data-bind="text: couleur"></span>
+				</div>
+		    </div>
+
+		    <div class="col-md-5 col-xs-12">
+
+		    </div>
+		</div>
+    </div>
+</script>
+
+<script>
+    $(function(){
+        $('.choix_couleur').colorpicker();
+    });
+</script>
