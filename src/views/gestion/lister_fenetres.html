@@ -1,10 +1,29 @@
 % rebase(path)
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter une fenêtre</h4>
+      </div>
+      <div class="modal-body">
+        <p>Nom de la nouvelle fenêtre: <input type="text" class="form-control" /></p>
+        <!-- <span data-bind="text: nom_nouvelle-fenetre"></span> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="ajouter_fenetre btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="entete">
   <h1>Liste des fenêtres</h1>
-  <div class="aide">
+  <!-- <div class="aide">
   	<a href="">Qu'est-ce qu'une fenêtre?</a>
-  </div>
-  <button type="button" class="ajouter_fenetre btn btn-primary">+ Ajouter une fenêtre</button>
+  </div> -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter une fenêtre</button>
 </div>
 
 <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: fenetres">
@@ -21,13 +40,16 @@
           </div>
           <div class="col-md-4  col-xs-12">
             <label>Thème : </label>
-            <select class="form-control" data-role="none" data-bind="foreach: $root.themes">
+            <!-- <select class="form-control" data-role="none" data-bind="foreach: $root.themes">
               <option data-bind="value: id, text:nom"></option>
+            </select> -->
+            <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', value: $data.theme">
             </select>
+             <!-- <span data-bind="text: theme.id"></span> -->
           </div>
           <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
             <a href="#" class="retirer">X</a>
-            <a href="#" class="btn">Modifier</a>
+            <a class="btn" data-bind="attr: { href: '/g/modifier_fenetre?id='+id()}">Modifier</a>
           </div>
         
         </div>
@@ -38,8 +60,18 @@
         <!-- ko if: id() > -1 -->
         <li class="list-group-item">
           <a href="#" class="retirer">X</a>
-          <a href="#" class="modifier">Modifier</a>
-          
+          <!-- ko if: type() == 'ZoneTable' -->
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_table?id='+id()}">Modifier</a>
+          <!-- /ko -->
+          <!-- ko if: type() == 'ZoneImage' -->
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_image?id='+id()}">Modifier</a>
+          <!-- /ko -->
+          <!-- ko if: type() == 'ZoneVideo' -->
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_video?id='+id()}">Modifier</a>
+          <!-- /ko -->
+          <!-- ko if: type() == 'ZoneBase' -->
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone_base?id='+id()}">Modifier</a>
+          <!-- /ko -->
           <strong data-bind="text: nom()"></strong> (<span data-bind="text: type()"></span>)
         </li>
         
