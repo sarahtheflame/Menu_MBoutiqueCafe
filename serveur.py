@@ -112,12 +112,13 @@ def get_gestion(nom_fichier, db):
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
+    donnees_gestion = obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : request.query.id})
     variables = {
         'titre' : nom_fichier,
         'path' : "src\\views\\gestion\\base_gestion.html",
-        'data' : obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : request.query.id})
+        'data' : donnees_gestion
     }
-    return template("src\\views\\gestion\\"+nom_fichier+".html", variables)
+    return template("src\\views\\gestion\\"+donnees_gestion['vue_associe']+".html", variables)
     
 @app.route('/g/<nom_fichier>', method='POST')
 @check_auth

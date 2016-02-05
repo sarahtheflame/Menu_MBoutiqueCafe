@@ -215,7 +215,6 @@ class Style(Base):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
-        print(self.type)
         return dict(
             id = self.id,
             police = self.police,

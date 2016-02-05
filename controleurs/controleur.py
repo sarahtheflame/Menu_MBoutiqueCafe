@@ -22,7 +22,7 @@ def get_affichage(s, nom_fenetre):
     return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
 
 def obtenir_donnees_gestion(s, data):
-    if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!'}
+    if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!', 'vue_associe' : 'accueil'}
     elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
     elif data['nom_vue'] == "themes": return get_lister_themes(s)
@@ -31,7 +31,7 @@ def obtenir_donnees_gestion(s, data):
     elif data['nom_vue'] == "modifier_zone": return get_modifier_zone(s, data['id'])
     elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
-    elif data['nom_vue'] == "a_propos": return {}
+    elif data['nom_vue'] == "a_propos": return {'vue_associe' : 'a_propos'}
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def retourner_donnees_gestion(s, data):
@@ -50,37 +50,37 @@ def retourner_donnees_gestion(s, data):
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
 def get_lister_fenetres(s):
-    resultats = { 'fenetres' : [], 'themes' : [] }
+    resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'lister_fenetres'}
     for fenetre in s.query(Fenetre).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
     for theme in s.query(Theme).all():
-        resultats['themes'].append(theme.serialiser_en_json())    
+        resultats['themes'].append(theme.serialiser_en_json()) 
     return resultats
 
 def get_medias(s):
-    resultats = { 'medias' : [] }
+    resultats = { 'medias' : [], 'vue_associe' : 'medias'}
     for media in s.query(Media).all():
         resultats['medias'].append(media.serialiser_en_json())
     return resultats
 
 def get_modifier_theme(s, id_theme):
-    resultats = { 'theme' : '' }
+    resultats = { 'theme' : '', 'vue_associe' : 'modifier_theme'}
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
     return resultats
 
 def get_lister_themes(s):
-    resultats = { 'themes' : [] }
+    resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).all():
         resultats['themes'].append(theme.serialiser_en_json())
     return resultats
 
 def get_parametres(s, id_administrateur):
-    resultats = { 'administrateur' : [] }
+    resultats = { 'administrateur' : [], 'vue_associe' : 'parametres'  }
     resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.id == id_administrateur).one().serialiser_en_json()
     return resultats
 
 def get_lister_periodes(s):
-    resultats = { 'periodes' : [] }
+    resultats = { 'periodes' : [], 'vue_associe' : 'lister_periodes'  }
     for periode in s.query(Periode).all():
         resultats['periodes'].append(periode.serialiser_en_json())
     return resultats
@@ -90,16 +90,21 @@ def get_modifier_zone(s, id_zone):
     type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
     if type_zone == "ZoneBase":
         resultats['zone'] = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one().serialiser_en_json()
+        nom_vue = "modifier_zone_base"
     elif type_zone == "ZoneTable":
         resultats['zone'] = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one().serialiser_en_json()
+        nom_vue = "modifier_zone_table"
     elif type_zone == "ZoneImage":
         resultats['zone'] = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one().serialiser_en_json()
+        nom_vue = "modifier_zone_image"
     elif type_zone == "ZoneVideo":
         resultats['zone'] = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one().serialiser_en_json()
+        nom_vue = "modifier_zone_video"
+    resultats['vue_associe'] = nom_vue
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '' }
+    resultats = { 'fenetre' : '', 'vue_associe' : 'modifier_fenetre'  }
     resultats['fenetre'] = s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     return resultats
 
