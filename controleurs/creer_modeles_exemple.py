@@ -25,7 +25,7 @@ theme_1 = Theme(
     titre=Style(
         police="'KaushanScript', cursive",
         couleur="#ff7400",
-        taille="4vw",
+        taille="4",
         couleur_fond="#000000",
         opacite_fond="0.8",
         gras="",
@@ -33,14 +33,14 @@ theme_1 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1px",
+            taille="1",
             style="solid"
         )
     ),
     sous_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="3vw",
+        taille="3",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -48,14 +48,14 @@ theme_1 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2px",
+            taille="2",
             style="solid"
         )
     ),
     texte=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -63,14 +63,14 @@ theme_1 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3px",
+            taille="3",
             style="solid"
         )
     ),
     tableau=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="#000000",
         opacite_fond="0.8",
         gras="",
@@ -78,14 +78,14 @@ theme_1 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="4px",
+            taille="4",
             style="solid"
         )
     ),
     tableau_ligne=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -93,14 +93,14 @@ theme_1 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="5px",
+            taille="5",
             style="solid"
         )
     ),
     tableau_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="2vw",
+        taille="2",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -108,14 +108,14 @@ theme_1 = Theme(
         type="tableau_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="6px",
+            taille="6",
             style="solid"
         )
     ),
     tableau_sous_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -123,14 +123,14 @@ theme_1 = Theme(
         type="tableau_sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="7px",
+            taille="7",
             style="solid"
         )
     ),
     tableau_texte=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -138,7 +138,7 @@ theme_1 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="8px",
+            taille="8",
             style="solid"
         )
     )
@@ -148,7 +148,7 @@ theme_2 = Theme(
     titre=Style(
         police="'KaushanScript', cursive",
         couleur="#ff7400",
-        taille="4vw",
+        taille="4",
         couleur_fond="#000000",
         opacite_fond="0.8",
         gras="",
@@ -156,14 +156,14 @@ theme_2 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="9px",
+            taille="9",
             style="solid"
         )
     ),
     sous_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="3vw",
+        taille="3",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -171,14 +171,14 @@ theme_2 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1px",
+            taille="1",
             style="solid"
         )
     ),
     texte=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -186,14 +186,14 @@ theme_2 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2px",
+            taille="2",
             style="solid"
         )
     ),
     tableau=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="#000000",
         opacite_fond="0.8",
         gras="",
@@ -201,14 +201,14 @@ theme_2 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3px",
+            taille="3",
             style="solid"
         )
     ),
     tableau_ligne=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -216,14 +216,14 @@ theme_2 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1px",
+            taille="1",
             style="solid"
         )
     ),
     tableau_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="2vw",
+        taille="2",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -231,14 +231,14 @@ theme_2 = Theme(
         type="tableau_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="0",
             style="solid"
         )
     ),
     tableau_sous_titre=Style(
         police="'Oswald', sans-serif",
         couleur="#ff8f32",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -246,14 +246,14 @@ theme_2 = Theme(
         type="tableau_sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="0px",
+            taille="0",
             style="solid"
         )
     ),
     tableau_texte=Style(
         police="'Oswald', sans-serif",
         couleur="#FFFFFF",
-        taille="1.5vw",
+        taille="1.5",
         couleur_fond="",
         opacite_fond="1",
         gras="",
@@ -261,7 +261,7 @@ theme_2 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1px",
+            taille="1",
             style="solid"
         )
     )

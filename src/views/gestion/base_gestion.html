@@ -106,54 +106,10 @@
 
     <div id="content" class="show_sidebar">{{!base}}
     </div>
-    
-    
+
     <script type='text/javascript' defer="defer">
-
-      var viewModel = ko.mapping.fromJS({{!data}}),
-          nom_nouvelle_fenetre = ko.observable();
+      var viewModel = ko.mapping.fromJS({{!data}});
       ko.applyBindings(viewModel);
-
-      $("body").on("click", ".retirer", function() {
-          var context = ko.contextFor(this),
-              id = context.$data.id();
-            if (id != 0) {
-              context.$data.id(-id);
-            } else {
-              context.$parent.zones.remove(context.$data);
-            }
-      });
-
-      $("body").on("click", ".ajouter_fenetre", function() {
-        var context = ko.contextFor(this),
-            //nom_fenetre = context.$root.nom_nouvelle_fenetre;
-            nom_fenetre = 'TEST';
-        if (nom_fenetre != null) {
-            var Fenetre = function(nom_fenetre){
-              this.id = ko.observable(0);
-              this.nom = ko.observable(nom_fenetre);
-              this.theme = ko.observable(context.$root.themes()[0]);
-              this.zones = ko.observableArray([]);
-            };
-
-            context.$root.fenetres.push(new Fenetre(nom_fenetre));
-        }
-      });
-
-      $("body").on("click", ".ajouter_zone", function() {
-        var context = ko.contextFor(this),
-            nom_zone = prompt("Nom de la nouvelle zone : ", ""),
-            type_zone = prompt("Type de la zone : ", "ZoneBase");
-        if (nom_zone != null) {
-          var Zone = function(nom_zone, type_zone){
-            this.id = ko.observable(0);
-            this.nom = ko.observable(nom_zone);
-            this.type = ko.observable(type_zone);
-          };
-
-          context.$data.zones.push(new Zone(nom_zone, type_zone));
-        }
-      });
 
       function appliquer_modifications(fileName) {
         var unmapped = ko.mapping.toJSON(viewModel);

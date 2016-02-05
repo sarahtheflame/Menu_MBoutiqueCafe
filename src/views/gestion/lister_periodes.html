@@ -1,1 +1,71 @@
 % rebase(path)
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter une période</h4>
+      </div>
+      <div class="modal-body">
+        <p>Nom de la nouvelle période: <input type="text" class="form-control" /></p>
+        <!-- <span data-bind="text: nom_nouvelle-periode"></span> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="ajouter_fenetre btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="entete">
+  <h1>Liste des périodes</h1>
+    <!-- <div class="aide">
+    <a href="">Qu'est-ce qu'une période?</a>
+  </div> -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter une période</button>
+</div>
+<div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: periodes, as: 'periode' }">
+  <!-- ko if: $data.id() > -1 -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <div class="row">
+          <div class="col-md-2 col-xs-12">
+            <h2>
+              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: $data.nom, attr: { href: '#'+$data.id()}">
+              </a>
+            </h2>
+          </div>
+<!--           <div class="col-md-4  col-xs-12">
+            <label>Thème : </label>
+            <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: periode.theme.id">
+            </select>
+          </div> -->
+          <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+            <a href="#" class="retirer">X</a>
+            <a class="btn" data-bind="attr: { href: '/g/modifier_periode?id='+$data.id()}">Modifier</a>
+          </div>
+        
+        </div>
+      </h4>
+    </div>
+     <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
+      <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
+        <!-- ko if: $data.id() > -1 -->
+        <li class="list-group-item">
+          <a href="#" class="retirer">X</a>
+          <a class="modifier" data-bind="attr: { href: '/g/modifier_zone?id='+$data.id()}">Modifier</a>
+          <strong data-bind="text: $data.nom()"></strong> (<span data-bind="text: $data.type()"></span>)
+        </li>
+        
+        <!-- /ko -->
+      </ul>
+      <div class="list-group-item">
+          <a href="#" class="ajouter_zone">+ Ajouter une zone</a>
+          Nouvelle zone
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+</div>
+{{!data}}
