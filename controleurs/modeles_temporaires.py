@@ -192,7 +192,7 @@ class Style(Base):
     police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
     taille = Column(Integer, default=12)
-    couleur_fond = Column(String(250), default='#FFFFFF')
+    couleur_fond = Column(String(250), default='rgba(255,255,255,0)')
     opacite_fond = Column(Integer, default=0)
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
@@ -793,7 +793,7 @@ class Zone(Base):
         'polymorphic_identity':'Zone',
         'polymorphic_on':type
     }
-
+#=========================MODIFIER STYLE POUR REMPLACER PAR TYPE_DE_STYLE (TITRE, ETC)
 class ZoneBase(Zone):
     """
         Description: 
@@ -816,16 +816,7 @@ class ZoneBase(Zone):
         primary_key=True
         )
     contenu = Column(String, default="")
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=3
-        )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-        )
+    type_style = Column(String, default="texte")
 
     def serialiser_en_json(self):
         """
@@ -841,7 +832,7 @@ class ZoneBase(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_style = self.id_style
+            type_style = self.type_style
             )
 
     def deserialiser_de_json(self, session, data):
@@ -860,8 +851,7 @@ class ZoneBase(Zone):
         if data.get('position_y') != None : self.position_y = data['position_y']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
-        if (self.id_style != data['id_style']): # Ne peut être null...
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        if data.get('type_style') != None : self.type_style = data['type_style']
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneBase',
@@ -1025,16 +1015,6 @@ class ZoneTable(Zone):
         ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
         primary_key=True
         )
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=4
-        )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
 
     __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 
@@ -1051,8 +1031,7 @@ class ZoneTable(Zone):
             position_y = self.position_y,
             largeur = self.largeur,
             hauteur = self.hauteur,
-            type = self.type,
-            id_style = self.id_style
+            type = self.type
             )
         for ligne in self.lignes:
             lignes_data.append(ligne.serialiser_en_json())
@@ -1074,8 +1053,6 @@ class ZoneTable(Zone):
         if data.get('position_y') != None : self.position_y = data['position_y']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
-        if self.id_style != data['id_style']:
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for ligne in data['lignes']:
             if (ligne['id'] == 0):
                 nouvelle_ligne = Ligne(zone_table=self)
@@ -1110,11 +1087,6 @@ class Ligne(Base):
         Integer, 
         ForeignKey('ZonesTable.id', onupdate='cascade', ondelete='cascade')
         )
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=5
-        )
     zone_table = relationship(
         ZoneTable, 
         backref=backref(
@@ -1123,11 +1095,6 @@ class Ligne(Base):
             cascade='delete,all'), 
         foreign_keys=[id_zone_table]
         )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
 
     def serialiser_en_json(self):
         """
@@ -1136,8 +1103,7 @@ class Ligne(Base):
         """
         cellules_data = []
         data = dict(
-            id = self.id,
-            id_style = self.id_style
+            id = self.id
             )
         for cellule in self.cellules:
             cellules_data.append(cellule.serialiser_en_json())
@@ -1154,8 +1120,6 @@ class Ligne(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if (self.id_style != data['id_style']):
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for cellule in data['cellules']:
             if cellule['id'] == 0:
                 nouvelle_cellule = Cellule(ligne=self)
@@ -1187,11 +1151,7 @@ class Cellule(Base):
     id = Column(Integer, primary_key=True)
     contenu = Column(String(150), default="")
     id_ligne = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=8
-        )
+    type_style = Column(String, default="tableau_texte")
     ligne = relationship(
         Ligne, 
         backref=backref(
@@ -1200,11 +1160,6 @@ class Cellule(Base):
             cascade='delete,all'),
         foreign_keys=[id_ligne]
         )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
 
     def serialiser_en_json(self):
         """
@@ -1214,8 +1169,7 @@ class Cellule(Base):
         return dict(
             id = self.id,
             contenu = self.contenu,
-            id_style = self.id_style,
-            type = self.style.type
+            type_style = self.type_style
             )
 
     def deserialiser_de_json(self, session, data):
@@ -1229,8 +1183,7 @@ class Cellule(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('contenu') != None : self.contenu = data['contenu']
-        if (self.id_style != data['id_style']):
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        if data.get('type_style') != None : self.type_style = data['type_style']
 
 class Administrateur(Base):
     """

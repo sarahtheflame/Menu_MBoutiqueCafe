@@ -304,7 +304,7 @@ zone_entete = ZoneBase(
     largeur="32%",
     hauteur="78%",
     fenetre=fenetre_repas,
-    style=theme_1.titre,
+    type_style="titre",
     contenu="Nos repas"
 )
 
@@ -314,8 +314,7 @@ zone_grillwiches = ZoneTable(
     position_y="18%",
     largeur="32%",
     hauteur="78%",
-    fenetre=fenetre_repas,
-    style=theme_1.tableau
+    fenetre=fenetre_repas
 )
 
 administrateur_1 = Administrateur(
@@ -334,116 +333,96 @@ administrateur_3 = Administrateur(
 )
 
 ligne_1_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_1_grillwiches = Cellule(
         contenu="Nos Grill'wiches matin",
         ligne=ligne_1_grillwiches,
-        style=theme_1.tableau_titre
-)
+        type_style="tableau_titre"
+        )
 cellule_2_ligne_1_grillwiches = Cellule(
         contenu="",
         ligne=ligne_1_grillwiches,
-        style=theme_1.tableau_titre
-)
+        type_style="tableau_titre"
+        )
 ligne_2_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_2_grillwiches = Cellule(
         contenu="Fromage",
-        ligne=ligne_2_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_2_grillwiches
+        )
 cellule_2_ligne_2_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_2_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_2_grillwiches
+        )
 ligne_3_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_3_grillwiches = Cellule(
         contenu="Fromage et fruit",
-        ligne=ligne_3_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_3_grillwiches
+        )
 cellule_2_ligne_3_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_3_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_3_grillwiches
+        )
 ligne_4_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_4_grillwiches = Cellule(
         contenu="Oeuf bacon fromage",
-        ligne=ligne_4_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_4_grillwiches
+        )
 cellule_2_ligne_4_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_4_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_4_grillwiches
+        )
 ligne_5_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_5_grillwiches = Cellule(
         contenu="Oeuf fromage",
-        ligne=ligne_5_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_5_grillwiches
+        )
 cellule_2_ligne_5_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_5_grillwiches,
-        style=theme_1.tableau_texte
-)
+        ligne=ligne_5_grillwiches
+        )
 ligne_6_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_6_grillwiches = Cellule(
         contenu="Nos Grill'wiches diner",
         ligne=ligne_6_grillwiches,
-        style=theme_1.tableau_titre
-)
+        type_style="tableau_titre"
+        )
 cellule_2_ligne_6_grillwiches = Cellule(
         contenu="",
         ligne=ligne_6_grillwiches,
-        style=theme_1.tableau_titre
-)
+        type_style="tableau_titre"
+        )
 ligne_7_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
-)
+        zone_table=zone_grillwiches
+        )
 cellule_1_ligne_7_grillwiches = Cellule(
         contenu="Poulet club",
-        ligne=ligne_7_grillwiches,
-        style=theme_1.tableau_texte
+        ligne=ligne_7_grillwiches
 )
 cellule_2_ligne_7_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_7_grillwiches,
-        style=theme_1.tableau_texte
+        ligne=ligne_7_grillwiches
 )
 ligne_8_grillwiches = Ligne(
-        zone_table=zone_grillwiches,
-        style=theme_1.tableau_ligne
+        zone_table=zone_grillwiches
 )
 cellule_1_ligne_8_grillwiches = Cellule(
         contenu="Le pizza",
-        ligne=ligne_8_grillwiches,
-        style=theme_1.tableau_texte
+        ligne=ligne_8_grillwiches
 )
 cellule_2_ligne_8_grillwiches = Cellule(
         contenu="5.00$",
-        ligne=ligne_8_grillwiches,
-        style=theme_1.tableau_texte
+        ligne=ligne_8_grillwiches
 )
 
 zone_salade = ZoneTable(
@@ -452,64 +431,51 @@ zone_salade = ZoneTable(
     position_y="18%",
     largeur="37%",
     hauteur="",
-    fenetre=fenetre_repas,
-    style=theme_1.tableau
+    fenetre=fenetre_repas
 )
 ligne_1_salade = Ligne(
-        zone_table=zone_salade,
-        style=theme_1.tableau_ligne
+        zone_table=zone_salade
 )
 cellule_1_ligne_1_salade = Cellule(
         contenu="Salade repas",
-        ligne=ligne_1_salade,
-        style=theme_1.tableau_titre
+        ligne=ligne_1_salade
 )
 cellule_2_ligne_1_salade = Cellule(
         contenu="",
-        ligne=ligne_1_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_1_salade
 )
 ligne_2_salade = Ligne(
-        zone_table=zone_salade,
-        style=theme_1.tableau_ligne
+        zone_table=zone_salade
 )
 cellule_1_ligne_2_salade = Cellule(
         contenu="Choisissez 1,2,3 choix!",
-        ligne=ligne_2_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_2_salade
 )
 cellule_2_ligne_2_salade = Cellule(
         contenu="5.00$",
-        ligne=ligne_2_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_2_salade
 )
 ligne_3_salade = Ligne(
-        zone_table=zone_salade,
-        style=theme_1.tableau_ligne
+        zone_table=zone_salade
 )
 cellule_1_ligne_3_salade = Cellule(
         contenu="Choisissez votre option protéine!",
-        ligne=ligne_3_salade,
-        style=theme_1.tableau_titre
+        ligne=ligne_3_salade
 )
 cellule_2_ligne_3_salade = Cellule(
         contenu="",
-        ligne=ligne_3_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_3_salade
 )
 ligne_4_salade = Ligne(
-        zone_table=zone_salade,
-        style=theme_1.tableau_ligne
+        zone_table=zone_salade
 )
 cellule_1_ligne_4_salade = Cellule(
         contenu="Oeufs, poulet, jambon, saumon, saucisse, végé",
-        ligne=ligne_4_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_4_salade
 )
 cellule_2_ligne_4_salade = Cellule(
         contenu="1.95$",
-        ligne=ligne_4_salade,
-        style=theme_1.tableau_texte
+        ligne=ligne_4_salade
 )
 
 zone_test = ZoneTable(
@@ -518,17 +484,14 @@ zone_test = ZoneTable(
     position_y="18%",
     largeur="32%",
     hauteur="78%",
-    fenetre=fenetre_repas,
-    style=theme_1.tableau
+    fenetre=fenetre_repas
 )
 ligne_1_test = Ligne(
-        zone_table=zone_test,
-        style=theme_1.tableau_ligne
+        zone_table=zone_test
 )
 cellule_1_ligne_1_test = Cellule(
         contenu="ceci est un test de ZoneTable",
-        ligne=ligne_1_test,
-        style=theme_1.tableau_titre
+        ligne=ligne_1_test
 )
 zone_test_image = ZoneImage(
     nom='zone test', 
