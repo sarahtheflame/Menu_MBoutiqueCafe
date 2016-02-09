@@ -1,0 +1,31 @@
+% rebase(path)
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Liste des thèmes</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter un thème</button>
+        </div>
+    </div>
+    <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: themes, as: 'theme' }">
+      <!-- ko if: $data.id() > -1 -->
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+          <h4 class="panel-title">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>
+                    <span data-bind="text: $data.nom"></span>
+                </h2>
+              </div>
+              
+              <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+                <a href="#" class="retirer">X</a>
+                <a class="btn" data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
+              </div>
+            </div>
+          </h4>
+        </div>
+      </div>
+      <!-- /ko -->
+    </div>
+</div>

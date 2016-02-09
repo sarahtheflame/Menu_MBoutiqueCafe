@@ -1,6 +1,18 @@
 % rebase(path)
 {{!data}}
 
-<div class="entete">
-  <h1>Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
+<div class="container">
+    <div class="row">
+        <div class="entete">
+          <h1>Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
+        </div>
+    </div>
+    <div class="row">
+        <form class="col-md-12">
+            <div class="form-group">
+                <label for="contenu_input">Contenu : </label>
+                <input id="contenu_input" type="text" class="form-control" placeholder="Texte de la zone.." data-bind="value: zone.contenu">
+            </div>
+        </form>
+    </div>
 </div>

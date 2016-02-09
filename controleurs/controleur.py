@@ -26,7 +26,7 @@ def obtenir_donnees_gestion(s, data):
     elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
     elif data['nom_vue'] == "themes": return get_lister_themes(s)
-    elif data['nom_vue'] == "parametres": return get_parametres(s, data['id'])
+    elif data['nom_vue'] == "parametres": return get_parametres(s, data['courriel_administrateur'])
     elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
     elif data['nom_vue'] == "modifier_zone": return get_modifier_zone(s, data['id'])
     elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
@@ -40,11 +40,8 @@ def retourner_donnees_gestion(s, data):
     elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "parametres": return post_parametres(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "periodes": return post_lister_periodes(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "modifier_zone_image": return post_modifier_zone_image(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "modifier_zone_table": return post_modifier_zone_table(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "modifier_zone": return post_modifier_zone(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "modifier_fenetre": return post_modifier_fenetre(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "modifier_zone_base": return post_modifier_zone_base(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "modifier_zone_video": return post_modifier_zone_video(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
@@ -74,9 +71,9 @@ def get_lister_themes(s):
         resultats['themes'].append(theme.serialiser_en_json())
     return resultats
 
-def get_parametres(s, id_administrateur):
+def get_parametres(s, courriel_administrateur):
     resultats = { 'administrateur' : [], 'vue_associe' : 'parametres'  }
-    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.id == id_administrateur).one().serialiser_en_json()
+    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.adresse_courriel == courriel_administrateur).one().serialiser_en_json()
     return resultats
 
 def get_lister_periodes(s):
@@ -182,16 +179,48 @@ def post_lister_periodes(s, data):
             s.delete(s.query(Periode).filter(Periode.id == -periode['id']).one())
     return True
 
-def post_modifier_zone_image(s, data):
-    zone_image = data['zone_image']
-    if zone_image['id'] == 0:
-        nouvelle_zone_image = ZoneImage()
-        nouvelle_zone_image.deserialiser_de_json(s, zone_image)
-        s.add(nouvelle_zone_image)
-    elif zone_image['id'] > 0:
-        s.query(ZoneImage).filter(ZoneImage.id == zone_image['id']).one().deserialiser_de_json(s, zone_image)
-    elif zone_image['id'] < 0:
-        s.delete(s.query(ZoneImage).filter(ZoneImage.id == -zone_image['id']).one())
+def post_modifier_zone(s, data):
+    zone = data['zone']
+    if zone['id'] == 0:
+        print("new")
+        nouvelle_zone = Zone()
+        if zone['type'] == ZoneBase:
+            nouvelle_zone = ZoneBase()
+            nouvelle_zone.deserialiser_de_json(s, zone)
+        elif zone['type'] == ZoneTable:
+            nouvelle_zone = ZoneTable()
+            nouvelle_zone.deserialiser_de_json(s, zone)
+        elif zone['type'] == ZoneImage:
+            nouvelle_zone = ZoneImage()
+            nouvelle_zone.deserialiser_de_json(s, zone)
+        elif zone['type'] == ZoneVideo:
+            nouvelle_zone = ZoneVideo()
+            nouvelle_zone.deserialiser_de_json(s, zone)
+        s.add(nouvelle_zone)
+    elif zone['id'] > 0:
+        print("edit")
+        print(zone['type'])
+        if zone['type'] == "ZoneBase":
+            s.query(ZoneBase).filter(ZoneBase.id == zone['id']).one().deserialiser_de_json(s, zone)
+        elif zone['type'] == "ZoneTable":
+            s.query(ZoneTable).filter(ZoneTable.id == zone['id']).one().deserialiser_de_json(s, zone)
+        elif zone['type'] == "ZoneImage":
+            s.query(ZoneImage).filter(ZoneImage.id == zone['id']).one().deserialiser_de_json(s, zone)
+        elif zone['type'] == "ZoneVideo":
+            s.query(ZoneVideo).filter(ZoneVideo.id == zone['id']).one().deserialiser_de_json(s, zone)
+    elif zone['id'] < 0:
+        print("delete")
+        if zone['type'] == ZoneBase:
+            s.delete(s.query(ZoneBase).filter(ZoneBase.id == -zone['id']).one())
+        elif zone['type'] == ZoneTable:
+            s.delete(s.query(ZoneTable).filter(ZoneTable.id == -zone['id']).one())
+        elif zone['type'] == ZoneImage:
+            s.delete(s.query(ZoneImage).filter(ZoneImage.id == -zone['id']).one())
+        elif zone['type'] == ZoneVideo:
+            s.delete(s.query(ZoneVideo).filter(ZoneVideo.id == -zone['id']).one())
+    else:
+        print("nope")
+    print(zone)
     return True
 
 def post_modifier_zone_video(s, data):

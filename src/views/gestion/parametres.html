@@ -1,2 +1,26 @@
 % rebase(path)
-{{!data}}
+
+<div class="container">
+    <div class="row">
+        <div class="entete">
+          <h1>Paramètres</h1>
+        </div>
+    </div>
+    <div class="row">
+        <form class="col-md-12">
+            <div class="form-group">
+                <label for="courriel_input">Adresse courriel : </label>
+                <input id="courriel_input" type="email" class="form-control" placeholder="Courriel.." data-bind="value: administrateur.adresse_courriel">
+            </div>
+            <div class="form-group">
+                <label for="mot_de_passe_input">Mots de passe : </label>
+                <input id="mot_de_passe_input" type="password" class="form-control" placeholder="Mot de passe.." data-bind="value: administrateur.mot_de_passe">
+            </div>
+            <div class="form-group">
+                <label for="mot_de_passe_input">Mots de passe : </label>
+                <input id="mot_de_passe_input" type="password" class="form-control" placeholder="Confirmer le mot de passe..">
+            </div>
+            <button type="submit" class="btn btn-primary">Modifier les informations de connexion</button>
+        </form>
+    </div>
+</div>

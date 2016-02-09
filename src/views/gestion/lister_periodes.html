@@ -19,85 +19,91 @@
     </div>
   </div>
 </div>
-<div class="entete">
-  <h1>Liste des périodes</h1>
-    <!-- <div class="aide">
-    <a href="">Qu'est-ce qu'une période?</a>
-  </div> -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter une période</button>
-</div>
-<div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: periodes, as: 'periode' }">
-  <!-- ko if: $data.id() > -1 -->
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab">
-      <h4 class="panel-title">
-        <div class="row">
-          <div class="col-md-2 col-xs-12">
-            <h2>
-              <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}">
-              Période #<span data-bind="text: $data.id"></span>
-              </a>
-            </h2>
-          </div>
-           <div class="col-md-2  col-xs-4">
-            <label>Heure de début : </label>
-            <input type="time" class="form-control" placeholder="HH:MM" required="" data-bind="value: heure_debut">
-          </div> 
-          <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
-          <!-- ko if: $data.id() > 1 -->
-            <a href="#" class="retirer">X</a>
-          <!-- /ko --> 
-          </div>
-        
-        </div>
-      </h4>
-    </div>
-     <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
-      <ul class="list-group" id="zones">
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        <label>Fenêtre #1:</label>
-                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_1.id"></select>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        <label>Fenêtre #2:</label>
-                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_2.id"></select>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        <label>Fenêtre #3:</label>
-                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_3.id"></select>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        <label>Fenêtre #4:</label>
-                        <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
-                    </div>
-                </div>
-            </div>
-        </li>
-      </ul>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Liste des périodes</h1>
+        <!-- <div class="aide">
+        <a href="">Qu'est-ce qu'une période?</a>
+      </div> -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter une période</button>
     </div>
   </div>
-  <!-- /ko -->
+
+  <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: periodes, as: 'periode' }">
+    <!-- ko if: $data.id() > -1 -->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab">
+        <h4 class="panel-title">
+          <div class="row">
+            <div class="col-md-2 col-xs-12">
+              <h2>
+                <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}">
+                Période #<span data-bind="text: $data.id"></span>
+                </a>
+              </h2>
+            </div>
+             <div class="col-md-2  col-xs-4">
+              <label>Heure de début : </label>
+              <input type="time" class="form-control" placeholder="HH:MM" required="" data-bind="value: heure_debut">
+            </div> 
+            <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+            <!-- ko if: $data.id() > 1 -->
+              <a href="#" class="retirer">X</a>
+            <!-- /ko --> 
+            </div>
+          
+          </div>
+        </h4>
+      </div>
+       <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
+        <ul class="list-group" id="zones">
+          <li class="list-group-item">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-4 col-xs-12">
+                          <label>Fenêtre #1:</label>
+                          <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_1.id"></select>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="list-group-item">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-4 col-xs-12">
+                          <label>Fenêtre #2:</label>
+                          <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_2.id"></select>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="list-group-item">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-4 col-xs-12">
+                          <label>Fenêtre #3:</label>
+                          <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_3.id"></select>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="list-group-item">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-4 col-xs-12">
+                          <label>Fenêtre #4:</label>
+                          <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
+                      </div>
+                  </div>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- /ko -->
+  </div>
 </div>
 
 <script type="text/javascript" charset="utf-8" defer="defer">

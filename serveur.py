@@ -112,7 +112,11 @@ def get_gestion(nom_fichier, db):
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    donnees_gestion = obtenir_donnees_gestion(db, {'nom_vue' : nom_fichier, 'id' : request.query.id})
+    donnees_gestion = obtenir_donnees_gestion(db, {
+        'nom_vue' : nom_fichier, 
+        'id' : request.query.id, 
+        'courriel_administrateur' : request.get_cookie("administrateur", secret="secret_temporaire")
+    })
     variables = {
         'titre' : nom_fichier,
         'path' : "src\\views\\gestion\\base_gestion.html",
