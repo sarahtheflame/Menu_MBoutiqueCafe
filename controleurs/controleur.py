@@ -182,7 +182,6 @@ def post_lister_periodes(s, data):
 def post_modifier_zone(s, data):
     zone = data['zone']
     if zone['id'] == 0:
-        print("new")
         nouvelle_zone = Zone()
         if zone['type'] == ZoneBase:
             nouvelle_zone = ZoneBase()
@@ -198,8 +197,6 @@ def post_modifier_zone(s, data):
             nouvelle_zone.deserialiser_de_json(s, zone)
         s.add(nouvelle_zone)
     elif zone['id'] > 0:
-        print("edit")
-        print(zone['type'])
         if zone['type'] == "ZoneBase":
             s.query(ZoneBase).filter(ZoneBase.id == zone['id']).one().deserialiser_de_json(s, zone)
         elif zone['type'] == "ZoneTable":
@@ -209,7 +206,6 @@ def post_modifier_zone(s, data):
         elif zone['type'] == "ZoneVideo":
             s.query(ZoneVideo).filter(ZoneVideo.id == zone['id']).one().deserialiser_de_json(s, zone)
     elif zone['id'] < 0:
-        print("delete")
         if zone['type'] == ZoneBase:
             s.delete(s.query(ZoneBase).filter(ZoneBase.id == -zone['id']).one())
         elif zone['type'] == ZoneTable:
@@ -218,9 +214,7 @@ def post_modifier_zone(s, data):
             s.delete(s.query(ZoneImage).filter(ZoneImage.id == -zone['id']).one())
         elif zone['type'] == ZoneVideo:
             s.delete(s.query(ZoneVideo).filter(ZoneVideo.id == -zone['id']).one())
-    else:
-        print("nope")
-    print(zone)
+    else: raise NameError("Le controleur ne peux déserialiser la zone reçu en post") 
     return True
 
 def post_modifier_zone_video(s, data):
