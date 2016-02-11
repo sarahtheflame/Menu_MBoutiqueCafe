@@ -1,9 +1,26 @@
 % rebase(path)
+<div class="modal fade" id="modalAjouterTheme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter un thème</h4>
+      </div>
+      <div class="modal-body">
+        <p>Nom du nouveau thème: <input id="nom_theme_input" type="text" class="form-control" maxlength="250"/></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="ajouter_theme btn btn-primary" data-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <h1>Liste des thèmes</h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter un thème</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterTheme">+ Ajouter un thème</button>
         </div>
     </div>
     <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: themes, as: 'theme' }">
@@ -30,3 +47,20 @@
       <!-- /ko -->
     </div>
 </div>
+{{!data}}
+<script>
+  $("body").on("click", ".ajouter_theme", function() {
+    var context = ko.contextFor(this);
+    var Theme = function(){
+      this.id = ko.observable(0);
+      this.nom = ko.observable($("#nom_theme_input").val());
+    };
+
+    var Style = function(){
+      
+    }
+    
+    context.$root.themes.push(new Theme());
+    $("#nom_theme_input").val('');
+  });
+</script>

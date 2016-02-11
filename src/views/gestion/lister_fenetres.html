@@ -1,5 +1,5 @@
 % rebase(path)
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalAjouterFenetre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -25,7 +25,7 @@
       <!-- <div class="aide">
       	<a href="">Qu'est-ce qu'une fenêtre?</a>
       </div> -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Ajouter une fenêtre</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterFenetre">+ Ajouter une fenêtre</button>
     </div>
   </div>
   
@@ -38,7 +38,7 @@
             <div class="row">
               <div class="col-md-2 col-xs-12">
                 <h2>
-                  <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="text: $data.nom, attr: { href: '#'+$data.id()}">
+                  <a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}"><span class="caret"></span> <span data-bind="text: $data.nom"></span> 
                   </a>
                 </h2>
               </div>
