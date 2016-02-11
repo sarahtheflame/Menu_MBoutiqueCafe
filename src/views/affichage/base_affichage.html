@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <!-- HTML BASE DOCUMENT -->
@@ -16,8 +17,8 @@
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
-        <BODY data-bind="attr: { 'background': '../src/'+$data.fond() }">
-            <div class="interact-container" data-bind="foreach: { data: zones, as: 'zone' }">
+        <BODY data-bind="attr: { 'background': '../src/'+fenetre.fond() }">
+            <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
                     left : $data.position_x(), 
@@ -27,47 +28,47 @@
                 }">
                     <!-- ko if: zone.type_style() === "titre" -->
                     <div data-bind="text: contenu, style: {
-                        fontFamily : $root.theme.titre.police(),
-                        fontSize : $root.theme.titre.taille() + 'px',
-                        color : $root.theme.titre.couleur(),
-                        background : $root.theme.titre.couleur_fond(),
-                        opacity : $root.theme.titre.opacite_fond(),
-                        bold : $root.theme.titre.gras(),
-                        fontStyle : $root.theme.titre.gras(),
-                        textDecoration : $root.theme.titre.soulignement(),
-                        borderColor :  $root.theme.titre.bordure.couleur(),
-                        borderStyle : $root.theme.titre.bordure.style(),
-                        borderWidth : $root.theme.titre.bordure.taille()
+                        fontFamily : $root.fenetre.theme.titre.police(),
+                        fontSize : $root.fenetre.theme.titre.taille() + 'px',
+                        color : $root.fenetre.theme.titre.couleur(),
+                        background : $root.fenetre.theme.titre.couleur_fond(),
+                        opacity : $root.fenetre.theme.titre.opacite_fond(),
+                        bold : $root.fenetre.theme.titre.gras(),
+                        fontStyle : $root.fenetre.theme.titre.gras(),
+                        textDecoration : $root.fenetre.theme.titre.soulignement(),
+                        borderColor :  $root.fenetre.theme.titre.bordure.couleur(),
+                        borderStyle : $root.fenetre.theme.titre.bordure.style(),
+                        borderWidth : $root.fenetre.theme.titre.bordure.taille()
                     }"></div>
                     <!-- /ko -->
                     <!-- ko if: zone.type_style() === "sous_titre" -->
                     <div data-bind="text: contenu, style: {
-                        fontFamily : $root.theme.sous_titre.police(),
-                        fontSize : $root.theme.sous_titre.taille() + 'px',
-                        color : $root.theme.sous_titre.couleur(),
-                        background : $root.theme.sous_titre.couleur_fond(),
-                        opacity : $root.theme.sous_titre.opacite_fond(),
-                        bold : $root.theme.sous_titre.gras(),
-                        fontStyle : $root.theme.sous_titre.gras(),
-                        textDecoration : $root.theme.sous_titre.soulignement(),
-                        borderColor :  $root.theme.sous_titre.bordure.couleur(),
-                        borderStyle : $root.theme.sous_titre.bordure.style(),
-                        borderWidth : $root.theme.sous_titre.bordure.taille()
+                        fontFamily : $root.fenetre.theme.sous_titre.police(),
+                        fontSize : $root.fenetre.theme.sous_titre.taille() + 'px',
+                        color : $root.fenetre.theme.sous_titre.couleur(),
+                        background : $root.fenetre.theme.sous_titre.couleur_fond(),
+                        opacity : $root.fenetre.theme.sous_titre.opacite_fond(),
+                        bold : $root.fenetre.theme.sous_titre.gras(),
+                        fontStyle : $root.fenetre.theme.sous_titre.gras(),
+                        textDecoration : $root.fenetre.theme.sous_titre.soulignement(),
+                        borderColor :  $root.fenetre.theme.sous_titre.bordure.couleur(),
+                        borderStyle : $root.fenetre.theme.sous_titre.bordure.style(),
+                        borderWidth : $root.fenetre.theme.sous_titre.bordure.taille()
                     }"></div>
                     <!-- /ko -->
                     <!-- ko if: zone.type_style() === "texte" -->
                     <div data-bind="text: contenu, style: {
-                        fontFamily : $root.theme.texte.police(),
-                        fontSize : $root.theme.texte.taille() + 'px',
-                        color : $root.theme.texte.couleur(),
-                        background : $root.theme.texte.couleur_fond(),
-                        opacity : $root.theme.texte.opacite_fond(),
-                        bold : $root.theme.texte.gras(),
-                        fontStyle : $root.theme.texte.gras(),
-                        textDecoration : $root.theme.texte.soulignement(),
-                        borderColor :  $root.theme.texte.bordure.couleur(),
-                        borderStyle : $root.theme.texte.bordure.style(),
-                        borderWidth : $root.theme.texte.bordure.taille()
+                        fontFamily : $root.fenetre.theme.texte.police(),
+                        fontSize : $root.fenetre.theme.texte.taille() + 'px',
+                        color : $root.fenetre.theme.texte.couleur(),
+                        background : $root.fenetre.theme.texte.couleur_fond(),
+                        opacity : $root.fenetre.theme.texte.opacite_fond(),
+                        bold : $root.fenetre.theme.texte.gras(),
+                        fontStyle : $root.fenetre.theme.texte.gras(),
+                        textDecoration : $root.fenetre.theme.texte.soulignement(),
+                        borderColor :  $root.fenetre.theme.texte.bordure.couleur(),
+                        borderStyle : $root.fenetre.theme.texte.bordure.style(),
+                        borderWidth : $root.fenetre.theme.texte.bordure.taille()
                     }"></div>
                     <!-- /ko -->
                 </div>
@@ -106,61 +107,61 @@
                     height : $data.hauteur() 
                 }">
                     <table data-bind="attr : {
-                        fontFamily : $root.theme.tableau.police(),
-                        fontSize : $root.theme.tableau.taille() + 'px',
-                        color : $root.theme.tableau.couleur(),
-                        background : $root.theme.tableau.couleur_fond(),
-                        opacity : $root.theme.tableau.opacite_fond(),
-                        bold : $root.theme.tableau.gras(),
-                        fontStyle : $root.theme.tableau.gras(),
-                        textDecoration : $root.theme.tableau.soulignement(),
-                        borderColor :  $root.theme.tableau.bordure.couleur(),
-                        borderStyle : $root.theme.tableau.bordure.style(),
-                        borderWidth : $root.theme.tableau.bordure.taille() + 'px'
+                        fontFamily : $root.fenetre.theme.tableau.police(),
+                        fontSize : $root.fenetre.theme.tableau.taille() + 'px',
+                        color : $root.fenetre.theme.tableau.couleur(),
+                        background : $root.fenetre.theme.tableau.couleur_fond(),
+                        opacity : $root.fenetre.theme.tableau.opacite_fond(),
+                        bold : $root.fenetre.theme.tableau.gras(),
+                        fontStyle : $root.fenetre.theme.tableau.gras(),
+                        textDecoration : $root.fenetre.theme.tableau.soulignement(),
+                        borderColor :  $root.fenetre.theme.tableau.bordure.couleur(),
+                        borderStyle : $root.fenetre.theme.tableau.bordure.style(),
+                        borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
                         }">
                         <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
                             <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, attr : {
-                                fontFamily : $root.theme.tableau_ligne.police(),
-                                fontSize : $root.theme.tableau_ligne.taille() + 'px',
-                                color : $root.theme.tableau_ligne.couleur(),
-                                background : $root.theme.tableau_ligne.couleur_fond(),
-                                opacity : $root.theme.tableau_ligne.opacite_fond(),
-                                bold : $root.theme.tableau_ligne.gras(),
-                                fontStyle : $root.theme.tableau_ligne.gras(),
-                                textDecoration : $root.theme.tableau_ligne.soulignement(),
-                                borderColor :  $root.theme.tableau_ligne.bordure.couleur(),
-                                borderStyle : $root.theme.tableau_ligne.bordure.style(),
-                                borderWidth : $root.theme.tableau_ligne.bordure.taille() + 'px'
+                                fontFamily : $root.fenetre.theme.tableau_ligne.police(),
+                                fontSize : $root.fenetre.theme.tableau_ligne.taille() + 'px',
+                                color : $root.fenetre.theme.tableau_ligne.couleur(),
+                                background : $root.fenetre.theme.tableau_ligne.couleur_fond(),
+                                opacity : $root.fenetre.theme.tableau_ligne.opacite_fond(),
+                                bold : $root.fenetre.theme.tableau_ligne.gras(),
+                                fontStyle : $root.fenetre.theme.tableau_ligne.gras(),
+                                textDecoration : $root.fenetre.theme.tableau_ligne.soulignement(),
+                                borderColor :  $root.fenetre.theme.tableau_ligne.bordure.couleur(),
+                                borderStyle : $root.fenetre.theme.tableau_ligne.bordure.style(),
+                                borderWidth : $root.fenetre.theme.tableau_ligne.bordure.taille() + 'px'
                             }">
                                 <!-- Définir le style selon les attributs json -->
                                 <!-- ko if: cellule.type_style() === "tableau_titre" -->
                                 <th data-bind="text: $data.contenu, style: { 
-                                    fontFamily : $root.theme.tableau_titre.police(),
-                                    fontSize : $root.theme.tableau_titre.taille() + 'px',
-                                    color : $root.theme.tableau_titre.couleur(),
-                                    background : $root.theme.tableau_titre.couleur_fond(),
-                                    opacity : $root.theme.tableau_titre.opacite_fond(),
-                                    bold : $root.theme.tableau_titre.gras(),
-                                    fontStyle : $root.theme.tableau_titre.gras(),
-                                    textDecoration : $root.theme.tableau_titre.soulignement(),
-                                    borderColor :  $root.theme.tableau_titre.bordure.couleur(),
-                                    borderStyle : $root.theme.tableau_titre.bordure.style(),
-                                    borderWidth : $root.theme.tableau_titre.bordure.taille() + 'px'
+                                    fontFamily : $root.fenetre.theme.tableau_titre.police(),
+                                    fontSize : $root.fenetre.theme.tableau_titre.taille() + 'px',
+                                    color : $root.fenetre.theme.tableau_titre.couleur(),
+                                    background : $root.fenetre.theme.tableau_titre.couleur_fond(),
+                                    opacity : $root.fenetre.theme.tableau_titre.opacite_fond(),
+                                    bold : $root.fenetre.theme.tableau_titre.gras(),
+                                    fontStyle : $root.fenetre.theme.tableau_titre.gras(),
+                                    textDecoration : $root.fenetre.theme.tableau_titre.soulignement(),
+                                    borderColor :  $root.fenetre.theme.tableau_titre.bordure.couleur(),
+                                    borderStyle : $root.fenetre.theme.tableau_titre.bordure.style(),
+                                    borderWidth : $root.fenetre.theme.tableau_titre.bordure.taille() + 'px'
                                 }"></th> 
                                 <!-- /ko -->
                                 <!-- ko if: cellule.type_style() === "tableau_texte" -->
                                 <td data-bind="text: $data.contenu, style: { 
-                                    fontFamily : $root.theme.tableau_texte.police(),
-                                    fontSize : $root.theme.tableau_texte.taille() + 'px',
-                                    color : $root.theme.tableau_texte.couleur(),
-                                    background : $root.theme.tableau_texte.couleur_fond(),
-                                    opacity : $root.theme.tableau_texte.opacite_fond(),
-                                    bold : $root.theme.tableau_texte.gras(),
-                                    fontStyle : $root.theme.tableau_texte.gras(),
-                                    textDecoration : $root.theme.tableau_texte.soulignement(),
-                                    borderColor :  $root.theme.tableau_texte.bordure.couleur(),
-                                    borderStyle : $root.theme.tableau_texte.bordure.style(),
-                                    borderWidth : $root.theme.tableau_texte.bordure.taille() + 'px'
+                                    fontFamily : $root.fenetre.theme.tableau_texte.police(),
+                                    fontSize : $root.fenetre.theme.tableau_texte.taille() + 'px',
+                                    color : $root.fenetre.theme.tableau_texte.couleur(),
+                                    background : $root.fenetre.theme.tableau_texte.couleur_fond(),
+                                    opacity : $root.fenetre.theme.tableau_texte.opacite_fond(),
+                                    bold : $root.fenetre.theme.tableau_texte.gras(),
+                                    fontStyle : $root.fenetre.theme.tableau_texte.gras(),
+                                    textDecoration : $root.fenetre.theme.tableau_texte.soulignement(),
+                                    borderColor :  $root.fenetre.theme.tableau_texte.bordure.couleur(),
+                                    borderStyle : $root.fenetre.theme.tableau_texte.bordure.style(),
+                                    borderWidth : $root.fenetre.theme.tableau_texte.bordure.taille() + 'px'
                                 }"></td> 
                                 <!-- /ko -->
   
@@ -170,9 +171,21 @@
                 </div>
                 <!-- /ko -->
             </div>
-        <script type='text/javascript' defer="defer">
-            var viewModel = ko.mapping.fromJS({{!fenetre}});
-            ko.applyBindings(viewModel);
-        </script>
     </BODY>
 </html>
+
+<script type='text/javascript' defer="defer">
+    var viewModel = ko.mapping.fromJS({{!data}});
+    ko.applyBindings(viewModel);
+
+    function appliquer_modifications(fileName) {
+        var unmapped = ko.mapping.toJSON(viewModel);
+        console.log(unmapped);
+        $.post("/g/" + fileName,
+                {
+                    fileName,
+                    unmapped
+          }
+        );
+    }
+</script>
