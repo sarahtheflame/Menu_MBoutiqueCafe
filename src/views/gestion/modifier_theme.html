@@ -187,8 +187,8 @@
 				<div class="col-md-3 col-xs-12">
 					<div class="input-group ">
 				    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
-					    <input type="text" class="form-control choix_couleur" data-bind="changeColor: couleur, value: couleur, style: {
-                        backgroundColor : couleur()}"/>
+					    <input type="text" class="form-control choix_couleur" data-bind="value: couleur, style: {
+                        backgroundColor : couleur}"/>
 					</div>
 					<span data-bind="text: couleur"></span>
 				</div>
@@ -304,19 +304,12 @@
 		console.log(context.$data.soulignement());
 	});
 
-    ko.bindingHandlers.changeColor = {
-	  init: function(element, valueAccessor) {
-	    var value = valueAccessor();
-	    console.log("value: "+ko.unwrap(value));
-	    console.log("element: "+$(element).val())
-	    $(element).val(ko.unwrap(value));
-	    $(element).colorpicker();
-	    $(element).change(function() { value(this.value); });
-	  },
-	  update: function(element, valueAccessor) {
-	  	console.log("unwrap: "+ko.unwrap(valueAccessor()));
-	  	$(element).val(ko.unwrap(valueAccessor()));
-	  }
-	}
+	$(function(){
+        $('.choix_couleur').colorpicker();
+    });
+
+    $('.my-choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
+	  console.log("Change");
+	});
 
 </script>
