@@ -71,7 +71,6 @@ def get_lister_themes(s):
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
-    print(resultats)
     return resultats
 
 def get_parametres(s, courriel_administrateur):
@@ -106,8 +105,11 @@ def get_modifier_zone(s, id_zone):
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '', 'vue_associe' : 'modifier_fenetre'  }
+    resultats = { 'fenetre' : '','themes': [], 'zone_focus' : '' ,'vue_associe' : 'modifier_fenetre'  }
+    for theme in s.query(Theme).order_by(Theme.id).all():
+        resultats['themes'].append(theme.serialiser_en_json())
     resultats['fenetre'] = s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
+
     return resultats
 
 def post_lister_fenetres(s, data):

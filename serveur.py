@@ -156,7 +156,7 @@ def affichage(id_fenetre, db):
     fenetre = db.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     variables = {
         'titre' : id_fenetre,
-        'fenetre' : fenetre
+        'data' : {'fenetre' : fenetre}
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
     

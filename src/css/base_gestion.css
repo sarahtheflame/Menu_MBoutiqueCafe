@@ -97,7 +97,7 @@ body {
   word-wrap: break-word;
   background: #FFF;
   overflow-y: auto;
-  transition: width 0.2s;
+  transition: width 0.3s;
 }
 #content .entete {
   padding: 10px 25px;
@@ -113,8 +113,8 @@ body {
   vertical-align: top;
 }
 #content.show_sidebar {
-  width: 90vw;
-  transition: width 0.2s;
+  width: calc(100% - 200px);
+  transition: width 0.3s;
 }
 #content .entete {
   padding: 10px 25px;

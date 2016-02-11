@@ -109,7 +109,7 @@ body {
   word-wrap: break-word;
   background: @fond_contenu;
   overflow-y: auto;
-  transition: width 0.2s;
+  transition: width 0.3s;
   .entete {
     padding: 10px 25px;
   }
@@ -125,8 +125,8 @@ body {
   }
 }
 #content.show_sidebar {
-  width: 90vw;
-  transition: width 0.2s;
+  width: ~"calc(100% - 200px)";
+  transition: width 0.3s;
 }
 #content .entete {
   padding: 10px 25px;
