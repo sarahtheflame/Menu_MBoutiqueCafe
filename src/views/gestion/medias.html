@@ -2,35 +2,113 @@
 <link rel="stylesheet" type="text/css" href="/src/medias.css">
 <div class="container">
   <h1>Médias</h1>
-  <div class="aide">
+<!--   <div class="aide">
     <a href="">Qu'est-ce qu'un média?</a>
-  </div>
-  <button type="button" class="btn btn-primary">+ Ajouter un média</button>
-  <div class="scroll_y_container">
-    <div class="row" data-bind="foreach: medias">
-
-      <div class="col-lg-3 col-md-4 col-xs-12 thumb">
-        <!-- ko if: type() === "Image" -->
-        <div class="thumbnail">
-          <button class="b_delete">X</button>
-          <a data-bind="attr: { 'href': '../src/'+ chemin_fichier() }">
-              <img class="img-responsive" data-bind="attr: { 'src': '../src/'+ chemin_fichier() }">
-          </a>
+  </div> -->
+  
+  <div class="row">
+    <button type="button" class="btn btn-primary">+ Ajouter une image</button>
+    <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+          <h4 class="panel-title">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <h2>
+                  <a role="button" data-toggle="collapse" aria-expanded="true" href="#images_panel">
+                  Images
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </h4>
         </div>
-        <!-- /ko -->
-        <!-- ko if: type() === "Video" -->
-        <div class="thumbnail">
-          <button class="b_delete">X</button>
-          <a data-bind="attr: { 'href': '../src/'+ chemin_fichier() }">
-              <video preload="none" poster="/src/coffee.png" width="100%" height="100%">
-                        <source data-bind="attr: { 'src': '../src/'+ chemin_fichier() }" type="video/mp4" />
-                        Your browser does not support the video tag.
-              </video>
-          </a>
+         <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
+          <ul class="list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
+            <li class="list-group-item">
+              <a href="#" class="retirer">X</a>
+              <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+              <img data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="200px">
+              <strong data-bind="text: $data.nom()"></strong>
+            </li>
+          </ul>
         </div>
-        <!-- /ko -->
       </div>
     </div>
-    <hr>
-  </div>
+    <button type="button" class="btn btn-primary">+ Ajouter une video</button>
+    <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+          <h4 class="panel-title">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <h2>
+                  <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
+                  Videos
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </h4>
+        </div>
+         <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
+          <ul class="list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+            <li class="list-group-item">
+                    <a href="#" class="retirer">X</a>
+                    <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+<!--                     <video controls preload="none" width="200px" >
+                        <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type='video/mp4' />
+                    </video> -->
+              <strong data-bind="text: $data.nom()"></strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <form action="/upload" method="post" enctype="multipart/form-data" data-ajax="false" >
+      Category:      <input type="text" name="category" />
+      Select a file: <input type="file" name="upload" />
+      <input type="submit" value="Start upload" />
+    </form>
+  </div>  
 </div>
+
+
+<script type="text/javascript" charset="utf-8" defer="defer">
+      $("body").on("click", ".retirer", function() {
+          var context = ko.contextFor(this),
+              id = context.$data.id();
+            if (id != 0) {
+              context.$data.id(-id);
+            } else {
+              context.$parent.zones.remove(context.$data);
+            }
+      });
+
+      $("body").on("click", ".ajouter_fenetre", function() {
+        var context = ko.contextFor(this);
+            var Fenetre = function(){
+              this.id = ko.observable(0);
+              this.nom = ko.observable($("#nom_fenetre_input").val());
+              this.theme = ko.observable(context.$root.themes()[0]);
+              this.zones = ko.observableArray([]);
+            };
+
+            context.$root.fenetres.push(new Fenetre());
+      });
+
+      $("body").on("click", ".ajouter_zone", function() {
+        var context = ko.contextFor(this),
+            nom_zone = prompt("Nom de la nouvelle zone : ", ""),
+            type_zone = prompt("Type de la zone : ", "ZoneBase");
+        if (nom_zone != null) {
+          var Zone = function(nom_zone, type_zone){
+            this.id = ko.observable(0);
+            this.nom = ko.observable(nom_zone);
+            this.type = ko.observable(type_zone);
+          };
+
+          context.$data.zones.push(new Zone(nom_zone, type_zone));
+        }
+      });
+</script>

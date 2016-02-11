@@ -48,16 +48,18 @@ def retourner_donnees_gestion(s, data):
 
 def get_lister_fenetres(s):
     resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'lister_fenetres'}
-    for fenetre in s.query(Fenetre).all():
+    for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
-    for theme in s.query(Theme).all():
+    for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json()) 
     return resultats
 
 def get_medias(s):
-    resultats = { 'medias' : [], 'vue_associe' : 'medias'}
-    for media in s.query(Media).all():
-        resultats['medias'].append(media.serialiser_en_json())
+    resultats = { 'images' : [], 'videos' : [], 'vue_associe' : 'medias'}
+    for image in s.query(Image).order_by(Image.id).all():
+        resultats['images'].append(image.serialiser_en_json())
+    for video in s.query(Video).order_by(Video.id).all():
+        resultats['videos'].append(video.serialiser_en_json())
     return resultats
 
 def get_modifier_theme(s, id_theme):
@@ -67,8 +69,9 @@ def get_modifier_theme(s, id_theme):
 
 def get_lister_themes(s):
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
-    for theme in s.query(Theme).all():
+    for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
+    print(resultats)
     return resultats
 
 def get_parametres(s, courriel_administrateur):
@@ -78,9 +81,9 @@ def get_parametres(s, courriel_administrateur):
 
 def get_lister_periodes(s):
     resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'lister_periodes'  }
-    for periode in s.query(Periode).all():
+    for periode in s.query(Periode).order_by(Periode.id).all():
         resultats['periodes'].append(periode.serialiser_en_json())
-    for fenetre in s.query(Fenetre).all():
+    for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
     return resultats
 
