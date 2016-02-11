@@ -9,7 +9,7 @@
 
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-import json
+import json, os
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
@@ -159,6 +159,19 @@ def affichage(id_fenetre, db):
         'fenetre' : fenetre
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
+    
+#===============================================================================
+# Téléchargement de fichier
+#===============================================================================
+
+@app.route('/upload', method='POST')
+def do_upload(db):
+    category   = request.forms.get('category')
+    upload     = request.files.get('upload')
+    name, ext = os.path.splitext(upload.filename)
+    if ext in ('.png','.jpg','.jpeg'):
+        upload.save('src\\images') # appends upload.filename automatically
+    return get_gestion("medias", db)
 
 #===============================================================================
 # Fichiers statiques

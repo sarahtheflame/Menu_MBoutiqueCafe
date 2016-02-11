@@ -8,9 +8,9 @@
       </div>
       <div class="modal-body">
         <div>
-            <label>Heure de début : </label>
-            <input type="time" class="form-control" placeholder="HH:MM" required="">
-          </div> 
+          <label>Heure de début : </label>
+          <input type="time" class="form-control" placeholder="HH:MM" required="">
+        </div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -44,16 +44,21 @@
                 </a>
               </h2>
             </div>
-             <div class="col-md-2  col-xs-4">
-              <label>Heure de début : </label>
-              <input type="time" class="form-control" placeholder="HH:MM" required="" data-bind="value: heure_debut">
+             <div class="col-md-4 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12">
+                  <label>Heure de début :</label>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                  <input type="time" class="form-control" placeholder="HH:MM" required="" data-bind="value: heure_debut">
+                </div>
+              </div>
             </div> 
             <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
             <!-- ko if: $data.id() > 1 -->
               <a href="#" class="retirer">X</a>
             <!-- /ko --> 
             </div>
-          
           </div>
         </h4>
       </div>
@@ -90,14 +95,14 @@
               </div>
           </li>
           <li class="list-group-item">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-4 col-xs-12">
-                          <label>Fenêtre #4:</label>
-                          <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
-                      </div>
-                  </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <label>Fenêtre #4:</label>
+                    <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
+                </div>
               </div>
+            </div>
           </li>
         </ul>
       </div>
