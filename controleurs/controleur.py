@@ -35,6 +35,7 @@ def obtenir_donnees_gestion(s, data):
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def retourner_donnees_gestion(s, data):
+    print(data['nom_vue'])
     if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "medias": return post_medias(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
@@ -105,7 +106,7 @@ def get_modifier_zone(s, id_zone):
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '','themes': [], 'vue_associe' : 'modifier_fenetre'  }
+    resultats = { 'fenetre' : '','themes': [], 'zone_focus' : '', 'vue_associe' : 'modifier_fenetre'  }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
     resultats['fenetre'] = s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
@@ -260,11 +261,13 @@ def post_modifier_zone_base(s, data):
 
 def post_modifier_fenetre(s, data):
     fenetre = data['fenetre']
+    print(fenetre['id'])
     if fenetre['id'] == 0:
         nouvelle_fenetre = Fenetre()
         nouvelle_fenetre.deserialiser_de_json(s, fenetre)
         s.add(nouvelle_fenetre)
     elif fenetre['id'] > 0:
+        print(fenetre['zones'][0])
         s.query(Fenetre).filter(Fenetre.id == fenetre['id']).one().deserialiser_de_json(s, fenetre)
     elif fenetre['id'] < 0:
         s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())

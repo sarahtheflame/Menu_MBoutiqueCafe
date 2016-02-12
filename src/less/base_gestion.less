@@ -110,11 +110,12 @@ body {
   background: @fond_contenu;
   overflow-y: auto;
   transition: width 0.3s;
-  .entete {
-    padding: 10px 25px;
-  }
   h1 {
     width: 60%;
+    transition: width 0.2s;
+  }
+  .entete {
+    padding: 10px 25px;
   }
   .aide {
     display: inline-block;
@@ -123,18 +124,13 @@ body {
     text-align: right;
     vertical-align: top;
   }
+  .entete {
+    padding: 10px 25px;
+  }
 }
 #content.show_sidebar {
   width: 90vw;
   transition: width 0.3s;
-}
-#content .entete {
-  padding: 10px 25px;
-}
-#content h1 {
-  // display: inline-block;
-  width: 60%;
-  transition: width 0.2s;
 }
 
 .disabled {

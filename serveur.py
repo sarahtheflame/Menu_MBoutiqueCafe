@@ -139,7 +139,6 @@ def post_gestion(nom_fichier, db):
         'nouvelles_donnees' : json.loads(request.forms.getunicode('unmapped'))
     }
     retourner_donnees_gestion(db, variables)
-    return get_gestion(nom_fichier, db)
     
 #===============================================================================
 # Pages du système d'affichage
