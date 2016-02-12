@@ -21,10 +21,10 @@
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur()
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%'
                 }">
                     <!-- ko if: zone.type_style() === "titre" -->
                     <div data-bind="text: contenu, style: {
@@ -75,10 +75,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneImage" -->
                 <div class="zone media" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur(), 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%', 
                     background : 'rgb(0,0,0)' 
                 }">
                     <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
@@ -86,10 +86,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneVideo" -->
                 <div class="zone media" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur() 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%' 
                 }">
                     <video width="100%" height="100%" muted autoplay loop>
                         <source data-bind="attr: { 
@@ -101,10 +101,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneTable" -->
                 <div class="zone" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur() 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur()  + '%'
                 }">
                     <table data-bind="attr : {
                         fontFamily : $root.fenetre.theme.tableau.police(),

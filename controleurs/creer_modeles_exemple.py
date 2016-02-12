@@ -277,10 +277,10 @@ fenetre_dessert = Fenetre(
 
 zone_entete = ZoneBase(
     nom='zone_grillwiches', 
-    position_x="2%",
-    position_y="18%",
-    largeur="32%",
-    hauteur="78%",
+    position_x=2,
+    position_y=18,
+    largeur=32,
+    hauteur=78,
     fenetre=fenetre_repas,
     type_style="titre",
     contenu="Nos repas"
@@ -288,10 +288,10 @@ zone_entete = ZoneBase(
 
 zone_grillwiches = ZoneTable(
     nom='zone_grillwiches', 
-    position_x="2%",
-    position_y="18%",
-    largeur="32%",
-    hauteur="78%",
+    position_x=2,
+    position_y=18,
+    largeur=32,
+    hauteur=78,
     fenetre=fenetre_repas
 )
 
@@ -405,9 +405,9 @@ cellule_2_ligne_8_grillwiches = Cellule(
 
 zone_salade = ZoneTable(
     nom='zone salade', 
-    position_x="36%",
-    position_y="18%",
-    largeur="37%",
+    position_x=36,
+    position_y=18,
+    largeur=37,
     hauteur="",
     fenetre=fenetre_repas
 )
@@ -458,10 +458,10 @@ cellule_2_ligne_4_salade = Cellule(
 
 zone_test = ZoneTable(
     nom='zone test', 
-    position_x="2%",
-    position_y="18%",
-    largeur="32%",
-    hauteur="78%",
+    position_x=2,
+    position_y=18,
+    largeur=32,
+    hauteur=78,
     fenetre=fenetre_repas
 )
 ligne_1_test = Ligne(
@@ -473,10 +473,10 @@ cellule_1_ligne_1_test = Cellule(
 )
 zone_test_image = ZoneImage(
     nom='zone test', 
-    position_x="2%",
-    position_y="18%",
-    largeur="32%",
-    hauteur="78%",
+    position_x=2,
+    position_y=18,
+    largeur=32,
+    hauteur=78,
     fenetre=fenetre_repas,
     image=image_sandwich_europeen
 )

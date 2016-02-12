@@ -19,14 +19,13 @@
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
         <BODY data-bind="attr: { 'background': '../src/'+fenetre.fond() }">
-        {{!data}}
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur()
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%'
                 }">
                     <!-- ko if: zone.type_style() === "titre" -->
                     <div data-bind="text: contenu, style: {
@@ -77,10 +76,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneImage" -->
                 <div class="zone media" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur(), 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%', 
                     background : 'rgb(0,0,0)' 
                 }">
                     <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
@@ -88,10 +87,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneVideo" -->
                 <div class="zone media" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur() 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur()  + '%'
                 }">
                     <video width="100%" height="100%" muted autoplay loop>
                         <source data-bind="attr: { 
@@ -103,10 +102,10 @@
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneTable" -->
                 <div class="zone" data-bind="style: { 
-                    left : $data.position_x(), 
-                    top : $data.position_y(), 
-                    width : $data.largeur(), 
-                    height : $data.hauteur() 
+                    left : $data.position_x() + '%', 
+                    top : $data.position_y() + '%', 
+                    width : $data.largeur() + '%', 
+                    height : $data.hauteur() + '%' 
                 }">
                     <table data-bind="attr : {
                         fontFamily : $root.fenetre.theme.tableau.police(),
@@ -196,9 +195,45 @@
                 <div class="sidebar_row">
                     <label class="sidebar_label">Zone sélectionnée : </label>
                     <br>
-                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: $data, value: $root.zone_focus">
+                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'id', value: $root.zone_focus">
                     </select>
-                    <input type="text" data-bind="value: $root.zone_focus.nom"></input>
+                </div>
+                <div class="sidebar_row">
+                    <label class="sidebar_label">Positions : </label>
+                    <br>
+                    <ul>
+                        <li>
+                            <label class="sidebar_label">Horizontale : </label>
+                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
+                        </li>
+                        <li>
+                            <label class="sidebar_label">Verticale : </label>
+                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar_row">
+                    <label class="sidebar_label">Dimensions : </label>
+                    <br>
+                    <ul>
+                        <li>
+                            <label class="sidebar_label">Hauteur : </label>
+                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
+                        </li>
+                        <li>
+                            <label class="sidebar_label">Largeur : </label>
+                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar_row">
+                    <button onclick="show_zone_focus()">Modifier la zone</button>
+                </div>
+                <div class="sidebar_row">
+                    <button onclick="show_zone_focus()">Ajouter une nouvelle zone</button>
+                </div>
+                <div class="sidebar_row">
+                    <button onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                 </div>
             </div>
     </BODY>
@@ -206,17 +241,21 @@
 
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
+    viewModel.zone_focus = ko.observable();
     ko.applyBindings(viewModel);
-    alert(viewModel.zone_focus.nom());
-
+    var unmapped = ko.mapping.toJSON(viewModel);
     function appliquer_modifications(fileName) {
-        var unmapped = ko.mapping.toJSON(viewModel);
         console.log(unmapped);
         $.post("/g/" + fileName,
-                {
-                    fileName,
-                    unmapped
-          }
-        );
+            {
+                fileName,
+                unmapped
+            }
+        ).always(function() {
+            // location.reload();
+        });
+      }
+    function show_zone_focus(){
+        alert(viewModel.zone_focus().nom());
     }
 </script>
