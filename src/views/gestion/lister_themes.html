@@ -55,10 +55,6 @@
       this.id = ko.observable(0);
       this.nom = ko.observable($("#nom_theme_input").val());
     };
-
-    var Style = function(){
-      
-    }
     
     context.$root.themes.push(new Theme());
     $("#nom_theme_input").val('');
