@@ -118,8 +118,9 @@
                     fileName,
                     unmapped
           }
-        );
-        location.reload();
+        ).always(function() {
+            location.reload();
+        });
       }
     </script>
   </BODY>
