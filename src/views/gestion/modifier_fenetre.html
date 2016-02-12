@@ -196,7 +196,7 @@
                 <div class="sidebar_row">
                     <label class="sidebar_label">Zone sélectionnée : </label>
                     <br>
-                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'nom', value: $root.zone_focus">
+                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: $data, value: $root.zone_focus">
                     </select>
                     <input type="text" data-bind="value: $root.zone_focus.nom"></input>
                 </div>
@@ -207,6 +207,7 @@
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
     ko.applyBindings(viewModel);
+    alert(viewModel.zone_focus.nom());
 
     function appliquer_modifications(fileName) {
         var unmapped = ko.mapping.toJSON(viewModel);
