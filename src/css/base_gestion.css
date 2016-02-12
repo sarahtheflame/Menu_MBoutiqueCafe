@@ -123,6 +123,9 @@ body {
   width: 60%;
   transition: width 0.2s;
 }
+.disabled {
+  pointer-events: all !important;
+}
 .panel-group {
   padding: 0 25px;
 }

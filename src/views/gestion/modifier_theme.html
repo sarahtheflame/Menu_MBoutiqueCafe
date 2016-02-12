@@ -304,12 +304,32 @@
 		console.log(context.$data.soulignement());
 	});
 
-	$(function(){
-        $('.choix_couleur').colorpicker();
-    });
+	// $(function(){
+ //        $('.choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
+	//   		//('h2').backgroundColor = event.color.toHex();
+	//   		console.log(event.color.toHex());
+	//   		var context = ko.contextFor(this);
+	//   		context.$data.couleur(event.color.toHex());
+	// 	});
+	// });
+ //    $('.choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
+	//   console.log("Change");
+	// });
 
-    $('.my-choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
-	  console.log("Change");
-	});
+	// $('.choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
+	//   bodyStyle.backgroundColor = event.color.toHex();
+	// });
+
+	// ko.bindingHandlers.changeColor = {
+	//   init: function(element, valueAccessor) {
+	//     var value = valueAccessor();
+	//     $(element).val(ko.utils.unwrapObservable(value));
+	//     $(element).colorpicker();
+	//     $(element).change(function() { value(this.value); });
+	//   },
+	//   update: function(element, valueAccessor) {
+	//     $(element).val(ko.utils.unwrapObservable(valueAccessor()));
+	//   }
+	// }
 
 </script>

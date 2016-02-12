@@ -37,8 +37,12 @@
                 <!-- ko if: $data.id() != 1 -->
                 <a href="#" class="retirer">X</a>
                 <!-- /ko -->
-                <a class="btn" data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
-
+                <!-- ko if: $data.id() == 0 -->
+                <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier ce thème">Modifier</a>
+                <!-- /ko -->
+                <!-- ko if: $data.id() > 0 -->
+                 <a class="btn" data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
+                <!-- /ko -->
               </div>
             </div>
           </h4>
@@ -58,5 +62,6 @@
     
     context.$root.themes.push(new Theme());
     $("#nom_theme_input").val('');
+    $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
   });
 </script>
