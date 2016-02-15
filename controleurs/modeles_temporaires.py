@@ -730,11 +730,22 @@ class Periode(Base):
         return dict(
             id = self.id,
             heure_debut = self.heure_debut.strftime("%H:%M"),
-            fenetre_1 = self.fenetre_1.serialiser_en_json(),
-            fenetre_2 = self.fenetre_2.serialiser_en_json(),
-            fenetre_3 = self.fenetre_3.serialiser_en_json(),
-            fenetre_4 = self.fenetre_4.serialiser_en_json()
-            )
+            fenetre_1 = {
+                'id' : self.fenetre_1.id,
+                'nom' : self.fenetre_1.nom
+            },
+            fenetre_2 = {
+                'id' : self.fenetre_2.id,
+                'nom' : self.fenetre_2.nom
+            },
+            fenetre_3 = {
+                'id' : self.fenetre_3.id,
+                'nom' : self.fenetre_3.nom
+            },
+            fenetre_4 = {
+                'id' : self.fenetre_4.id,
+                'nom' : self.fenetre_4.nom
+            })
 
     def deserialiser_de_json(self, session, data):
         """

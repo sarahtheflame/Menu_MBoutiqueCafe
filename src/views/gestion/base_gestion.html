@@ -111,6 +111,7 @@
       var viewModel = ko.mapping.fromJS({{!data}});
       ko.applyBindings(viewModel);
       function appliquer_modifications(fileName) {
+        var unmapped = ko.mapping.toJSON(viewModel);
         console.log(unmapped);
         $.post("/g/" + fileName,
             {
@@ -118,7 +119,7 @@
                 unmapped
             }
         ).always(function() {
-            location.reload();
+            // location.reload();
         });
       }
     </script>
