@@ -110,7 +110,6 @@
     <script type='text/javascript' defer="defer">
       var viewModel = ko.mapping.fromJS({{!data}});
       ko.applyBindings(viewModel);
-      var unmapped = ko.mapping.toJSON(viewModel);
       function appliquer_modifications(fileName) {
         console.log(unmapped);
         $.post("/g/" + fileName,

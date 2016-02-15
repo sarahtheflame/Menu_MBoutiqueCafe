@@ -1,7 +1,7 @@
 
 interact('.zone')
   .draggable({
-    inertia: true,
+    inertia: false,
     restrict: {
       restriction: "parent",
       endOnly: true,
@@ -18,56 +18,51 @@ interact('.zone')
     },
     edges: { left: false, right: true, bottom: true, top: false }
   })
+  .on('resizeend', function (event) {
+    
+  })
   .on('resizemove', function (event) {
-    var target = event.target,
-      x = (parseFloat(target.getAttribute('data-x')) || 0),
-      y = (parseFloat(target.getAttribute('data-y')) || 0);
+    var target = event.target;
 
-    target.style.width  = event.rect.width + 'px';
-    target.style.height = event.rect.height + 'px';
+    var a_width = event.rect.width / $(document).width() *100;
+    var a_height = event.rect.height / $(document).height() *100;
+
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(a_width);
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(a_height);
 
     var table = $(target).children('table')[0];
     var image = $(target).children('img')[0];
-
     if (typeof table !== 'undefined') {
-      if (parseInt(target.style.width) < $(table).width()
-              || parseInt(target.style.height) < $(table).height()) {
-            target.style.width = $(table).width()+"px";
-            target.style.height = $(table).height()+"px";
+      var table_width = $(table).width() / $(document).width() *100;
+      var table_height = $(table).height() / $(document).height() *100;
+      if (a_width < table_width || a_height < table_height) {
+        viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(table_width);
+        viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(table_height);
       }
     }
-    if (typeof image !== 'undefined') {
-      if (parseInt(target.style.width) > $(image).width()
-              || parseInt(target.style.height) > $(image).height()) {
-            target.style.width = $(image).width()+"px";
-            target.style.height = $(image).height()+"px";
+    else if (typeof image !== 'undefined') {
+      var image_width = parseFloat(parseFloat($(image).width() / $(document).width()) *100);
+      var image_height = parseFloat(parseFloat($(image).height() / $(document).height()) *100);
+      if (a_width > image_width || a_height > image_height) {
+        viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(image_width);
+        viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(image_height);
       }
     }
-    x += event.deltaRect.left;
-    y += event.deltaRect.top;
-
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
   });
 
   function dragMoveListener (event) {
     var target = event.target,
-        x = parseFloat(target.style.left) + ((event.dx / $(document).width()) *100 ),
-        y = parseFloat(target.style.top) + ((event.dy / $(document).height()) *100);
+      x = parseFloat(target.style.left) + parseFloat(parseFloat(event.dx / $(document).width()) *100 ),
+        y = parseFloat(target.style.top) + parseFloat(parseFloat(event.dy / $(document).height()) *100);
 
     target.style.left = x + '%';
     target.style.top = y + '%';
-
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
   }
 
   function savePosition (event) {
-    var target = event.target
-        // keep the dragged position in the data-x/data-y attributes
-        // x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        // y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy,
-        // x_percent = (($(document).width() / x) *100),
-        // y_percent = (($(document).height() / y) *100);
-    // target.setAttribute('data-x', x);
+    var target = event.target,
+      x = parseFloat(target.style.left),
+        y = parseFloat(target.style.top);
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].position_x(x);
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].position_y(y);
   }

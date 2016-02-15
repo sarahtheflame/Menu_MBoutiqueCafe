@@ -17,14 +17,19 @@
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
-        <BODY data-bind="attr: { 'background': '../src/'+fenetre.fond() }">
+        <!-- ko if: fenetre.image_fond() === "ZoneBase" -->
+        <BODY data-bind="attr: { 'background': '../src/'+fenetre.image_fond.chemin_fichier() }">
+        <!-- /ko -->
+        <!-- ko if: zone.type() === "ZoneBase" -->
+        <BODY data-bind="attr: { 'background': '../src/'+fenetre.image_fond() }">
+        <!-- /ko -->
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
-                    width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%'
+                    left : $data.position_x + '%', 
+                    top : $data.position_y + '%', 
+                    width : $data.largeur + '%', 
+                    height : $data.hauteur + '%'
                 }">
                     <!-- ko if: zone.type_style() === "titre" -->
                     <div data-bind="text: contenu, style: {

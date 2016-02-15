@@ -1,5 +1,41 @@
 % rebase(path)
-
+<div class="modal fade" id="modal_modifier_informations" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter une fenêtre</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>Nouvelle adresse courriel:</label> 
+                <input id="adresse_courriel_input" type="text" class="form-control" maxlength="250" data-bind="value: administrateur.adresse_courriel()"/>
+            </div> 
+            <div class="form-group">
+                <label>Nouveau mot de passe:</label> 
+                <div class="toggle_password">
+                    <input id="mot_de_passe_input" type="password" class="form-control" maxlength="250" data-bind="value: administrateur.mot_de_passe()"/>
+                </div>
+            </div> 
+            <div class="form-group">
+                <label>Confimation du mot de:</label> 
+                <div class="toggle_password">
+                    <input id="confirmation_mot_de_passe_input" type="password" class="form-control" maxlength="250" data-bind="value: administrateur.mot_de_passe()"/>
+                </div>
+            </div> 
+            <div class="form-group">
+                <input type="button" class="toggle_mot_de_passe">toggle</input>
+            </div> 
+        </form>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="modifier_parametres btn btn-primary" data-dismiss="modal">Modifier les informations</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="entete">
@@ -9,14 +45,43 @@
     <div class="row">
         <form class="col-md-4 col-xs-12">
             <div class="form-group">
-                <label for="courriel_input">Adresse courriel : </label>
-                <span data-bind="text: administrateur.adresse_courriel"></span>
+                <label>Adresse courriel : </label>
+                <span id="administrateur_adresse_courriel" data-bind="text: administrateur.adresse_courriel()"></span>
             </div>
             <div class="form-group">
-                <label for="mot_de_passe_input">Mots de passe : </label>
-                <span data-bind="text: administrateur.mot_de_passe"></span>
+                <label>Mots de passe : </label>
+                <span id="administrateur_mot_de_passe" data-bind="text: administrateur.mot_de_passe()"></span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Afficher le mot de passe?
+                    </label>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Modifier les informations de connexion</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_modifier_informations">Modifier les informations de connexion</button>
         </form>
     </div>
 </div>
+
+<script>
+    $("body").on("click", ".modifier_parametres", function() {
+        var nouvelle_adresse_courriel = $('#adresse_courriel_input').val();
+        var nouveau_mot_de_passe = $('#mot_de_passe_input').val();
+        if ($('#confirmation_mot_de_passe_input').val() === nouveau_mot_de_passe) {
+            viewModel.administrateur.adresse_courriel(nouvelle_adresse_courriel);
+            viewModel.administrateur.mot_de_passe(nouveau_mot_de_passe);
+            alert("success");
+        } 
+        else {
+            alert("failed");
+        }
+    });
+    $("body").on("click", ".toggle_mot_de_passe", function() {
+        alert(event.target.type);
+        if ($('#mot_de_passe_input').attr('type') == 'password') {
+            $('#mot_de_passe_input').attr('type', 'text');
+        }
+        else {
+            $('#mot_de_passe_input').attr('type', 'password');
+        }
+    });
+</script>

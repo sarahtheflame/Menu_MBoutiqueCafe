@@ -18,7 +18,7 @@
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
-        <BODY data-bind="attr: { 'background': '../src/'+fenetre.fond() }">
+        <BODY data-bind="attr: { 'background': choose_background }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
@@ -182,7 +182,7 @@
                 <div class="sidebar_row">
                     <label class="sidebar_label">Image de fond : </label>
                     <br>
-                    <select data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
+                    <select data-role="none" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: fenetre.image_fond.id">
                     </select>
                 </div>
                 <div class="sidebar_row">
@@ -227,7 +227,7 @@
                     </ul>
                 </div>
                 <div class="sidebar_row">
-                    <button onclick="show_zone_focus()">Modifier la zone</button>
+                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
                 </div>
                 <div class="sidebar_row">
                     <button onclick="show_zone_focus()">Ajouter une nouvelle zone</button>
@@ -242,9 +242,21 @@
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
     viewModel.zone_focus = ko.observable();
+    viewModel.choose_background = ko.computed(function() {
+        if (viewModel.fenetre.image_fond === 'undefined') {
+            return viewModel.fenetre.couleur_fond();
+        }
+        else {
+            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
+        }
+    });
+    $("body").on("mousedown", ".zone", function() {
+        var zone = ko.dataFor(this);
+        viewModel.zone_focus(zone.id());
+    });
     ko.applyBindings(viewModel);
-    var unmapped = ko.mapping.toJSON(viewModel);
     function appliquer_modifications(fileName) {
+        var unmapped = ko.mapping.toJSON(viewModel);
         console.log(unmapped);
         $.post("/g/" + fileName,
             {
@@ -252,10 +264,17 @@
                 unmapped
             }
         ).always(function() {
-            // location.reload();
+            location.reload();
         });
       }
     function show_zone_focus(){
-        alert(viewModel.zone_focus().nom());
+        alert(viewModel.fenetre.zones);
+    }
+    function ajouter_une_zone(){
+        var Zone = function(nom_zone, type_zone){
+            this.id = ko.observable(0);
+            this.nom = ko.observable(nom_zone);
+            this.type = ko.observable(type_zone);
+        };
     }
 </script>

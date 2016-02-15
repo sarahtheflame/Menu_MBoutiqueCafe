@@ -589,12 +589,13 @@ class Fenetre(Base):
         data = dict(
             id = self.id,
             nom = self.nom,
-            theme = self.theme.serialiser_en_json()
+            theme = self.theme.serialiser_en_json(),
+            couleur_fond = self.couleur_fond
             )
         if self.image_fond != None:
-            data['fond'] = self.image_fond.serialiser_en_json()['chemin_fichier']
+            data['image_fond'] = self.image_fond.serialiser_en_json()
         else:
-            data['fond'] = self.couleur_fond
+            data['image_fond'] = "undefined"
         for zone in self.zones:
             zones_data.append(zone.serialiser_en_json())
         data['zones'] = zones_data
@@ -611,13 +612,18 @@ class Fenetre(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('nom') != None : self.nom = data['nom']
-        if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
+        if data.get('image_fond') == "undefined" : self.id_image_fond = None
+        else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        if data.get('couleur_fond') != None : self.nom = data['couleur_fond']
         if data.get('theme') != None :
             if (self.id_theme != data['theme']['id']):
                 self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
-        if data.get('image_fond') != None :
-            if (self.id_image_fond != data['image_fond']['id']):
-                self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        # if data.get('fond') != None :
+        #     if data['fond'].get('id') != None:
+        #         if (self.id_image_fond != data['image_fond']['id']):
+        #             self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        #     else:
+        #         self.couleur_fond = data['fond']
         for zone in data['zones']:
             if zone['id'] == 0:
                 if zone['type'] == 'ZoneBase':
