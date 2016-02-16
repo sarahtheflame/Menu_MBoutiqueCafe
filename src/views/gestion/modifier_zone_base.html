@@ -1,6 +1,4 @@
 % rebase(path)
-{{!data}}
-
 <div class="container">
     <div class="row">
         <div class="entete">
@@ -10,9 +8,25 @@
     <div class="row">
         <form class="col-md-12">
             <div class="form-group">
+                <label for="contenu_input">Nom : </label>
+                <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
+            </div>
+            <div class="form-group">
                 <label for="contenu_input">Contenu : </label>
-                <input id="contenu_input" type="text" class="form-control" placeholder="Texte de la zone.." data-bind="value: zone.contenu">
+                <textarea class="form-control" rows="3" data-bind="value: zone.contenu"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Style du texte :</label>
+                <select class="form-control" id="choix_type_zone" data-bind="value: zone.type_style">
+                  <option value="texte">Texte</option>
+                  <option value="sous_titre">Sous-titre</option>
+                  <option value="titre">Titre</option>
+                </select>
             </div>
         </form>
+
+        <!-- Il faudrait envoyer l'id de la fenêtre -->
+        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>      
     </div>
 </div>
+

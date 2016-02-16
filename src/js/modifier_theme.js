@@ -9,8 +9,6 @@ $(document).ready(function(){
 	}
 	});
 
-	console.log("fonction 1");
-
 	$('.checkbox_italique').each(function() {
 	    var context = ko.contextFor(this);
 		if (context.$data.italique() == 'italic') {
@@ -63,7 +61,6 @@ $("body").on("change", ".checkbox_italique", function() {
 	} else {
 		context.$data.italique('normal');
 	}
-	console.log(context.$data.italique());
 });
 
 $("body").on("change", ".checkbox_soulignement", function() {
@@ -73,7 +70,6 @@ $("body").on("change", ".checkbox_soulignement", function() {
 	} else {
 		context.$data.soulignement('none');
 	}
-	console.log(context.$data.soulignement());
 });
 
 
