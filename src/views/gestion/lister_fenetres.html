@@ -7,12 +7,40 @@
         <h4 class="modal-title" id="myModalLabel">Ajouter une fenêtre</h4>
       </div>
       <div class="modal-body">
-        <p>Nom de la nouvelle fenêtre: <input id="nom_fenetre_input" type="text" class="form-control" maxlength="250"/></p>
-        <!-- <span data-bind="text: nom_nouvelle-fenetre"></span> -->
+        <label>Nom de la nouvelle fenêtre:</label>
+        <input id="nom_fenetre_input" type="text" class="form-control" maxlength="250"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
         <button type="button" class="ajouter_fenetre btn btn-primary" data-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalAjouterZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter une zone</h4>
+      </div>
+      <div class="modal-body">
+        <label>Nom de la nouvelle zone:</label>
+        <input id="nom_zone_input" type="text" class="form-control" maxlength="250"/>
+
+        <label>Type de zone :</label>
+        <select class="form-control" id="typeZone">
+          <option value="ZoneTable">Zone Table</option>
+          <option value="ZoneImage">Zone Image</option>
+          <option value="ZoneVideo">Zone Vidéo</option>
+          <option value="ZoneBase">Zone Base</option>
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="ajouter_zone btn btn-primary" data-dismiss="modal">Ajouter</button>
       </div>
     </div>
   </div>
@@ -48,10 +76,15 @@
                 </select>
               </div>
               <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
-                <!-- ko if: $data.id() > 1 -->
+                <!-- ko if: $data.id() != 1 -->
                 <a href="#" class="retirer">X</a>
                 <!-- /ko --> 
+                <!-- ko if: $data.id() == 0 -->
+                <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette fenêtre">Modifier</a>
+                <!-- /ko -->
+                <!-- ko if: $data.id() > 0 -->
                 <a class="btn" data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier</a>
+                <!-- /ko -->
               </div>
             
             </div>
@@ -68,7 +101,7 @@
             <!-- /ko -->
           </ul>
           <div class="list-group-item">
-              <a href="#" class="ajouter_zone">+ Ajouter une zone</a>
+              <a href="#" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une zone</a>
               Nouvelle zone
           </div>
         </div>
@@ -77,42 +110,5 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript" charset="utf-8" defer="defer">
-      $("body").on("click", ".retirer", function() {
-          var context = ko.contextFor(this),
-              id = context.$data.id();
-          if (id != 0) {
-            context.$data.id(-id);
-          } else {
-            context.$parent.zones.remove(context.$data);
-          }
-      });
-
-      $("body").on("click", ".ajouter_fenetre", function() {
-        var context = ko.contextFor(this);
-        var Fenetre = function(){
-          this.id = ko.observable(0);
-          this.nom = ko.observable($("#nom_fenetre_input").val());
-          this.theme = ko.observable(context.$root.themes()[0]);
-          this.zones = ko.observableArray([]);
-        };
-
-        context.$root.fenetres.push(new Fenetre());
-      });
-
-      $("body").on("click", ".ajouter_zone", function() {
-        var context = ko.contextFor(this),
-            nom_zone = prompt("Nom de la nouvelle zone : ", ""),
-            type_zone = prompt("Type de la zone : ", "ZoneBase");
-        if (nom_zone != null) {
-          var Zone = function(nom_zone, type_zone){
-            this.id = ko.observable(0);
-            this.nom = ko.observable(nom_zone);
-            this.type = ko.observable(type_zone);
-          };
-
-          context.$data.zones.push(new Zone(nom_zone, type_zone));
-        }
-      });
-</script>
+{{!data}}
+<script type='text/javascript' src='/src/lister_fenetres.js'></script>

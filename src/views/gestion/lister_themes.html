@@ -51,17 +51,5 @@
       <!-- /ko -->
     </div>
 </div>
-{{!data}}
-<script>
-  $("body").on("click", ".ajouter_theme", function() {
-    var context = ko.contextFor(this);
-    var Theme = function(){
-      this.id = ko.observable(0);
-      this.nom = ko.observable($("#nom_theme_input").val());
-    };
-    
-    context.$root.themes.push(new Theme());
-    $("#nom_theme_input").val('');
-    $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
-  });
-</script>
+
+<script type='text/javascript' src='/src/lister_themes.js'></script>

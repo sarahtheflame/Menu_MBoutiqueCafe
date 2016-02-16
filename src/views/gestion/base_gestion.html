@@ -25,22 +25,11 @@
     <script src="/src/bootstrap.js"></script>
     <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
     <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
-    
     <script>
-      $(document).ready(function(){
-        $("#toggle_sidebar").click(function(){
-            $("#content").toggleClass("show_sidebar");
-        });
-        $("body").on("swiperight",function(){
-          $("#content").addClass("show_sidebar");
-        });
-        $("body").on("swipeleft",function(){
-          $("#content").removeClass('show_sidebar');
-        });
-        window.scrollTo(0, 1);
-        $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
-      });
+      var viewModel = ko.mapping.fromJS({{!data}});
     </script>
+    <script type='text/javascript' src='/src/base_gestion_debut.js'></script>
+
   </HEAD>
   <BODY>
     <div id="header" class="navbar-fixed-top">
@@ -108,21 +97,7 @@
     <div id="content" class="show_sidebar">
       {{!base}}
     </div>
-    <script type='text/javascript' defer="defer">
-      var viewModel = ko.mapping.fromJS({{!data}});
-      ko.applyBindings(viewModel);
-      var unmapped = ko.mapping.toJSON(viewModel);
-      function appliquer_modifications(fileName) {
-        console.log(unmapped);
-        $.post("/g/" + fileName,
-            {
-                fileName,
-                unmapped
-            }
-        ).always(function() {
-            location.reload();
-        });
-      }
-    </script>
+    
   </BODY>
 </HTML>
+<script type='text/javascript' src='/src/base_gestion_fin.js'></script>
