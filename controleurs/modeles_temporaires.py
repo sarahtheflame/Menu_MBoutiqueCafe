@@ -589,12 +589,13 @@ class Fenetre(Base):
         data = dict(
             id = self.id,
             nom = self.nom,
-            theme = self.theme.serialiser_en_json()
+            theme = self.theme.serialiser_en_json(),
+            couleur_fond = self.couleur_fond
             )
         if self.image_fond != None:
-            data['fond'] = self.image_fond.serialiser_en_json()['chemin_fichier']
+            data['image_fond'] = self.image_fond.serialiser_en_json()
         else:
-            data['fond'] = self.couleur_fond
+            data['image_fond'] = "undefined"
         for zone in self.zones:
             zones_data.append(zone.serialiser_en_json())
         data['zones'] = zones_data
@@ -611,13 +612,18 @@ class Fenetre(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('nom') != None : self.nom = data['nom']
-        if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
+        if data.get('image_fond') == "undefined" : self.id_image_fond = None
+        else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        if data.get('couleur_fond') != None : self.nom = data['couleur_fond']
         if data.get('theme') != None :
             if (self.id_theme != data['theme']['id']):
                 self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
-        if data.get('image_fond') != None :
-            if (self.id_image_fond != data['image_fond']['id']):
-                self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        # if data.get('fond') != None :
+        #     if data['fond'].get('id') != None:
+        #         if (self.id_image_fond != data['image_fond']['id']):
+        #             self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
+        #     else:
+        #         self.couleur_fond = data['fond']
         for zone in data['zones']:
             if zone['id'] == 0:
                 if zone['type'] == 'ZoneBase':
@@ -724,11 +730,22 @@ class Periode(Base):
         return dict(
             id = self.id,
             heure_debut = self.heure_debut.strftime("%H:%M"),
-            fenetre_1 = self.fenetre_1.serialiser_en_json(),
-            fenetre_2 = self.fenetre_2.serialiser_en_json(),
-            fenetre_3 = self.fenetre_3.serialiser_en_json(),
-            fenetre_4 = self.fenetre_4.serialiser_en_json()
-            )
+            fenetre_1 = {
+                'id' : self.fenetre_1.id,
+                'nom' : self.fenetre_1.nom
+            },
+            fenetre_2 = {
+                'id' : self.fenetre_2.id,
+                'nom' : self.fenetre_2.nom
+            },
+            fenetre_3 = {
+                'id' : self.fenetre_3.id,
+                'nom' : self.fenetre_3.nom
+            },
+            fenetre_4 = {
+                'id' : self.fenetre_4.id,
+                'nom' : self.fenetre_4.nom
+            })
 
     def deserialiser_de_json(self, session, data):
         """
@@ -777,6 +794,7 @@ class Zone(Base):
     nom = Column(String, default='Zone sans nom')
     position_x = Column(Integer, default=0)
     position_y = Column(Integer, default=0)
+    position_z = Column(Integer, default=0)
     largeur = Column(Integer, default=0)
     hauteur = Column(Integer, default=0)
     type = Column(String(50))
@@ -829,6 +847,7 @@ class ZoneBase(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -849,6 +868,7 @@ class ZoneBase(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
         if data.get('type_style') != None : self.type_style = data['type_style']
@@ -901,6 +921,7 @@ class ZoneImage(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -922,6 +943,7 @@ class ZoneImage(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
@@ -969,6 +991,7 @@ class ZoneVideo(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -990,6 +1013,7 @@ class ZoneVideo(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
@@ -1029,6 +1053,7 @@ class ZoneTable(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type
@@ -1051,6 +1076,7 @@ class ZoneTable(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
         for ligne in data['lignes']:

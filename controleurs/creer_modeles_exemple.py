@@ -252,8 +252,8 @@ image_sandwich_europeen = Image(
 )
 
 image_sandwich_europeen2 = Image(
-    nom='sandwich2', 
-    chemin_fichier='sandwich.jpg'
+    nom='cafe', 
+    chemin_fichier='cafe.jpg'
 )
 
 video_cafe = Video(

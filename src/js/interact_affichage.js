@@ -1,7 +1,7 @@
 
 interact('.zone')
   .draggable({
-    inertia: false,
+    inertia: true,
     restrict: {
       restriction: "parent",
       endOnly: true,
@@ -22,32 +22,40 @@ interact('.zone')
     
   })
   .on('resizemove', function (event) {
-    var target = event.target;
+    var target = event.target,
+      x = (parseFloat(target.getAttribute('data-x')) || 0),
+      y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-    var a_width = event.rect.width / $(document).width() *100;
-    var a_height = event.rect.height / $(document).height() *100;
+    target.style.width  = parseFloat(event.rect.width) + 'px';
+    target.style.height = parseFloat(event.rect.height) + 'px';
 
-    viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(a_width);
-    viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(a_height);
+    console.log(event.rect.width);
+    console.log(event.rect.height);
 
     var table = $(target).children('table')[0];
     var image = $(target).children('img')[0];
+
     if (typeof table !== 'undefined') {
-      var table_width = $(table).width() / $(document).width() *100;
-      var table_height = $(table).height() / $(document).height() *100;
-      if (a_width < table_width || a_height < table_height) {
-        viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(table_width);
-        viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(table_height);
+      if (parseInt(target.style.width) < $(table).width()
+              || parseInt(target.style.height) < $(table).height()) {
+            target.style.width = $(table).width()+"px";
+            target.style.height = $(table).height()+"px";
       }
     }
-    else if (typeof image !== 'undefined') {
-      var image_width = parseFloat(parseFloat($(image).width() / $(document).width()) *100);
-      var image_height = parseFloat(parseFloat($(image).height() / $(document).height()) *100);
-      if (a_width > image_width || a_height > image_height) {
-        viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(image_width);
-        viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(image_height);
+    if (typeof image !== 'undefined') {
+      if (parseInt(target.style.width) > $(image).width()
+              || parseInt(target.style.height) > $(image).height()) {
+            target.style.width = $(image).width()+"px";
+            target.style.height = $(image).height()+"px";
       }
     }
+    x += event.deltaRect.left;
+    y += event.deltaRect.top;
+
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].largeur(target.style.width);
+    viewModel.fenetre.zones()[viewModel.zone_focus()-1].hauteur(target.style.height);
   });
 
   function dragMoveListener (event) {

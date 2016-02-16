@@ -17,12 +17,13 @@
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
-        <BODY data-bind="attr: { 'background': '../src/'+fenetre.fond() }">
+        <BODY data-bind="attr: { 'background': choose_background }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
+                    'left' : $data.position_x() + '%', 
+                    'top' : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%'
                 }">
@@ -77,6 +78,7 @@
                 <div class="zone media" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%', 
                     background : 'rgb(0,0,0)' 
@@ -88,8 +90,9 @@
                 <div class="zone media" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%' 
+                    height : $data.hauteur()  + '%'
                 }">
                     <video width="100%" height="100%" muted autoplay loop>
                         <source data-bind="attr: { 
@@ -103,8 +106,9 @@
                 <div class="zone" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
-                    height : $data.hauteur()  + '%'
+                    height : $data.hauteur() + '%' 
                 }">
                     <table data-bind="attr : {
                         fontFamily : $root.fenetre.theme.tableau.police(),
@@ -176,6 +180,19 @@
 
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
+    viewModel.zone_focus = ko.observable();
+    viewModel.choose_background = ko.computed(function() {
+        if (viewModel.fenetre.image_fond === 'undefined') {
+            return viewModel.fenetre.couleur_fond();
+        }
+        else {
+            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
+        }
+    });
+    $("body").on("mousedown", ".zone", function() {
+        var zone = ko.dataFor(this);
+        viewModel.zone_focus(zone.id());
+    });
     ko.applyBindings(viewModel);
 
     function appliquer_modifications(fileName) {

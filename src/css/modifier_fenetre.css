@@ -1,22 +1,58 @@
+* {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+}
 #sidebar {
+  z-index: 9999;
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
-  width: 300px;
+  width: 275px;
   background: rgba(0, 0, 0, 0.8);
   border-right: 1px solid white;
+  transition: left 0.4s;
+  overflow-y: auto;
+}
+#sidebar.show_sidebar {
+  left: -300px;
+  transition: left 0.4s;
 }
 #sidebar .sidebar_row {
   margin: 25px;
 }
 #sidebar .sidebar_label {
-  font-size: 22px;
+  font-size: 18px;
   color: white;
-  text-decoration: underline;
+  text-decoration: none;
 }
 span {
   color: white;
+}
+.toggle_sidebar {
+  position: absolute;
+  top: 0px;
+  margin: 10px;
+  font-size: 24px;
+}
+.option_left {
+  left: 0px;
+}
+.option_right {
+  right: 0px;
+}
+.delete_zone {
+  padding: 20px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: rgba(255, 0, 0, 0.1);
+}
+.delete_zone:hover {
+  padding: 20px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: rgba(255, 0, 0, 0.9);
 }

@@ -71,7 +71,10 @@ def get_modifier_theme(s, id_theme):
 def get_lister_themes(s):
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
-        resultats['themes'].append(theme.serialiser_en_json())
+        resultats['themes'].append({
+                'id' : theme.id,
+                'nom' : theme.nom
+            })
     return resultats
 
 def get_parametres(s, courriel_administrateur):
@@ -84,7 +87,11 @@ def get_lister_periodes(s):
     for periode in s.query(Periode).order_by(Periode.id).all():
         resultats['periodes'].append(periode.serialiser_en_json())
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
-        resultats['fenetres'].append(fenetre.serialiser_en_json())
+        resultats['fenetres'].append({
+                'id' : fenetre.id,
+                'nom' : fenetre.nom
+            })
+        # resultats['fenetres'].append(fenetre.serialiser_en_json())
     return resultats
 
 def get_modifier_zone(s, id_zone):
@@ -106,9 +113,11 @@ def get_modifier_zone(s, id_zone):
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '','themes': [], 'zone_focus' : '', 'vue_associe' : 'modifier_fenetre'  }
+    resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 'vue_associe' : 'modifier_fenetre'  }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
+    for image in s.query(Image).order_by(Image.id).all():
+        resultats['images'].append(image.serialiser_en_json())
     resultats['fenetre'] = s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
 
     return resultats
