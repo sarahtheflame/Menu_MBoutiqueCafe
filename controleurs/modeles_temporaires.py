@@ -794,6 +794,7 @@ class Zone(Base):
     nom = Column(String, default='Zone sans nom')
     position_x = Column(Integer, default=0)
     position_y = Column(Integer, default=0)
+    position_z = Column(Integer, default=0)
     largeur = Column(Integer, default=0)
     hauteur = Column(Integer, default=0)
     type = Column(String(50))
@@ -846,6 +847,7 @@ class ZoneBase(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -866,6 +868,7 @@ class ZoneBase(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
         if data.get('type_style') != None : self.type_style = data['type_style']
@@ -918,6 +921,7 @@ class ZoneImage(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -939,6 +943,7 @@ class ZoneImage(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
@@ -986,6 +991,7 @@ class ZoneVideo(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
@@ -1007,6 +1013,7 @@ class ZoneVideo(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
 
@@ -1046,6 +1053,7 @@ class ZoneTable(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type
@@ -1068,6 +1076,7 @@ class ZoneTable(Zone):
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
         for ligne in data['lignes']:

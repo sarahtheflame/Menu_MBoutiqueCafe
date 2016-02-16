@@ -71,7 +71,10 @@ def get_modifier_theme(s, id_theme):
 def get_lister_themes(s):
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
-        resultats['themes'].append(theme.serialiser_en_json())
+        resultats['themes'].append({
+                'id' : theme.id,
+                'nom' : theme.nom
+            })
     return resultats
 
 def get_parametres(s, courriel_administrateur):

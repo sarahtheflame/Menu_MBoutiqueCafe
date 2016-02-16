@@ -22,8 +22,9 @@
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
+                    'left' : $data.position_x() + '%', 
+                    'top' : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%'
                 }">
@@ -72,23 +73,27 @@
                         borderWidth : $root.fenetre.theme.texte.bordure.taille()
                     }"></div>
                     <!-- /ko -->
+                    <span class="delete_zone">X</span>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneImage" -->
                 <div class="zone media" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%', 
                     background : 'rgb(0,0,0)' 
                 }">
                     <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
+                    <span class="delete_zone">X</span>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneVideo" -->
                 <div class="zone media" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur()  + '%'
                 }">
@@ -98,12 +103,14 @@
                         }" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
+                    <span class="delete_zone">X</span>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: zone.type() === "ZoneTable" -->
                 <div class="zone" data-bind="style: { 
                     left : $data.position_x() + '%', 
                     top : $data.position_y() + '%', 
+                    'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%' 
                 }">
@@ -169,10 +176,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <span class="delete_zone">X</span>
                 </div>
                 <!-- /ko -->
             </div>
+            <span class="toggle_sidebar option_left">»</span>
             <div id="sidebar">
+                <span class="toggle_sidebar option_right">«</span>
                 <div class="sidebar_row">
                     <label class="sidebar_label">Thème de la fenêtre : </label>
                     <br>
@@ -204,11 +214,15 @@
                     <ul>
                         <li>
                             <label class="sidebar_label">Horizontale : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
+                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
                         </li>
                         <li>
                             <label class="sidebar_label">Verticale : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
+                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
+                        </li>
+                        <li>
+                            <label class="sidebar_label">Profondeur : </label>
+                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_z"></input>
                         </li>
                     </ul>
                 </div>
@@ -218,11 +232,11 @@
                     <ul>
                         <li>
                             <label class="sidebar_label">Hauteur : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
+                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
                         </li>
                         <li>
                             <label class="sidebar_label">Largeur : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
+                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
                         </li>
                     </ul>
                 </div>
@@ -230,7 +244,7 @@
                     <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
                 </div>
                 <div class="sidebar_row">
-                    <button onclick="show_zone_focus()">Ajouter une nouvelle zone</button>
+                    <button onclick="monter_la_fenetre()">Ajouter une nouvelle zone</button>
                 </div>
                 <div class="sidebar_row">
                     <button onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
@@ -267,7 +281,7 @@
             location.reload();
         });
       }
-    function show_zone_focus(){
+    function monter_la_fenetre(){
         alert(viewModel.fenetre.zones);
     }
     function ajouter_une_zone(){
@@ -277,4 +291,7 @@
             this.type = ko.observable(type_zone);
         };
     }
+    $("body").on("click", ".toggle_sidebar", function() {
+        $("#sidebar").toggleClass("show_sidebar");
+    });
 </script>
