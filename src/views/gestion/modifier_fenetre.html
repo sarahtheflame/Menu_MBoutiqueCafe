@@ -239,14 +239,12 @@
                         <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
                     </div>
                 </div>
-                <div class="sidebar_row">
+                <div class="sidebar_row badge_button text-center">
                     <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
+                    <a href="#" class="retirer">Supprimer la zone</a> 
                 </div>
                 <div class="sidebar_row">
-                    <button onclick="monter_la_fenetre()">Ajouter une nouvelle zone</button>
-                </div>
-                <div class="sidebar_row">
-                    <button onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                    <button class="custom_button_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                 </div>
             </div>
     </BODY>

@@ -1,3 +1,5 @@
+@import "shared";
+
 * {
     font-family: "Helvetica Neue", Helvetica, Arial;
 }
@@ -20,7 +22,11 @@
         transition: left 0.4s;
     }
     .sidebar_row {
-        margin: 5px 5px;   
+        margin: 5px 5px; 
+
+        .badge_button a {
+            float: none!important;
+        }  
     }
     .sidebar_label {
         font-size: 15px;
@@ -54,6 +60,7 @@
         height: 22px;
         padding: 0px 5px;
     }
+
 }
 
 span {
