@@ -24,7 +24,7 @@
           </h4>
         </div>
          <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
-          <ul class="list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
+          <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
             <li class="list-group-item">
               <a href="#" class="retirer">X</a>
               <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
@@ -52,7 +52,7 @@
           </h4>
         </div>
          <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
-          <ul class="list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+          <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
             <li class="list-group-item">
                     <a href="#" class="retirer">X</a>
                     <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>

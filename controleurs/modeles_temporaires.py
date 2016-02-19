@@ -1039,11 +1039,13 @@ class ZoneTable(Zone):
                 classe 'Ligne').
     """
     __tablename__ = 'ZonesTable'
+
     id = Column(
         Integer, 
         ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
         primary_key=True
         )
+    nombre_colonnes = Column(Integer, default=0)
 
     __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 
@@ -1056,6 +1058,7 @@ class ZoneTable(Zone):
         data = dict(
             id = self.id,
             nom = self.nom,
+            nombre_colonnes = self.nombre_colonnes,
             position_x = self.position_x,
             position_y = self.position_y,
             position_z = self.position_z,
@@ -1079,6 +1082,7 @@ class ZoneTable(Zone):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nombre_colonnes') != None : self.nombre_colonnes = data['nombre_colonnes']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
         if data.get('position_z') != None : self.position_z = data['position_z']
@@ -1154,9 +1158,10 @@ class Ligne(Base):
         """
         for cellule in data['cellules']:
             if cellule['id'] == 0:
-                nouvelle_cellule = Cellule(ligne=self)
-                nouvelle_cellule.deserialiser_de_json(session, cellule)
-                session.add(nouvelle_cellule)
+                if len(self.cellules) < self.zone_table.nombre_colonnes:
+                    nouvelle_cellule = Cellule(ligne=self)
+                    nouvelle_cellule.deserialiser_de_json(session, cellule)
+                    session.add(nouvelle_cellule)
             elif cellule['id'] > 0:
                 session.query(Cellule).filter(Cellule.id == cellule['id']).one().deserialiser_de_json(session, cellule)
             elif cellule['id'] < 0:
