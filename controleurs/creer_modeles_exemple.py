@@ -288,6 +288,7 @@ zone_entete = ZoneBase(
 
 zone_grillwiches = ZoneTable(
     nom='zone_grillwiches', 
+    nombre_colonnes=2,
     position_x=2,
     position_y=18,
     largeur=32,
@@ -405,6 +406,7 @@ cellule_2_ligne_8_grillwiches = Cellule(
 
 zone_salade = ZoneTable(
     nom='zone salade', 
+    nombre_colonnes=3,
     position_x=36,
     position_y=18,
     largeur=37,

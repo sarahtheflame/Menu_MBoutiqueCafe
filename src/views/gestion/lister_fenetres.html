@@ -75,7 +75,7 @@
                 <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
                 </select>
               </div>
-              <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+              <div class="badge_button col-md-2 col-md-offset-4 col-xs-12">
                 <!-- ko if: $data.id() != 1 -->
                 <a href="#" class="retirer">X</a>
                 <!-- /ko --> 
@@ -93,7 +93,7 @@
          <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: { id: $data.id()}">
           <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
             <!-- ko if: $data.id() > -1 -->
-            <li class="list-group-item">
+            <li class="list-group-item badge_button">
                 <a href="#" class="retirer">X</a>
                 <!-- ko if: $data.id() == 0 -->
                 <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette zone">Modifier</a>
@@ -105,8 +105,8 @@
             </li>
             <!-- /ko -->
           </ul>
-          <div class="list-group-item">
-              <a id="test" href="#" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une zone</a>
+          <div class="list-group-item badge_button">
+              <a href="#" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une zone</a>
               Nouvelle zone
           </div>
         </div>

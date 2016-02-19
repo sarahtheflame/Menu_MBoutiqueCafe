@@ -33,7 +33,7 @@
                 <h2><span data-bind="text: $data.nom"></span></h2>
               </div>
               
-              <div class="boutons col-md-2 col-md-offset-4 col-xs-12">
+              <div class="badge_button col-md-2 col-md-offset-4 col-xs-12">
                 <!-- ko if: $data.id() != 1 -->
                 <a href="#" class="retirer">X</a>
                 <!-- /ko -->
@@ -41,7 +41,7 @@
                 <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier ce thème">Modifier</a>
                 <!-- /ko -->
                 <!-- ko if: $data.id() > 0 -->
-                 <a class="btn" data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
+                 <a data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
                 <!-- /ko -->
               </div>
             </div>
