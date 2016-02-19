@@ -36,13 +36,28 @@ $(document).ready(function(){
 	]);
 
 	$(function(){
-    $('.choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
-  		var context = ko.contextFor(this);
-  		context.$data.couleur(event.color.toHex());
-	});
+	    $('.choix_couleur_texte').colorpicker().on('changeColor.colorpicker', function(event){
+	  		var context = ko.contextFor(this);
+	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
+	  		context.$data.couleur(nouvelle_couleur);
+		});
 	});
 
+	$(function(){
+	    $('.choix_couleur_bordure').colorpicker().on('changeColor.colorpicker', function(event){
+	  		var context = ko.contextFor(this);
+	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
+	  		context.$data.bordure.couleur(nouvelle_couleur);
+		});
+	});
 
+	$(function(){
+	    $('.choix_couleur_fond').colorpicker().on('changeColor.colorpicker', function(event){
+	  		var context = ko.contextFor(this);
+	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
+	  		context.$data.couleur_fond(nouvelle_couleur);
+		});
+	});
 });
 
 $("body").on("change", ".checkbox_gras", function() {
