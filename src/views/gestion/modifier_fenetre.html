@@ -18,6 +18,9 @@
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
         <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.min.css">
+        <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+        <script src="/src/modifier_fenetre.js" type="text/javascript"></script>
     </HEAD>
         <BODY data-bind="attr: { 'background': choose_background }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
@@ -203,15 +206,18 @@
                 </div>
                 <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Couleur de fond : </label>
-                    <button type="">
-                        Choisir
-                    </button>
+                    <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
+                        backgroundColor : fenetre.couleur_fond}"/>
                 </div>
                 <hr>
                 <div class="sidebar_row form-inline text-center">
                     <label class="sidebar_label">Zone sélectionnée : </label>
                     <select data-role="none" class="form-control input-sm" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'id', value: $root.zone_focus">
                     </select>
+                </div>
+                <div class="sidebar_row badge_button text-center">
+                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier</a>
+                    <a href="#" class="retirer">Supprimer</a> 
                 </div>
                 <div class="sidebar_row form-inline" id="position">
                     <h2>Position</h2>
@@ -228,7 +234,7 @@
                             <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_z"></input>
                     </div>
                 </div>
-                <div class="sidebar_row">
+                <div class="sidebar_row" id="dimensions">
                     <h2>Dimensions</h2>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Hauteur : </label>
@@ -239,10 +245,7 @@
                         <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
                     </div>
                 </div>
-                <div class="sidebar_row badge_button text-center">
-                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
-                    <a href="#" class="retirer">Supprimer la zone</a> 
-                </div>
+
                 <div class="sidebar_row">
                     <button class="custom_button_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                 </div>
