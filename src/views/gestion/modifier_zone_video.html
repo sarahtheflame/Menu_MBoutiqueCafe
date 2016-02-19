@@ -1,4 +1,5 @@
 % rebase(path)
+{{!data}}
 <div class="container">
     <div class="row">
         <div class="entete">
@@ -8,25 +9,45 @@
     <div class="row">
         <form class="col-md-12">
             <div class="form-group">
-                <label for="contenu_input">Nom : </label>
-                <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="nom_de_zone_input">Nom : </label>
+                        <input id="nom_de_zone_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <label for="contenu_input">Contenu : </label>
-                <textarea class="form-control" rows="3" data-bind="value: zone.contenu"></textarea>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="video_select">Vidéo de la zone : </label>
+                        <select id="video_select" class="form-control" data-role="none" data-bind="options: $root.videos, optionsText: 'nom', optionsValue: 'id', value: $root.media_focus">
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <img data-bind="attr: { src: '/src/'+ zone.video.chemin_fichier()}" width="100%">
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <label>Style du texte :</label>
-                <select class="form-control" id="choix_type_zone" data-bind="value: zone.type_style">
-                  <option value="texte">Texte</option>
-                  <option value="sous_titre">Sous-titre</option>
-                  <option value="titre">Titre</option>
-                </select>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </div>
             </div>
         </form>
-
-        <!-- Il faudrait envoyer l'id de la fenêtre -->
-        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>      
     </div>
 </div>
-
+<script>
+    viewModel.media_focus = ko.observable(viewModel.zone.video.id());
+    viewModel.media_focus.subscribe(function (data) {
+        for (var index in viewModel.videos()) {
+            if (viewModel.videos()[index].id() === viewModel.media_focus()){
+                viewModel.zone.video.id(viewModel.videos()[index].id());
+                viewModel.zone.video.nom(viewModel.videos()[index].nom());
+                viewModel.zone.video.chemin_fichier(viewModel.videos()[index].chemin_fichier());
+            }
+        }
+    });
+        
+</script>

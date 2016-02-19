@@ -97,7 +97,7 @@ def get_lister_periodes(s):
     return resultats
 
 def get_modifier_zone(s, id_zone):
-    resultats = { 'zone' : '' , 'fenetre_id' : '', 'vue_associe' : '', 'images' : [], 'videos' : []}
+    resultats = { 'zone' : '' , 'fenetre_id' : '', 'vue_associe' : ''}
     type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
     if type_zone == "ZoneBase":
         zone = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one()
@@ -108,12 +108,14 @@ def get_modifier_zone(s, id_zone):
     elif type_zone == "ZoneImage":
         zone = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one()
         nom_vue = "modifier_zone_image"
+        resultats['images'] = []
         for image in s.query(Image).order_by(Image.id).all():
             resultats['images'].append(image.serialiser_en_json())
         # resultats['media_focus'] = zone.image.serialiser_en_json()
     elif type_zone == "ZoneVideo":
         zone = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one()
         nom_vue = "modifier_zone_video"
+        resultats['videos'] = []
         for video in s.query(Video).order_by(Video.id).all():
             resultats['videos'].append(video.serialiser_en_json())
     resultats['zone'] = zone.serialiser_en_json()
