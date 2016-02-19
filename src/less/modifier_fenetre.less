@@ -1,3 +1,5 @@
+@import "shared";
+
 * {
     font-family: "Helvetica Neue", Helvetica, Arial;
 }
@@ -10,7 +12,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 275px;
+    width: 250px;
     background: rgba(0, 0, 0, 0.8);
     border-right: 1px solid white;
     transition: left 0.4s;
@@ -20,13 +22,45 @@
         transition: left 0.4s;
     }
     .sidebar_row {
-        margin: 25px;   
+        margin: 5px 5px; 
+
+        .badge_button a {
+            float: none!important;
+        }  
     }
     .sidebar_label {
-        font-size: 18px;
+        font-size: 15px;
         color: white;
         text-decoration: none;
     }
+
+    h1 {
+        text-align: center;
+        font-size: 25px;
+        color: #fff;
+    }
+
+    h2 {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: bold;
+        color: #636363;
+    }
+
+    hr {
+        width: 85%;
+        margin: 15px auto;
+    }
+
+    input[type="number"] {
+        width: 60px;
+    }
+
+    .input-sm {
+        height: 22px;
+        padding: 0px 5px;
+    }
+
 }
 
 span {

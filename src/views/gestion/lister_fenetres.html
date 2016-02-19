@@ -94,9 +94,7 @@
           <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
             <!-- ko if: $data.id() > -1 -->
             <li class="list-group-item badge_button">
-                <!-- ko if: $data.id() != 1 -->
                 <a href="#" class="retirer">X</a>
-                <!-- /ko -->
                 <!-- ko if: $data.id() == 0 -->
                 <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette zone">Modifier</a>
                 <!-- /ko -->

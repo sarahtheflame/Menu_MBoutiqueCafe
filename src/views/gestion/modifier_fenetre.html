@@ -17,6 +17,7 @@
         <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
+        <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
     </HEAD>
         <BODY data-bind="attr: { 'background': choose_background }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
@@ -184,70 +185,66 @@
             <div id="sidebar">
                 <span class="toggle_sidebar option_right">«</span>
                 <div class="sidebar_row">
-                    <label class="sidebar_label">Thème de la fenêtre : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
+                    <h1 data-bind="text: fenetre.nom"></h1>
+                </div>
+                <div class="sidebar_row form-inline">
+                    <label class="sidebar_label">Nom : </label>
+                     <input type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom"></input>
+                </div>
+                <div class="sidebar_row form-inline">
+                    <label class="sidebar_label">Thème : </label>
+                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
                     </select>
                 </div>
-                <div class="sidebar_row">
+                <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Image de fond : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: fenetre.image_fond.id">
+                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: fenetre.image_fond.id">
                     </select>
                 </div>
-                <div class="sidebar_row">
+                <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Couleur de fond : </label>
-                    <br>
                     <button type="">
                         Choisir
                     </button>
                 </div>
-                <div class="sidebar_row">
+                <hr>
+                <div class="sidebar_row form-inline text-center">
                     <label class="sidebar_label">Zone sélectionnée : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'id', value: $root.zone_focus">
+                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'id', value: $root.zone_focus">
                     </select>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Positions : </label>
-                    <br>
-                    <ul>
-                        <li>
+                <div class="sidebar_row form-inline" id="position">
+                    <h2>Position</h2>
+                    <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Horizontale : </label>
-                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
-                        </li>
-                        <li>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Verticale : </label>
-                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
-                        </li>
-                        <li>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Profondeur : </label>
-                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_z"></input>
-                        </li>
-                    </ul>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_z"></input>
+                    </div>
                 </div>
                 <div class="sidebar_row">
-                    <label class="sidebar_label">Dimensions : </label>
-                    <br>
-                    <ul>
-                        <li>
-                            <label class="sidebar_label">Hauteur : </label>
-                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
-                        </li>
-                        <li>
-                            <label class="sidebar_label">Largeur : </label>
-                            <input type="number" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
-                        </li>
-                    </ul>
+                    <h2>Dimensions</h2>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Hauteur : </label>
+                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Largeur : </label>
+                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
+                    </div>
                 </div>
-                <div class="sidebar_row">
+                <div class="sidebar_row badge_button text-center">
                     <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
+                    <a href="#" class="retirer">Supprimer la zone</a> 
                 </div>
                 <div class="sidebar_row">
-                    <button onclick="monter_la_fenetre()">Ajouter une nouvelle zone</button>
-                </div>
-                <div class="sidebar_row">
-                    <button onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                    <button class="custom_button_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                 </div>
             </div>
     </BODY>
