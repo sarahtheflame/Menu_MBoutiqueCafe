@@ -612,44 +612,39 @@ class Fenetre(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('nom') != None : self.nom = data['nom']
-        if data.get('image_fond') == "undefined" : self.id_image_fond = None
+        if data.get('image_fond') == None or data.get('image_fond') == "undefined" : self.id_image_fond = "undefined"
         else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
-        if data.get('couleur_fond') != None : self.nom = data['couleur_fond']
+        if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if data.get('theme') != None :
             if (self.id_theme != data['theme']['id']):
                 self.theme = session.query(Theme).filter(Theme.id == data['theme']['id']).one()
-        # if data.get('fond') != None :
-        #     if data['fond'].get('id') != None:
-        #         if (self.id_image_fond != data['image_fond']['id']):
-        #             self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
-        #     else:
-        #         self.couleur_fond = data['fond']
-        for zone in data['zones']:
-            if zone['id'] == 0:
-                if zone['type'] == 'ZoneBase':
-                    nouvelle_zone = ZoneBase(fenetre=self)
-                    nouvelle_zone.deserialiser_de_json(session, zone)
-                    session.add(nouvelle_zone)
-                elif zone['type'] == 'ZoneTable':
-                    nouvelle_zone = ZoneTable(fenetre=self)
-                    nouvelle_zone.deserialiser_de_json(session, zone)
-                    session.add(nouvelle_zone)
-                elif zone['type'] == 'ZoneImage':
-                    nouvelle_zone = ZoneImage(fenetre=self)
-                    nouvelle_zone.deserialiser_de_json(session, zone)
-                    session.add(nouvelle_zone)
-                elif zone['type'] == 'ZoneVideo':
-                    nouvelle_zone = ZoneVideo(fenetre=self)
-                    nouvelle_zone.deserialiser_de_json(session, zone)
-                    session.add(nouvelle_zone)
+        if data.get('zones') != None :
+            for zone in data['zones']:
+                if zone['id'] == 0:
+                    if zone['type'] == 'ZoneBase':
+                        nouvelle_zone = ZoneBase(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneTable':
+                        nouvelle_zone = ZoneTable(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneImage':
+                        nouvelle_zone = ZoneImage(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    elif zone['type'] == 'ZoneVideo':
+                        nouvelle_zone = ZoneVideo(fenetre=self)
+                        nouvelle_zone.deserialiser_de_json(session, zone)
+                        session.add(nouvelle_zone)
+                    else:
+                        print("Type de zone inexistante!") # IMPLÉMENTER UNE ERREUR CORRECTE
+                elif zone['id'] > 0:
+                    session.query(Zone).filter(Zone.id == zone['id']).one().deserialiser_de_json(session, zone)
+                elif zone['id'] < 0:
+                    session.delete(session.query(Zone).filter(Zone.id == -zone['id']).one())
                 else:
-                    print("Type de zone inexistante!") # IMPLÉMENTER UNE ERREUR CORRECTE
-            elif zone['id'] > 0:
-                session.query(Zone).filter(Zone.id == zone['id']).one().deserialiser_de_json(session, zone)
-            elif zone['id'] < 0:
-                session.delete(session.query(Zone).filter(Zone.id == -zone['id']).one())
-            else:
-                print('Impossible de déserialiser la zone')
+                    print('Impossible de déserialiser la zone')
 
 class Periode(Base):
     """
@@ -916,7 +911,7 @@ class ZoneImage(Zone):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
-        return dict(
+        results = dict(
             id = self.id,
             nom = self.nom,
             position_x = self.position_x,
@@ -925,8 +920,11 @@ class ZoneImage(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            image = self.image.serialiser_en_json()
+            image = "undefined"
             )
+        if self.image != None: 
+            results['image'] = self.image.serialiser_en_json()
+        return results
 
     def deserialiser_de_json(self, session, data):
         """
@@ -938,8 +936,10 @@ class ZoneImage(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if (self.id_image != data['image']['id']):
-            self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
+        if data.get('image') != None:
+            if data['image'] != "undefined":
+                if (self.id_image != data['image']['id']):
+                    self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
@@ -986,7 +986,7 @@ class ZoneVideo(Zone):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
-        return dict(
+        results = dict(
             id = self.id,
             nom = self.nom,
             position_x = self.position_x,
@@ -995,8 +995,11 @@ class ZoneVideo(Zone):
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            video = self.video.serialiser_en_json()
+            video = "undefined"
             )
+        if self.video != None: 
+            results['video'] = self.video.serialiser_en_json()
+        return results
 
     def deserialiser_de_json(self, session, data):
         """
@@ -1008,8 +1011,10 @@ class ZoneVideo(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if (self.id_video != data['video']['id']):
-            self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
+        if data.get('video') != None:
+            if data['video'] != "undefined":
+                if (self.id_video != data['video']['id']):
+                    self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
@@ -1079,17 +1084,18 @@ class ZoneTable(Zone):
         if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
-        for ligne in data['lignes']:
-            if (ligne['id'] == 0):
-                nouvelle_ligne = Ligne(zone_table=self)
-                nouvelle_ligne.deserialiser_de_json(session, ligne)
-                session.add(nouvelle_ligne)
-            elif ligne['id'] > 0:
-                session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
-            elif ligne['id'] < 0:
-                session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
-            else:
-                print('Impossible de déserialiser la ligne')
+        if data.get('lignes') != None : 
+            for ligne in data['lignes']:
+                if (ligne['id'] == 0):
+                    nouvelle_ligne = Ligne(zone_table=self)
+                    nouvelle_ligne.deserialiser_de_json(session, ligne)
+                    session.add(nouvelle_ligne)
+                elif ligne['id'] > 0:
+                    session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
+                elif ligne['id'] < 0:
+                    session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
+                else:
+                    print('Impossible de déserialiser la ligne')
 
 class Ligne(Base):
     """

@@ -18,6 +18,7 @@ $("body").on("click", ".ajouter_fenetre", function() {
   };
 
   context.$root.fenetres.push(new Fenetre());
+  $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
 });
 
 $("body").on("click", ".ajouter_zone", function() {
@@ -29,7 +30,8 @@ $("body").on("click", ".ajouter_zone", function() {
     this.type = ko.observable($("#choix_type_zone").val());
   };
   
-  //context.$data.zones.push(new Zone());
+  viewModel.fenetre_focus.zones.push(new Zone());
+  $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
 
 });
 
@@ -39,4 +41,8 @@ $('body').on('shown.bs.modal', '#modalAjouterFenetre', function () {
 
 $('body').on('shown.bs.modal', '#modalAjouterZone', function () {
   $('#nom_zone_input').focus();
+})
+viewModel.fenetre_focus = ko.observable();
+$('body').on('click', '#test', function () {
+  viewModel.fenetre_focus = ko.contextFor(this).$data;
 })

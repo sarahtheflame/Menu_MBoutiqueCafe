@@ -7,7 +7,7 @@ $("body").on("click", ".ajouter_theme", function() {
 
 	context.$root.themes.push(new Theme());
 	$("#nom_theme_input").val('');
-	$('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+    $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
 });
 
 $("body").on("click", ".retirer", function() {

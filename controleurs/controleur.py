@@ -52,7 +52,10 @@ def get_lister_fenetres(s):
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
     for theme in s.query(Theme).order_by(Theme.id).all():
-        resultats['themes'].append(theme.serialiser_en_json()) 
+        resultats['themes'].append({
+            'id' : theme.id,
+            'nom' : theme.nom
+            }) 
     return resultats
 
 def get_medias(s):
@@ -91,24 +94,30 @@ def get_lister_periodes(s):
                 'id' : fenetre.id,
                 'nom' : fenetre.nom
             })
-        # resultats['fenetres'].append(fenetre.serialiser_en_json())
     return resultats
 
 def get_modifier_zone(s, id_zone):
-    resultats = { 'zone' : '' }
+    resultats = { 'zone' : '' , 'fenetre_id' : '', 'vue_associe' : '', 'images' : [], 'videos' : []}
     type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
     if type_zone == "ZoneBase":
-        resultats['zone'] = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one().serialiser_en_json()
+        zone = s.query(ZoneBase).filter(ZoneBase.id == id_zone).one()
         nom_vue = "modifier_zone_base"
     elif type_zone == "ZoneTable":
-        resultats['zone'] = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one().serialiser_en_json()
+        zone = s.query(ZoneTable).filter(ZoneTable.id == id_zone).one()
         nom_vue = "modifier_zone_table"
     elif type_zone == "ZoneImage":
-        resultats['zone'] = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one().serialiser_en_json()
+        zone = s.query(ZoneImage).filter(ZoneImage.id == id_zone).one()
         nom_vue = "modifier_zone_image"
+        for image in s.query(Image).order_by(Image.id).all():
+            resultats['images'].append(image.serialiser_en_json())
+        # resultats['media_focus'] = zone.image.serialiser_en_json()
     elif type_zone == "ZoneVideo":
-        resultats['zone'] = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one().serialiser_en_json()
+        zone = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one()
         nom_vue = "modifier_zone_video"
+        for video in s.query(Video).order_by(Video.id).all():
+            resultats['videos'].append(video.serialiser_en_json())
+    resultats['zone'] = zone.serialiser_en_json()
+    resultats['fenetre_id'] = zone.fenetre.id
     resultats['vue_associe'] = nom_vue
     return resultats
 
