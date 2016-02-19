@@ -1,7 +1,6 @@
 % rebase(path)
 <link rel="stylesheet" type="text/css" href="/src/modifier_zone_table.css">
 <script src="/src/modifier_zone_table.js" type="text/javascript"></script>
-{{!data}}
 
 <div class="container">
     <div class="row">
@@ -24,16 +23,32 @@
                 <th>Colonne <span data-bind="text: $index()+1"></span></th>
                 <!-- /ko -->
             </tr>
+            <tr>
+                <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
+                <td>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <label>Contenu : </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Style : </label>
+                        </div>
+                    </div>
+                </td>
+                <!-- /ko -->
+            </tr>
+            
             <!-- ko foreach: { data: $data.zone.lignes, as: 'ligne' } -->
         	<tr>
                  <!-- ko foreach: { data: ligne.cellules, as: 'cellule' } -->
         		<td>
-                    <div class="form-group">
-                        <input type="text" class="form-control" data-bind="textInput: cellule.contenu">
-                    </div>
-                    <div class="form-group form-inline">
-                        <label>Style : </label>
-                        <select class="form-control" data-bind="options: $root.choixStyleCellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <textarea rows="1" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" data-bind="options: $root.choixStyleCellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
+                        </div>
                     </div>
         		</td>
                 <!-- /ko -->

@@ -7,11 +7,7 @@ table th {
 table td {
   text-align: center;
 }
-table .form-group {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-table .form-control {
-  width: 70%;
-  margin: auto;
+textarea {
+  width: 100%;
+  resize: vertical;
 }
