@@ -25,7 +25,7 @@
                 </div>
             </div> 
             <div class="form-group">
-                <input type="button" class="toggle_mot_de_passe">toggle</input>
+                <input type="checkbox" class="toggle_mot_de_passe"> Afficher le mot de passe?</input>
             </div> 
         </form>        
       </div>
@@ -38,10 +38,11 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="entete">
-          <h1>Paramètres</h1>
+        <div class="col-lg-12">
+            <h1>Paramètres</h1>
         </div>
     </div>
+    <hr>
     <div class="row">
         <form class="col-md-4 col-xs-12">
             <div class="form-group">
@@ -71,8 +72,7 @@
             viewModel.administrateur.mot_de_passe(nouveau_mot_de_passe);
         } 
     });
-    $("body").on("click", ".toggle_mot_de_passe", function() {
-        alert(event.target.type);
+    $("body").on("click", ".toggle_password_2", function() {
         if ($('#mot_de_passe_input').attr('type') == 'password') {
             $('#mot_de_passe_input').attr('type', 'text');
         }

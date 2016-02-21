@@ -1,41 +1,38 @@
 % rebase(path)
-{{!data}}
+<link rel="stylesheet" type="text/css" href="/src/modifier_zone_video.css">
 <div class="container">
+
     <div class="row">
         <div class="entete">
           <h1>Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
         </div>
     </div>
+
     <div class="row">
         <form class="col-md-12">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
                         <label for="nom_de_zone_input">Nom : </label>
                         <input id="nom_de_zone_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-3">
+                    <div class="form-group">
                         <label for="video_select">Vidéo de la zone : </label>
                         <select id="video_select" class="form-control" data-role="none" data-bind="options: $root.videos, optionsText: 'nom', optionsValue: 'id', value: $root.media_focus">
                         </select>
                     </div>
-                    <div class="col-lg-3">
-                        <img data-bind="attr: { src: '/src/'+ zone.video.chemin_fichier()}" width="100%">
-                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    </div>
+                <div class="col-lg-6">
+                    <a data-bind="attr: { href: '/src/'+ zone.video.chemin_fichier()}" >Visualiser la vidéo</a>
                 </div>
             </div>
         </form>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
     </div>
 </div>
 <script>

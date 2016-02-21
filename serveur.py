@@ -52,7 +52,7 @@ app.install(plugin)
 def check_auth(func):
     @wraps(func)
     def check(*args, **kwargs):
-        cookie_courriel = request.get_cookie("administrateur", secret="secret_temporaire")
+        cookie_courriel = request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         if cookie_courriel:
             return func(*args, **kwargs)
         else:
@@ -93,7 +93,8 @@ def post_connexion(db):
     courriel = request.forms.get('courriel')
     mot_de_passe = request.forms.get('mot_de_passe')
     if est_autorise(db, courriel, mot_de_passe):
-        response.set_cookie("administrateur", courriel, secret="secret_temporaire")
+        administrateur = db.query(Administrateur).filter(Administrateur.adresse_courriel == courriel).one()
+        response.set_cookie("administrateur", administrateur.id, secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         return template("src\\views\\gestion\\accueil.html", variables)
     else:
         return template("src\\views\\autre\\connexion.html", variables)
@@ -115,7 +116,7 @@ def get_gestion(nom_fichier, db):
     donnees_gestion = obtenir_donnees_gestion(db, {
         'nom_vue' : nom_fichier, 
         'id' : request.query.id, 
-        'courriel_administrateur' : request.get_cookie("administrateur", secret="secret_temporaire")
+        'id_administrateur' : request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
     })
     variables = {
         'titre' : nom_fichier,

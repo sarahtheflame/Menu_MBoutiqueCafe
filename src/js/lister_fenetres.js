@@ -43,6 +43,6 @@ $('body').on('shown.bs.modal', '#modalAjouterZone', function () {
   $('#nom_zone_input').focus();
 })
 viewModel.fenetre_focus = ko.observable();
-$('body').on('click', '#test', function () {
+$('body').on('click', '.selecteur_fenetre', function () {
   viewModel.fenetre_focus = ko.contextFor(this).$data;
 })

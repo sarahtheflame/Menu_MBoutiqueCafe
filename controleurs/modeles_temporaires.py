@@ -894,7 +894,8 @@ class ZoneImage(Zone):
         )
     id_image = Column(
         Integer, 
-        ForeignKey('Images.id', onupdate='cascade', ondelete='cascade')
+        ForeignKey('Images.id', onupdate='cascade', ondelete='cascade'),
+        default=2
         )
     image = relationship(
         Image, 
@@ -924,6 +925,7 @@ class ZoneImage(Zone):
             )
         if self.image != None: 
             results['image'] = self.image.serialiser_en_json()
+        print(results['image'])
         return results
 
     def deserialiser_de_json(self, session, data):
@@ -940,6 +942,8 @@ class ZoneImage(Zone):
             if data['image'] != "undefined":
                 if (self.id_image != data['image']['id']):
                     self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
+        else:
+            self.image = session.query(Image).filter(Image.id == 2).one()
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
@@ -969,7 +973,8 @@ class ZoneVideo(Zone):
         )
     id_video = Column(
         Integer, 
-        ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')
+        ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade'),
+        default=1
         )
     video = relationship(
         Video, 
@@ -1015,6 +1020,8 @@ class ZoneVideo(Zone):
             if data['video'] != "undefined":
                 if (self.id_video != data['video']['id']):
                     self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
+        else:
+            self.video = session.query(Video).filter(Video.id == 1).one()
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']

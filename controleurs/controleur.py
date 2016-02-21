@@ -26,7 +26,7 @@ def obtenir_donnees_gestion(s, data):
     elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
     elif data['nom_vue'] == "themes": return get_lister_themes(s)
-    elif data['nom_vue'] == "parametres": return get_parametres(s, data['courriel_administrateur'])
+    elif data['nom_vue'] == "parametres": return get_parametres(s, data['id_administrateur'])
     elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
     elif data['nom_vue'] == "modifier_zone": return get_modifier_zone(s, data['id'])
     elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
@@ -80,9 +80,9 @@ def get_lister_themes(s):
             })
     return resultats
 
-def get_parametres(s, courriel_administrateur):
+def get_parametres(s, id_administrateur):
     resultats = { 'administrateur' : [], 'vue_associe' : 'parametres'  }
-    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.adresse_courriel == courriel_administrateur).one().serialiser_en_json()
+    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.id == id_administrateur).one().serialiser_en_json()
     return resultats
 
 def get_lister_periodes(s):

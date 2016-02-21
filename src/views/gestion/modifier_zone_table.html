@@ -10,61 +10,66 @@
         </div>
     </div>
     <div class="row">
-        <form class="col-md-12">
-            <div class="form-group">
-                <label for="contenu_input">Nom : </label>
-                <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
-            </div>
-        </form>
-    
-        <table class="table table-bordered">
-            <tr>
-                <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
-                <th>Colonne <span data-bind="text: $index()+1"></span></th>
+        <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <label for="contenu_input">Nom : </label>
+                    <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
+                    <th>Colonne <span data-bind="text: $index()+1"></span></th>
+                    <!-- /ko -->
+                </tr>
+                <tr>
+                    <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
+                    <td>
+                        <div class="row">
+                            <div class="col-xs-9 col-md-9 col-lg-9">
+                                <label>Contenu : </label>
+                            </div>
+                            <div class="col-xs-3 col-md-3 col-lg-3">
+                                <label>Style : </label>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- /ko -->
+                </tr>
+                
+                <!-- ko foreach: { data: $data.zone.lignes, as: 'ligne' } -->
+            	<tr>
+                     <!-- ko foreach: { data: ligne.cellules, as: 'cellule' } -->
+            		<td>
+                        <div class="row">
+                            <div class="col-xs-9 col-md-9 col-lg-9">
+                                <textarea rows="2" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
+                            </div>
+                            <div class="col-xs-3 col-md-3 col-lg-3">
+                                <select class="form-control" data-bind="options: $root.choixStyleCellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
+                            </div>
+                        </div>
+            		</td>
+                    <!-- /ko -->
+                    <td>
+                        <div class="badge_button">
+                            <a href="#" class="retirer">X</a>
+                        </div>
+                    </td>
+            	</tr>
                 <!-- /ko -->
-            </tr>
-            <tr>
-                <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
-                <td>
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <label>Contenu : </label>
-                        </div>
-                        <div class="col-lg-3">
-                            <label>Style : </label>
-                        </div>
-                    </div>
-                </td>
-                <!-- /ko -->
-            </tr>
-            
-            <!-- ko foreach: { data: $data.zone.lignes, as: 'ligne' } -->
-        	<tr>
-                 <!-- ko foreach: { data: ligne.cellules, as: 'cellule' } -->
-        		<td>
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <textarea rows="1" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
-                        </div>
-                        <div class="col-lg-3">
-                            <select class="form-control" data-bind="options: $root.choixStyleCellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
-                        </div>
-                    </div>
-        		</td>
-                <!-- /ko -->
-                <td>
-                    <div class="badge_button">
-                        <a href="#" class="retirer">X</a>
-                    </div>
-                </td>
-        	</tr>
-            <!-- /ko -->
-            <tr>
-                <th class="badge_button" data-bind="attr: {colspan : $root.zone.nombre_colonnes()+1}">
-                    <a href="#" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une ligne</a>
-                  Nouvelle zone
-                </th>
-            </tr>
-        </table>
+                <tr>
+                    <th class="badge_button" data-bind="attr: {colspan : $root.zone.nombre_colonnes()+1}">
+                        <a href="#" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une ligne</a>
+                      Nouvelle zone
+                    </th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

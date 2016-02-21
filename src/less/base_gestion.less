@@ -7,6 +7,10 @@ body {
   overflow: hidden;
   width: 100%;
 }
+
+.row {
+  margin-top: 15px;
+}
 //==============================================================================
 // HEADER
 //==============================================================================
@@ -117,18 +121,12 @@ body {
     width: 60%;
     transition: width @transition_time;
   }
-  .entete {
-    padding: 10px 25px;
-  }
   .aide {
     display: inline-block;
     width: 35%;
     padding: 20px;
     text-align: right;
     vertical-align: top;
-  }
-  .entete {
-    padding: 10px 25px;
   }
 }
 #content.show_sidebar {
@@ -143,17 +141,12 @@ body {
 //==============================================================================
 // LISTES
 //==============================================================================
-.panel-group {
-  // overflow: auto;
-  // height: 72vh;
-  padding: 0 25px;
-  .panel {
-    margin: 20px 0;
-  }
+
+.panel .row {
+  margin-top: 0px;
 }
 .panel-heading .form-control {
   display: inline-block;
-  width: 75%;
 }
 .panel-group.custom {
   h2 {
