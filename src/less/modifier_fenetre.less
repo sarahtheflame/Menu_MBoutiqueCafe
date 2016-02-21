@@ -5,7 +5,7 @@
 }
 
 #sidebar {
-    z-index: 9999;
+    z-index: 998;
     margin: 0;
     padding: 0;
     position: fixed;
@@ -23,10 +23,7 @@
     }
     .sidebar_row {
         margin: 5px 5px; 
-
-        .badge_button a {
-            float: none!important;
-        }  
+ 
     }
     .sidebar_label {
         font-size: 15px;
@@ -44,7 +41,7 @@
         text-transform: uppercase;
         font-size: 16px;
         font-weight: bold;
-        color: #636363;
+        color: #9A9A9A;
     }
 
     hr {
@@ -61,6 +58,21 @@
         padding: 0px 5px;
     }
 
+    .badge_button a {
+        float: none!important;
+    } 
+
+    .custom_button_gris {
+        bottom: 5px;
+    }
+
+    #position label {
+        width: 90px;
+    }
+
+    #dimensions label {
+        width: 75px;
+    }
 }
 
 span {
@@ -74,9 +86,11 @@ span {
 }
 .option_left {
     left: 0px;
+    cursor: pointer;
 }
 .option_right {
     right: 0px;
+    cursor: pointer;
 }
 .delete_zone {
     padding: 20px;
@@ -92,4 +106,10 @@ span {
         background: rgba(255, 0, 0, 0.9);
     }
 }
+
+.colorpicker {
+    z-index: 999;
+}
+
+
 
