@@ -25,7 +25,7 @@
         <BODY data-bind="attr: { 'background': choose_background }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
-                <div class="zone base" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                <div class="zone base" data-bind="css: {zone_focus: $root.is_selected($data.id())}, style: { 
                     'left' : $data.position_x() + '%', 
                     'top' : $data.position_y() + '%', 
                     'z-index' : $data.position_z(), 
@@ -209,43 +209,43 @@
                         backgroundColor : fenetre.couleur_fond}"/>
                 </div>
                 <hr>
-                <div data-bind="with: $root.index_zone_focus">
+                <!-- ko if: $root.index_zone_focus() != -1 -->
                 <div class="sidebar_row form-inline text-center">
                     <label class="sidebar_label">Zone sélectionnée : </label>
                     <select data-role="none" class="form-control input-sm" data-bind="options: $root.fenetre.zones, optionsText: 'nom', selectedIndex: $root.index_zone_focus">
                     </select>
                 </div>
-                    <div class="sidebar_row badge_button text-center">
-                        <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
-                        <a href="#" class="retirer">Supprimer</a> 
+                <div class="sidebar_row badge_button text-center">
+                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
+                    <a href="#" class="retirer">Supprimer</a> 
+                </div>
+                <div class="sidebar_row form-inline" id="position">
+                    <h2>Position</h2>
+                    <div class="sidebar_row form-inline">
+                            <label class="sidebar_label">Horizontale : </label>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
                     </div>
-                    <div class="sidebar_row form-inline" id="position">
-                        <h2>Position</h2>
-                        <div class="sidebar_row form-inline">
-                                <label class="sidebar_label">Horizontale : </label>
-                                <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
-                        </div>
-                        <div class="sidebar_row form-inline">
-                                <label class="sidebar_label">Verticale : </label>
-                                <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
-                        </div>
-                        <div class="sidebar_row form-inline">
-                                <label class="sidebar_label">Profondeur : </label>
-                                <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
-                        </div>
+                    <div class="sidebar_row form-inline">
+                            <label class="sidebar_label">Verticale : </label>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
                     </div>
-                    <div class="sidebar_row" id="dimensions">
-                        <h2>Dimensions</h2>
-                        <div class="sidebar_row form-inline">
-                            <label class="sidebar_label">Hauteur : </label>
-                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
-                        </div>
-                        <div class="sidebar_row form-inline">
-                            <label class="sidebar_label">Largeur : </label>
-                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
-                        </div>
+                    <div class="sidebar_row form-inline">
+                            <label class="sidebar_label">Profondeur : </label>
+                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
                     </div>
                 </div>
+                <div class="sidebar_row" id="dimensions">
+                    <h2>Dimensions</h2>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Hauteur : </label>
+                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Largeur : </label>
+                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
+                    </div>
+                </div>
+                <!-- /ko -->
                 <div class="sidebar_row">
                     <button class="custom_button_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                 </div>
@@ -255,8 +255,14 @@
 
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
-    viewModel.id_zone_focus = ko.observable();
-    viewModel.index_zone_focus = ko.observable(0);
+    viewModel.choose_background = ko.computed(function() {
+        if (viewModel.fenetre.image_fond.chemin_fichier() == "undefined") {
+            return viewModel.fenetre.couleur_fond();
+        }
+        else {
+            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
+        }
+    });
     ko.bindingHandlers.selectedIndex = {
         init: function(element, valueAccessor) {
             ko.utils.registerEventHandler(element, "change", function() {
@@ -267,16 +273,14 @@
             });
         }
     };
-    
-    viewModel.choose_background = ko.computed(function() {
-        if (viewModel.fenetre.image_fond.chemin_fichier() == "undefined") {
-            return viewModel.fenetre.couleur_fond();
-        }
-        else {
-            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
-        }
-    });
 
+    viewModel.id_zone_focus = ko.observable();
+    if (viewModel.fenetre.zones().length != 0) {
+        viewModel.index_zone_focus = ko.observable(0);
+    }
+    else {
+        viewModel.index_zone_focus = ko.observable(-1);
+    }
     viewModel.is_selected = function (id) {
         return viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() == id;
     };
