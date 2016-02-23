@@ -158,14 +158,14 @@ def affichage(id_fenetre, db):
 # Téléchargement de fichier
 #===============================================================================
 
-@app.route('/televerser', method='POST')
+@app.route('/g/televerser', method='POST')
 def televerser(db):
     nom = request.files.get('nom')
     televersement = request.files.get('fichier')
     nom_fichier, extension = os.path.splitext(televersement.filename)
     if extension in ('.png','.jpg','.jpeg'):
         televersement.save('src\\images')
-    # return get_gestion("medias", db)
+    return get_gestion("medias", db)
 
 #===============================================================================
 # Fichiers statiques
