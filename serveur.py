@@ -165,7 +165,7 @@ def televerser(db):
     nom_fichier, extension = os.path.splitext(televersement.filename)
     if extension in ('.png','.jpg','.jpeg'):
         televersement.save('src\\images')
-    return get_gestion("medias", db)
+    # return get_gestion("medias", db)
 
 #===============================================================================
 # Fichiers statiques
