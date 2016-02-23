@@ -9,12 +9,10 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 import datetime
-from modeles.fenetre import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.fenetre import Fenetre
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Periode(Base):
     """
@@ -45,7 +43,7 @@ class Periode(Base):
     """
     __tablename__ = 'Periodes'
     id = Column(Integer, primary_key=True)
-    heure_debut = Column(Time, unique=True)
+    heure_debut = Column(Time, default=datetime.time(0,0)) #unique=True
     id_fenetre_1 = Column(
         Integer, 
         ForeignKey('Fenetres.id', onupdate='cascade', ondelete='set default'), 
@@ -67,31 +65,23 @@ class Periode(Base):
         default=1
         )
     fenetre_1 = relationship(
-        Fenetre, 
-        backref=backref(
-            'periodes_ecran_1', 
-            uselist=True), 
+        "Fenetre", 
+        uselist=False, 
         foreign_keys=[id_fenetre_1]
         )
     fenetre_2 = relationship(
-        Fenetre, 
-        backref=backref(
-            'periodes_ecran_2', 
-            uselist=True), 
+        "Fenetre", 
+        uselist=False, 
         foreign_keys=[id_fenetre_2]
         )
     fenetre_3 = relationship(
-        Fenetre, 
-        backref=backref(
-            'periodes_ecran_3', 
-            uselist=True),  
+        "Fenetre", 
+        uselist=False, 
         foreign_keys=[id_fenetre_3]
         )
     fenetre_4 = relationship(
-        Fenetre, 
-        backref=backref(
-            'periodes_ecran_4', 
-            uselist=True), 
+        "Fenetre", 
+        uselist=False, 
         foreign_keys=[id_fenetre_4]
         )
 
@@ -102,12 +92,23 @@ class Periode(Base):
         """
         return dict(
             id = self.id,
-            heure_debut = self.heure_debut,
-            fenetre_1 = self.fenetre_1.serialiser_en_json(),
-            fenetre_2 = self.fenetre_2.serialiser_en_json(),
-            fenetre_3 = self.fenetre_3.serialiser_en_json(),
-            fenetre_4 = self.fenetre_4.serialiser_en_json()
-            )
+            heure_debut = self.heure_debut.strftime("%H:%M"),
+            fenetre_1 = {
+                'id' : self.fenetre_1.id,
+                'nom' : self.fenetre_1.nom
+            },
+            fenetre_2 = {
+                'id' : self.fenetre_2.id,
+                'nom' : self.fenetre_2.nom
+            },
+            fenetre_3 = {
+                'id' : self.fenetre_3.id,
+                'nom' : self.fenetre_3.nom
+            },
+            fenetre_4 = {
+                'id' : self.fenetre_4.id,
+                'nom' : self.fenetre_4.nom
+            })
 
     def deserialiser_de_json(self, session, data):
         """
@@ -119,7 +120,8 @@ class Periode(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('heure_debut') != None : self.heure_debut = data['heure_debut']
+        nouvel_heure_debut = data['heure_debut'].split(':')
+        if data.get('heure_debut') != None : self.heure_debut = datetime.time(int(nouvel_heure_debut[0]), int(nouvel_heure_debut[1]))
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):

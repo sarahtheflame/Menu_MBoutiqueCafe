@@ -9,12 +9,27 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 import datetime
-from modeles_temporaires import *
-from sqlalchemy import *
+from modeles.media import Media
+from modeles.image import Image
+from modeles.video import Video
+from modeles.bordure import Bordure
+from modeles.style import Style
+from modeles.theme import Theme
+from modeles.fenetre import Fenetre
+from modeles.periode import Periode
+from modeles.zone import Zone
+from modeles.zone_base import ZoneBase
+from modeles.zone_image import ZoneImage
+from modeles.zone_video import ZoneVideo
+from modeles.zone_table import ZoneTable
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
+from modeles.administrateur import Administrateur
+from modeles.base import Base
+from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
+engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 Base.metadata.create_all(engine)
 
 session = sessionmaker(bind=engine)
@@ -22,7 +37,7 @@ session = sessionmaker(bind=engine)
 s = session()
 
 theme_1 = Theme(
-    nom='Thème principal',
+    nom='Thème principal #1',
     titre=Style(
         police="'KaushanScript', cursive",
         couleur="#ff7400",

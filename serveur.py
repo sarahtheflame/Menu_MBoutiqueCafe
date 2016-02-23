@@ -16,48 +16,41 @@ from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
 from controleurs.controleur import *
-from controleurs.modeles_temporaires import *
 from functools import wraps
-# from modeles.media import *
-# from modeles.image import *
-# from modeles.video import *
-# from modeles.bordure import *
-# from modeles.style import *
-# from modeles.theme import *
-# from modeles.fenetre import *
-# from modeles.periode import *
-# from modeles.zone import *
-# from modeles.zone_base import *
-# from modeles.zone_image import *
-# from modeles.zone_video import *
-# from modeles.zone_table import *
-# from modeles.ligne import *
-# from modeles.cellule import *
-# from modeles.administrateur import *
+from modeles.media import Media
+from modeles.image import Image
+from modeles.video import Video
+from modeles.bordure import Bordure
+from modeles.style import Style
+from modeles.theme import Theme
+from modeles.fenetre import Fenetre
+from modeles.periode import Periode
+from modeles.zone import Zone
+from modeles.zone_base import ZoneBase
+from modeles.zone_image import ZoneImage
+from modeles.zone_video import ZoneVideo
+from modeles.zone_table import ZoneTable
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
+from modeles.administrateur import Administrateur
+from modeles.base import Base
 
-appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
 app = Bottle() # Représente l'application qui gère les routes de notre système.
 
-Base = declarative_base()
-engine = create_engine('sqlite:///src//data//database.db')
-
-plugin = sqlalchemy.Plugin(engine, keyword='db', commit=True, use_kwargs=False)
-
-app.install(plugin)
+app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', commit=True, use_kwargs=False))
     
 #===============================================================================
 # Authentification
 #===============================================================================
 
-def check_auth(func):
+def verifier_session(func):
     @wraps(func)
     def check(*args, **kwargs):
         cookie_courriel = request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         if cookie_courriel:
             return func(*args, **kwargs)
         else:
-            variables = {}
-            return template("src\\views\\autre\\connexion.html", variables)
+            return template("src\\views\\autre\\connexion.html", {})
     return check
 
 #===============================================================================
@@ -104,7 +97,7 @@ def post_connexion(db):
 #===============================================================================
 
 @app.route('/g/<nom_fichier>', method='GET')
-@check_auth
+@verifier_session
 def get_gestion(nom_fichier, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
@@ -126,7 +119,7 @@ def get_gestion(nom_fichier, db):
     return template("src\\views\\gestion\\"+donnees_gestion['vue_associe']+".html", variables)
     
 @app.route('/g/<nom_fichier>', method='POST')
-@check_auth
+@verifier_session
 def post_gestion(nom_fichier, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
@@ -165,13 +158,13 @@ def affichage(id_fenetre, db):
 # Téléchargement de fichier
 #===============================================================================
 
-@app.route('/upload', method='POST')
-def do_upload(db):
-    category   = request.forms.get('category')
-    upload     = request.files.get('upload')
-    name, ext = os.path.splitext(upload.filename)
-    if ext in ('.png','.jpg','.jpeg'):
-        upload.save('src\\images') # appends upload.filename automatically
+@app.route('/televerser', method='POST')
+def televerser(db):
+    nom = request.files.get('nom')
+    televersement = request.files.get('fichier')
+    nom_fichier, extension = os.path.splitext(televersement.filename)
+    if extension in ('.png','.jpg','.jpeg'):
+        televersement.save('src\\images')
     return get_gestion("medias", db)
 
 #===============================================================================
@@ -238,7 +231,7 @@ def fonts(nom_fichier):
 #===============================================================================
 
 @app.error(404)
-def notFound(error):
+def erreur_404(error):
     """
         Fonction associée à une route inconnue au système (Erreur 404).
 

@@ -8,13 +8,11 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.zone import *
-from modeles.video import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.zone import Zone
+from modeles.video import Video
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class ZoneVideo(Zone):
     """
@@ -38,10 +36,11 @@ class ZoneVideo(Zone):
         )
     id_video = Column(
         Integer, 
-        ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade')
+        ForeignKey('Videos.id', onupdate='cascade', ondelete='cascade'),
+        default=1
         )
     video = relationship(
-        Video, 
+        "Video", 
         backref=backref('zones_videos', uselist=True, cascade='delete,all'),
         foreign_keys=[id_video]
         )
@@ -55,16 +54,20 @@ class ZoneVideo(Zone):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
-        return dict(
+        results = dict(
             id = self.id,
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            video = self.video.serialiser_en_json()
+            video = "undefined"
             )
+        if self.video != None: 
+            results['video'] = self.video.serialiser_en_json()
+        return results
 
     def deserialiser_de_json(self, session, data):
         """
@@ -76,10 +79,15 @@ class ZoneVideo(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if (self.id_video != data['video']['id']):
-            self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
+        if data.get('video') != None:
+            if data['video'] != "undefined":
+                if (self.id_video != data['video']['id']):
+                    self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
+        else:
+            self.video = session.query(Video).filter(Video.id == 1).one()
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']

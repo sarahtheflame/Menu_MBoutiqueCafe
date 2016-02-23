@@ -8,12 +8,10 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.bordure import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.bordure import Bordure
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Style(Base):
     """
@@ -27,7 +25,7 @@ class Style(Base):
             police (String) : Attribut CSS de la police d'écriture (ex: "'KaushanScript', cursive").
             couleur (String) : Attribut CSS de la couleur du texte (ex: "#FFFFFF").
             taille (String) : Attribut CSS de la taille du texte (ex: "4vw").
-            couleur_fond (String) : Attribut CSS de la couleur et de l'opacité du fond 
+            fond (String) : Attribut CSS de la couleur et de l'opacité du fond 
                 (ex: "rgba(0, 0, 0, 0.8)").
             gras (String) : Attribut CSS indiquant si le texte est en gras 
                 (valeurs : normal|bold|bolder|lighter|'integer'|initial|inherit).
@@ -46,8 +44,9 @@ class Style(Base):
     id = Column(Integer, primary_key=True)
     police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
-    taille = Column(Integer, default='1.5vw')
-    couleur_fond = Column(String(250), default='rgba(0, 0, 0, 0.8)')
+    taille = Column(Integer, default=12)
+    couleur_fond = Column(String(250), default='rgba(255,255,255,0)')
+    opacite_fond = Column(Integer, default=1)
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
     soulignement = Column(String(250), default='none')
@@ -55,11 +54,10 @@ class Style(Base):
     id_bordure = Column(
         Integer, 
         ForeignKey('Bordures.id', onupdate="cascade", ondelete="cascade"),
-        nullable=False, 
-        default=0
+        nullable=False
         )
     bordure = relationship(
-        Bordure,
+        "Bordure",
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_bordure]
@@ -80,7 +78,8 @@ class Style(Base):
             gras = self.gras,
             italique = self.italique,
             soulignement = self.soulignement,
-            bordure = self.bordure.serialiser_en_json()
+            bordure = self.bordure.serialiser_en_json(),
+            type = self.type
             )
 
     def deserialiser_de_json(self, session, data):
@@ -110,3 +109,4 @@ class Style(Base):
             self.bordure.deserialiser_de_json(session, data['bordure'])
         else:  
             print('Impossible de déserialiser la bordure')
+            

@@ -1,5 +1,49 @@
 % rebase(path)
 <link rel="stylesheet" type="text/css" href="/src/medias.css">
+
+<div class="modal fade" id="modal_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/televerser" method="post" enctype="multipart/form-data" data-ajax="false" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="label_image_titre">Ajouter une image</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            Nom de l'image: <input type="text" name="nom" />
+            Choisissez un fichier: <input type="file" name="fichier" />
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="label_video_titre">Ajouter une vidéo</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="ajouter_video btn btn-primary">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -71,11 +115,6 @@
         <button type="button" class="btn btn-primary">+ Ajouter une image</button>
         <button type="button" class="btn btn-primary">+ Ajouter une video</button>
       </div>
-<!--     <form action="/upload" method="post" enctype="multipart/form-data" data-ajax="false" >
-      Category:      <input type="text" name="category" />
-      Select a file: <input type="file" name="upload" />
-      <input type="submit" value="Start upload" />
-    </form> -->
   </div>  
 </div>
 

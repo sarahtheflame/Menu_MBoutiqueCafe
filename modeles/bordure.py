@@ -9,10 +9,8 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 from sqlalchemy import *
+from modeles.base import Base
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Bordure(Base):
     """
@@ -31,7 +29,7 @@ class Bordure(Base):
     """
     __tablename__ = 'Bordures'
     id = Column(Integer, primary_key=True)
-    taille = Column(String(250), default='0px')
+    taille = Column(Integer, default=0)
     style = Column(String(250), default='solid')
     couleur = Column(String(250), default='#000000')
 

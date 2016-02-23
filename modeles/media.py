@@ -9,10 +9,8 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 from sqlalchemy import *
+from modeles.base import Base
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Media(Base):
     """

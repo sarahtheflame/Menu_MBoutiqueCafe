@@ -5,7 +5,23 @@ import json
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from controleurs.modeles_temporaires import *
+from modeles.media import Media
+from modeles.image import Image
+from modeles.video import Video
+from modeles.bordure import Bordure
+from modeles.style import Style
+from modeles.theme import Theme
+from modeles.fenetre import Fenetre
+from modeles.periode import Periode
+from modeles.zone import Zone
+from modeles.zone_base import ZoneBase
+from modeles.zone_image import ZoneImage
+from modeles.zone_video import ZoneVideo
+from modeles.zone_table import ZoneTable
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
+from modeles.administrateur import Administrateur
+from modeles.base import Base
 
 def est_autorise(s, a_adresse_courriel, a_mot_de_passe):
     # ***** NOTE : Encrypter et Décrypter les informations de connexion *****
@@ -35,7 +51,6 @@ def obtenir_donnees_gestion(s, data):
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def retourner_donnees_gestion(s, data):
-    print(data['nom_vue'])
     if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "medias": return post_medias(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
@@ -111,7 +126,6 @@ def get_modifier_zone(s, id_zone):
         resultats['images'] = []
         for image in s.query(Image).order_by(Image.id).all():
             resultats['images'].append(image.serialiser_en_json())
-        # resultats['media_focus'] = zone.image.serialiser_en_json()
     elif type_zone == "ZoneVideo":
         zone = s.query(ZoneVideo).filter(ZoneVideo.id == id_zone).one()
         nom_vue = "modifier_zone_video"
@@ -281,13 +295,11 @@ def post_modifier_zone_base(s, data):
 
 def post_modifier_fenetre(s, data):
     fenetre = data['fenetre']
-    print(fenetre['id'])
     if fenetre['id'] == 0:
         nouvelle_fenetre = Fenetre()
         nouvelle_fenetre.deserialiser_de_json(s, fenetre)
         s.add(nouvelle_fenetre)
     elif fenetre['id'] > 0:
-        print(fenetre['zones'][0])
         s.query(Fenetre).filter(Fenetre.id == fenetre['id']).one().deserialiser_de_json(s, fenetre)
     elif fenetre['id'] < 0:
         s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())

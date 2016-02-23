@@ -8,12 +8,10 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.style import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.style import Style
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Theme(Base):
     """
@@ -111,49 +109,49 @@ class Theme(Base):
         )
 
     titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_titre]
         )
     sous_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_sous_titre]
         )
     texte = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_texte]
         )
     tableau = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau]
         )
     tableau_ligne = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_ligne]
         )
     tableau_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_titre]
         )
     tableau_sous_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_sous_titre]
         )
     tableau_texte = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_texte]
@@ -187,35 +185,106 @@ class Theme(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
+        #================================ à revérifier!!! ===========================================
         if data.get('nom') != None : self.nom = data['nom']
-        for style in data:
-            print(data[style])
-            if isinstance(data[style], dict):
-                print("in")
-                if (data[style]['id'] == 0):
-                    print('Nouveau style')
-                    nouveau_style = Style(bordure=Bordure())
-                    nouveau_style.deserialiser_de_json(session, data[style])
-                    session.add(nouveau_style)
-                    if data[style]['type'] == 'titre':
-                        self.titre = nouveau_style
-                    elif data[style]['type'] == 'sous_titre':
-                        self.sous_titre = nouveau_style
-                    elif data[style]['type'] == 'texte':
-                        self.texte = nouveau_style
-                    elif data[style]['type'] == 'tableau':
-                        self.tableau = nouveau_style
-                    elif data[style]['type'] == 'tableau_titre': 
-                        self.tableau_titre = nouveau_style
-                    elif data[style]['type'] == 'tableau_sous_titre': 
-                        self.tableau_sous_titre = nouveau_style
-                    elif data[style]['type'] == 'tableau_ligne':
-                        self.tableau_ligne = nouveau_style
-                    elif data[style]['type'] == 'tableau_texte':
-                        self.tableau_texte = nouveau_style
-                    else:
-                        print("Type de style invalide")
-                elif (data[style]['id'] > 0):
-                    self.titre.deserialiser_de_json(session, data[style])
-                else:
-                    print('Impossible de déserialiser le style \'titre\'')
+        if data.get('titre') == None:
+            self.titre = Style(bordure=Bordure())
+            # self.titre.deserialiser_de_json(session, data['titre'])
+            session.add(self.titre)
+        elif data['titre']['id'] > 0:
+            self.titre.deserialiser_de_json(session, data['titre'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('sous_titre') == None:
+            self.sous_titre = Style(bordure=Bordure())
+            # self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
+            session.add(self.sous_titre)
+        elif data['sous_titre']['id'] > 0:
+            self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('texte') == None:
+            self.texte = Style(bordure=Bordure())
+            # self.texte.deserialiser_de_json(session, data['texte'])
+            session.add(self.texte)
+        elif data['texte']['id'] > 0:
+            self.texte.deserialiser_de_json(session, data['texte'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('tableau') == None:
+            self.tableau = Style(bordure=Bordure())
+            # self.tableau.deserialiser_de_json(session, data['tableau'])
+            session.add(self.tableau)
+        elif data['tableau']['id'] > 0:
+            self.tableau.deserialiser_de_json(session, data['tableau'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('tableau_ligne') == None:
+            self.tableau_ligne = Style(bordure=Bordure())
+            # self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
+            session.add(self.tableau_ligne)
+        elif data['tableau_ligne']['id'] > 0:
+            self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('tableau_titre') == None:
+            self.tableau_titre = Style(bordure=Bordure())
+            # self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
+            session.add(self.tableau_titre)
+        elif data['tableau_titre']['id'] > 0:
+            self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+            
+        if data.get('tableau_sous_titre') == None:
+            self.tableau_sous_titre = Style(bordure=Bordure())
+            # self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
+            session.add(self.tableau_sous_titre)
+        elif data['tableau_sous_titre']['id'] > 0:
+            self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+
+        if data.get('tableau_texte') == None:
+            self.tableau_texte = Style(bordure=Bordure())
+            # self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
+            session.add(self.tableau_texte)
+        elif data['tableau_texte']['id'] > 0:
+            self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
+        else:
+            print("Identifiant de style incorrect pour" + self.nom)
+
+        # for style in data:
+        #     if isinstance(data[style], dict):
+        #         if (data[style]['id'] == 0):
+        #             nouveau_style = Style(bordure=Bordure())
+        #             nouveau_style.deserialiser_de_json(session, data[style])
+        #             session.add(nouveau_style)
+        #             print(data[style]['type'])
+        #             if data[style]['type'] == 'titre':
+        #                 self.titre = nouveau_style
+        #             elif data[style]['type'] == 'sous_titre':
+        #                 self.sous_titre = nouveau_style
+        #             elif data[style]['type'] == 'texte':
+        #                 self.texte = nouveau_style
+        #             elif data[style]['type'] == 'tableau':
+        #                 self.tableau = nouveau_style
+        #             elif data[style]['type'] == 'tableau_titre': 
+        #                 self.tableau_titre = nouveau_style
+        #             elif data[style]['type'] == 'tableau_sous_titre': 
+        #                 self.tableau_sous_titre = nouveau_style
+        #             elif data[style]['type'] == 'tableau_ligne':
+        #                 self.tableau_ligne = nouveau_style
+        #             elif data[style]['type'] == 'tableau_texte':
+        #                 self.tableau_texte = nouveau_style
+        #             else:
+        #                 print("Type de style invalide")
+        #         elif (data[style]['id'] > 0):
+        #             self.titre.deserialiser_de_json(session, data[style])
+        #         else:
+        #             print('Impossible de déserialiser le style \'titre\'')
