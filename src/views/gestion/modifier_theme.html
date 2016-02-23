@@ -4,12 +4,13 @@
 <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 <script src="/src/modifier_theme.js" type="text/javascript"></script>
 
-{{!data}}
-<div class="entete">
-  <h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
-</div>
-
 <div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
+		</div>
+	</div>
+
 	<h2>Titre</h2>
 	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre }">
 	</div>
@@ -19,28 +20,28 @@
 	<h2>Texte</h2>
 	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte }">
 	</div>
-</div>
-<hr/>
-<div class="container">
-    	<div class="row">
-        	<div class="col-md-7 col-xs-12">
-        		<h2>Tableau</h2>
-        		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
-				</div>
-				<h2>Lignes de tableau</h2>
-				<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
-				</div>
-				<h2>Titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre}">
-				</div>
-				<h2>Sous-titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre}">
-				</div>
-				<h2>Texte de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte}">
-				</div>
+
+	<hr/>
+
+	<div class="row">
+    	<div class="col-md-7 col-xs-12">
+    		<h2>Tableau</h2>
+    		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
 			</div>
-			<div class="col-md-5 col-xs-12">
+			<h2>Lignes de tableau</h2>
+			<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
+			</div>
+			<h2>Titre de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre}">
+			</div>
+			<h2>Sous-titre de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre}">
+			</div>
+			<h2>Texte de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte}">
+			</div>
+		</div>
+		<div class="col-md-5 col-xs-12">
 			<table data-bind="style : {
 			                        background : theme.tableau.couleur_fond(),
 			                        opacity : theme.tableau.opacite_fond(),
@@ -149,7 +150,6 @@
 		</div>
 	</div>
 </div>
-<div class="spacer"></div>
 
 <script type="text/html" id="styles-texte-template">
     <div class="container">
