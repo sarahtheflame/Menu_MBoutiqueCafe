@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -43,6 +44,18 @@ class ZoneBase(Zone):
             Retourne un 'Dict' en format 'JSON' contenant les attributs de la classe (Nécessaire 
             puisque SQLAlchemy modifie l'architecture du '__dict__' de l'objet)
         """
+        print(dict(
+            id = self.id,
+            contenu = self.contenu,
+            nom = self.nom,
+            position_x = self.position_x,
+            position_y = self.position_y,
+            position_z = self.position_z,
+            largeur = self.largeur,
+            hauteur = self.hauteur,
+            type = self.type,
+            type_style = self.type_style
+            ))
         return dict(
             id = self.id,
             contenu = self.contenu,
@@ -66,6 +79,7 @@ class ZoneBase(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
+        print(data)
         if data.get('contenu') != None : self.contenu = data['contenu']
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']

@@ -81,7 +81,7 @@ class Fenetre(Base):
         if self.image_fond != None:
             data['image_fond'] = self.image_fond.serialiser_en_json()
         else:
-            data['image_fond'] = "undefined"
+            data['image_fond'] = {'chemin_fichier' : 'undefined'}
         for zone in self.zones:
             zones_data.append(zone.serialiser_en_json())
         data['zones'] = zones_data
@@ -98,7 +98,7 @@ class Fenetre(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('nom') != None : self.nom = data['nom']
-        if data.get('image_fond') == None or data.get('image_fond') == "undefined" : self.id_image_fond = "undefined"
+        if data.get('image_fond') == None or data.get('image_fond')['chemin_fichier'] == "undefined" : self.id_image_fond = "undefined"
         else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if data.get('theme') != None :

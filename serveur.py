@@ -158,7 +158,7 @@ def affichage(id_fenetre, db):
 # Téléchargement de fichier
 #===============================================================================
 
-@app.route('/televerser', method='POST')
+@app.route('/g/televerser', method='POST')
 def televerser(db):
     nom = request.files.get('nom')
     televersement = request.files.get('fichier')
