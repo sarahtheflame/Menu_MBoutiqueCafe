@@ -28,12 +28,9 @@ $("body").on("click", ".ajouter_zone", function() {
     this.id = ko.observable(0);
     this.nom = ko.observable($("#nom_zone_input").val());
     this.type = ko.observable($("#choix_type_zone").val());
-    console.log(this.type());
+
     if (this.type() === 'ZoneTable') {
       this.nombre_colonnes = ko.observable($("#choix_nb_colonnes").val());
-      console.log($("#choix_nb_colonnes").val());
-    } else {
-      console.log("else");
     }
   };
   

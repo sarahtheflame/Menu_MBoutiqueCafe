@@ -7,6 +7,9 @@ table th {
 table td {
   text-align: center;
 }
+table .row {
+  margin-top: 5px !important;
+}
 textarea {
   width: 100%;
   resize: vertical;
