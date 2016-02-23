@@ -9,6 +9,7 @@
 
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
+from gevent import monkey; monkey.patch_all()
 import json, os
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
 from bottle.ext import sqlalchemy
@@ -246,4 +247,4 @@ def erreur_404(error):
 #===============================================================================
 
 if __name__ == "__main__":
-    run(app, host='0.0.0.0', port=80, debug=True)
+    run(app, host='0.0.0.0', port=80, server='gevent', debug=True)
