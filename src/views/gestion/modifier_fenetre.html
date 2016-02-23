@@ -103,8 +103,7 @@
                 }">
                     <video width="100%" height="100%" muted autoplay loop>
                         <source data-bind="attr: { 
-                            'src': $data.video.chemin_fichier() 
-                        }" type="video/mp4" />
+                            'src': '../src/'+$data.video.chemin_fichier() }" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                     <span class="delete_zone">X</span>
@@ -210,14 +209,14 @@
                         backgroundColor : fenetre.couleur_fond}"/>
                 </div>
                 <hr>
+                <div data-bind="with: $root.index_zone_focus">
                 <div class="sidebar_row form-inline text-center">
                     <label class="sidebar_label">Zone sélectionnée : </label>
                     <select data-role="none" class="form-control input-sm" data-bind="options: $root.fenetre.zones, optionsText: 'nom', selectedIndex: $root.index_zone_focus">
                     </select>
                 </div>
-                <div data-bind="with: $root.id_zone_focus">
                     <div class="sidebar_row badge_button text-center">
-                        <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.id_zone_focus()}">Modifier</a>
+                        <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
                         <a href="#" class="retirer">Supprimer</a> 
                     </div>
                     <div class="sidebar_row form-inline" id="position">
