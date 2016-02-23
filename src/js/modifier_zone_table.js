@@ -5,3 +5,12 @@ $(document).ready(function(){
 	    { nom: "Texte", attribut: "tableau_texte" }
 	]);
 });
+
+$("body").on("click", ".ajouter_ligne", function() {
+  // var context = ko.contextFor(this);
+  // var Cellule = function(){
+  // };
+
+  // context.$root.zone.li.push(new Fenetre());
+  $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+});
