@@ -36,12 +36,16 @@
         <div class="row">
           <div class="col-lg-12">
             <label>Type de zone :</label>
-            <select class="form-control" id="choix_type_zone">
-              <option value="ZoneTable">Zone Table</option>
-              <option value="ZoneImage">Zone Image</option>
-              <option value="ZoneVideo">Zone Vidéo</option>
-              <option value="ZoneBase">Zone Base</option>
+            <select class="form-control" id="choix_type_zone" data-bind="options: $root.choix_type_zone, optionsText: 'nom', optionsValue: 'attribut', value: $root.type_zone_focus">
             </select>
+          </div>
+        </div> 
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- ko if: $root.type_zone_focus() === 'ZoneTable' -->
+            <label>Nombre de colonnes :</label>
+            <input type="number" class="form-control" id="choix_nb_colonnes" min="1" max="10" value="2"></input>
+            <!-- /ko --> 
           </div>
         </div>
       </div>

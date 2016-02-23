@@ -28,6 +28,13 @@ $("body").on("click", ".ajouter_zone", function() {
     this.id = ko.observable(0);
     this.nom = ko.observable($("#nom_zone_input").val());
     this.type = ko.observable($("#choix_type_zone").val());
+    console.log(this.type());
+    if (this.type() === 'ZoneTable') {
+      this.nombre_colonnes = ko.observable($("#choix_nb_colonnes").val());
+      console.log($("#choix_nb_colonnes").val());
+    } else {
+      console.log("else");
+    }
   };
   
   viewModel.fenetre_focus.zones.push(new Zone());
@@ -46,3 +53,12 @@ viewModel.fenetre_focus = ko.observable();
 $('body').on('click', '.selecteur_fenetre', function () {
   viewModel.fenetre_focus = ko.contextFor(this).$data;
 })
+
+viewModel.choix_type_zone = ko.observableArray([
+    { nom: "Zone Table", attribut: "ZoneTable" },
+    { nom: "Zone Image", attribut: "ZoneImage" },
+    { nom: "Zone Vidéo", attribut: "ZoneVideo" },
+    { nom: "Zone Base", attribut: "ZoneBase" }
+  ]);
+
+viewModel.type_zone_focus = ko.observable();
