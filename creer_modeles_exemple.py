@@ -261,6 +261,12 @@ theme_2 = Theme(
     )
 )
 
+image_vide = Image(
+    nom='vide', 
+    chemin_fichier='vide.png'
+)
+
+
 image_sandwich_europeen = Image(
     nom='sandwich', 
     chemin_fichier='sandwich.jpg'
@@ -511,9 +517,10 @@ s.add_all([
     administrateur_1,
     administrateur_2,
     administrateur_3,
-    video_cafe,
+    image_vide,
     image_sandwich_europeen,
     image_sandwich_europeen2,
+    video_cafe,
     theme_1,
     theme_2,
     fenetre_repas,

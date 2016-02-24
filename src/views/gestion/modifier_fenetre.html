@@ -20,9 +20,14 @@
         <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.min.css">
         <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+        <script>
+            var viewModel = ko.mapping.fromJS({{!data}});
+        </script>
         <script src="/src/modifier_fenetre.js" type="text/javascript"></script>
     </HEAD>
-        <BODY data-bind="attr: { 'background': choose_background }">
+        <BODY data-bind="style: { backgroundColor: $root.fenetre.couleur_fond(), 
+                                backgroundImage: 'url(\'/src/' + $root.fenetre.image_fond.chemin_fichier() + '\')'  
+                            }">
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.type() === "ZoneBase" -->
                 <div class="zone base" data-bind="css: {zone_focus: $root.is_selected($data.id())}, style: { 
@@ -248,66 +253,11 @@
                 <!-- /ko -->
                 <div class="sidebar_row">
                     <button class="custom_button_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                    <div class="badge_button text-center">
+                        <a data-bind="attr: { href: '/g/lister_fenetres'}">Retour à la liste des fenêtres</a>
+                    </div>
                 </div>
             </div>
     </BODY>
 </html>
-
-<script type='text/javascript' defer="defer">
-    var viewModel = ko.mapping.fromJS({{!data}});
-    viewModel.choose_background = ko.computed(function() {
-        if (viewModel.fenetre.image_fond.chemin_fichier() == "undefined") {
-            return viewModel.fenetre.couleur_fond();
-        }
-        else {
-            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
-        }
-    });
-    ko.bindingHandlers.selectedIndex = {
-        init: function(element, valueAccessor) {
-            ko.utils.registerEventHandler(element, "change", function() {
-                 var value = valueAccessor();
-                if (ko.isWriteableObservable(value)) {
-                   value(element.selectedIndex);   
-                }
-            });
-        }
-    };
-
-    viewModel.id_zone_focus = ko.observable();
-    if (viewModel.fenetre.zones().length != 0) {
-        viewModel.index_zone_focus = ko.observable(0);
-    }
-    else {
-        viewModel.index_zone_focus = ko.observable(-1);
-    }
-    viewModel.is_selected = function (id) {
-        return viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() == id;
-    };
-
-    ko.applyBindings(viewModel);
-    function appliquer_modifications(fileName) {
-        var unmapped = ko.mapping.toJSON(viewModel);
-        console.log(unmapped);
-        $.post("/g/" + fileName,
-            {
-                fileName,
-                unmapped
-            }
-        ).always(function() {
-            location.reload();
-        });
-    }
-    $("body").on("click", ".toggle_sidebar", function() {
-        $("#sidebar").toggleClass("show_sidebar");
-    });
-    $("body").on("mousedown", ".zone", function() {
-        var zone = ko.dataFor(this);
-        for (var index in viewModel.fenetre.zones()) {
-            if (viewModel.fenetre.zones()[index].id() === zone.id()){
-                viewModel.index_zone_focus(parseInt(index));
-            }
-        }
-        viewModel.id_zone_focus(zone.id());
-    });
-</script>
+<script type='text/javascript' src='/src/base_gestion_fin.js'></script>

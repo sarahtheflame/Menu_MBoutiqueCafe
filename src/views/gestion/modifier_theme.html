@@ -4,24 +4,23 @@
 <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 <script src="/src/modifier_theme.js" type="text/javascript"></script>
 
-{{!data}}
 <div class="entete">
   <h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
 </div>
 
 <div class="container">
 	<h2>Titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre, afterRender: verifier_boutons() }">
 	</div>
 	<h2>Sous-titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre, afterRender: verifier_boutons() }">
 	</div>
 	<h2>Texte</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte, afterRender: verifier_boutons() }">
 	</div>
-</div>
+
 <hr/>
-<div class="container">
+
     	<div class="row">
         	<div class="col-md-7 col-xs-12">
         		<h2>Tableau</h2>
@@ -31,15 +30,17 @@
 				<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
 				</div>
 				<h2>Titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre}">
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre, afterRender: verifier_boutons()}">
 				</div>
 				<h2>Sous-titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre}">
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre, afterRender: verifier_boutons()}">
 				</div>
 				<h2>Texte de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte}">
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte, afterRender: verifier_boutons()}">
 				</div>
-			</div>
+
+				<div data-bind="template: {name: 'fix', data: theme.tableau_texte, afterRender: verifier_boutons()}"></div>
+				</div>
 			<div class="col-md-5 col-xs-12">
 			<table data-bind="style : {
 			                        background : theme.tableau.couleur_fond(),
@@ -149,7 +150,6 @@
 		</div>
 	</div>
 </div>
-<div class="spacer"></div>
 
 <script type="text/html" id="styles-texte-template">
     <div class="container">
@@ -247,4 +247,8 @@
 		    </div>
 		</div>
     </div>
+</script>
+
+<!-- Fix temporaire : le dernier afterRender ne semble pas fonctionner, alors je l'appelle sur un template vide pour que le vrai dernier fonctionne -->
+<script type="text/html" id="fix">
 </script>

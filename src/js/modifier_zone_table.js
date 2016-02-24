@@ -1,4 +1,12 @@
+/**
+ * Fonction lancée lorsque la page est prête
+ */
 $(document).ready(function(){
+	/**
+	 * Liste contenant les choix de styles possibles pour une cellule. 
+	 * nom : Nom affiché pour l'utilisateur
+	 * attribut : Valeur attribuée à l'attribut style de la cellule
+	 */
 	viewModel.choixStyleCellule = ko.observableArray([
 		{ nom: "Titre", attribut: "tableau_titre" },
 	    { nom: "Sous-titre", attribut: "tableau_sous_titre" },
@@ -6,6 +14,11 @@ $(document).ready(function(){
 	]);
 });
 
+/**
+ * Création d'un nouveau thème avec un id à 0 et une liste de cellules vides dont le nombre 
+ * correspond au nombre_colonnes de la zone 
+ * Lancé lors d'un clic sur un élément qui porte la classe ajouter_ligne
+ */
 $("body").on("click", ".ajouter_ligne", function() {
 	var context = ko.contextFor(this);
 
@@ -29,6 +42,11 @@ $("body").on("click", ".ajouter_ligne", function() {
 	context.$root.zone.lignes.push(nouvelle_ligne);
 });
 
+/**
+ * Supprime la ligne en mettant son id négatif si la ligne est enregistrée ou en la retirant
+ * directement de la liste si elle a été créée sans être appliquée
+ * Lancé lors d'un clic sur un élément qui porte la classe retirer
+ */
 $("body").on("click", ".retirer", function() {
     var context = ko.contextFor(this),
         id = context.$data.id();
