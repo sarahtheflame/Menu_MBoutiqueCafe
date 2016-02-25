@@ -71,10 +71,20 @@
            <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
             <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
               <li class="list-group-item">
-                <a href="#" class="retirer">X</a>
-                <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
-                <img data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="200px">
-                <strong data-bind="text: $data.nom()"></strong>
+                <div class="row">
+                  <div class="col-lg-2">
+                    <img data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="100%">
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="vertical_align">
+                      <strong>Nom de l'image : </strong><span data-bind="text: $data.nom()"></span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <a href="#" class="retirer">X</a>
+                     <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
@@ -101,9 +111,23 @@
              <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
               <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
                 <li class="list-group-item">
-                  <a href="#" class="retirer">X</a>
-                  <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
-                  <strong data-bind="text: $data.nom()"></strong>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <video width="100%" controls>
+                        <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="vertical_align">
+                        <strong>Nom du vidéo : </strong><span data-bind="text: $data.nom()"></span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                     <a href="#" class="retirer">X</a>
+                      <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>

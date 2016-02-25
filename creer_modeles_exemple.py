@@ -50,7 +50,7 @@ theme_1 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
@@ -63,7 +63,7 @@ theme_1 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2",
+            taille="0",
             style="solid"
         )
     ),
@@ -76,7 +76,7 @@ theme_1 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3",
+            taille="0",
             style="solid"
         )
     ),
@@ -89,7 +89,7 @@ theme_1 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="4",
+            taille="0",
             style="solid"
         )
     ),
@@ -102,7 +102,7 @@ theme_1 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="5",
+            taille="0",
             style="solid"
         )
     ),
@@ -117,7 +117,7 @@ theme_1 = Theme(
         type="tableau_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="6",
+            taille="0",
             style="solid"
         )
     ),
@@ -131,7 +131,7 @@ theme_1 = Theme(
         type="tableau_sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="7",
+            taille="0",
             style="solid"
         )
     ),
@@ -144,7 +144,7 @@ theme_1 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="8",
+            taille="0",
             style="solid"
         )
     )
@@ -162,7 +162,7 @@ theme_2 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="9",
+            taille="0",
             style="solid"
         )
     ),
@@ -176,7 +176,7 @@ theme_2 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
@@ -189,7 +189,7 @@ theme_2 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2",
+            taille="0",
             style="solid"
         )
     ),
@@ -202,7 +202,7 @@ theme_2 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3",
+            taille="0",
             style="solid"
         )
     ),
@@ -215,7 +215,7 @@ theme_2 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
@@ -255,7 +255,7 @@ theme_2 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     )
@@ -566,9 +566,3 @@ s.add_all([
 )
 
 s.commit()
-
-# for attr in vars(fenetre_repas):
-#     print(attr)
-# print("------")
-# for attr in vars(zone_1_repas):
-#     print(attr)

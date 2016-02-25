@@ -11,9 +11,11 @@
         <meta name="auteur" content="Daniel-Junior Dubé et Sarah Laflamme">
         <link rel="shortcut icon" href="/src/tab.ico">
         <link rel="stylesheet" href="/src/affichage.css">
+        <link rel="stylesheet" href="/src/modifier_fenetre.css">
         <script type='text/javascript' src='/src/interact-1.2.5.min.js'></script>
         <script type='text/javascript' src='/src/interactApp.js'></script>
         <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
+        <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
     </HEAD>
@@ -80,8 +82,7 @@
                     top : $data.position_y() + '%', 
                     'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%', 
-                    background : 'rgb(0,0,0)' 
+                    height : $data.hauteur() + '%'
                 }">
                     <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
                 </div>
@@ -94,9 +95,9 @@
                     width : $data.largeur() + '%', 
                     height : $data.hauteur()  + '%'
                 }">
-                    <video width="100%" height="100%" muted autoplay loop>
+                    <video muted autoplay loop>
                         <source data-bind="attr: { 
-                            'src': $data.video.chemin_fichier() 
+                            'src': '../src/' + $data.video.chemin_fichier() 
                         }" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
@@ -110,7 +111,7 @@
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%' 
                 }">
-                    <table data-bind="attr : {
+                    <table data-bind="style : {
                         fontFamily : $root.fenetre.theme.tableau.police(),
                         fontSize : $root.fenetre.theme.tableau.taille() + 'px',
                         color : $root.fenetre.theme.tableau.couleur(),
@@ -124,7 +125,7 @@
                         borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
                         }">
                         <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
-                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, attr : {
+                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, style : {
                                 fontFamily : $root.fenetre.theme.tableau_ligne.police(),
                                 fontSize : $root.fenetre.theme.tableau_ligne.taille() + 'px',
                                 color : $root.fenetre.theme.tableau_ligne.couleur(),
@@ -181,6 +182,13 @@
 <script type='text/javascript' defer="defer">
     var viewModel = ko.mapping.fromJS({{!data}});
     viewModel.zone_focus = ko.observable();
+    viewModel.id_zone_focus = ko.observable();
+    if (viewModel.fenetre.zones().length != 0) {
+        viewModel.index_zone_focus = ko.observable(0);
+    }
+    else {
+        viewModel.index_zone_focus = ko.observable(-1);
+    }
     viewModel.choose_background = ko.computed(function() {
         if (viewModel.fenetre.image_fond === 'undefined') {
             return viewModel.fenetre.couleur_fond();
@@ -191,18 +199,12 @@
     });
     $("body").on("mousedown", ".zone", function() {
         var zone = ko.dataFor(this);
-        viewModel.zone_focus(zone.id());
+        for (var index in viewModel.fenetre.zones()) {
+            if (viewModel.fenetre.zones()[index].id() === zone.id()){
+                viewModel.index_zone_focus(parseInt(index));
+            }
+        }
+        viewModel.id_zone_focus(zone.id());
     });
     ko.applyBindings(viewModel);
-
-    function appliquer_modifications(fileName) {
-        var unmapped = ko.mapping.toJSON(viewModel);
-        console.log(unmapped);
-        $.post("/g/" + fileName,
-                {
-                    fileName,
-                    unmapped
-          }
-        );
-    }
 </script>

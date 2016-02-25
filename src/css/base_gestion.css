@@ -141,6 +141,9 @@ body {
 .row {
   margin-top: 15px;
 }
+.vertical_align {
+  padding-top: 15px;
+}
 #header {
   display: table;
   width: 100vw;
