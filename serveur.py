@@ -148,10 +148,9 @@ def affichage(id_fenetre, db):
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
-    fenetre = db.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     variables = {
         'titre' : id_fenetre,
-        'data' : {'fenetre' : fenetre}
+        'data' : get_affichage(db, id_fenetre)
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
     

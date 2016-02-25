@@ -39,7 +39,7 @@ s = session()
 theme_1 = Theme(
     nom='Thème principal #1',
     titre=Style(
-        police="'KaushanScript', cursive",
+        police="KaushanScript-Regular",
         couleur="#ff7400",
         taille="28",
         couleur_fond="#000000",
@@ -55,7 +55,7 @@ theme_1 = Theme(
         )
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="20",
         couleur_fond="",
@@ -68,7 +68,7 @@ theme_1 = Theme(
         )
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -81,7 +81,7 @@ theme_1 = Theme(
         )
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="#000000",
@@ -94,7 +94,7 @@ theme_1 = Theme(
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -107,7 +107,7 @@ theme_1 = Theme(
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="26",
         couleur_fond="",
@@ -122,7 +122,7 @@ theme_1 = Theme(
         )
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="18",
         couleur_fond="",
@@ -136,7 +136,7 @@ theme_1 = Theme(
         )
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -152,7 +152,7 @@ theme_1 = Theme(
 theme_2 = Theme(
     nom='Thème secondaire',
     titre=Style(
-        police="'KaushanScript', cursive",
+        police="KaushanScript-Regular",
         couleur="#ff7400",
         taille="32",
         couleur_fond="#000000",
@@ -167,7 +167,7 @@ theme_2 = Theme(
         )
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="26",
         couleur_fond="",
@@ -181,7 +181,7 @@ theme_2 = Theme(
         )
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="16",
         couleur_fond="",
@@ -194,7 +194,7 @@ theme_2 = Theme(
         )
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="#000000",
@@ -207,7 +207,7 @@ theme_2 = Theme(
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -220,7 +220,7 @@ theme_2 = Theme(
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="28",
         couleur_fond="",
@@ -233,7 +233,7 @@ theme_2 = Theme(
         )
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="22",
         couleur_fond="",
@@ -247,7 +247,7 @@ theme_2 = Theme(
         )
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="18",
         couleur_fond="",

@@ -34,7 +34,7 @@ video {
   cursor: pointer;
 }
 .zone:hover {
-  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4);
+  border: 1px solid white;
 }
 .zone table {
   box-shadow: 8px 8px 20px #000000;
