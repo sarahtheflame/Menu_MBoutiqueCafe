@@ -47,7 +47,7 @@ class Fenetre(Base):
     id_image_fond = Column(
         Integer, 
         ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), 
-        nullable=True
+        default=1
         ) 
     id_theme = Column(
         Integer, 

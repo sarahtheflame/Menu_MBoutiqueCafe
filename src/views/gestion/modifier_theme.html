@@ -11,37 +11,41 @@
 		</div>
 	</div>
 
+	<hr/>
+
 	<h2>Titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre, afterRender: verifier_boutons() }">
 	</div>
 	<h2>Sous-titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre, afterRender: verifier_boutons() }">
 	</div>
 	<h2>Texte</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte }">
+	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte, afterRender: verifier_boutons() }">
 	</div>
 
 	<hr/>
 
-	<div class="row">
-    	<div class="col-md-7 col-xs-12">
-    		<h2>Tableau</h2>
-    		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
-			</div>
-			<h2>Lignes de tableau</h2>
-			<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
-			</div>
-			<h2>Titre de tableau</h2>
-			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre}">
-			</div>
-			<h2>Sous-titre de tableau</h2>
-			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre}">
-			</div>
-			<h2>Texte de tableau</h2>
-			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte}">
-			</div>
-		</div>
-		<div class="col-md-5 col-xs-12">
+    	<div class="row">
+        	<div class="col-md-7 col-xs-12">
+        		<h2>Tableau</h2>
+        		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
+				</div>
+				<h2>Lignes de tableau</h2>
+				<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
+				</div>
+				<h2>Titre de tableau</h2>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre, afterRender: verifier_boutons()}">
+				</div>
+				<h2>Sous-titre de tableau</h2>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre, afterRender: verifier_boutons()}">
+				</div>
+				<h2>Texte de tableau</h2>
+				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte, afterRender: verifier_boutons()}">
+				</div>
+
+				<div data-bind="template: {name: 'fix', data: theme.tableau_texte, afterRender: verifier_boutons()}"></div>
+				</div>
+			<div class="col-md-5 col-xs-12">
 			<table data-bind="style : {
 			                        background : theme.tableau.couleur_fond(),
 			                        opacity : theme.tableau.opacite_fond(),
@@ -247,4 +251,8 @@
 		    </div>
 		</div>
     </div>
+</script>
+
+<!-- Fix temporaire : le dernier afterRender ne semble pas fonctionner, alors je l'appelle sur un template vide pour que le vrai dernier fonctionne -->
+<script type="text/html" id="fix">
 </script>
