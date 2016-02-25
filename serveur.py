@@ -10,7 +10,7 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 from gevent import monkey; monkey.patch_all()
-import json, os
+import json, os, bottle_sqlalchemy
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String

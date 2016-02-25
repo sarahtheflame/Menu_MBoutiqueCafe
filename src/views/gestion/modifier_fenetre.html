@@ -164,6 +164,21 @@
                                     borderWidth : $root.fenetre.theme.tableau_titre.bordure.taille() + 'px'
                                 }"></th> 
                                 <!-- /ko -->
+                                <!-- ko if: cellule.type_style() === "tableau_sous_titre" -->
+                                <th data-bind="text: $data.contenu, style: { 
+                                    fontFamily : $root.fenetre.theme.tableau_sous_titre.police(),
+                                    fontSize : $root.fenetre.theme.tableau_sous_titre.taille() + 'px',
+                                    color : $root.fenetre.theme.tableau_sous_titre.couleur(),
+                                    background : $root.fenetre.theme.tableau_sous_titre.couleur_fond(),
+                                    opacity : $root.fenetre.theme.tableau_sous_titre.opacite_fond(),
+                                    bold : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                    fontStyle : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                    textDecoration : $root.fenetre.theme.tableau_sous_titre.soulignement(),
+                                    borderColor :  $root.fenetre.theme.tableau_sous_titre.bordure.couleur(),
+                                    borderStyle : $root.fenetre.theme.tableau_sous_titre.bordure.style(),
+                                    borderWidth : $root.fenetre.theme.tableau_sous_titre.bordure.taille() + 'px'
+                                }"></th> 
+                                <!-- /ko -->
                                 <!-- ko if: cellule.type_style() === "tableau_texte" -->
                                 <td data-bind="text: $data.contenu, style: { 
                                     fontFamily : $root.fenetre.theme.tableau_texte.police(),
