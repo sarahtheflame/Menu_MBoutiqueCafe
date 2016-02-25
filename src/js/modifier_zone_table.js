@@ -7,7 +7,7 @@ $(document).ready(function(){
 	 * nom : Nom affiché pour l'utilisateur
 	 * attribut : Valeur attribuée à l'attribut style de la cellule
 	 */
-	viewModel.choixStyleCellule = ko.observableArray([
+	viewModel.choix_style_cellule = ko.observableArray([
 		{ nom: "Titre", attribut: "tableau_titre" },
 	    { nom: "Sous-titre", attribut: "tableau_sous_titre" },
 	    { nom: "Texte", attribut: "tableau_texte" }

@@ -210,8 +210,13 @@
                 </div>
                 <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Couleur de fond : </label>
-                    <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
+                    <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
+                        backgroundColor : fenetre.couleur_fond}"/> -->
+                    <div class="input-group ">
+                        <input type="text" class="form-control" data-bind="value: fenetre.couleur_fond, style: {
                         backgroundColor : fenetre.couleur_fond}"/>
+                        <a class="btn choix_couleur"><i>bouton</i></a>
+                    </div>
                 </div>
                 <hr>
                 <!-- ko if: $root.index_zone_focus() != -1 -->

@@ -7,7 +7,7 @@ h2 {
   margin-left: auto;
 }
 table {
-  width: 300px;
+  width: 350px;
   box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.69);
   border-collapse: collapse;
 }
@@ -32,4 +32,16 @@ table tr td {
 }
 .spacer {
   margin-bottom: 100px;
+}
+@media only screen and (max-width: 768px) {
+  .input-group,
+  .btn-group {
+    padding: 5px;
+  }
+  .exemple_style {
+    text-align: center;
+  }
+  .exemple_tableau table {
+    margin: 20px auto;
+  }
 }
