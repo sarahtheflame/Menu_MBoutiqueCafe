@@ -164,3 +164,89 @@ for (i = 0; i < viewModel.polices().length; i++) {
                             "</style>");
 }
 
+/**
+ * Variable représentant l'image de fond sélectionnée
+ */
+viewModel.image_fond_focus = ko.observable(viewModel.fenetre.image_fond.id());
+
+/**
+ * Attribue les valeurs de l'image de fond sélectionnée à l'image de fond de la fenêtre
+ */
+viewModel.image_fond_focus.subscribe(function (data) {
+    for (var index in viewModel.images()) {
+        if (viewModel.images()[index].id() === viewModel.image_fond_focus()){
+            viewModel.fenetre.image_fond.id(viewModel.images()[index].id());
+            viewModel.fenetre.image_fond.nom(viewModel.images()[index].nom());
+            viewModel.fenetre.image_fond.chemin_fichier(viewModel.images()[index].chemin_fichier());
+        }
+    }
+});
+/**
+ * Variable représentant le thème sélectionné
+ */
+viewModel.theme_focus = ko.observable(viewModel.fenetre.theme.id());
+
+/**
+ * Attribue les valeurs du thème sélectionné au thème de la zone
+ */
+viewModel.theme_focus.subscribe(function (data) {
+    for (var index in viewModel.themes()) {
+        if (viewModel.themes()[index].id() === viewModel.theme_focus()){
+            viewModel.fenetre.theme.id(viewModel.themes()[index].id());
+            viewModel.fenetre.theme.nom(viewModel.themes()[index].nom());
+            // titre
+            viewModel.fenetre.theme.titre.police(viewModel.themes()[index].titre.police());
+            viewModel.fenetre.theme.titre.taille(viewModel.themes()[index].titre.taille());
+            viewModel.fenetre.theme.titre.couleur(viewModel.themes()[index].titre.couleur());
+            viewModel.fenetre.theme.titre.gras(viewModel.themes()[index].titre.gras());
+            viewModel.fenetre.theme.titre.italique(viewModel.themes()[index].titre.italique());
+            viewModel.fenetre.theme.titre.soulignement(viewModel.themes()[index].titre.soulignement());
+
+            //sous_titre
+            viewModel.fenetre.theme.sous_titre.police(viewModel.themes()[index].sous_titre.police());
+            viewModel.fenetre.theme.sous_titre.taille(viewModel.themes()[index].sous_titre.taille());
+            viewModel.fenetre.theme.sous_titre.couleur(viewModel.themes()[index].sous_titre.couleur());
+            viewModel.fenetre.theme.sous_titre.gras(viewModel.themes()[index].sous_titre.gras());
+            viewModel.fenetre.theme.sous_titre.italique(viewModel.themes()[index].sous_titre.italique());
+            viewModel.fenetre.theme.sous_titre.soulignement(viewModel.themes()[index].sous_titre.soulignement());
+            //texte
+            viewModel.fenetre.theme.texte.police(viewModel.themes()[index].texte.police());
+            viewModel.fenetre.theme.texte.taille(viewModel.themes()[index].texte.taille());
+            viewModel.fenetre.theme.texte.couleur(viewModel.themes()[index].texte.couleur());
+            viewModel.fenetre.theme.texte.gras(viewModel.themes()[index].texte.gras());
+            viewModel.fenetre.theme.texte.italique(viewModel.themes()[index].texte.italique());
+            viewModel.fenetre.theme.texte.soulignement(viewModel.themes()[index].texte.soulignement());
+            //tableau
+            viewModel.fenetre.theme.tableau.couleur_fond(viewModel.themes()[index].tableau.couleur_fond());
+            viewModel.fenetre.theme.tableau.bordure.couleur(viewModel.themes()[index].tableau.bordure.couleur());
+            viewModel.fenetre.theme.tableau.bordure.style(viewModel.themes()[index].tableau.bordure.style());
+            viewModel.fenetre.theme.tableau.bordure.taille(viewModel.themes()[index].tableau.bordure.taille());
+            //tableau_ligne
+            viewModel.fenetre.theme.tableau_ligne.bordure.couleur(viewModel.themes()[index].tableau_ligne.bordure.couleur());
+            viewModel.fenetre.theme.tableau_ligne.bordure.style(viewModel.themes()[index].tableau_ligne.bordure.style());
+            viewModel.fenetre.theme.tableau_ligne.bordure.taille(viewModel.themes()[index].tableau_ligne.bordure.taille());
+            //tableau_titre
+            viewModel.fenetre.theme.tableau_titre.police(viewModel.themes()[index].tableau_titre.police());
+            viewModel.fenetre.theme.tableau_titre.taille(viewModel.themes()[index].tableau_titre.taille());
+            viewModel.fenetre.theme.tableau_titre.couleur(viewModel.themes()[index].tableau_titre.couleur());
+            viewModel.fenetre.theme.tableau_titre.gras(viewModel.themes()[index].tableau_titre.gras());
+            viewModel.fenetre.theme.tableau_titre.italique(viewModel.themes()[index].tableau_titre.italique());
+            viewModel.fenetre.theme.tableau_titre.soulignement(viewModel.themes()[index].tableau_titre.soulignement());
+            //tableau_sous_titre
+            viewModel.fenetre.theme.tableau_sous_titre.police(viewModel.themes()[index].tableau_sous_titre.police());
+            viewModel.fenetre.theme.tableau_sous_titre.taille(viewModel.themes()[index].tableau_sous_titre.taille());
+            viewModel.fenetre.theme.tableau_sous_titre.couleur(viewModel.themes()[index].tableau_sous_titre.couleur());
+            viewModel.fenetre.theme.tableau_sous_titre.gras(viewModel.themes()[index].tableau_sous_titre.gras());
+            viewModel.fenetre.theme.tableau_sous_titre.italique(viewModel.themes()[index].tableau_sous_titre.italique());
+            viewModel.fenetre.theme.tableau_sous_titre.soulignement(viewModel.themes()[index].tableau_sous_titre.soulignement());
+            //tableau_texte
+            viewModel.fenetre.theme.tableau_texte.police(viewModel.themes()[index].tableau_texte.police());
+            viewModel.fenetre.theme.tableau_texte.taille(viewModel.themes()[index].tableau_texte.taille());
+            viewModel.fenetre.theme.tableau_texte.couleur(viewModel.themes()[index].tableau_texte.couleur());
+            viewModel.fenetre.theme.tableau_texte.gras(viewModel.themes()[index].tableau_texte.gras());
+            viewModel.fenetre.theme.tableau_texte.italique(viewModel.themes()[index].tableau_texte.italique());
+            viewModel.fenetre.theme.tableau_texte.soulignement(viewModel.themes()[index].tableau_texte.soulignement());
+        }
+    }
+});
+

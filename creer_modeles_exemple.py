@@ -409,8 +409,8 @@ cellule_1_ligne_1_test = Cellule(
 )
 zone_test_image = ZoneImage(
     nom='ZoneImage de test #1', 
-    position_x=2,
-    position_y=18,
+    position_x=22,
+    position_y=47,
     largeur=32,
     hauteur=46,
     fenetre=fenetre_repas,
