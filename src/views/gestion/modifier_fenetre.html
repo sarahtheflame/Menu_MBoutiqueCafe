@@ -170,7 +170,7 @@
                 <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Thème : </label>
                     <div class="input-group">
-                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
+                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
                         </select>
                         <span class="input-group-addon">
                             <a data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Image de fond : </label>
-                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: fenetre.image_fond.id">
+                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
                     </select>
                 </div>
                 <div class="sidebar_row form-inline">
