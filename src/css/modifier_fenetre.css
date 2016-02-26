@@ -211,7 +211,7 @@ span {
   right: 0px;
   cursor: pointer;
 }
-.delete_zone {
+.bouton_retirer_zone {
   padding: 10px 15px;
   position: absolute;
   right: 0px;
@@ -219,7 +219,7 @@ span {
   background: rgba(255, 0, 0, 0.3);
   border-radius: 5px;
 }
-.delete_zone:hover {
+.bouton_retirer_zone:hover {
   background: rgba(255, 0, 0, 0.9);
 }
 .colorpicker {
