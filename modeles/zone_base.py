@@ -67,7 +67,6 @@ class ZoneBase(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        print(data)
         if data.get('contenu') != None : self.contenu = data['contenu']
         if data.get('nom') != None : self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']

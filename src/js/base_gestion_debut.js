@@ -4,6 +4,10 @@
  * @param  {fileName} : 
  */
 function appliquer_modifications(fileName) {
+    $(window).bind('beforeunload', function(e) {
+        console.log(changes);
+    });
+    window.onbeforeunload = null;
     var unmapped = ko.mapping.toJSON(viewModel);
     console.log(unmapped);
     $.post("/g/" + fileName,
@@ -41,4 +45,5 @@ $(document).ready(function(){
      * Active les « tooltips » présents sur la page
      */
     $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+
 });
