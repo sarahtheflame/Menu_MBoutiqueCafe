@@ -1,7 +1,13 @@
-
 interact('.zone')
   .draggable({
     inertia: false,
+    snap: {
+      targets: [
+        interact.createSnapGrid({ x: 10, y: 10 })
+      ],
+      range: Infinity,
+      relativePoints: [ { x: 0, y: 0 } ]
+    },
     restrict: {
       restriction: "parent",
       endOnly: true,
