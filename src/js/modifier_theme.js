@@ -7,7 +7,7 @@ $(document).ready(function(){
 	 * nom : Nom affiché pour l'utilisateur
 	 * attribut : Valeur attribuée à l'attribut style de la bordure
 	 */
-	viewModel.choixStyleBordure = ko.observableArray([
+	viewModel.choix_style_bordure = ko.observableArray([
 		{ nom: "Solide", attribut: "solid" },
 	    { nom: "Pointillée", attribut: "dotted" },
 	    { nom: "Aucune", attribut: "none" }

@@ -38,7 +38,7 @@ class ZoneTable(Zone):
         ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
         primary_key=True
         )
-    nombre_colonnes = Column(Integer, default=0)
+    nombre_colonnes = Column(Integer, default=1)
 
     __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 

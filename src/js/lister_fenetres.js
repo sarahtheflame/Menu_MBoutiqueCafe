@@ -4,14 +4,44 @@
  * appliquée
  * Lancé lors d'un clic sur un élément qui porte la classe retirer
  */
-$("body").on("click", ".retirer", function() {
-    var context = ko.contextFor(this),
-        id = context.$data.id();
-    if (id != 0) {
-        context.$data.id(-id);
+$("body").on("click", ".retirer_zone", function() {
+    var context = ko.contextFor(this);
+    var id = context.$data.id();
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
+
+    if (confirmation) {
+            if (id != 0) {
+                context.$data.id(-id);
+            } else {
+                context.$parent.zones.remove(context.$data);
+            }
     } else {
-        context.$parent.zones.remove(context.$data);
+        console.log("suppression annulée");
     }
+
+});
+
+/**
+ * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
+ * zone est enregistrée ou en le retirant directement de la liste si elle a été créée sans être 
+ * appliquée
+ * Lancé lors d'un clic sur un élément qui porte la classe retirer
+ */
+$("body").on("click", ".retirer_fenetre", function() {
+    var context = ko.contextFor(this);
+    var id = context.$data.id();
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
+
+    if (confirmation) {
+            if (id != 0) {
+                context.$data.id(-id);
+            } else {
+                context.$root.fenetres.remove(context.$data);
+            }
+    } else {
+        console.log("suppression annulée");
+    }
+
 });
 
 /**

@@ -1,4 +1,5 @@
 % rebase(path)
+<script src="/src/modifier_zone_base.js" type="text/javascript"></script>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -18,14 +19,9 @@
             </div>
             <div class="form-group">
                 <label>Style du texte :</label>
-                <select class="form-control" id="choix_type_zone" data-bind="value: zone.type_style">
-                  <option value="texte">Texte</option>
-                  <option value="sous_titre">Sous-titre</option>
-                  <option value="titre">Titre</option>
-                </select>
+                <select class="form-control" data-bind="options: $root.choix_style_zone, optionsText: 'nom', optionsValue: 'attribut', value: zone.type_style"></select>
             </div>
         </form>
-
     </div>
 </div>
 

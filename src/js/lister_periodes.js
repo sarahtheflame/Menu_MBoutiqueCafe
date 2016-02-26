@@ -7,10 +7,16 @@
 $("body").on("click", ".retirer", function() {
     var context = ko.contextFor(this),
       id = context.$data.id();
-    if (id != 0) {
-        context.$data.id(-id);
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
+
+    if (confirmation) {
+        if (id != 0) {
+            context.$data.id(-id);
+        } else {
+            context.$root.periodes.remove(context.$data);
+        }
     } else {
-        context.$parent.zones.remove(context.$data);
+        console.log("suppression annulée");
     }
 });
 

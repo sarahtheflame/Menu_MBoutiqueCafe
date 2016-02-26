@@ -13,199 +13,194 @@
 
 	<hr/>
 
-	<h2>Titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.titre, afterRender: verifier_boutons() }">
-	</div>
-	<h2>Sous-titre</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre, afterRender: verifier_boutons() }">
-	</div>
-	<h2>Texte</h2>
-	<div data-bind="template: { name: 'styles-texte-template', data: theme.texte, afterRender: verifier_boutons() }">
+	<div class="row">
+		<div class="col-lg-12">
+			<h2>Titre</h2>
+			<div data-bind="template: { name: 'styles-texte-template', data: theme.titre, afterRender: verifier_boutons() }">
+			</div>
+			<h2>Sous-titre</h2>
+			<div data-bind="template: { name: 'styles-texte-template', data: theme.sous_titre, afterRender: verifier_boutons() }">
+			</div>
+			<h2>Texte</h2>
+			<div data-bind="template: { name: 'styles-texte-template', data: theme.texte, afterRender: verifier_boutons() }">
+			</div>
+		</div>
 	</div>
 
 	<hr/>
 
-    	<div class="row">
-        	<div class="col-md-7 col-xs-12">
-        		<h2>Tableau</h2>
-        		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
-				</div>
-				<h2>Lignes de tableau</h2>
-				<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
-				</div>
-				<h2>Titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre, afterRender: verifier_boutons()}">
-				</div>
-				<h2>Sous-titre de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre, afterRender: verifier_boutons()}">
-				</div>
-				<h2>Texte de tableau</h2>
-				<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte, afterRender: verifier_boutons()}">
-				</div>
-
-				<div data-bind="template: {name: 'fix', data: theme.tableau_texte, afterRender: verifier_boutons()}"></div>
-				</div>
-			<div class="col-md-5 col-xs-12">
-			<table data-bind="style : {
-			                        background : theme.tableau.couleur_fond(),
-			                        opacity : theme.tableau.opacite_fond(),
-			                        borderColor :  theme.tableau.bordure.couleur(),
-			                        borderStyle : theme.tableau.bordure.style(),
-			                        borderWidth : theme.tableau.bordure.taille()+'px'
-			                        }">
-				<tr data-bind="style : {
-			                        opacity : theme.tableau_ligne.opacite_fond(),
-			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
-			                        borderStyle : theme.tableau_ligne.bordure.style(),
-			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
-			                        }">
-					<th data-bind="style: { 
-			                        fontFamily : theme.tableau_titre.police(),
-			                        fontSize : theme.tableau_titre.taille()+'px',
-			                        color : theme.tableau_titre.couleur(),
-			                        bold : theme.tableau_titre.gras(),
-			                        fontStyle : theme.tableau_titre.gras(),
-			                        textDecoration : theme.tableau_titre.soulignement()
-			                    }">Extras
-					</th>
-					<th data-bind="style: { 
-			                        fontFamily : theme.tableau_titre.police(),
-			                        fontSize : theme.tableau_titre.taille()+'px',
-			                        color : theme.tableau_titre.couleur(),
-			                        bold : theme.tableau_titre.gras(),
-			                        fontStyle : theme.tableau_titre.gras(),
-			                        textDecoration : theme.tableau_titre.soulignement()
-			                    }">
-					</th>
-				</tr>
-				<tr data-bind="style : {
-			                        background : theme.tableau_ligne.couleur_fond(),
-			                        opacity : theme.tableau_ligne.opacite_fond(),
-			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
-			                        borderStyle : theme.tableau_ligne.bordure.style(),
-			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
-			                        }">
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_sous_titre.police(),
-			                        fontSize : theme.tableau_sous_titre.taille()+'px',
-			                        color : theme.tableau_sous_titre.couleur(),
-			                        bold : theme.tableau_sous_titre.gras(),
-			                        fontStyle : theme.tableau_sous_titre.gras(),
-			                        textDecoration : theme.tableau_sous_titre.soulignement()
-			                    }">Sous-titre</td>
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_sous_titre.police(),
-			                        fontSize : theme.tableau_sous_titre.taille()+'px',
-			                        color : theme.tableau_sous_titre.couleur(),
-			                        bold : theme.tableau_sous_titre.gras(),
-			                        fontStyle : theme.tableau_sous_titre.gras(),
-			                        textDecoration : theme.tableau_sous_titre.soulignement()
-			                    }"></td>
-				</tr>
-				<tr data-bind="style : {
-			                        background : theme.tableau_ligne.couleur_fond(),
-			                        opacity : theme.tableau_ligne.opacite_fond(),
-			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
-			                        borderStyle : theme.tableau_ligne.bordure.style(),
-			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
-			                        }">
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_texte.police(),
-			                        fontSize : theme.tableau_texte.taille()+'px',
-			                        color : theme.tableau_texte.couleur(),
-			                        bold : theme.tableau_texte.gras(),
-			                        fontStyle : theme.tableau_texte.gras(),
-			                        textDecoration : theme.tableau_texte.soulignement()
-			                    }">Crème fouettée</td>
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_texte.police(),
-			                        fontSize : theme.tableau_texte.taille()+'px',
-			                        color : theme.tableau_texte.couleur(),
-			                        bold : theme.tableau_texte.gras(),
-			                        fontStyle : theme.tableau_texte.gras(),
-			                        textDecoration : theme.tableau_texte.soulignement()
-			                    }">0,65$</td>
-				</tr>
-				<tr data-bind="style : {
-			                        background : theme.tableau_ligne.couleur_fond(),
-			                        opacity : theme.tableau_ligne.opacite_fond(),
-			                        borderColor :  theme.tableau_ligne.bordure.couleur(),
-			                        borderStyle : theme.tableau_ligne.bordure.style(),
-			                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
-			                        }">
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_texte.police(),
-			                        fontSize : theme.tableau_texte.taille()+'px',
-			                        color : theme.tableau_texte.couleur(),
-			                        bold : theme.tableau_texte.gras(),
-			                        fontStyle : theme.tableau_texte.gras(),
-			                        textDecoration : theme.tableau_texte.soulignement()
-			                    }">Guimauve</td>
-					<td  data-bind="style: { 
-			                        fontFamily : theme.tableau_texte.police(),
-			                        fontSize : theme.tableau_texte.taille()+'px',
-			                        color : theme.tableau_texte.couleur(),
-			                        bold : theme.tableau_texte.gras(),
-			                        fontStyle : theme.tableau_texte.gras(),
-			                        textDecoration : theme.tableau_texte.soulignement()
-			                    }">0,45$</td>
-				</tr>
-			</table>
+	<div class="row">
+    	<div class="col-md-7 col-xs-12">
+    		<h2>Tableau</h2>
+    		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
+			</div>
+			<h2>Lignes de tableau</h2>
+			<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau_ligne}">
+			</div>
 		</div>
+
+		<div class="col-md-5 col-xs-12">
+			<div class="exemple_tableau">
+				<table data-bind="style : {
+				                        background : theme.tableau.couleur_fond(),
+				                        opacity : theme.tableau.opacite_fond(),
+				                        borderColor :  theme.tableau.bordure.couleur(),
+				                        borderStyle : theme.tableau.bordure.style(),
+				                        borderWidth : theme.tableau.bordure.taille()+'px'
+				                        }">
+					<tr data-bind="style : {
+				                        opacity : theme.tableau_ligne.opacite_fond(),
+				                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+				                        borderStyle : theme.tableau_ligne.bordure.style(),
+				                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+				                        }">
+						<th data-bind="style: { 
+				                        fontFamily : theme.tableau_titre.police(),
+				                        fontSize : theme.tableau_titre.taille()+'px',
+				                        color : theme.tableau_titre.couleur(),
+				                        bold : theme.tableau_titre.gras(),
+				                        fontStyle : theme.tableau_titre.italique(),
+				                        textDecoration : theme.tableau_titre.soulignement()
+				                    }">Titre
+						</th>
+						<th data-bind="style: { 
+				                        fontFamily : theme.tableau_titre.police(),
+				                        fontSize : theme.tableau_titre.taille()+'px',
+				                        color : theme.tableau_titre.couleur(),
+				                        bold : theme.tableau_titre.gras(),
+				                        fontStyle : theme.tableau_titre.italique(),
+				                        textDecoration : theme.tableau_titre.soulignement()
+				                    }">
+						</th>
+					</tr>
+					<tr data-bind="style : {
+				                        background : theme.tableau_ligne.couleur_fond(),
+				                        opacity : theme.tableau_ligne.opacite_fond(),
+				                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+				                        borderStyle : theme.tableau_ligne.bordure.style(),
+				                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+				                        }">
+						<td  data-bind="style: { 
+				                        fontFamily : theme.tableau_sous_titre.police(),
+				                        fontSize : theme.tableau_sous_titre.taille()+'px',
+				                        color : theme.tableau_sous_titre.couleur(),
+				                        bold : theme.tableau_sous_titre.gras(),
+				                        fontStyle : theme.tableau_sous_titre.italique(),
+				                        textDecoration : theme.tableau_sous_titre.soulignement()
+				                    }">Sous-titre</td>
+						<td  data-bind="style: { 
+				                        fontFamily : theme.tableau_sous_titre.police(),
+				                        fontSize : theme.tableau_sous_titre.taille()+'px',
+				                        color : theme.tableau_sous_titre.couleur(),
+				                        bold : theme.tableau_sous_titre.gras(),
+				                        fontStyle : theme.tableau_sous_titre.italique(),
+				                        textDecoration : theme.tableau_sous_titre.soulignement()
+				                    }"></td>
+					</tr>
+					<tr data-bind="style : {
+				                        background : theme.tableau_ligne.couleur_fond(),
+				                        opacity : theme.tableau_ligne.opacite_fond(),
+				                        borderColor :  theme.tableau_ligne.bordure.couleur(),
+				                        borderStyle : theme.tableau_ligne.bordure.style(),
+				                        borderWidth : theme.tableau_ligne.bordure.taille()+'px'
+				                        }">
+						<td  data-bind="style: { 
+				                        fontFamily : theme.tableau_texte.police(),
+				                        fontSize : theme.tableau_texte.taille()+'px',
+				                        color : theme.tableau_texte.couleur(),
+				                        bold : theme.tableau_texte.gras(),
+				                        fontStyle : theme.tableau_texte.italique(),
+				                        textDecoration : theme.tableau_texte.soulignement()
+				                    }">Texte</td>
+						<td  data-bind="style: { 
+				                        fontFamily : theme.tableau_texte.police(),
+				                        fontSize : theme.tableau_texte.taille()+'px',
+				                        color : theme.tableau_texte.couleur(),
+				                        bold : theme.tableau_texte.gras(),
+				                        fontStyle : theme.tableau_texte.italique(),
+				                        textDecoration : theme.tableau_texte.soulignement()
+				                    }">0,65$</td>
+					</tr>
+					
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+    	<div class="col-md-12 col-xs-12">	
+    		<h2>Titre de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre, afterRender: verifier_boutons()}">
+			</div>
+
+			<h2>Sous-titre de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_sous_titre, afterRender: verifier_boutons()}">
+			</div>
+
+			<h2>Texte de tableau</h2>
+			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_texte, afterRender: verifier_boutons()}">
+			</div>
+
+			<div data-bind="template: {name: 'fix', data: theme.tableau_texte, afterRender: verifier_boutons()}">	
+			</div>
+		</div>		
 	</div>
 </div>
 
 <script type="text/html" id="styles-texte-template">
-    <div class="container">
-    	<div class="row">
-        	<div class="col-md-7 col-xs-12">
-	          	<div class="col-md-3 col-xs-12">
-		          	<div class="input-group">
-	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
-					    <select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
-					</div>
+	<div class="row">
+    	<div class="col-md-7 col-xs-12">
+          	<div class="col-md-3 col-xs-12">
+	          	<div class="input-group">
+  					<!-- <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
+				    <select class="form-control" data-role="none">
+				    	<option>Arial</option>
+				    	<option>Times New Roman</option>
+				    </select> -->
+				    <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
+					<select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
 				</div>
-				<div class="col-md-3 col-xs-12">
-		          	<div class="input-group">
-	  					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
-					    <input type="number" min="0" class="form-control" data-bind="textInput: taille">
-					</div>
+			</div>
+			<div class="col-md-3 col-xs-12">
+	          	<div class="input-group">
+  					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
+				    <input type="number" min="0" class="form-control" data-bind="textInput: taille">
 				</div>
-				<div class="col-md-3 col-xs-12">
-				    <div class="btn-group" role="group" aria-label="..." data-toggle="buttons">
-				    	<label class="btn btn-default">
-							<input type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
-						</label>
-						<label class="btn btn-default">
-							<input type="checkbox" autocomplete="off" class="checkbox_italique"><img src="../src/icons/text-italic.png">
-						</label>
-						<label class="btn btn-default">
-							<input type="checkbox" autocomplete="off" class="checkbox_soulignement"><img src="../src/icons/text-underline.png">
-						</label>
-					</div>
+			</div>
+			<div class="col-md-3 col-xs-12">
+			    <div class="btn-group" role="group" aria-label="..." data-toggle="buttons">
+			    	<label class="btn btn-default">
+						<input type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
+					</label>
+					<label class="btn btn-default">
+						<input type="checkbox" autocomplete="off" class="checkbox_italique"><img src="../src/icons/text-italic.png">
+					</label>
+					<label class="btn btn-default">
+						<input type="checkbox" autocomplete="off" class="checkbox_soulignement"><img src="../src/icons/text-underline.png">
+					</label>
 				</div>
-				<div class="col-md-3 col-xs-12">
-					<div class="input-group ">
-				    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
-					    <input type="text" class="form-control choix_couleur_texte" data-bind="value: couleur, style: {
-                        backgroundColor : couleur}"/>
-					</div>
-					<span data-bind="text: couleur"></span>
+			</div>
+			<div class="col-md-3 col-xs-12">
+				<div class="input-group ">
+			    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
+				    <input type="text" class="form-control choix_couleur_texte" data-bind="value: couleur, style: {
+                    backgroundColor : couleur}"/>
 				</div>
-		    </div>
+			</div>
+	    </div>
 
-		    <div class="col-md-5 col-xs-12">
+	    <div class="col-md-5 col-xs-12">
+	    	<div class="exemple_style">
 		    	<span data-bind="text: type, style: {
-                        fontFamily : police,
-                        fontSize : taille()+'px',
-                        color : couleur(),
-                        fontWeight: gras(),
-                        fontStyle : italique(),
-                        textDecoration : soulignement()
-                    }"></span>
-		    </div>
-		</div>
-    </div>
+	                    fontFamily : police,
+	                    fontSize : taille()+'px',
+	                    color : couleur(),
+	                    fontWeight: gras(),
+	                    fontStyle : italique(),
+	                    textDecoration : soulignement()
+	                }"></span>
+	        </div>
+	    </div>
+	</div>
 </script>
 
 <script type="text/html" id="styles-tableau-template">
@@ -215,7 +210,7 @@
 	          	<div class="col-md-3 col-xs-12">
 		          	<div class="input-group">
 	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
-					    <select class="form-control" id="styleBordure" data-bind="options: $root.choixStyleBordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
+					    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-12">
@@ -229,7 +224,6 @@
 				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
 					    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
 					</div>
-					<span data-bind="text: bordure.couleur"></span>
 				</div>
 				<!-- ko if: type() == 'tableau' -->
 				<div class="col-md-3 col-xs-12">
@@ -238,7 +232,6 @@
 					    <input type="text" class="form-control choix_couleur_fond" data-bind="value: couleur_fond, style: {
                         backgroundColor: couleur_fond}"/>
 					</div>
-					<span data-bind="text: couleur_fond"></span>
 				</div>
 				<!-- /ko -->
 		    </div>
