@@ -110,6 +110,26 @@ function appliquer_modifications(fileName) {
 }
 
 /**
+ * Sauvegarde les données dans le serveur par un post et rafraîchit la page avec les nouvelles 
+ * données
+ * @param  {fileName} : 
+ */
+function deplacement_index_zone_focus(val) {
+    console.log(viewModel.index_zone_focus());
+    console.log(viewModel.fenetre.zones().length);
+    
+    if (viewModel.index_zone_focus()+val >= viewModel.fenetre.zones().length) {
+        viewModel.index_zone_focus(0);
+    }
+    else if (viewModel.index_zone_focus()+val <= 0) {
+        viewModel.index_zone_focus(viewModel.fenetre.zones().length);
+    }
+    else {
+        viewModel.index_zone_focus(viewModel.index_zone_focus()+val);
+    }
+}
+
+/**
  * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
  * zone est enregistrée ou en le retirant directement de la liste si elle a été créée sans être 
  * appliquée

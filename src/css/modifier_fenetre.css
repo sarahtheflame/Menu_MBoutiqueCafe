@@ -240,3 +240,40 @@ span {
 .zone_focus {
   box-shadow: 0px 0px 25px #00ff00;
 }
+.changer_zone {
+  margin: 0px;
+  padding: 0px;
+  height: 25px;
+  white-space: nowrap;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.changer_zone h1 {
+  margin: 0px;
+  padding: 0px;
+  text-overflow: ellipsis;
+  width: 160px;
+}
+.changer_zone a {
+  cursor: pointer;
+}
+#texte_changer_zone {
+  padding: 15px;
+  overflow: hidden;
+  display: block;
+}
+.table_changer_zone {
+  text-overflow: ellipsis;
+}
+.b_changer_zone {
+  border: 1px solid white;
+  display: inline-block;
+  text-decoration: none;
+  color: #FFF;
+}
+.b_changer_zone:hover {
+  color: #ddd;
+  text-decoration: none;
+  cursor: pointer;
+}

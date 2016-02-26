@@ -198,9 +198,9 @@
                 <hr>
                 <!-- ko if: $root.index_zone_focus() != -1 -->
                 <div class="sidebar_row form-inline text-center">
-                    <label class="sidebar_label">Zone sélectionnée : </label>
-                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.fenetre.zones, optionsText: 'nom', selectedIndex: $root.index_zone_focus">
-                    </select>
+                    <div class="changer_zone badge_button" id="changer_zone-gauche" width="20"><a onclick="deplacement_index_zone_focus(-1)"><</a></div>
+                    <div class="changer_zone center"><h1 data-bind="text: $root.fenetre.zones()[$root.index_zone_focus()].nom()"></h1></div>
+                    <div class="changer_zone badge_button" id="changer_zone-droite" width="20"><a onclick="deplacement_index_zone_focus(1)">></a></div>
                 </div>
                 <div class="sidebar_row badge_button text-center">
                     <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
@@ -210,26 +210,26 @@
                     <h2>Position</h2>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Horizontale : </label>
-                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Verticale : </label>
-                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Profondeur : </label>
-                            <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
                     </div>
                 </div>
                 <div class="sidebar_row" id="dimensions">
                     <h2>Dimensions</h2>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Hauteur : </label>
-                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
+                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Largeur : </label>
-                        <input type="number" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
+                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
                     </div>
                 </div>
                 <!-- /ko -->
