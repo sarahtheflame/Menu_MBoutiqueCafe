@@ -48,7 +48,8 @@ def get_affichage(s, id_fenetre):
         ainsi que la liste des polices disponibles dans le serveur.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             id_fenetre (Integer) : Id de la fenêtre voulue.
     """
     resultats = { 
@@ -62,7 +63,8 @@ def obtenir_donnees_gestion(s, data):
         Retourne les données de gestion selon la page demandée dans 'data['nom_vue']'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations de la page 
             correspondante à 'data['nom_vue']'.
     """
@@ -84,7 +86,8 @@ def retourner_donnees_gestion(s, data):
         système de gestion.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations de la page 
             correspondante à 'data['nom_vue']'.
     """
@@ -104,7 +107,8 @@ def get_lister_fenetres(s):
         Obtient les données requises par la page 'lister_fenetre'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'lister_fenetres'}
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
@@ -121,7 +125,8 @@ def get_medias(s):
         Obtient les données requises par la page 'medias'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'images' : [], 'videos' : [], 'vue_associe' : 'medias'}
     for image in s.query(Image).order_by(Image.id).all():
@@ -136,7 +141,8 @@ def get_modifier_theme(s, id_theme):
         'id_theme'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'theme' : '', 'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_theme'}
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
@@ -147,7 +153,8 @@ def get_lister_themes(s):
         Obtient les données requises par la page 'lister_themes'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
@@ -163,7 +170,8 @@ def get_parametres(s, id_administrateur):
         l'identifiant 'id_administrateur'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'administrateur' : [], 'vue_associe' : 'parametres'  }
     resultats['administrateur'] = s.query(Administrateur).filter(
@@ -175,7 +183,8 @@ def get_lister_periodes(s):
         Obtient les données requises par la page 'lister_fenetre'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'lister_periodes'  }
     for periode in s.query(Periode).order_by(Periode.id).all():
@@ -193,7 +202,8 @@ def get_modifier_zone(s, id_zone):
         'id_zone'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'zone' : '' , 'fenetre_id' : '', 'vue_associe' : ''}
     type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
@@ -226,7 +236,8 @@ def get_modifier_fenetre(s, id_fenetre):
         l'identifiant 'id_fenetre'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 
                         'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_fenetre'  }
@@ -243,7 +254,8 @@ def post_lister_fenetres(s, data):
         Enregistre les modifications apporté aux informations de la page 'lister_fenetre'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'lister_fenetres'.
     """
@@ -263,7 +275,8 @@ def post_medias(s, data):
         Enregistre les modifications apporté aux informations de la page 'medias'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'medias'.
     """
@@ -283,7 +296,8 @@ def post_modifier_theme(s, data):
         Enregistre les modifications apporté aux informations de la page 'modifier_theme'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'modifier_theme'.
     """
@@ -303,7 +317,8 @@ def post_lister_themes(s, data):
         Enregistre les modifications apporté aux informations de la page 'lister_themes'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'lister_themes'.
     """
@@ -323,7 +338,8 @@ def post_parametres(s, data):
         Enregistre les modifications apporté aux informations de la page 'parametres'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'parametres'.
     """
@@ -344,7 +360,8 @@ def post_lister_periodes(s, data):
         Enregistre les modifications apporté aux informations de la page 'lister_periodes'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'lister_periodes'.
     """
@@ -364,7 +381,8 @@ def post_modifier_zone(s, data):
         Enregistre les modifications apporté aux informations de la page 'modifier_zone'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'modifier_zone'.
     """
@@ -410,7 +428,8 @@ def post_modifier_fenetre(s, data):
         Enregistre les modifications apporté aux informations de la page 'modifier_fenetre'.
  
         Argument(s) :
-            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'modifier_fenetre'.
     """

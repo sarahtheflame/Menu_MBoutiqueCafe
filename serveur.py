@@ -44,7 +44,8 @@ from modeles.base import Base
 app = Bottle()
 
 # Installation du plugin «SQLAlchemy» dans l'application de «Bottle»
-app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', commit=True, use_kwargs=False))
+app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', 
+    commit=True, use_kwargs=False))
     
 #===============================================================================
 # Authentification
@@ -67,7 +68,8 @@ def verifier_session(func):
                 *args (Arguments) : Liste d'argument reçu par la fonction décorée. ***
                 **kwargs (Arguments) : Liste d'argument reçu par la fonction décorée. ***
         """
-        cookie_courriel = request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+        cookie_courriel = request.get_cookie("administrateur", 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         if cookie_courriel:
             return func(*args, **kwargs)
         else:
@@ -85,7 +87,8 @@ def get_connexion(db):
         à la page de connexion (connexion.html).
 
         Argument(s) :
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {}
     return template("src\\views\\autre\\connexion.html", variables)
@@ -99,8 +102,8 @@ def post_connexion(db):
         (accueil.html) est retournée.
 
         Argument(s) :
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {
         'titre' : 'accueil',
@@ -111,7 +114,8 @@ def post_connexion(db):
     mot_de_passe = request.forms.get('mot_de_passe')
     if est_autorise(db, courriel, mot_de_passe):
         administrateur = db.query(Administrateur).filter(Administrateur.adresse_courriel == courriel).one()
-        response.set_cookie("administrateur", administrateur.id, secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+        response.set_cookie("administrateur", administrateur.id, 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         return template("src\\views\\gestion\\accueil.html", variables)
     else:
         return template("src\\views\\autre\\connexion.html", variables)
@@ -130,12 +134,14 @@ def get_gestion(nom_fichier, db):
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     donnees_gestion = obtenir_donnees_gestion(db, {
         'nom_vue' : nom_fichier,
         'id' : request.query.id, 
-        'id_administrateur' : request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+        'id_administrateur' : request.get_cookie("administrateur", 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
     })
     variables = {
         'titre' : nom_fichier,
@@ -153,7 +159,8 @@ def post_gestion(nom_fichier, db):
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {
         'nom_vue' : request.forms.getunicode('fileName'),
@@ -173,7 +180,8 @@ def affichage(id_fenetre, db):
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {
         'titre' : id_fenetre,
@@ -192,7 +200,8 @@ def televerser(db):
         '.jpg','.jpeg' dans le répertoire '/src/images' du serveur.
 
         Argument(s) :
-            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     nom = request.files.get('nom')
     televersement = request.files.get('fichier')
