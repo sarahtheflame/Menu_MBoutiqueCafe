@@ -16,18 +16,6 @@ $(document).ready(function(){
 		});
 	});
 
-	/**
-	 * Vérifie le fond d'écran à utiliser (image ou couleur)
-	 * @return {[type]}
-	 */
-	// viewModel.choose_background = ko.computed(function() {
- //        if (viewModel.fenetre.image_fond.chemin_fichier() == "undefined") {
- //            return viewModel.fenetre.couleur_fond();
- //        }
- //        else {
- //            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
- //        }
- //    });
 
     /**
      * 
@@ -151,16 +139,32 @@ function deplacement_index_zone_focus(val) {
  * Lancé lors d'un clic sur un élément qui porte la classe retirer
  */
 $("body").on("click", ".retirer_zone", function() {
+    for (var index in viewModel.fenetre.zones()) {
+        if (viewModel.fenetre.zones()[index].id() === viewModel.id_zone_focus()){
+            var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + viewModel.fenetre.zones()[index].nom() +"?");
+            if (confirmation) {
+                viewModel.fenetre.zones()[index].id(-(viewModel.fenetre.zones()[index].id));
+            } else {
+                console.log("suppression annulée");
+            }
+        }
+    }
+    
+});
+
+/**
+ * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
+ * zone est enregistrée ou en le retirant directement de la liste si elle a été créée sans être 
+ * appliquée
+ * Lancé lors d'un clic sur un élément qui porte la classe bouton_retirer_zone
+ */
+$("body").on("click", ".bouton_retirer_zone", function() {
     var context = ko.contextFor(this);
     var id = context.$data.id();
     var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
 
-    if (confirmation) {
-            if (id != 0) {
-                context.$data.id(-id);
-            } else {
-                context.$parent.zones.remove(context.$data);
-            }
+    if (confirmation) {            
+        context.$data.id(-id);
     } else {
         console.log("suppression annulée");
     }
