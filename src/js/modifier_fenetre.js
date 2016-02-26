@@ -48,15 +48,28 @@ $(document).ready(function(){
      */
     viewModel.id_zone_focus = ko.observable();
 
+    function obtenir_liste_zone_valide() {
+        var zones_valides = [];
+        for (i = 0; i < viewModel.fenetre.zones().length; i++) { 
+            if (viewModel.fenetre.zones()[i].id() >= 0) {
+                zones_valides.push(i);
+            }
+        }
+        return zones_valides;
+    }
+
     /**
      * 
      */
-    if (viewModel.fenetre.zones().length != 0) {
-        viewModel.index_zone_focus = ko.observable(0);
+    function mettre_a_jour_index(index) {
+        if (obtenir_liste_zone_valide().length > 0) {
+            viewModel.index_zone_focus = ko.observable(index);
+        }
+        else {
+            viewModel.index_zone_focus = ko.observable(-1);
+        }
     }
-    else {
-        viewModel.index_zone_focus = ko.observable(-1);
-    }
+    mettre_a_jour_index(0)
 
     /**
      * @param  {integer} id : id de la zone à vérifier
@@ -110,24 +123,26 @@ function appliquer_modifications(fileName) {
 }
 
 /**
- * Sauvegarde les données dans le serveur par un post et rafraîchit la page avec les nouvelles 
- * données
- * @param  {fileName} : 
+ * 
+ * 
+ * 
  */
 function deplacement_index_zone_focus(val) {
     console.log(viewModel.index_zone_focus());
-    console.log(viewModel.fenetre.zones().length);
-    
-    if (viewModel.index_zone_focus()+val >= viewModel.fenetre.zones().length) {
-        viewModel.index_zone_focus(0);
+    do {
+        if (viewModel.index_zone_focus()+val >= viewModel.fenetre.zones().length) {
+            viewModel.index_zone_focus(0);
+        }
+        else if (viewModel.index_zone_focus()+val < 0) {
+            viewModel.index_zone_focus(viewModel.fenetre.zones().length-1);
+        }
+        else {
+            viewModel.index_zone_focus(viewModel.index_zone_focus()+val);
+        }
     }
-    else if (viewModel.index_zone_focus()+val <= 0) {
-        viewModel.index_zone_focus(viewModel.fenetre.zones().length);
-    }
-    else {
-        viewModel.index_zone_focus(viewModel.index_zone_focus()+val);
-    }
+    while (viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() <= 0);
 }
+
 
 /**
  * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
