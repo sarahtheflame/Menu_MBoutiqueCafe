@@ -162,7 +162,7 @@
 }
 #sidebar h1 {
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   color: #fff;
 }
 #sidebar h2 {
@@ -182,6 +182,12 @@
   height: 22px;
   padding: 0px 5px;
 }
+#sidebar .input-group-addon {
+  padding: 3px;
+}
+#sidebar .input-group-addon img {
+  width: 12px;
+}
 #sidebar .badge_button a {
   float: none!important;
 }
@@ -193,6 +199,12 @@
 }
 #sidebar #dimensions label {
   width: 75px;
+}
+#sidebar .choix_couleur i {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  cursor: pointer;
 }
 span {
   color: white;
@@ -211,7 +223,7 @@ span {
   right: 0px;
   cursor: pointer;
 }
-.delete_zone {
+.bouton_retirer_zone {
   padding: 10px 15px;
   position: absolute;
   right: 0px;
@@ -219,7 +231,7 @@ span {
   background: rgba(255, 0, 0, 0.3);
   border-radius: 5px;
 }
-.delete_zone:hover {
+.bouton_retirer_zone:hover {
   background: rgba(255, 0, 0, 0.9);
 }
 .colorpicker {

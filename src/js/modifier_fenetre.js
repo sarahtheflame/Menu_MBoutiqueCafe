@@ -109,10 +109,32 @@ function appliquer_modifications(fileName) {
     });
 }
 
-    /**
-     * Ajoute dynamiquement les polices reçues du serveur dans une balise «style».
-     * NOTE : Ne supporte présentement que les fichiers de type 'ttf'.
-     */
+/**
+ * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
+ * zone est enregistrée ou en le retirant directement de la liste si elle a été créée sans être 
+ * appliquée
+ * Lancé lors d'un clic sur un élément qui porte la classe retirer
+ */
+$("body").on("click", ".retirer_zone", function() {
+    var context = ko.contextFor(this);
+    var id = context.$data.id();
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
+
+    if (confirmation) {
+            if (id != 0) {
+                context.$data.id(-id);
+            } else {
+                context.$parent.zones.remove(context.$data);
+            }
+    } else {
+        console.log("suppression annulée");
+    }
+});
+
+/**
+ * Ajoute dynamiquement les polices reçues du serveur dans une balise «style».
+ * NOTE : Ne supporte présentement que les fichiers de type 'ttf'.
+ */
 for (i = 0; i < viewModel.polices().length; i++) { 
     $("head").prepend("<style type=\"text/css\">" + 
                                 "@font-face {\n" +

@@ -46,7 +46,6 @@ class Style(Base):
     couleur = Column(String(250), default='#000000')
     taille = Column(Integer, default=12)
     couleur_fond = Column(String(250), default='rgba(255,255,255,0)')
-    opacite_fond = Column(Integer, default=1)
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
     soulignement = Column(String(250), default='none')
@@ -74,7 +73,6 @@ class Style(Base):
             couleur = self.couleur,
             taille = self.taille,
             couleur_fond = self.couleur_fond,
-            opacite_fond = self.opacite_fond,
             gras = self.gras,
             italique = self.italique,
             soulignement = self.soulignement,
@@ -96,7 +94,6 @@ class Style(Base):
         if data.get('couleur') != None : self.couleur = data['couleur']
         if data.get('taille') != None : self.taille = data['taille']
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
-        if data.get('opacite_fond') != None : self.opacite_fond = data['opacite_fond']
         if data.get('gras') != None : self.gras = data['gras']
         if data.get('italique') != None : self.italique = data['italique']
         if data.get('soulignement') != None : self.soulignement = data['soulignement']
