@@ -25,17 +25,32 @@ from modeles.administrateur import Administrateur
 from modeles.base import Base
 
 def est_autorise(s, a_adresse_courriel, a_mot_de_passe):
-    # ***** NOTE : Encrypter et Décrypter les informations de connexion *****
+    """
+        Retourne 'True' si un administrateur possédant les informations de connexion 
+        'a_adresse_courriel' et 'a_mot_de_passe' existe dans la base de données et 'False' dans le 
+        cas contraire.
+ 
+        Argument(s) :
+            func (function) : Fonction décorée par le décorateur.
+    """
     try:
         utilisateur = s.query(Administrateur).filter(Administrateur.adresse_courriel == a_adresse_courriel).one()
         if utilisateur.adresse_courriel == a_adresse_courriel and utilisateur.mot_de_passe == a_mot_de_passe:
             return True
         else:
-            raise NameError("Les données de connexion entrées sont invalides!")
+            return False
     except ValueError:
         raise NameError("Aucun administrateur ne possède cette adresse courriel!")
 
 def get_affichage(s, id_fenetre):
+    """
+        Retourne un dictionnaire contenant la fenêtre qui possède 'id_fenetre' comme identifiant 
+        ainsi que la liste des polices disponibles dans le serveur.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            id_fenetre (Integer) : Id de la fenêtre voulue.
+    """
     resultats = { 
         'fenetre' : s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json(), 
         'polices' : obtenir_noms_polices()
@@ -43,6 +58,14 @@ def get_affichage(s, id_fenetre):
     return resultats
 
 def obtenir_donnees_gestion(s, data):
+    """
+        Retourne les données de gestion selon la page demandée dans 'data['nom_vue']'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations de la page 
+            correspondante à 'data['nom_vue']'.
+    """
     if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!', 'vue_associe' : 'accueil'}
     elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
@@ -56,6 +79,15 @@ def obtenir_donnees_gestion(s, data):
     else : raise NameError("Données inexistantes pour la page de gestion demandée!")
 
 def retourner_donnees_gestion(s, data):
+    """
+        Lance la fonction de sauvegarde avec les données reçues du navigateur selon la page du 
+        système de gestion.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations de la page 
+            correspondante à 'data['nom_vue']'.
+    """
     if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "medias": return post_medias(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
@@ -68,6 +100,12 @@ def retourner_donnees_gestion(s, data):
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
 def get_lister_fenetres(s):
+    """
+        Obtient les données requises par la page 'lister_fenetre'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'lister_fenetres'}
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
@@ -79,6 +117,12 @@ def get_lister_fenetres(s):
     return resultats
 
 def get_medias(s):
+    """
+        Obtient les données requises par la page 'medias'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'images' : [], 'videos' : [], 'vue_associe' : 'medias'}
     for image in s.query(Image).order_by(Image.id).all():
         resultats['images'].append(image.serialiser_en_json())
@@ -87,11 +131,24 @@ def get_medias(s):
     return resultats
 
 def get_modifier_theme(s, id_theme):
+    """
+        Obtient les données requises par la page 'modifier_theme' du thème possédant l'identifiant 
+        'id_theme'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'theme' : '', 'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_theme'}
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
     return resultats
 
 def get_lister_themes(s):
+    """
+        Obtient les données requises par la page 'lister_themes'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append({
@@ -101,11 +158,25 @@ def get_lister_themes(s):
     return resultats
 
 def get_parametres(s, id_administrateur):
+    """
+        Obtient les données requises par la page 'parametres' de l'administrateur possédant 
+        l'identifiant 'id_administrateur'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'administrateur' : [], 'vue_associe' : 'parametres'  }
-    resultats['administrateur'] = s.query(Administrateur).filter(Administrateur.id == id_administrateur).one().serialiser_en_json()
+    resultats['administrateur'] = s.query(Administrateur).filter(
+        Administrateur.id == id_administrateur).one().serialiser_en_json()
     return resultats
 
 def get_lister_periodes(s):
+    """
+        Obtient les données requises par la page 'lister_fenetre'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'lister_periodes'  }
     for periode in s.query(Periode).order_by(Periode.id).all():
         resultats['periodes'].append(periode.serialiser_en_json())
@@ -117,6 +188,13 @@ def get_lister_periodes(s):
     return resultats
 
 def get_modifier_zone(s, id_zone):
+    """
+        Obtient les données requises par la page 'modifier_zone' de la zone possédant l'identifiant 
+        'id_zone'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     resultats = { 'zone' : '' , 'fenetre_id' : '', 'vue_associe' : ''}
     type_zone = s.query(Zone).filter(Zone.id == id_zone).one().type
     if type_zone == "ZoneBase":
@@ -143,7 +221,15 @@ def get_modifier_zone(s, id_zone):
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_fenetre'  }
+    """
+        Obtient les données requises par la page 'modifier_fenetre' de la fenêtre possédant 
+        l'identifiant 'id_fenetre'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
+    resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 
+                        'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_fenetre'  }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
     for image in s.query(Image).order_by(Image.id).all():
@@ -153,6 +239,14 @@ def get_modifier_fenetre(s, id_fenetre):
     return resultats
 
 def post_lister_fenetres(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'lister_fenetre'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'lister_fenetres'.
+    """
     for fenetre in data['fenetres']:
         if fenetre['id'] == 0:
             nouvelle_fenetre = Fenetre()
@@ -165,6 +259,14 @@ def post_lister_fenetres(s, data):
     return True
 
 def post_medias(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'medias'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'medias'.
+    """
     for media in data['medias']:
         if media['id'] == 0:
             nouveau_media = Media()
@@ -177,6 +279,14 @@ def post_medias(s, data):
     return True
 
 def post_modifier_theme(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'modifier_theme'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'modifier_theme'.
+    """
     theme = data['theme']
     if theme['id'] == 0:
         nouveau_theme = Theme()
@@ -189,6 +299,14 @@ def post_modifier_theme(s, data):
     return True
 
 def post_lister_themes(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'lister_themes'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'lister_themes'.
+    """
     for theme in data['themes']:
         if theme['id'] == 0:
             nouveau_theme = Theme()
@@ -201,18 +319,35 @@ def post_lister_themes(s, data):
     return True
 
 def post_parametres(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'parametres'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'parametres'.
+    """
     for administrateur in data['administrateurs']:
         if administrateur['id'] == 0:
             nouvel_administrateur = Administrateur()
             nouvel_administrateur.deserialiser_de_json(s, administrateur)
             s.add(nouvel_administrateur)
         elif administrateur['id'] > 0:
-            s.query(Administrateur).filter(Administrateur.id == administrateur['id']).one().deserialiser_de_json(s, administrateur)
+            s.query(Administrateur).filter(
+                Administrateur.id == administrateur['id']).one().deserialiser_de_json(s, administrateur)
         elif administrateur['id'] < 0:
             s.delete(s.query(Administrateur).filter(Administrateur.id == -administrateur['id']).one())
     return True
 
 def post_lister_periodes(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'lister_periodes'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'lister_periodes'.
+    """
     for periode in data['periodes']:
         if periode['id'] == 0:
             nouvelle_periode = Periode()
@@ -225,6 +360,14 @@ def post_lister_periodes(s, data):
     return True
 
 def post_modifier_zone(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'modifier_zone'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'modifier_zone'.
+    """
     zone = data['zone']
     if zone['id'] == 0:
         nouvelle_zone = Zone()
@@ -262,43 +405,15 @@ def post_modifier_zone(s, data):
     else: raise NameError("Le controleur ne peux déserialiser la zone reçu en post") 
     return True
 
-def post_modifier_zone_video(s, data):
-    zone_video = data['zone_video']
-    if zone_video['id'] == 0:
-        nouvelle_zone_video = ZoneVideo()
-        nouvelle_zone_video.deserialiser_de_json(s, zone_video)
-        s.add(nouvelle_zone_video)
-    elif zone_video['id'] > 0:
-        s.query(ZoneVideo).filter(ZoneVideo.id == zone_video['id']).one().deserialiser_de_json(s, zone_video)
-    elif zone_video['id'] < 0:
-        s.delete(s.query(ZoneVideo).filter(ZoneVideo.id == -zone_video['id']).one())
-    return True
-
-def post_modifier_zone_table(s, data):
-    zone_table = data['zone_table']
-    if zone_table['id'] == 0:
-        nouvelle_zone_table = ZoneTable()
-        nouvelle_zone_table.deserialiser_de_json(s, zone_table)
-        s.add(nouvelle_zone_table)
-    elif zone_table['id'] > 0:
-        s.query(ZoneTable).filter(ZoneTable.id == zone_table['id']).one().deserialiser_de_json(s, zone_table)
-    elif zone_table['id'] < 0:
-        s.delete(s.query(ZoneTable).filter(ZoneTable.id == -zone_table['id']).one())
-    return True
-
-def post_modifier_zone_base(s, data):
-    zone_base = data['zone_base']
-    if zone_base['id'] == 0:
-        nouvelle_zone_base = ZoneBase()
-        nouvelle_zone_base.deserialiser_de_json(s, zone_base)
-        s.add(nouvelle_zone_base)
-    elif zone_base['id'] > 0:
-        s.query(ZoneBase).filter(ZoneBase.id == zone_base['id']).one().deserialiser_de_json(s, zone_base)
-    elif zone_base['id'] < 0:
-        s.delete(s.query(ZoneBase).filter(ZoneBase.id == -zone_base['id']).one())
-    return True
-
 def post_modifier_fenetre(s, data):
+    """
+        Enregistre les modifications apporté aux informations de la page 'modifier_fenetre'.
+ 
+        Argument(s) :
+            s (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+            data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
+            page 'modifier_fenetre'.
+    """
     fenetre = data['fenetre']
     if fenetre['id'] == 0:
         nouvelle_fenetre = Fenetre()
@@ -311,6 +426,13 @@ def post_modifier_fenetre(s, data):
     return True
 
 def obtenir_noms_polices():
+    """
+        Retourne une liste contenant les noms de fichiers disponibles dans le répertoire 
+        '/src/fonts' sans les extentions de fichier.
+ 
+        Argument(s) :
+            ---
+    """
     polices = listdir("src//fonts")
     for x in range(0, len(polices)):
         polices[x] = polices[x].split('.')[0]

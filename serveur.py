@@ -8,6 +8,10 @@
 """
 
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
+__license__ = "GPL"
+__version__ = "1.0.0"
+__email__ = "da.junior.du@gmail.com"
+__status__ = "Development"
 
 from gevent import monkey; monkey.patch_all()
 import json, os, bottle_sqlalchemy
@@ -36,8 +40,10 @@ from modeles.cellule import Cellule
 from modeles.administrateur import Administrateur
 from modeles.base import Base
 
-app = Bottle() # Représente l'application qui gère les routes de notre système.
+# Initialisation de l'application «Bottle»
+app = Bottle()
 
+# Installation du plugin «SQLAlchemy» dans l'application de «Bottle»
 app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', commit=True, use_kwargs=False))
     
 #===============================================================================
@@ -45,8 +51,22 @@ app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'),
 #===============================================================================
 
 def verifier_session(func):
+    """
+        Décorateur de fonction qui vérifie l'authenticité de la session du navigateur.
+
+        Argument(s) :
+            func (function) : Fonction décorée par le décorateur.
+    """
     @wraps(func)
     def check(*args, **kwargs):
+        """
+            Fonction lancée par le décorateur sur la fonction décorée.
+
+            Argument(s) :
+                func (function) : Fonction décorée par le décorateur.
+                *args (Arguments) : Liste d'argument reçu par la fonction décorée. ***
+                **kwargs (Arguments) : Liste d'argument reçu par la fonction décorée. ***
+        """
         cookie_courriel = request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         if cookie_courriel:
             return func(*args, **kwargs)
@@ -61,11 +81,11 @@ def verifier_session(func):
 @app.route('/g/connexion', method='GET')
 def get_connexion(db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
+        à la page de connexion (connexion.html).
 
         Argument(s) :
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
     """
     variables = {}
     return template("src\\views\\autre\\connexion.html", variables)
@@ -73,10 +93,13 @@ def get_connexion(db):
 @app.route('/g/connexion', method='POST')
 def post_connexion(db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route 'POST' qui retourne le 'template' de type 
+        'html' correspondant à la page de connexion (connexion.html) si les informations de connexion 
+        sont incorrectes. Sinon, le 'template' de type 'html' correspondant à la page d'accueil 
+        (accueil.html) est retournée.
 
         Argument(s) :
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
     variables = {
@@ -101,14 +124,16 @@ def post_connexion(db):
 @verifier_session
 def get_gestion(nom_fichier, db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route dynamique 'GET' qui retourne le 'template' de type 
+        'html' correspondant au fichier '<nom_fichier>.html' s'il existe dans le répertoire 
+        '/src/views/gestion'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
     """
     donnees_gestion = obtenir_donnees_gestion(db, {
-        'nom_vue' : nom_fichier, 
+        'nom_vue' : nom_fichier,
         'id' : request.query.id, 
         'id_administrateur' : request.get_cookie("administrateur", secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
     })
@@ -123,11 +148,12 @@ def get_gestion(nom_fichier, db):
 @verifier_session
 def post_gestion(nom_fichier, db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route dynamique 'POST' d'une page du système de gestion. Exécute 
+        'retourner_donnees_gestion' avec les données reçues par la requête 'POST'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
     """
     variables = {
         'nom_vue' : request.forms.getunicode('fileName'),
@@ -143,10 +169,11 @@ def post_gestion(nom_fichier, db):
 def affichage(id_fenetre, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        'html' du fichier '<id_fenetre>.html' s'il existe dans le répertoire '/src/views/affichage'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
     """
     variables = {
         'titre' : id_fenetre,
@@ -160,6 +187,13 @@ def affichage(id_fenetre, db):
 
 @app.route('/g/televerser', method='POST')
 def televerser(db):
+    """
+        Fonction associée à une route 'POST' qui permet de téléverser des fichiers de type '.png',
+        '.jpg','.jpeg' dans le répertoire '/src/images' du serveur.
+
+        Argument(s) :
+            db (Session) : Connexion à la base de données qui permet d'effectuer des requêtes.
+    """
     nom = request.files.get('nom')
     televersement = request.files.get('fichier')
     nom_fichier, extension = os.path.splitext(televersement.filename)
@@ -175,7 +209,7 @@ def televerser(db):
 def javascripts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
-        'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
+        'javascripts' s'il existe dans le répertoire '/src/js' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -186,7 +220,7 @@ def javascripts(nom_fichier):
 def stylesheets(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
-        'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
+        'stylesheets' s'il existe dans le répertoire '/src/css' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -197,7 +231,7 @@ def stylesheets(nom_fichier):
 def images(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' 
-        s'il existe dans le répertoire '<<appPath>>/src/images'.
+        s'il existe dans le répertoire '/src/images' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -208,7 +242,7 @@ def images(nom_fichier):
 def videos(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' 
-        s'il existe dans le répertoire '<<appPath>>/src/videos'.
+        s'il existe dans le répertoire '/src/videos' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -219,7 +253,7 @@ def videos(nom_fichier):
 def fonts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' 
-        s'il existe dans le répertoire '<<appPath>>/src/fonts'.
+        s'il existe dans le répertoire '/src/fonts' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
