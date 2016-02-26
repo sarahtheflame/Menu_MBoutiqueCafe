@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+from os import path, listdir
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -34,8 +35,12 @@ def est_autorise(s, a_adresse_courriel, a_mot_de_passe):
     except ValueError:
         raise NameError("Aucun administrateur ne possède cette adresse courriel!")
 
-def get_affichage(s, nom_fenetre):
-    return s.query(Fenetre).filter(Fenetre.nom == nom_fenetre).one().serialiser_en_json()
+def get_affichage(s, id_fenetre):
+    resultats = { 
+        'fenetre' : s.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json(), 
+        'polices' : obtenir_noms_polices()
+        }
+    return resultats
 
 def obtenir_donnees_gestion(s, data):
     if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!', 'vue_associe' : 'accueil'}
@@ -82,7 +87,7 @@ def get_medias(s):
     return resultats
 
 def get_modifier_theme(s, id_theme):
-    resultats = { 'theme' : '', 'vue_associe' : 'modifier_theme'}
+    resultats = { 'theme' : '', 'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_theme'}
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
     return resultats
 
@@ -138,7 +143,7 @@ def get_modifier_zone(s, id_zone):
     return resultats
 
 def get_modifier_fenetre(s, id_fenetre):
-    resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 'vue_associe' : 'modifier_fenetre'  }
+    resultats = { 'fenetre' : '','themes': [], 'images': [], 'zone_focus' : '', 'polices' : obtenir_noms_polices(), 'vue_associe' : 'modifier_fenetre'  }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append(theme.serialiser_en_json())
     for image in s.query(Image).order_by(Image.id).all():
@@ -304,3 +309,9 @@ def post_modifier_fenetre(s, data):
     elif fenetre['id'] < 0:
         s.delete(s.query(Fenetre).filter(Fenetre.id == -fenetre['id']).one())
     return True
+
+def obtenir_noms_polices():
+    polices = listdir("src//fonts")
+    for x in range(0, len(polices)):
+        polices[x] = polices[x].split('.')[0]
+    return polices

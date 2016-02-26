@@ -142,4 +142,15 @@ function verifier_boutons(){
 	});
 }
 
-
+	/**
+	 * Ajoute dynamiquement les polices reçues du serveur dans une balise «style».
+	 * NOTE : Ne supporte présentement que les fichiers de type 'ttf'.
+	 */
+for (i = 0; i < viewModel.polices().length; i++) { 
+    $("head").prepend("<style type=\"text/css\">" + 
+                                "@font-face {\n" +
+                                    "\tfont-family: \""+ viewModel.polices()[i] +"\";\n" + 
+                                    "\tsrc: url('../src/" + viewModel.polices()[i] + ".ttf') format('truetype');\n" + 
+                                "}\n" + 
+                            "</style>");
+}

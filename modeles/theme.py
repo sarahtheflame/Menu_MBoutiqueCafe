@@ -259,32 +259,3 @@ class Theme(Base):
         else:
             print("Identifiant de style incorrect pour" + self.nom)
 
-        # for style in data:
-        #     if isinstance(data[style], dict):
-        #         if (data[style]['id'] == 0):
-        #             nouveau_style = Style(bordure=Bordure())
-        #             nouveau_style.deserialiser_de_json(session, data[style])
-        #             session.add(nouveau_style)
-        #             print(data[style]['type'])
-        #             if data[style]['type'] == 'titre':
-        #                 self.titre = nouveau_style
-        #             elif data[style]['type'] == 'sous_titre':
-        #                 self.sous_titre = nouveau_style
-        #             elif data[style]['type'] == 'texte':
-        #                 self.texte = nouveau_style
-        #             elif data[style]['type'] == 'tableau':
-        #                 self.tableau = nouveau_style
-        #             elif data[style]['type'] == 'tableau_titre': 
-        #                 self.tableau_titre = nouveau_style
-        #             elif data[style]['type'] == 'tableau_sous_titre': 
-        #                 self.tableau_sous_titre = nouveau_style
-        #             elif data[style]['type'] == 'tableau_ligne':
-        #                 self.tableau_ligne = nouveau_style
-        #             elif data[style]['type'] == 'tableau_texte':
-        #                 self.tableau_texte = nouveau_style
-        #             else:
-        #                 print("Type de style invalide")
-        #         elif (data[style]['id'] > 0):
-        #             self.titre.deserialiser_de_json(session, data[style])
-        #         else:
-        #             print('Impossible de déserialiser le style \'titre\'')

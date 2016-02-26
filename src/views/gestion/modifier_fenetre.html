@@ -91,8 +91,7 @@
                     top : $data.position_y() + '%', 
                     'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%', 
-                    background : 'rgb(0,0,0)' 
+                    height : $data.hauteur() + '%'
                 }">
                     <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
                     <span class="delete_zone">X</span>
@@ -122,7 +121,7 @@
                     width : $data.largeur() + '%', 
                     height : $data.hauteur() + '%' 
                 }">
-                    <table data-bind="attr : {
+                    <table data-bind="style : {
                         fontFamily : $root.fenetre.theme.tableau.police(),
                         fontSize : $root.fenetre.theme.tableau.taille() + 'px',
                         color : $root.fenetre.theme.tableau.couleur(),
@@ -136,7 +135,7 @@
                         borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
                         }">
                         <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
-                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, attr : {
+                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, style : {
                                 fontFamily : $root.fenetre.theme.tableau_ligne.police(),
                                 fontSize : $root.fenetre.theme.tableau_ligne.taille() + 'px',
                                 color : $root.fenetre.theme.tableau_ligne.couleur(),
@@ -163,6 +162,21 @@
                                     borderColor :  $root.fenetre.theme.tableau_titre.bordure.couleur(),
                                     borderStyle : $root.fenetre.theme.tableau_titre.bordure.style(),
                                     borderWidth : $root.fenetre.theme.tableau_titre.bordure.taille() + 'px'
+                                }"></th> 
+                                <!-- /ko -->
+                                <!-- ko if: cellule.type_style() === "tableau_sous_titre" -->
+                                <th data-bind="text: $data.contenu, style: { 
+                                    fontFamily : $root.fenetre.theme.tableau_sous_titre.police(),
+                                    fontSize : $root.fenetre.theme.tableau_sous_titre.taille() + 'px',
+                                    color : $root.fenetre.theme.tableau_sous_titre.couleur(),
+                                    background : $root.fenetre.theme.tableau_sous_titre.couleur_fond(),
+                                    opacity : $root.fenetre.theme.tableau_sous_titre.opacite_fond(),
+                                    bold : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                    fontStyle : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                    textDecoration : $root.fenetre.theme.tableau_sous_titre.soulignement(),
+                                    borderColor :  $root.fenetre.theme.tableau_sous_titre.bordure.couleur(),
+                                    borderStyle : $root.fenetre.theme.tableau_sous_titre.bordure.style(),
+                                    borderWidth : $root.fenetre.theme.tableau_sous_titre.bordure.taille() + 'px'
                                 }"></th> 
                                 <!-- /ko -->
                                 <!-- ko if: cellule.type_style() === "tableau_texte" -->

@@ -3,7 +3,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="entete">
+        <div class="col-lg-12">
           <h1>Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
         </div>
     </div>
@@ -23,6 +23,14 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    <video width="100%" controls>
+                        <source data-bind="attr: { src: '/src/' + $root.videos()[0].chemin_fichier()}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+<!--                     <video width="100%" controls>
+                        <source src="/src/coffee.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
                     <a data-bind="attr: { href: '/src/'+ zone.video.chemin_fichier()}" >Visualiser la vidéo</a>
                 </div>
             </div>
@@ -35,4 +43,21 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <script src="/src/modifier_zone_video.js" type="text/javascript"></script>
+=======
+<script>
+    // viewModel.test = ko.observable(viewModel.zone.video.chemin_fichier());
+    // viewModel.media_focus = ko.observable(viewModel.zone.video.id());
+    // viewModel.media_focus.subscribe(function (data) {
+    //     for (var index in viewModel.videos()) {
+    //         if (viewModel.videos()[index].id() === viewModel.media_focus()){
+    //             viewModel.zone.video.id(viewModel.videos()[index].id());
+    //             viewModel.zone.video.nom(viewModel.videos()[index].nom());
+    //             viewModel.zone.video.chemin_fichier(viewModel.videos()[index].chemin_fichier());
+    //         }
+    //     }
+    // });
+        
+</script>
+>>>>>>> fbd17494eab97754ca0f000d04d327795370b2c9

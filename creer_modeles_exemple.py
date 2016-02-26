@@ -39,7 +39,7 @@ s = session()
 theme_1 = Theme(
     nom='Thème principal #1',
     titre=Style(
-        police="'KaushanScript', cursive",
+        police="KaushanScript-Regular",
         couleur="#ff7400",
         taille="28",
         couleur_fond="#000000",
@@ -50,12 +50,12 @@ theme_1 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="20",
         couleur_fond="",
@@ -63,12 +63,12 @@ theme_1 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2",
+            taille="0",
             style="solid"
         )
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -76,12 +76,12 @@ theme_1 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3",
+            taille="0",
             style="solid"
         )
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="#000000",
@@ -89,12 +89,12 @@ theme_1 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="4",
+            taille="0",
             style="solid"
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -102,12 +102,12 @@ theme_1 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="5",
+            taille="0",
             style="solid"
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="26",
         couleur_fond="",
@@ -117,12 +117,12 @@ theme_1 = Theme(
         type="tableau_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="6",
+            taille="0",
             style="solid"
         )
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="18",
         couleur_fond="",
@@ -131,12 +131,12 @@ theme_1 = Theme(
         type="tableau_sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="7",
+            taille="0",
             style="solid"
         )
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -144,7 +144,7 @@ theme_1 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="8",
+            taille="0",
             style="solid"
         )
     )
@@ -152,7 +152,7 @@ theme_1 = Theme(
 theme_2 = Theme(
     nom='Thème secondaire',
     titre=Style(
-        police="'KaushanScript', cursive",
+        police="KaushanScript-Regular",
         couleur="#ff7400",
         taille="32",
         couleur_fond="#000000",
@@ -162,12 +162,12 @@ theme_2 = Theme(
         type="titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="9",
+            taille="0",
             style="solid"
         )
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="26",
         couleur_fond="",
@@ -176,12 +176,12 @@ theme_2 = Theme(
         type="sous_titre",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="16",
         couleur_fond="",
@@ -189,12 +189,12 @@ theme_2 = Theme(
         type="texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="2",
+            taille="0",
             style="solid"
         )
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="#000000",
@@ -202,12 +202,12 @@ theme_2 = Theme(
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="3",
+            taille="0",
             style="solid"
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
         couleur_fond="",
@@ -215,12 +215,12 @@ theme_2 = Theme(
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="28",
         couleur_fond="",
@@ -233,7 +233,7 @@ theme_2 = Theme(
         )
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="22",
         couleur_fond="",
@@ -247,7 +247,7 @@ theme_2 = Theme(
         )
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="18",
         couleur_fond="",
@@ -255,7 +255,7 @@ theme_2 = Theme(
         type="tableau_texte",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="1",
+            taille="0",
             style="solid"
         )
     )
@@ -573,9 +573,3 @@ s.add_all([
 )
 
 s.commit()
-
-# for attr in vars(fenetre_repas):
-#     print(attr)
-# print("------")
-# for attr in vars(zone_1_repas):
-#     print(attr)

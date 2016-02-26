@@ -149,16 +149,18 @@
 <script type="text/html" id="styles-texte-template">
 	<div class="row">
     	<div class="col-md-7 col-xs-12">
-          	<div class="col-md-3 col-xs-12">
+          	<div class="col-md-4 col-xs-12">
 	          	<div class="input-group">
-  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
+  					<!-- <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
 				    <select class="form-control" data-role="none">
 				    	<option>Arial</option>
 				    	<option>Times New Roman</option>
-				    </select>
+				    </select> -->
+				    <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
+					<select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-12">
+			<div class="col-md-2 col-xs-12">
 	          	<div class="input-group">
   					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
 				    <input type="number" min="0" class="form-control" data-bind="textInput: taille">

@@ -56,33 +56,45 @@
             <ul class="list-group" id="zones">
               <li class="list-group-item">
                 <div class="row">
-                    <div class="col-lg-12 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <label>Écran #1 :</label>
                         <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_1.id"></select>
                     </div>
+                  <div class="col-lg-6 col-xs-12 badge_button">
+                      <a target="_blank" data-bind="attr: { href: '/a/'+ periode.fenetre_1.id()}">Afficher</a>
+                  </div>
                 </div>
               </li>
               <li class="list-group-item">
                 <div class="row">
-                    <div class="col-lg-12 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <label>Écran #2 :</label>
                         <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_2.id"></select>
                     </div>
+                  <div class="col-lg-6 col-xs-12 badge_button">
+                      <a target="_blank" data-bind="attr: { href: '/a/'+ periode.fenetre_2.id()}">Afficher</a>
+                  </div>
                 </div>
               </li>
               <li class="list-group-item">
                 <div class="row">
-                    <div class="col-lg-12 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <label>Écran #3 :</label>
                         <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_3.id"></select>
                     </div>
+                  <div class="col-lg-6 col-xs-12 badge_button">
+                      <a target="_blank" data-bind="attr: { href: '/a/'+ periode.fenetre_3.id()}">Afficher</a>
+                  </div>
                 </div>
               </li>
               <li class="list-group-item">
                 <div class="row">
-                  <div class="col-lg-12 col-xs-12">
+                  <div class="col-lg-6 col-xs-12">
                       <label>Écran #4 :</label>
                       <select class="form-control" data-role="none" data-bind="options: $root.fenetres, optionsText: 'nom', optionsValue: 'id', value: periode.fenetre_4.id"></select>
+                  </div>
+                  <div class="col-lg-6 col-xs-12 badge_button">
+                      <a target="_blank" data-bind="attr: { href: '/a/'+ periode.fenetre_4.id()}">Afficher</a>
                   </div>
                 </div>
               </li>

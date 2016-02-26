@@ -67,7 +67,6 @@ class ZoneImage(Zone):
             )
         if self.image != None: 
             results['image'] = self.image.serialiser_en_json()
-        print(results['image'])
         return results
 
     def deserialiser_de_json(self, session, data):
