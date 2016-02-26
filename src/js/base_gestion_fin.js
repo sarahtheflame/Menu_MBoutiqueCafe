@@ -26,5 +26,7 @@ $(document).ready(function(){
             return "Vous avez des données non-sauvegardées!";
         }
     });
+    $(':input[type="number"]').keydown(false);
+    $(':input[type="time"]').keydown(false);
 });
 

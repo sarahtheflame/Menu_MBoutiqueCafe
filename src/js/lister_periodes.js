@@ -19,6 +19,9 @@ $("body").on("click", ".retirer", function() {
         console.log("suppression annulée");
     }
 });
+$("body").on("click", ".afficher_periode_actuelle", function() {
+    $.post("/afficher_fenetres", {} );
+});
 
 /**
  * Création d'une nouvelle période avec un id à 0

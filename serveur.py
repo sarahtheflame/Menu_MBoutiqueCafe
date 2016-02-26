@@ -14,7 +14,7 @@ __email__ = "da.junior.du@gmail.com"
 __status__ = "Development"
 
 from gevent import monkey; monkey.patch_all()
-import json, os, bottle_sqlalchemy
+import json, os, bottle_sqlalchemy, webbrowser, datetime
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
@@ -188,6 +188,24 @@ def affichage(id_fenetre, db):
         'data' : get_affichage(db, id_fenetre)
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
+
+@app.route('/afficher_fenetres', method='POST')
+def afficher_fenetres(db):
+    """
+        Fonction associée à une route 'POST' qui obtient la période actuelle et affiche les fenêtres 
+        qui y sont associées dans le navigateur par défaut du système.
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    now = datetime.time(datetime.datetime.now().hour, datetime.datetime.now().minute)
+    periode = db.query(Periode).filter(Periode.heure_debut < now).order_by(
+        desc(Periode.heure_debut)).first()
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_1))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_2))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_3))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_4))
     
 #===============================================================================
 # Téléchargement de fichier

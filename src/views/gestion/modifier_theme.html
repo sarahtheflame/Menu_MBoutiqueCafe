@@ -163,7 +163,7 @@
 			<div class="col-md-3 col-xs-12">
 	          	<div class="input-group">
   					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
-				    <input type="number" min="0" class="form-control" data-bind="textInput: taille">
+				    <input type="number" pattern="^[0-9]*$"  min="0" class="form-control" data-bind="textInput: taille">
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-12">
@@ -216,7 +216,7 @@
 				<div class="col-md-3 col-xs-12">
 		          	<div class="input-group">
 	  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
-					    <input type="number" min="0" class="form-control" data-bind="textInput: bordure.taille">
+					    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-12">
