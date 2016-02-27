@@ -36,29 +36,6 @@ $(document).ready(function(){
      */
     viewModel.id_zone_focus = ko.observable();
 
-    function obtenir_liste_zone_valide() {
-        var zones_valides = [];
-        for (i = 0; i < viewModel.fenetre.zones().length; i++) { 
-            if (viewModel.fenetre.zones()[i].id() >= 0) {
-                zones_valides.push(i);
-            }
-        }
-        return zones_valides;
-    }
-
-    /**
-     * 
-     */
-    function mettre_a_jour_index(index) {
-        if (obtenir_liste_zone_valide().length > 0) {
-            viewModel.index_zone_focus = ko.observable(index);
-        }
-        else {
-            viewModel.index_zone_focus = ko.observable(-1);
-        }
-    }
-    mettre_a_jour_index(0)
-
     /**
      * @param  {integer} id : id de la zone à vérifier
      * @return {Boolean} : indique si la zone est sélectionnée
@@ -110,6 +87,36 @@ function appliquer_modifications(fileName) {
     });
 }
 
+function obtenir_liste_zone_valide() {
+    var zones_valides = [];
+    for (i = 0; i < viewModel.fenetre.zones().length; i++) { 
+        if (viewModel.fenetre.zones()[i].id() >= 0) {
+            zones_valides.push(i);
+        }
+    }
+    return zones_valides;
+}
+
+    if (obtenir_liste_zone_valide().length > 0) {
+        viewModel.index_zone_focus = ko.observable(0);
+    }
+    else {
+        viewModel.index_zone_focus = ko.observable(-1);
+    }
+
+    /**
+     * 
+     */
+    function mettre_a_jour_index(index) {
+        if (obtenir_liste_zone_valide().length > 0) {
+            viewModel.index_zone_focus(index);
+        }
+        else {
+            viewModel.index_zone_focus(-1);
+        }
+    }
+
+
 /**
  * 
  * 
@@ -120,13 +127,17 @@ function deplacement_index_zone_focus(val) {
     do {
         if (viewModel.index_zone_focus()+val >= viewModel.fenetre.zones().length) {
             viewModel.index_zone_focus(0);
+            mettre_a_jour_index(viewModel.index_zone_focus());
         }
         else if (viewModel.index_zone_focus()+val < 0) {
             viewModel.index_zone_focus(viewModel.fenetre.zones().length-1);
+            mettre_a_jour_index(viewModel.index_zone_focus());
         }
         else {
             viewModel.index_zone_focus(viewModel.index_zone_focus()+val);
+            mettre_a_jour_index(viewModel.index_zone_focus());
         }
+        console.log(viewModel.fenetre.zones()[viewModel.index_zone_focus()].id());
     }
     while (viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() <= 0);
 }
@@ -139,17 +150,13 @@ function deplacement_index_zone_focus(val) {
  * Lancé lors d'un clic sur un élément qui porte la classe retirer
  */
 $("body").on("click", ".retirer_zone", function() {
-    for (var index in viewModel.fenetre.zones()) {
-        if (viewModel.fenetre.zones()[index].id() === viewModel.id_zone_focus()){
-            var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + viewModel.fenetre.zones()[index].nom() +"?");
-            if (confirmation) {
-                viewModel.fenetre.zones()[index].id(-(viewModel.fenetre.zones()[index].id));
-            } else {
-                console.log("suppression annulée");
-            }
-        }
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + viewModel.fenetre.zones()[viewModel.index_zone_focus()].nom() +"?");
+    if (confirmation) {
+        viewModel.fenetre.zones()[viewModel.index_zone_focus()].id(-(viewModel.fenetre.zones()[viewModel.index_zone_focus()].id()));
+        deplacement_index_zone_focus(1);
+    } else {
+        console.log("suppression annulée");
     }
-    
 });
 
 /**
@@ -165,6 +172,7 @@ $("body").on("click", ".bouton_retirer_zone", function() {
 
     if (confirmation) {            
         context.$data.id(-id);
+        deplacement_index_zone_focus(1);
     } else {
         console.log("suppression annulée");
     }
