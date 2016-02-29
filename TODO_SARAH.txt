@@ -6,3 +6,6 @@ BASE_GESTION :
 LISTE FENÊTRES : 
 - ajouter sélection du thème dans l'entête de chaque fenêtre
 - haut fixe avec option « nouvelle fenêtre »
+
+Zones.py : 
+- Dimensions et positions par défaut
