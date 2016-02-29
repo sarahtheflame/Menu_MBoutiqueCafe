@@ -35,6 +35,30 @@ table {
 	width: 15px;
 }
 
+.choix_couleur_fond, .choix_couleur_texte, .choix_couleur_bordure {
+    cursor: pointer;
+    background-color: #e6e6e6;
+    &:hover {
+        box-shadow: 1px 1px 40px #bbb inset;
+        border-color: #8c8c8c;
+    }
+}
+
+.exemple_couleur {
+    padding: 0px;
+    margin: 0px;
+    border-left: 1px solid #ccc;
+    border-right: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    i {
+        margin: 1px 0px 0px 0px;
+        height: 100%;
+        width: 12px;
+        display: inline-block;
+    }
+}
+
 .spacer {
 	margin-bottom: 100px;
 }
