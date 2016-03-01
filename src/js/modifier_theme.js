@@ -10,6 +10,8 @@ $(document).ready(function(){
 	viewModel.choix_style_bordure = ko.observableArray([
 		{ nom: "Solide", attribut: "solid" },
 	    { nom: "Pointillée", attribut: "dotted" },
+	    { nom: "Lignée", attribut: "dashed"},
+	    { nom : "Double", attribut: "double"},
 	    { nom: "Aucune", attribut: "none" }
 	]);
 
