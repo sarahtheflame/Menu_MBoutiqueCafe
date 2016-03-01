@@ -3,7 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 id="titre_page">Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
+            <h1 id="titre_page">Modifier la zone « 
+                <div class="nom" data-bind="text: zone.nom, tooltip: { title: zone.nom, placement: 'bottom' }">
+                </div>
+                »
+             </h1>
             <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
