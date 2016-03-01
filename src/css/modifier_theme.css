@@ -72,8 +72,13 @@ table tr td {
   }
 }
 .nom_theme {
-  display: inline;
-  max-width: 100px;
-  max-height: 50px;
-  test-overflow: ellipsis;
+  margin: 0px;
+  padding: 0px;
+  height: 25px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+  height: 100%;
 }
