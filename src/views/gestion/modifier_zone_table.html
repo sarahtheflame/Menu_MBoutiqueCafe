@@ -4,11 +4,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="entete">
-          <h1 id="titre_page">Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
-          <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <div class="col-lg-12">
+            <h1 id="titre_page">Modifier la zone « <span data-bind="text: zone.nom()"></span> »</h1>
+            <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-md-12">
             <form>

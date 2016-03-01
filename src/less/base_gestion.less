@@ -4,12 +4,15 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  // overflow: hidden;
   width: 100%;
 }
 
 .row {
   margin-top: 15px;
+}
+
+.container {
+  margin-top: 45px;
 }
 
 .vertical_align {
@@ -34,8 +37,11 @@ body {
   color: #FFF;
 }
 
-.container {
-  margin-top: 55px;
+.nav_icon {
+  width: 10%;
+  margin-right: 15px;
+  margin-left: 15px;
+  display: inline;
 }
 //==============================================================================
 // HEADER
@@ -43,7 +49,7 @@ body {
 #header {
   display: table;
   width: 100vw;
-  height: 50px;
+  height: 45px;
   background: @fond_menu_navigation_haut;
   
   .toggle_sidebar {
@@ -132,6 +138,7 @@ body {
 // CONTENU
 //==============================================================================
 #content {
+  box-shadow: 0px 0px 40px black;
   width: 100vw;
   min-height: 100vh;
   float: right;
@@ -243,6 +250,17 @@ body {
   &:hover {
     background-color: darken(@orange, 10%);
     border: 1px solid darken(@orange, 10%);
+  }
+}
+.btn-secondary {
+  width: 100%;
+  color: #fff;
+  background-color: @gris_pale;
+  border: 1px solid @gris_pale;
+  &:hover {
+    color: #fff;
+    background-color: darken(@gris_pale, 5%);
+    border: 1px solid darken(@gris_pale, 5%);
   }
 }
 

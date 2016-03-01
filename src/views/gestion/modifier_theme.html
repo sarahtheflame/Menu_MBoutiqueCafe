@@ -190,11 +190,19 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-12">
-				<div class="input-group ">
+				<!-- <div class="input-group ">
 			    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
 				    <input type="text" class="form-control choix_couleur_texte" data-bind="value: couleur, style: {
                     backgroundColor : couleur}"/>
-				</div>
+				</div> -->
+				<div class="input-group">
+					<span class="input-group-addon choix_couleur_texte"><img src="../src/icons/text-color.png"></span>
+					<span class="input-group-addon exemple_couleur">
+                        <i data-bind="style: { backgroundColor : couleur}"></i>
+                    </span>
+                    <input type="text" class="form-control" data-bind="value: couleur"/>
+                    
+                </div>
 			</div>
 	    </div>
 
@@ -230,10 +238,18 @@
 					</div>
 				</div>
 				<div class="col-md-3 col-xs-12">
-					<div class="input-group ">
+					<div class="input-group">
+						<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
+						<span class="input-group-addon exemple_couleur">
+	                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
+	                    </span>
+	                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
+	                    
+	                </div>
+					<!-- <div class="input-group ">
 				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
 					    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
-					</div>
+					</div> -->
 				</div>
 				<!-- ko if: type() == 'tableau' -->
 				<div class="col-md-3 col-xs-12">

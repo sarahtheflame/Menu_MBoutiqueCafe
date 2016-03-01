@@ -4,15 +4,15 @@
 <div class="modal fade" id="modal_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form action="/g/televerser" method="post" enctype="multipart/form-data" data-ajax="false" >
+      <form name="add_image" id="add_image" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="label_image_titre">Ajouter une image</h4>
         </div>
         <div class="modal-body">
           <div>
-            Nom de l'image: <input type="text" name="nom" />
-            Choisissez un fichier: <input type="file" name="fichier" />
+              Nom de l'image: <input type="text" name="nom" />
+              Choisissez un fichier: <input type="file" name="fichier" accept="image/*"/>
           </div> 
         </div>
         <div class="modal-footer">
@@ -27,19 +27,22 @@
 <div class="modal fade" id="modal_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="label_video_titre">Ajouter une vidéo</h4>
-      </div>
-      <div class="modal-body">
-        <div>
-
-        </div> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="button" class="ajouter_video btn btn-primary">Ajouter</button>
-      </div>
+      <form name="add_video" id="add_video" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="label_video_titre">Ajouter une vidéo</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            Nom du vidéo: <input type="text" name="nom" />
+            Choisissez un fichier: <input type="file" name="fichier" accept="video/*"/>
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -52,7 +55,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
       <div class="panel-group custom" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
           <div class="panel-heading" role="tab">
@@ -70,10 +73,10 @@
           </div>
            <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
             <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
-              <!-- ko if: $data.id() > 1 -->
+              <!-- ko if: $data.id() > 0 -->
               <li class="list-group-item">
                 <div class="row">
-                  <div class="col-lg-2">
+                  <div class="col-lg-4">
                     <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="100%">
                   </div>
                   <div class="col-lg-4">
@@ -81,8 +84,8 @@
                       <strong>Nom de l'image : </strong><span data-bind="text: $data.nom()"></span>
                     </div>
                   </div>
-                  <div class="col-lg-6">
-                    <a href="#" class="retirer">X</a>
+                  <div class="col-lg-4">
+                    <a class="retirer">X</a>
                     <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
                   </div>
                 </div>
@@ -92,26 +95,28 @@
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image">+ Ajouter une image</button>
     </div>
 
-      <div class="col-lg-12">
-        <div class="panel-group custom" role="tablist" aria-multiselectable="true">
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab">
-              <h4 class="panel-title">
-                <div class="row">
-                  <div class="col-md-12 col-xs-12">
-                    <h2>
-                      <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
-                      Videos <span class="caret"></span>
-                      </a>
-                    </h2>
-                  </div>
+    <div class="col-lg-6">
+      <div class="panel-group custom" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <h2>
+                    <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
+                    Videos <span class="caret"></span>
+                    </a>
+                  </h2>
                 </div>
-              </h4>
-            </div>
-             <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
-              <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+              </div>
+            </h4>
+          </div>
+           <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
+            <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+              <!-- ko if: $data.id() > 0 -->
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-lg-4">
@@ -126,22 +131,22 @@
                       </div>
                     </div>
                     <div class="col-lg-4">
-                     <a href="#" class="retirer">X</a>
+                     <a class="retirer">X</a>
                       <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
                     </div>
                   </div>
                 </li>
-              </ul>
-            </div>
+              <!-- /ko -->
+            </ul>
           </div>
         </div>
       </div>
-
-      <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image">+ Ajouter une image</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video">+ Ajouter une video</button>
-      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video">+ Ajouter une video</button>
+    </div>
   </div>  
 </div>
 
 <script type='text/javascript' src='/src/medias.js'></script>
+<script>
+  
+</script>

@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import json
-from os import path, listdir
+import json, os
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -280,17 +279,33 @@ def post_medias(s, data):
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'medias'.
     """
-    for media in data['medias']:
-        if media['id'] == 0:
-            nouveau_media = Media()
-            nouveau_media.deserialiser_de_json(s, media)
-            s.add(nouveau_media)
-        elif media['id'] > 0:
-            s.query(Media).filter(Media.id == media['id']).one().deserialiser_de_json(s, media)
-        elif media['id'] < 0:
-            s.delete(s.query(Media).filter(Media.id == -media['id']).one())
-    return True
-
+    try:
+        for media in data['images']:
+            if media['id'] == 0:
+                nouveau_media = Image()
+                nouveau_media.deserialiser_de_json(s, media)
+                s.add(nouveau_media)
+            elif media['id'] > 0:
+                s.query(Image).filter(Image.id == media['id']).one().deserialiser_de_json(s, media)
+            elif media['id'] < 0:
+                s.delete(s.query(Image).filter(Image.id == -media['id']).one())
+                os.remove("src/images/" + media['chemin_fichier'])
+    except:
+        print("Aucune image à modifier")
+    try:
+        for media in data['videos']:
+            if media['id'] == 0:
+                nouveau_media = Video()
+                nouveau_media.deserialiser_de_json(s, media)
+                s.add(nouveau_media)
+            elif media['id'] > 0:
+                s.query(Video).filter(Video.id == media['id']).one().deserialiser_de_json(s, media)
+            elif media['id'] < 0:
+                s.delete(s.query(Video).filter(Video.id == -media['id']).one())
+                os.remove("src/videos/" + media['chemin_fichier'])
+    except:
+        print("Aucune vidéo à modifier")
+        
 def post_modifier_theme(s, data):
     """
         Enregistre les modifications apporté aux informations de la page 'modifier_theme'.
@@ -452,7 +467,7 @@ def obtenir_noms_polices():
         Argument(s) :
             ---
     """
-    polices = listdir("src//fonts")
+    polices = os.listdir("src//fonts")
     for x in range(0, len(polices)):
         polices[x] = polices[x].split('.')[0]
     return polices

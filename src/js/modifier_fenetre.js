@@ -208,6 +208,7 @@ viewModel.image_fond_focus.subscribe(function (data) {
         }
     }
 });
+
 /**
  * Variable représentant le thème sélectionné
  */
