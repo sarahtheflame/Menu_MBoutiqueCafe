@@ -3,6 +3,8 @@
  */
 $(document).ready(function(){
 
+    
+
 	/**
 	 * Formatte la couleur sélectionnée par le sélecteur de couleur au format rgba et l'attribue à 
 	 * couleur_fond de la fenêtre

@@ -135,6 +135,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
 }
 .row {
@@ -279,6 +281,7 @@ body {
 #content.show_sidebar {
   width: 90vw;
   transition: width 0.4s;
+  margin-right: -15px;
 }
 .disabled {
   pointer-events: all !important;

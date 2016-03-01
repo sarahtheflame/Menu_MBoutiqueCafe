@@ -15,11 +15,14 @@
         <script type='text/javascript' src='/src/interact-1.2.5.min.js'></script>
         <script type='text/javascript' src='/src/interactApp.js'></script>
         <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
+        <script src="/src/bootstrap.js"></script>
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
+        <script type='text/javascript' src='/src/knockstrap.min.js'></script>
         <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.min.css">
         <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+
         <script>
             var viewModel = ko.mapping.fromJS({{!data}});
         </script>
@@ -162,8 +165,8 @@
             <span class="toggle_sidebar option_left">»</span>
             <div id="sidebar">
                 <span class="toggle_sidebar option_right">«</span>
-                <div class="sidebar_row">
-                    <h1 data-bind="text: fenetre.nom"></h1>
+                <div class="sidebar_row text-center">
+                    <div class="changer_zone"><h1 data-bind="text: fenetre.nom, tooltip: { title: fenetre.nom, placement: 'bottom' }"></h1></div>
                 </div>
                 <div class="sidebar_row form-inline">
                     <label class="sidebar_label">Nom : </label>
@@ -201,7 +204,7 @@
                 <!-- ko if: $root.index_zone_focus() != -1 -->
                 <div class="sidebar_row form-inline text-center">
                     <div class="changer_zone badge_button" id="changer_zone-gauche" width="20"><a onclick="deplacement_index_zone_focus(-1)"><</a></div>
-                    <div class="changer_zone center"><h1 data-bind="text: $root.fenetre.zones()[$root.index_zone_focus()].nom()"></h1></div>
+                    <div class="changer_zone center"><h1 data-bind="text: $root.fenetre.zones()[$root.index_zone_focus()].nom(), tooltip: { title: $root.fenetre.zones()[$root.index_zone_focus()].nom(), placement: 'bottom' }"></h1></div>
                     <div class="changer_zone badge_button" id="changer_zone-droite" width="20"><a onclick="deplacement_index_zone_focus(1)">></a></div>
                 </div>
                 <div class="sidebar_row badge_button text-center">

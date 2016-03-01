@@ -4,6 +4,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -165,6 +167,7 @@ body {
 #content.show_sidebar {
   width: 90vw;
   transition: width @transition_time;
+  margin-right: -15px;
 }
 
 .disabled {
