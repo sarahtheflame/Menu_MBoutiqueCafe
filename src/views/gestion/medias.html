@@ -55,7 +55,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
       <div class="panel-group custom" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
           <div class="panel-heading" role="tab">
@@ -71,79 +71,89 @@
               </div>
             </h4>
           </div>
-           <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
-            <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
-              <!-- ko if: $data.id() > 0 -->
-              <li class="list-group-item">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="100%">
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="vertical_align">
-                      <strong>Nom de l'image : </strong><span data-bind="text: $data.nom()"></span>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <a class="retirer">X</a>
-                    <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
-                  </div>
-                </div>
-              </li>
-              <!-- /ko -->
-            </ul>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image">+ Ajouter une image</button>
-    </div>
-
-    <div class="col-lg-6">
-      <div class="panel-group custom" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab">
-            <h4 class="panel-title">
-              <div class="row">
-                <div class="col-md-12 col-xs-12">
-                  <h2>
-                    <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
-                    Videos <span class="caret"></span>
-                    </a>
-                  </h2>
-                </div>
-              </div>
-            </h4>
-          </div>
-           <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
-            <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
-              <!-- ko if: $data.id() > 0 -->
+             <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
+              <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
+                <!-- ko if: $data.id() > 0 -->
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-lg-4">
-                      <video class="img-thumbnail" width="100%" controls>
-                        <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type="video/mp4">
-                        Your browser does not support the video tag.
-                      </video>
+                      <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="100%">
                     </div>
                     <div class="col-lg-4">
                       <div class="vertical_align">
-                        <strong>Nom du vidéo : </strong><span data-bind="text: $data.nom()"></span>
+                        <strong>Nom de l'image : </strong><span data-bind="text: $data.nom()"></span>
                       </div>
                     </div>
                     <div class="col-lg-4">
-                     <a class="retirer">X</a>
+                      <a class="retirer">X</a>
                       <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
                     </div>
                   </div>
                 </li>
-              <!-- /ko -->
-            </ul>
+                <!-- /ko -->
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video">+ Ajouter une video</button>
     </div>
-  </div>  
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image">+ Ajouter une image</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel-group custom" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+              <h4 class="panel-title">
+                <div class="row">
+                  <div class="col-md-12 col-xs-12">
+                    <h2>
+                      <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
+                      Videos <span class="caret"></span>
+                      </a>
+                    </h2>
+                  </div>
+                </div>
+              </h4>
+            </div>
+             <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
+              <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+                <!-- ko if: $data.id() > 0 -->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <video class="img-thumbnail" width="100%" controls>
+                          <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="vertical_align">
+                          <strong>Nom du vidéo : </strong><span data-bind="text: $data.nom()"></span>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                       <a class="retirer">X</a>
+                        <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                      </div>
+                    </div>
+                  </li>
+                <!-- /ko -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video">+ Ajouter une video</button>
+      </div>
+    </div>
 </div>
 
 <script type='text/javascript' src='/src/medias.js'></script>
