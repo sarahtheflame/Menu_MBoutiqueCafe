@@ -71,14 +71,3 @@ table tr td {
     margin: 20px auto;
   }
 }
-.nom_theme {
-  margin: 0px;
-  padding: 0px;
-  height: 25px;
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 150px;
-  height: 100%;
-}

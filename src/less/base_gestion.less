@@ -38,6 +38,20 @@ body {
 #titre_page {
   font-size: 42px;
   color: #FFF;
+
+  .nom { 
+    margin: 0px;
+    padding: 0px;
+    height: 25px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    max-width: 330px;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+} 
 }
 
 .nav_icon {
@@ -154,7 +168,7 @@ body {
   transition: width @transition_time;
   h1 {
     display: inline-block;
-    width: 60%;
+    width: 65%;
     transition: width @transition_time;
   }
   .aide {
