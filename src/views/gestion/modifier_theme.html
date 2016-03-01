@@ -7,11 +7,25 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1>Modifier le thème « <span data-bind="text: theme.nom"></span> »</h1>
+			
+				<h1 id="titre_page">Modifier le thème « 
+					<div class="nom_theme">
+						<span data-bind="text: theme.nom"></span>
+					</div>
+				 »
+				 </h1>	
+			
 		</div>
 	</div>
 
 	<hr/>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<label for="nom_theme">Nom du thème : </label>
+			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom"></input>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-lg-12">

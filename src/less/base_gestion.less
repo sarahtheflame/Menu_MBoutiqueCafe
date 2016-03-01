@@ -4,7 +4,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
+  // overflow: hidden;
   width: 100%;
 }
 
@@ -14,6 +14,28 @@ body {
 
 .vertical_align {
   padding-top: 15px;
+}
+
+#fond_template {
+  width: 100vw;
+}
+
+.crop {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+#titre_page {
+  font-size: 42px;
+  color: #FFF;
+}
+
+.container {
+  margin-top: 55px;
 }
 //==============================================================================
 // HEADER
@@ -111,10 +133,10 @@ body {
 //==============================================================================
 #content {
   width: 100vw;
-  height: ~"calc(100vh - 50px)";
+  min-height: 100vh;
   float: right;
   position: relative;
-  margin-top: 50px;
+  padding-top: 50px;
   padding-bottom: 50px;
   word-wrap: break-word;
   background: @fond_contenu;
@@ -214,3 +236,25 @@ body {
     }
   }
 }
+
+.btn-primary {
+  background-color: @orange;
+  border: 1px solid @orange;
+  &:hover {
+    background-color: darken(@orange, 10%);
+    border: 1px solid darken(@orange, 10%);
+  }
+}
+
+// a {
+//   color: #666;
+//   &:hover {
+//     color: darken(#666, 10%);
+//   }
+//   // &:active {
+//   //   color: darken(@orange, 10%);
+//   // }
+//   // &:visited {
+//   //   color: darken(@orange, 10%);
+//   // }
+// }
