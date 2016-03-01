@@ -1,3 +1,10 @@
+.aligner_verticalement > * {
+  vertical-align: middle;
+  margin: 0px 5px;
+}
+.aligner_verticalement select.form-control {
+  width: 45%;
+}
 select.form-control {
   width: 30%;
   display: inline-block;
