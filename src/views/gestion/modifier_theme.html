@@ -16,7 +16,7 @@
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-12 col-md-12 col-lg-2 aligner_verticalement">
+		<div class="col-xs-12 col-md-12 col-lg-12 aligner_verticalement">
 			<label for="nom_theme">Nom du thème : </label>
 			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom"></input>
 		</div>
@@ -217,9 +217,8 @@
 </script>
 
 <script type="text/html" id="styles-tableau-template">
-    <div class="container">
     	<div class="row">
-        	<div class="col-xs-12 col-md-7 col-lg-7">
+        	<div class="col-xs-12 col-md-12 col-lg-12">
 	          	<div class="col-xs-12 col-md-3 col-lg-3">
 		          	<div class="input-group">
 	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
@@ -258,9 +257,11 @@
 				<!-- /ko -->
 		    </div>
 		</div>
-    </div>
+
 </script>
 
 <!-- Fix temporaire : le dernier afterRender ne semble pas fonctionner, alors je l'appelle sur un template vide pour que le vrai dernier fonctionne -->
 <script type="text/html" id="fix">
 </script>
+
+<div style="padding-bottom: 140px;"></div>

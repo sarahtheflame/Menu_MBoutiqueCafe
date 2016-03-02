@@ -1,14 +1,13 @@
 BASE_GESTION : 
 - bouton toggle_sidebar (changer état quand ouvert ou fermé)
 - btn_default : changer background-color quand :active
-- séparer css content
 
 LISTE FENÊTRES : 
 - ajouter sélection du thème dans l'entête de chaque fenêtre
 - haut fixe avec option « nouvelle fenêtre »
 
-Zones.py : 
-- Dimensions et positions par défaut
+MODIFIER THÈME :
+- arranger colonnes templates (input police plus large que input taille)
 
 divers:
 - limites de caractères dans les inputs

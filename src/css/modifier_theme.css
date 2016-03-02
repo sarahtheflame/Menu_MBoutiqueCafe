@@ -59,7 +59,7 @@ table tr td {
 .spacer {
   margin-bottom: 100px;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1170px) {
   .input-group,
   .btn-group {
     padding: 5px;
