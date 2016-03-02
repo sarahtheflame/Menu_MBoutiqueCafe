@@ -11,6 +11,7 @@ __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 from sqlalchemy import *
 from modeles.base import Base
 from modeles.style import Style
+from modeles.bordure import Bordure
 from sqlalchemy.orm import relationship, backref, sessionmaker
 
 class Theme(Base):
