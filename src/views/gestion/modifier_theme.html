@@ -4,7 +4,7 @@
 <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 <script src="/src/modifier_theme.js" type="text/javascript"></script>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 id="titre_page">Modifier le thème « 
@@ -241,7 +241,6 @@
 	                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
 	                    </span>
 	                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
-	                    
 	                </div>
 					<!-- <div class="input-group ">
 				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
@@ -250,11 +249,18 @@
 				</div>
 				<!-- ko if: type() == 'tableau' -->
 				<div class="col-md-3 col-xs-12">
-				    <div class="input-group ">
+<!-- 				    <div class="input-group ">
 				    	<span class="input-group-addon"><img src="../src/icons/background.png"></span>
 					    <input type="text" class="form-control choix_couleur_fond" data-bind="value: couleur_fond, style: {
                         backgroundColor: couleur_fond}"/>
-					</div>
+					</div> -->
+					<div class="input-group">
+						<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
+						<span class="input-group-addon exemple_couleur">
+	                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
+	                    </span>
+	                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
+	                </div>
 				</div>
 				<!-- /ko -->
 		    </div>

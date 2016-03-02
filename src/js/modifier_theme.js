@@ -21,7 +21,7 @@ $(document).ready(function(){
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
-	    $('.choix_couleur_texte').colorpicker().on('changeColor.colorpicker', function(event){
+	    $('.choix_couleur_texte').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
 	  		context.$data.couleur(nouvelle_couleur);
@@ -34,7 +34,7 @@ $(document).ready(function(){
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
-	    $('.choix_couleur_bordure').colorpicker().on('changeColor.colorpicker', function(event){
+	    $('.choix_couleur_bordure').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
 	  		context.$data.bordure.couleur(nouvelle_couleur);
@@ -47,7 +47,7 @@ $(document).ready(function(){
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
-	    $('.choix_couleur_fond').colorpicker().on('changeColor.colorpicker', function(event){
+	    $('.choix_couleur_fond').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
 	  		context.$data.couleur_fond(nouvelle_couleur);

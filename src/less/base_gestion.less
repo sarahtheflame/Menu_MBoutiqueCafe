@@ -4,9 +4,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   width: 100%;
+  height: 100%;
 }
 
 .row {
@@ -89,7 +90,7 @@ body {
     float: right;
     height: 100%;
     margin-top: 5px;
-    margin-right: 15px;
+    margin-right: 25px;
   }
   .colonne {
     display: inline-block;
@@ -163,7 +164,9 @@ body {
   padding-bottom: 50px;
   word-wrap: break-word;
   background: @fond_contenu;
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 100%;
+
   transition: width @transition_time;
   h1 {
     display: inline-block;
@@ -181,7 +184,6 @@ body {
 #content.show_sidebar {
   width: 90vw;
   transition: width @transition_time;
-  margin-right: -15px;
 }
 
 .disabled {
@@ -216,7 +218,7 @@ body {
 }
 @media only screen and (max-width: 1170px) {
   #content.show_sidebar {
-    width: 70vw;
+    width: 80vw;
   }
   #sidebar {
     width: 20vw;
