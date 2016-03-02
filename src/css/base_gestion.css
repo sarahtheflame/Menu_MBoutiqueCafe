@@ -39,12 +39,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   width: 100%;
-}
-.container {
-  margin-top: 60px;
+  height: 100%;
 }
 .vertical_align {
   padding-top: 15px;
@@ -53,21 +51,27 @@ body {
   width: 100vw;
 }
 .crop {
-  position: absolute;
+  background: url('/src/test.jpg');
+  background-size: 100vw;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 200px;
   overflow: hidden;
 }
+.crop > * {
+  position: relative;
+  bottom: -55%;
+}
 #titre_page {
-  font-size: 42px;
+  width: 50%;
+  padding-left: 15px;
+  font-size: 36px;
   color: #FFF;
 }
 #titre_page .nom {
   margin: 0px;
   padding: 0px;
-  height: 25px;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,7 +114,7 @@ body {
   float: right;
   height: 100%;
   margin-top: 5px;
-  margin-right: 15px;
+  margin-right: 25px;
 }
 #header .colonne {
   display: inline-block;
@@ -173,16 +177,14 @@ body {
   float: right;
   min-height: 100vh;
   position: relative;
-  padding-top: 50px;
-  padding-bottom: 50px;
   word-wrap: break-word;
   background: #FFF;
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 100%;
   transition: width 0.4s;
 }
 #content h1 {
   display: inline-block;
-  width: 65%;
   transition: width 0.4s;
 }
 #content .aide {
@@ -219,56 +221,18 @@ body {
 .panel-collapse > .list-group-item {
   background-color: #efefef;
 }
-@media only screen and (max-width: 1170px) {
-  #content {
-    width: 100vw;
-  }
-  #content.show_sidebar {
-    width: 80vw;
-  }
-  #content.show_sidebar .container {
-    width: 80vw;
-  }
-  #sidebar {
-    width: 20vw;
-  }
-}
-@media only screen and (max-width: 1024px) {
-  #titre_page {
-    font-size: 26px;
-  }
-  #content {
-    width: 100vw;
-  }
-  #content.show_sidebar {
-    width: 80vw;
-  }
-  #sidebar {
-    width: 20vw;
-  }
-}
-@media only screen and (max-width: 970px) {
-  #content {
-    width: 100vw;
-  }
-  #content.show_sidebar {
-    width: 80vw;
-  }
-  #sidebar {
-    width: 20vw;
-  }
-}
 @media only screen and (max-width: 768px) {
-  .container {
-    margin-top: 40px;
+  .crop > * {
+    margin-left: 15px;
+    bottom: -45%;
   }
   #content {
-    left: 0;
+    left: 100vw;
     width: 100vw;
     transition: left 0.4s;
   }
   #content.show_sidebar {
-    left: 100vw;
+    left: 0vw;
     width: 100vw;
     transition: left 0.4s;
   }
@@ -292,19 +256,6 @@ body {
   }
   #titre_page {
     font-size: 26px;
-    color: #FFF;
-  }
-  #titre_page .nom {
-    margin: 0px;
-    padding: 0px;
-    height: 25px;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 35%;
-    height: 100%;
-    vertical-align: middle;
-    text-align: center;
+    width: 100%;
   }
 }
