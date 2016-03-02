@@ -41,9 +41,18 @@ class Fenetre(Base):
                 classe 'Zone').
     """
     __tablename__ = 'Fenetres'
-    id = Column(Integer, primary_key=True)
-    nom = Column(String, default="Fenetre sans nom")
-    couleur_fond = Column(String, default="#FFFFFF")
+    id = Column(
+        Integer, 
+        primary_key=True
+        )
+    nom = Column(
+        String, 
+        default="Fenetre sans nom"
+        )
+    couleur_fond = Column(
+        String, 
+        default="#FFFFFF"
+        )
     id_image_fond = Column(
         Integer, 
         ForeignKey('Images.id', onupdate="cascade", ondelete="set default"), 
@@ -97,7 +106,9 @@ class Fenetre(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('image_fond') == None or data.get('image_fond')['chemin_fichier'] == "undefined" : self.id_image_fond = "undefined"
         else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']

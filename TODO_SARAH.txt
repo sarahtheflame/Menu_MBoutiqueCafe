@@ -9,3 +9,9 @@ LISTE FENÊTRES :
 
 Zones.py : 
 - Dimensions et positions par défaut
+
+divers:
+- limites de caractères dans les inputs
+- page d'accueil
+- modifier fenetre : ne pas considérer changement de zone_focus comme une modification non sauvegardée
+- périodes : deux boutons pour afficher la fenêtre dans l'écran + sur le serveur

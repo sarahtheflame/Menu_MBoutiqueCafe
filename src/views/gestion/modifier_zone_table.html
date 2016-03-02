@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 table-responsive">
             <table class="table table-bordered">
                 <tr>
                     <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
@@ -68,7 +68,7 @@
                             </div>
                 		</td>
                         <!-- /ko -->
-                        <td>
+                        <td class="colonne_retirer">
                             <div class="badge_button">
                                 <a href="#" class="retirer">X</a>
                             </div>
@@ -79,7 +79,6 @@
                 <tr>
                     <th class="badge_button" data-bind="attr: {colspan : $root.zone.nombre_colonnes()+1}">
                         <a href="#" class="ajouter_ligne">+ Ajouter une ligne</a>
-                      Nouvelle zone
                     </th>
                 </tr>
             </table>

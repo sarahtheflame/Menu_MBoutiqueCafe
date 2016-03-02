@@ -85,7 +85,9 @@ class ZoneVideo(Zone):
                     self.video = session.query(Video).filter(Video.id == data['video']['id']).one()
         else:
             self.video = session.query(Video).filter(Video.id == 1).one()
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
         if data.get('position_z') != None : self.position_z = data['position_z']
