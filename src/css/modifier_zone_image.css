@@ -8,3 +8,6 @@ select.form-control {
   width: 70%;
   display: inline-block;
 }
+#image_preview {
+  padding-top: 50px;
+}

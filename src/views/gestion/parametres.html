@@ -51,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label>Mots de passe : </label>
-                <input type="password" id="administrateur_mot_de_passe" data-bind="value: administrateur.mot_de_passe()" disabled></input>
+                <input type="password" class="form-control" id="administrateur_mot_de_passe" data-bind="value: administrateur.mot_de_passe()" disabled></input>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" onchange="document.getElementById('administrateur_mot_de_passe').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?

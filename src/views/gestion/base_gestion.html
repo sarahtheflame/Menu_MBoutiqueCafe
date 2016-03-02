@@ -18,9 +18,14 @@
     <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/src/base_gestion.css">
-<!-- 
+
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-     -->
+    <script>
+    $(document).on("mobileinit", function(){
+        $.mobile.ajaxEnabled=false;
+        $.mobile.loadingMessage = false;
+    });            
+    </script>
     <script src="/src/bootstrap.js"></script>
     <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
     <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>

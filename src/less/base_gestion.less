@@ -9,13 +9,8 @@ body {
   width: 100%;
 }
 
-// .row {
-//   margin-top: 15px;
-//   margin-bottom: 15px;
-// }
-
 .container {
-  margin-top: 45px;
+  margin-top: 60px;
 }
 
 .vertical_align {
@@ -38,20 +33,19 @@ body {
 #titre_page {
   font-size: 42px;
   color: #FFF;
-
   .nom { 
-    margin: 0px;
-    padding: 0px;
-    height: 25px;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    max-width: 330px;
-    height: 100%;
-    vertical-align: middle;
-    text-align: center;
-} 
+      margin: 0px;
+      padding: 0px;
+      height: 25px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; 
+      max-width: 35%;
+      height: 100%;
+      vertical-align: middle;
+      text-align: center;
+  } 
 }
 
 .nav_icon {
@@ -103,7 +97,7 @@ body {
 //==============================================================================
 #sidebar {
   width: 10vw;
-  height: 100vh;
+  height: 100%;
   display: block;
   position: fixed;
   left: 0px;
@@ -157,8 +151,8 @@ body {
 #content {
   box-shadow: 0px 0px 40px black;
   width: 100vw;
-  min-height: 100vh;
   float: right;
+  min-height: 100vh;
   position: relative;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -182,7 +176,6 @@ body {
 #content.show_sidebar {
   width: 90vw;
   transition: width @transition_time;
-  margin-right: -15px;
 }
 
 .disabled {
@@ -216,22 +209,48 @@ body {
   background-color: #efefef;
 }
 @media only screen and (max-width: 1170px) {
+  #content {
+    width: 100vw;
+  }
   #content.show_sidebar {
-    width: 70vw;
+    .container {
+      width:80vw;
+    }
+    width: 80vw;
+  }
+  #sidebar {
+    width: 20vw;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #titre_page {
+    font-size: 26px;
+  }
+  #content {
+    width: 100vw;
+  }
+  #content.show_sidebar {
+    width: 80vw;
   }
   #sidebar {
     width: 20vw;
   }
 }
 @media only screen and (max-width: 970px) {
+  #content {
+    width: 100vw;
+  }
   #content.show_sidebar {
-    width: 60vw;
+    width: 80vw;
   }
   #sidebar {
-    width: 40vw;
+    width: 20vw;
   }
 }
 @media only screen and (max-width: 768px) {
+  .container {
+    margin-top: 40px;
+  }
   #content {
     left: 0;
     width: 100vw;
@@ -246,7 +265,7 @@ body {
     width: 100vw;
     text-align: center;
     ul {
-      font-size: 6vw;
+      font-size: 5.5vw;
       text-align: center;
     }
     a {
@@ -260,37 +279,21 @@ body {
       text-align: right;
     }
   }
-}
-
-.btn-primary {
-  background-color: @orange;
-  border: 1px solid @orange;
-  &:hover {
-    background-color: darken(@orange, 10%);
-    border: 1px solid darken(@orange, 10%);
+  #titre_page {
+    font-size: 26px;
+    color: #FFF;
+    .nom { 
+        margin: 0px;
+        padding: 0px;
+        height: 25px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+        max-width: 35%;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+    } 
   }
 }
-.btn-secondary {
-  width: 100%;
-  color: #fff;
-  background-color: @gris_pale;
-  border: 1px solid @gris_pale;
-  &:hover {
-    color: #fff;
-    background-color: darken(@gris_pale, 5%);
-    border: 1px solid darken(@gris_pale, 5%);
-  }
-}
-
-// a {
-//   color: #666;
-//   &:hover {
-//     color: darken(#666, 10%);
-//   }
-//   // &:active {
-//   //   color: darken(@orange, 10%);
-//   // }
-//   // &:visited {
-//   //   color: darken(@orange, 10%);
-//   // }
-// }
