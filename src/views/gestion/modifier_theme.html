@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="crop">
 			<h1 id="titre_page">Modifier le thème « 
 				<div class="nom" data-bind="text: theme.nom, tooltip: { title: theme.nom, placement: 'bottom' }">
 				</div>
@@ -18,14 +18,14 @@
 	<hr/>
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-xs-12 col-md-12 col-lg-12 aligner_verticalement">
 			<label for="nom_theme">Nom du thème : </label>
 			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom"></input>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-xs-12 col-md-12 col-lg-12">
 			<h2>Titre</h2>
 			<div data-bind="template: { name: 'styles-texte-template', data: theme.titre, afterRender: verifier_boutons() }">
 			</div>
@@ -41,7 +41,7 @@
 	<hr/>
 
 	<div class="row">
-    	<div class="col-md-7 col-xs-12">
+    	<div class="col-xs-12 col-md-7 col-lg-7">
     		<h2>Tableau</h2>
     		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
 			</div>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-5 col-xs-12">
+		<div class="col-xs-12 col-md-5 col-lg-5">
 			<div class="exemple_tableau">
 				<table data-bind="style : {
 				                        background : theme.tableau.couleur_fond(),
@@ -134,7 +134,7 @@
 		</div>
 	</div>
 	<div class="row">
-    	<div class="col-md-12 col-xs-12">	
+    	<div class="col-xs-12 col-md-12 col-lg-12">	
     		<h2>Titre de tableau</h2>
 			<div data-bind="template: {name: 'styles-texte-template', data: theme.tableau_titre, afterRender: verifier_boutons()}">
 			</div>
@@ -155,8 +155,8 @@
 
 <script type="text/html" id="styles-texte-template">
 	<div class="row">
-    	<div class="col-md-7 col-xs-12">
-          	<div class="col-md-3 col-xs-12">
+    	<div class="col-xs-12 col-md-7 col-lg-7">
+          	<div class="col-xs-12 col-md-3 col-lg-3">
 	          	<div class="input-group">
   					<!-- <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
 				    <select class="form-control" data-role="none">
@@ -167,13 +167,13 @@
 					<select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-12">
+			<div class="col-xs-12 col-md-3 col-lg-3">
 	          	<div class="input-group">
   					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
 				    <input type="number" pattern="^[0-9]*$"  min="0" class="form-control" data-bind="textInput: taille">
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-12">
+			<div class="col-xs-12 col-md-3 col-lg-3">
 			    <div class="btn-group" role="group" aria-label="..." data-toggle="buttons">
 			    	<label class="btn btn-default">
 						<input type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
@@ -186,7 +186,7 @@
 					</label>
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-12">
+			<div class="col-xs-12 col-md-3 col-lg-3">
 				<!-- <div class="input-group ">
 			    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
 				    <input type="text" class="form-control choix_couleur_texte" data-bind="value: couleur, style: {
@@ -219,53 +219,51 @@
 </script>
 
 <script type="text/html" id="styles-tableau-template">
-	<div class="row">
-    	<div class="col-xs-12 col-md-12">
-          	<div class="col-md-3 col-xs-12">
-	          	<div class="input-group">
-  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
-				    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
+    	<div class="row">
+        	<div class="col-xs-12 col-md-12 col-lg-12">
+	          	<div class="col-xs-12 col-md-3 col-lg-3">
+		          	<div class="input-group">
+	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
+					    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-3 col-xs-12">
-	          	<div class="input-group">
-  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
-				    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
+				<div class="col-xs-12 col-md-3 col-lg-3">
+		          	<div class="input-group">
+	  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
+					    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
+					</div>
 				</div>
-			</div>
-			<div class="col-md-3 col-xs-12">
-				<div class="input-group">
-					<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
-					<span class="input-group-addon exemple_couleur">
-                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
-                    </span>
-                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
-                </div>
-				<!-- <div class="input-group ">
-			    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
-				    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
-				</div> -->
-			</div>
-			<!-- ko if: type() == 'tableau' -->
-			<div class="col-md-3 col-xs-12">
-<!-- 				    <div class="input-group ">
-			    	<span class="input-group-addon"><img src="../src/icons/background.png"></span>
-				    <input type="text" class="form-control choix_couleur_fond" data-bind="value: couleur_fond, style: {
-                    backgroundColor: couleur_fond}"/>
-				</div> -->
-				<div class="input-group">
-					<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
-					<span class="input-group-addon exemple_couleur">
-                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
-                    </span>
-                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
-                </div>
-			</div>
-			<!-- /ko -->
-	    </div>
-	</div>
+				<div class="col-xs-12 col-md-3 col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
+						<span class="input-group-addon exemple_couleur">
+	                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
+	                    </span>
+	                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
+	                </div>
+					<!-- <div class="input-group ">
+				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
+					    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
+					</div> -->
+				</div>
+				<!-- ko if: type() == 'tableau' -->
+				<div class="col-xs-12 col-md-3 col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
+						<span class="input-group-addon exemple_couleur">
+	                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
+	                    </span>
+	                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
+	                </div>
+				</div>
+				<!-- /ko -->
+		    </div>
+		</div>
+
 </script>
 
 <!-- Fix temporaire : le dernier afterRender ne semble pas fonctionner, alors je l'appelle sur un template vide pour que le vrai dernier fonctionne -->
 <script type="text/html" id="fix">
 </script>
+
+<div style="padding-bottom: 140px;"></div>

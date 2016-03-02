@@ -305,7 +305,7 @@ def post_medias(s, data):
                 os.remove("src/videos/" + media['chemin_fichier'])
     except:
         print("Aucune vidéo à modifier")
-        
+
 def post_modifier_theme(s, data):
     """
         Enregistre les modifications apporté aux informations de la page 'modifier_theme'.
@@ -358,16 +358,16 @@ def post_parametres(s, data):
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
             page 'parametres'.
     """
-    for administrateur in data['administrateurs']:
-        if administrateur['id'] == 0:
-            nouvel_administrateur = Administrateur()
-            nouvel_administrateur.deserialiser_de_json(s, administrateur)
-            s.add(nouvel_administrateur)
-        elif administrateur['id'] > 0:
-            s.query(Administrateur).filter(
-                Administrateur.id == administrateur['id']).one().deserialiser_de_json(s, administrateur)
-        elif administrateur['id'] < 0:
-            s.delete(s.query(Administrateur).filter(Administrateur.id == -administrateur['id']).one())
+    administrateur = data['administrateur']
+    if administrateur['id'] == 0:
+        nouvel_administrateur = Administrateur()
+        nouvel_administrateur.deserialiser_de_json(s, administrateur)
+        s.add(nouvel_administrateur)
+    elif administrateur['id'] > 0:
+        s.query(Administrateur).filter(
+            Administrateur.id == administrateur['id']).one().deserialiser_de_json(s, administrateur)
+    elif administrateur['id'] < 0:
+        s.delete(s.query(Administrateur).filter(Administrateur.id == -administrateur['id']).one())
     return True
 
 def post_lister_periodes(s, data):
