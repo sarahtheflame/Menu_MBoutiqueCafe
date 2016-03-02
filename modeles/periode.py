@@ -23,6 +23,7 @@ class Periode(Base):
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
             id (Integer) : Identifiant unique généré par SQLAlchemy.
+            nom (String) : Nom de l'objet 'Periode'.
             heure_debut (Time) : Heure à laquelle commence la 'Periode'.
             id_fenetre_1 (Integer) : Référence à l'identifiant d'un objet 'Fenetre'. Est associé à 
                 l'attribut 'fenetre_1'.
@@ -42,7 +43,14 @@ class Periode(Base):
                 'id_fenetre_4'.
     """
     __tablename__ = 'Periodes'
-    id = Column(Integer, primary_key=True)
+    id = Column(
+        Integer, 
+        primary_key=True
+        )
+    nom = Column(
+        String(250),
+        nullable=False
+        )
     heure_debut = Column(Time, default=datetime.time(0,0)) #unique=True
     id_fenetre_1 = Column(
         Integer, 
@@ -92,6 +100,7 @@ class Periode(Base):
         """
         return dict(
             id = self.id,
+            nom = self.nom,
             heure_debut = self.heure_debut.strftime("%H:%M"),
             fenetre_1 = {
                 'id' : self.fenetre_1.id,
@@ -120,8 +129,9 @@ class Periode(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        nouvel_heure_debut = data['heure_debut'].split(':')
-        if data.get('heure_debut') != None : self.heure_debut = datetime.time(int(nouvel_heure_debut[0]), int(nouvel_heure_debut[1]))
+        nouvelle_heure_debut = data['heure_debut'].split(':')
+        if data.get('heure_debut') != None : self.heure_debut = datetime.time(int(nouvelle_heure_debut[0]), int(nouvelle_heure_debut[1]))
+        if data.get('nom') != None : self.nom = data['nom']
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):

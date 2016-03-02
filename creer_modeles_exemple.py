@@ -418,13 +418,19 @@ zone_test_image = ZoneImage(
 )
 
 periode1 = Periode(
-    heure_debut = datetime.time(10, 21))
+    nom = "Période de test #1",
+    heure_debut = datetime.time(10, 21)
+)
 
 periode2 = Periode(
-    heure_debut = datetime.time(13, 4))
+    nom = "Période de test #2",
+    heure_debut = datetime.time(13, 4)
+)
 
 periode3 = Periode(
-    heure_debut = datetime.time(15, 1))
+    nom = "Période de test #3",
+    heure_debut = datetime.time(15, 1)
+)
 
 s.add_all([
     administrateur_1,
