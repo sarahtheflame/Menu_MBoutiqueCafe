@@ -219,57 +219,51 @@
 </script>
 
 <script type="text/html" id="styles-tableau-template">
-    <div class="container">
-    	<div class="row">
-        	<div class="col-md-7 col-xs-12">
-	          	<div class="col-md-3 col-xs-12">
-		          	<div class="input-group">
-	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
-					    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
-					</div>
+	<div class="row">
+    	<div class="col-xs-12 col-md-12">
+          	<div class="col-md-3 col-xs-12">
+	          	<div class="input-group">
+  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
+				    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
 				</div>
-				<div class="col-md-3 col-xs-12">
-		          	<div class="input-group">
-	  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
-					    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
-					</div>
+			</div>
+			<div class="col-md-3 col-xs-12">
+	          	<div class="input-group">
+  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
+				    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
 				</div>
-				<div class="col-md-3 col-xs-12">
-					<div class="input-group">
-						<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
-						<span class="input-group-addon exemple_couleur">
-	                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
-	                    </span>
-	                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
-	                </div>
-					<!-- <div class="input-group ">
-				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
-					    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
-					</div> -->
-				</div>
-				<!-- ko if: type() == 'tableau' -->
-				<div class="col-md-3 col-xs-12">
+			</div>
+			<div class="col-md-3 col-xs-12">
+				<div class="input-group">
+					<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
+					<span class="input-group-addon exemple_couleur">
+                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
+                    </span>
+                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
+                </div>
+				<!-- <div class="input-group ">
+			    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
+				    <input type="text" class="form-control choix_couleur_bordure" data-bind="value: bordure.couleur, style: { backgroundColor : bordure.couleur}"/>
+				</div> -->
+			</div>
+			<!-- ko if: type() == 'tableau' -->
+			<div class="col-md-3 col-xs-12">
 <!-- 				    <div class="input-group ">
-				    	<span class="input-group-addon"><img src="../src/icons/background.png"></span>
-					    <input type="text" class="form-control choix_couleur_fond" data-bind="value: couleur_fond, style: {
-                        backgroundColor: couleur_fond}"/>
-					</div> -->
-					<div class="input-group">
-						<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
-						<span class="input-group-addon exemple_couleur">
-	                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
-	                    </span>
-	                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
-	                </div>
-				</div>
-				<!-- /ko -->
-		    </div>
-
-		    <div class="col-md-5 col-xs-12">
-
-		    </div>
-		</div>
-    </div>
+			    	<span class="input-group-addon"><img src="../src/icons/background.png"></span>
+				    <input type="text" class="form-control choix_couleur_fond" data-bind="value: couleur_fond, style: {
+                    backgroundColor: couleur_fond}"/>
+				</div> -->
+				<div class="input-group">
+					<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
+					<span class="input-group-addon exemple_couleur">
+                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
+                    </span>
+                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
+                </div>
+			</div>
+			<!-- /ko -->
+	    </div>
+	</div>
 </script>
 
 <!-- Fix temporaire : le dernier afterRender ne semble pas fonctionner, alors je l'appelle sur un template vide pour que le vrai dernier fonctionne -->
