@@ -230,14 +230,6 @@ body {
   background-color: #efefef;
 }
 @media only screen and (max-width: 1366px) {
-  .crop > * {
-    margin-left: 15px;
-    bottom: -45%;
-  }
-  #titre_page {
-    font-size: 26px;
-    width: 100%;
-  }
   #content {
     width: 100vw;
     transition: width 0.4s;
@@ -290,6 +282,14 @@ body {
   }
 }
 @media only screen and (max-width: 970px) {
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+  .crop > * {
+    margin-left: 15px;
+    bottom: -45%;
+  }
   #content {
     width: 100vw;
     transition: width 0.4s;

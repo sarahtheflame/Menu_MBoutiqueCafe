@@ -221,16 +221,6 @@ body {
 }
 
 @media only screen and (max-width: 1366px) {
-  .crop {
-    >* {
-      margin-left: 15px;
-      bottom: -45%;
-    }
-  }
-  #titre_page {
-    font-size: 26px;
-    width: 100%;
-  }
   #content {
     width: 100vw;
     transition: width @transition_time;
@@ -287,6 +277,16 @@ body {
 }
 
 @media only screen and (max-width: 970px) {
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+  .crop {
+    >* {
+      margin-left: 15px;
+      bottom: -45%;
+    }
+  }
   #content {
     width: 100vw;
     transition: width @transition_time;
