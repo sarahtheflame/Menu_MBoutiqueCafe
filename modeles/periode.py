@@ -49,7 +49,8 @@ class Periode(Base):
         )
     nom = Column(
         String(250),
-        nullable=False
+        nullable=False,
+        default="Période sans nom"
         )
     heure_debut = Column(Time, default=datetime.time(0,0)) #unique=True
     id_fenetre_1 = Column(
@@ -131,7 +132,9 @@ class Periode(Base):
         """
         nouvelle_heure_debut = data['heure_debut'].split(':')
         if data.get('heure_debut') != None : self.heure_debut = datetime.time(int(nouvelle_heure_debut[0]), int(nouvelle_heure_debut[1]))
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if(self.fenetre_1 != data['fenetre_1']['id']):
             self.fenetre_1 = session.query(Fenetre).filter(Fenetre.id == data['fenetre_1']['id']).one()
         if(self.fenetre_2 != data['fenetre_2']['id']):

@@ -74,7 +74,9 @@ class ZoneTable(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('nombre_colonnes') != None : self.nombre_colonnes = data['nombre_colonnes']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']

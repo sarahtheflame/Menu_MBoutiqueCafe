@@ -186,7 +186,9 @@ class Theme(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         #================================ à revérifier!!! ===========================================
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('titre') == None:
             self.titre = Style(bordure=Bordure())
             # self.titre.deserialiser_de_json(session, data['titre'])

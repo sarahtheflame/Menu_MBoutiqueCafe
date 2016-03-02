@@ -85,7 +85,9 @@ class ZoneImage(Zone):
                     self.image = session.query(Image).filter(Image.id == data['image']['id']).one()
         else:
             self.image = session.query(Image).filter(Image.id == 2).one()
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
         if data.get('position_z') != None : self.position_z = data['position_z']

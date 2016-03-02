@@ -210,7 +210,6 @@ fenetre_dessert = Fenetre(
 )
 
 zone_entete = ZoneBase(
-    nom='ZoneBase de test #1', 
     position_x=27,
     position_y=7,
     hauteur=7,
