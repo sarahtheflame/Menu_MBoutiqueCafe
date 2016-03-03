@@ -1,6 +1,5 @@
 % rebase(path)
 <link rel="stylesheet" type="text/css" href="/src/medias.css">
-
 <div class="modal fade" id="modal_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,12 +10,12 @@
         </div>
         <div class="modal-body">
           <div>
-            <div class="form-group">
+<!--             <div class="form-group">
               <label for="nom_image_input">Nom de l'image : </label>
               <input id="nom_image_input" class="form-control" type="text" name="nom" />
-            </div>
+            </div> -->
             <div class="form-group">
-              <label for="fichier_image_input">Choisissez un fichier: </label>
+              <label for="fichier_image_input">Image à téléverser: <br></label>
               <input id="fichier_image_input" type="file" name="fichier" accept="image/*"/>
             </div>
           </div> 
@@ -40,12 +39,12 @@
         </div>
         <div class="modal-body">
           <div>
-            <div class="form-group">
+<!--             <div class="form-group">
               <label for="nom_video_input">Nom du vidéo : </label>
               <input id="nom_video_input" class="form-control" type="text" name="nom" />
-            </div>
+            </div> -->
             <div class="form-group">
-              <label for="fichier_video_input">Choisissez un fichier: </label>
+              <label for="fichier_video_input">Vidéo à téléverser: </label>
               <input id="fichier_video_input" type="file" name="fichier" accept="video/*"/>
             </div>
           </div> 
@@ -83,11 +82,13 @@
           </div>
              <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
               <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
-                <!-- ko if: $data.id() > 0 -->
+                <!-- ko if: $data.id() > 2 -->
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-lg-4">
-                      <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="100%">
+                      <div class="text-center">
+                        <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}">
+                      </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="vertical_align">
@@ -167,6 +168,3 @@
 </div>
 
 <script type='text/javascript' src='/src/medias.js'></script>
-<script>
-  
-</script>

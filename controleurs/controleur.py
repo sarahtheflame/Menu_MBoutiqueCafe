@@ -281,6 +281,7 @@ def post_medias(s, data):
     """
     try:
         for media in data['images']:
+            print(media['nom'])
             if media['id'] == 0:
                 nouveau_media = Image()
                 nouveau_media.deserialiser_de_json(s, media)
