@@ -331,17 +331,16 @@ body {
   }
   #sidebar ul {
     font-size: 50px;
-    text-align: center;
   }
   #sidebar a {
     width: 70%;
-    text-align: left;
+    text-align: center;
   }
   #sidebar .glyphicon {
     font-size: 4vw;
     width: 30%;
     margin-right: 4vw;
-    text-align: right;
+    text-align: center;
   }
   #sidebar .nav_icon {
     width: 50px;
@@ -371,11 +370,9 @@ body {
   }
   #sidebar ul {
     font-size: 20px;
-    text-align: center;
   }
   #sidebar a {
     width: 70%;
-    text-align: left;
   }
   #sidebar .glyphicon {
     font-size: 4vw;
