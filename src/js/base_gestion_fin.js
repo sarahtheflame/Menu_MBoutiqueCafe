@@ -7,10 +7,6 @@
 
 $(document).ready(function(){
     var changes = 0
-    // function unloadPage(){
-    //     console.log(changes);
-    //     appliquer_modifications('{{!titre}}');
-    // }
 	ko.applyBindings(viewModel);
     viewModel.hasChanges = ko.computed(function() {
         ko.toJSON(viewModel);
@@ -19,14 +15,13 @@ $(document).ready(function(){
             changes = 2;
         }
     });
-    // window.onbeforeunload = unloadPage;
     $(window).bind('beforeunload', function(e) {
         console.log(changes);
         if(changes > 1) {
             return "Vous avez des données non-sauvegardées!";
         }
     });
-    $(':input[type="number"]').keydown(false);
-    $(':input[type="time"]').keydown(false);
+    // $(':input[type="number"]').keydown(false);
+    // $(':input[type="time"]').keydown(false);
 });
 
