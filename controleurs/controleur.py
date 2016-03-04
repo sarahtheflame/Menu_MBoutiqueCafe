@@ -342,14 +342,14 @@ def post_themes(s, data):
     for theme in data['themes']:
         if theme['id'] == 0:
             nouveau_theme = Theme(
-                titre = Style(bordure = Bordure()),
-                sous_titre = Style(bordure = Bordure()),
-                texte = Style(bordure = Bordure()),
-                tableau = Style(bordure = Bordure()),
-                tableau_ligne = Style(bordure = Bordure()),
-                tableau_titre = Style(bordure = Bordure()),
-                tableau_sous_titre = Style(bordure = Bordure()),
-                tableau_texte = Style(bordure = Bordure())
+                titre = Style(type="titre", bordure = Bordure()),
+                sous_titre = Style(type="sous_titre", bordure = Bordure()),
+                texte = Style(type="texte", bordure = Bordure()),
+                tableau = Style(type="tableau", bordure = Bordure()),
+                tableau_ligne = Style(type="tableau_ligne", bordure = Bordure()),
+                tableau_titre = Style(type="tableau_titre", bordure = Bordure()),
+                tableau_sous_titre = Style(type="tableau_sous_titre", bordure = Bordure()),
+                tableau_texte = Style(type="tableau_texte", bordure = Bordure())
             )
             if theme.get("nom") != None:
                 nouveau_theme.nom = theme.get("nom")

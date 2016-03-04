@@ -97,6 +97,7 @@ class Style(Base):
         if data.get('gras') != None : self.gras = data['gras']
         if data.get('italique') != None : self.italique = data['italique']
         if data.get('soulignement') != None : self.soulignement = data['soulignement']
+        if data.get('type') != None : self.type = data['type']
         if (data['bordure']['id'] == 0):
             nouvelle_bordure = Bordure()
             nouvelle_bordure.deserialiser_de_json(session, data['bordure'])
