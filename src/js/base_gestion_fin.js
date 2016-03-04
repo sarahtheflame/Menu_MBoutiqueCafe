@@ -12,7 +12,7 @@ $(document).ready(function(){
     //     appliquer_modifications('{{!titre}}');
     // }
 	ko.applyBindings(viewModel);
-     viewModel.hasChanges = ko.computed(function() {
+    viewModel.hasChanges = ko.computed(function() {
         ko.toJSON(viewModel);
         changes += 1;
         if (changes > 3){
