@@ -68,11 +68,11 @@ def obtenir_donnees_gestion(s, data):
             correspondante à 'data['nom_vue']'.
     """
     if data['nom_vue'] == "accueil": return {'message' : 'Bienvenue!', 'vue_associe' : 'accueil'}
-    elif data['nom_vue'] == "lister_fenetres": return get_lister_fenetres(s)
+    elif data['nom_vue'] == "fenetres": return get_fenetres(s)
     elif data['nom_vue'] == "medias": return get_medias(s)
-    elif data['nom_vue'] == "themes": return get_lister_themes(s)
+    elif data['nom_vue'] == "themes": return get_themes(s)
     elif data['nom_vue'] == "parametres": return get_parametres(s, data['id_administrateur'])
-    elif data['nom_vue'] == "periodes": return get_lister_periodes(s)
+    elif data['nom_vue'] == "periodes": return get_periodes(s)
     elif data['nom_vue'] == "modifier_zone": return get_modifier_zone(s, data['id'])
     elif data['nom_vue'] == "modifier_fenetre": return get_modifier_fenetre(s, data['id'])
     elif data['nom_vue'] == "modifier_theme": return get_modifier_theme(s, data['id'])
@@ -90,26 +90,26 @@ def retourner_donnees_gestion(s, data):
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations de la page 
             correspondante à 'data['nom_vue']'.
     """
-    if data['nom_vue'] == "lister_fenetres": return post_lister_fenetres(s, data['nouvelles_donnees'])
+    if data['nom_vue'] == "fenetres": return post_fenetres(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "medias": return post_medias(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "themes": return post_lister_themes(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "themes": return post_themes(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "parametres": return post_parametres(s, data['nouvelles_donnees'])
-    elif data['nom_vue'] == "periodes": return post_lister_periodes(s, data['nouvelles_donnees'])
+    elif data['nom_vue'] == "periodes": return post_periodes(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "modifier_zone": return post_modifier_zone(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "modifier_fenetre": return post_modifier_fenetre(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "modifier_theme": return post_modifier_theme(s, data['nouvelles_donnees'])
     elif data['nom_vue'] == "a_propos": return {}
     else : raise NameError("Impossible d'enregistrer les données pour la page de gestion!")
 
-def get_lister_fenetres(s):
+def get_fenetres(s):
     """
-        Obtient les données requises par la page 'lister_fenetre'.
+        Obtient les données requises par la page 'fenetres'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
     """
-    resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'lister_fenetres'}
+    resultats = { 'fenetres' : [], 'themes' : [], 'vue_associe' : 'fenetres'}
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
         resultats['fenetres'].append(fenetre.serialiser_en_json())
     for theme in s.query(Theme).order_by(Theme.id).all():
@@ -147,15 +147,15 @@ def get_modifier_theme(s, id_theme):
     resultats['theme'] = s.query(Theme).filter(Theme.id == id_theme).one().serialiser_en_json()
     return resultats
 
-def get_lister_themes(s):
+def get_themes(s):
     """
-        Obtient les données requises par la page 'lister_themes'.
+        Obtient les données requises par la page 'themes'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
     """
-    resultats = { 'themes' : [], 'vue_associe' : 'lister_themes' }
+    resultats = { 'themes' : [], 'vue_associe' : 'themes' }
     for theme in s.query(Theme).order_by(Theme.id).all():
         resultats['themes'].append({
                 'id' : theme.id,
@@ -177,15 +177,15 @@ def get_parametres(s, id_administrateur):
         Administrateur.id == id_administrateur).one().serialiser_en_json()
     return resultats
 
-def get_lister_periodes(s):
+def get_periodes(s):
     """
-        Obtient les données requises par la page 'lister_fenetre'.
+        Obtient les données requises par la page 'fenetres'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
     """
-    resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'lister_periodes'  }
+    resultats = { 'periodes' : [], 'fenetres' : [], 'vue_associe' : 'periodes'  }
     for periode in s.query(Periode).order_by(Periode.id).all():
         resultats['periodes'].append(periode.serialiser_en_json())
     for fenetre in s.query(Fenetre).order_by(Fenetre.id).all():
@@ -248,15 +248,15 @@ def get_modifier_fenetre(s, id_fenetre):
 
     return resultats
 
-def post_lister_fenetres(s, data):
+def post_fenetres(s, data):
     """
-        Enregistre les modifications apporté aux informations de la page 'lister_fenetre'.
+        Enregistre les modifications apporté aux informations de la page 'fenetres'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
-            page 'lister_fenetres'.
+            page 'fenetres'.
     """
     for fenetre in data['fenetres']:
         if fenetre['id'] == 0:
@@ -328,20 +328,31 @@ def post_modifier_theme(s, data):
         s.delete(s.query(Theme).filter(Theme.id == -theme['id']).one())
     return True
 
-def post_lister_themes(s, data):
+def post_themes(s, data):
     """
-        Enregistre les modifications apporté aux informations de la page 'lister_themes'.
+        Enregistre les modifications apporté aux informations de la page 'themes'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
-            page 'lister_themes'.
+            page 'themes'.
     """
+    print(data['themes'])
     for theme in data['themes']:
         if theme['id'] == 0:
-            nouveau_theme = Theme()
-            nouveau_theme.deserialiser_de_json(s, theme)
+            nouveau_theme = Theme(
+                titre = Style(bordure = Bordure()),
+                sous_titre = Style(bordure = Bordure()),
+                texte = Style(bordure = Bordure()),
+                tableau = Style(bordure = Bordure()),
+                tableau_ligne = Style(bordure = Bordure()),
+                tableau_titre = Style(bordure = Bordure()),
+                tableau_sous_titre = Style(bordure = Bordure()),
+                tableau_texte = Style(bordure = Bordure())
+            )
+            if theme.get("nom") != None:
+                nouveau_theme.nom = theme.get("nom")
             s.add(nouveau_theme)
         elif theme['id'] > 0:
             s.query(Theme).filter(Theme.id == theme['id']).one().deserialiser_de_json(s, theme)
@@ -371,15 +382,15 @@ def post_parametres(s, data):
         s.delete(s.query(Administrateur).filter(Administrateur.id == -administrateur['id']).one())
     return True
 
-def post_lister_periodes(s, data):
+def post_periodes(s, data):
     """
-        Enregistre les modifications apporté aux informations de la page 'lister_periodes'.
+        Enregistre les modifications apporté aux informations de la page 'periodes'.
  
         Argument(s) :
             s (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
             data (Dictionnary) : Dictionnaire en format JSON contenant les informations reçu de la 
-            page 'lister_periodes'.
+            page 'periodes'.
     """
     for periode in data['periodes']:
         if periode['id'] == 0:

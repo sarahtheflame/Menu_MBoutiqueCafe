@@ -46,7 +46,11 @@ app = Bottle()
 # Installation du plugin «SQLAlchemy» dans l'application de «Bottle»
 app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', 
     commit=True, use_kwargs=False))
-    
+
+host_port = ""
+while not host_port.isdigit():
+    host_port = input("Entrez un port sur lequel héberger le serveur : ")
+
 #===============================================================================
 # Authentification
 #===============================================================================
@@ -68,9 +72,10 @@ def verifier_session(func):
                 *args (Arguments) : Liste d'argument reçu par la fonction décorée. ***
                 **kwargs (Arguments) : Liste d'argument reçu par la fonction décorée. ***
         """
-        cookie_courriel = request.get_cookie("administrateur", 
+        id_administrateur = request.get_cookie("administrateur", 
             secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
-        if cookie_courriel:
+        print(id_administrateur)
+        if id_administrateur and id_administrateur > 0:
             return func(*args, **kwargs)
         else:
             return template("src\\views\\autre\\connexion.html", {})
@@ -120,6 +125,20 @@ def post_connexion(db):
     else:
         return template("src\\views\\autre\\connexion.html", variables)
 
+@app.route('/g/deconnexion', method='GET')
+def deconnexion():
+    """
+        Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
+        à la page de connexion (connexion.html).
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    id_administrateur = request.get_cookie("administrateur", 0,
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+    response.set_cookie("administrateur", id_administrateur, secret="...")
+    return template("src\\views\\autre\\connexion.html", {})
 #===============================================================================
 # Pages du système de gestion
 #===============================================================================
@@ -345,4 +364,4 @@ def erreur_404(error):
 #===============================================================================
 
 if __name__ == "__main__":
-    run(app, host='0.0.0.0', port=80, server='gevent', debug=True)
+    run(app, host='0.0.0.0', port=host_port, server='gevent', debug=True)

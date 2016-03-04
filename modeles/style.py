@@ -44,7 +44,7 @@ class Style(Base):
     id = Column(Integer, primary_key=True)
     police = Column(String(250), default='\'Oswald\', sans-serif')
     couleur = Column(String(250), default='#000000')
-    taille = Column(Integer, default=12)
+    taille = Column(Integer, default=18)
     couleur_fond = Column(String(250), default='rgba(255,255,255,0)')
     gras = Column(String(250), default='normal')
     italique = Column(String(250), default='normal')
