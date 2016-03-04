@@ -99,24 +99,24 @@ function obtenir_liste_zone_valide() {
     return zones_valides;
 }
 
+if (obtenir_liste_zone_valide().length > 0) {
+    viewModel.index_zone_focus = ko.observable(0);
+}
+else {
+    viewModel.index_zone_focus = ko.observable(-1);
+}
+
+/**
+ * 
+ */
+function mettre_a_jour_index(index) {
     if (obtenir_liste_zone_valide().length > 0) {
-        viewModel.index_zone_focus = ko.observable(0);
+        viewModel.index_zone_focus(index);
     }
     else {
-        viewModel.index_zone_focus = ko.observable(-1);
+        viewModel.index_zone_focus(-1);
     }
-
-    /**
-     * 
-     */
-    function mettre_a_jour_index(index) {
-        if (obtenir_liste_zone_valide().length > 0) {
-            viewModel.index_zone_focus(index);
-        }
-        else {
-            viewModel.index_zone_focus(-1);
-        }
-    }
+}
 
 
 /**

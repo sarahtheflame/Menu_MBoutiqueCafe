@@ -13,9 +13,10 @@ interact('.zone')
       endOnly: true,
       elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
     },
+    onstart: set_index_zone_focus,
     onmove: dragMoveListener,
     onend: savePosition
-  }).on('tap', function (event) {} )
+  }).on('tap', set_index_zone_focus(event))
   .resizable({
     restrict: {
       restriction: "children",
@@ -24,9 +25,7 @@ interact('.zone')
     },
     edges: { left: false, right: true, bottom: true, top: false }
   })
-  .on('resizeend', function (event) {
-    
-  })
+  .on('down', set_index_zone_focus(event))
   .on('resizemove', function (event) {
     var target = event.target;
 
@@ -80,4 +79,16 @@ interact('.zone')
         y = parseFloat(target.style.top);
     viewModel.fenetre.zones()[viewModel.index_zone_focus()].position_x(x);
     viewModel.fenetre.zones()[viewModel.index_zone_focus()].position_y(y);
+  }
+
+  function set_index_zone_focus (event) {
+    console.log("in");
+    var zone = ko.dataFor(event.target);
+    console.log(zone.nom());
+    for (var index in viewModel.fenetre.zones()) {
+        if (viewModel.fenetre.zones()[index].id() === zone.id()){
+            viewModel.index_zone_focus(parseInt(index));
+        }
+    }
+    viewModel.id_zone_focus(zone.id());
   }
