@@ -5,6 +5,9 @@ MODIFIER THÈME :
 
 MODIFIER ZONE TABLE:
 
+MEDIAS:
+- ajouter video vide *******
+
 divers:
 - page d'accueil
 - modifier fenetre : ne pas considérer changement de zone_focus comme une modification non sauvegardée
