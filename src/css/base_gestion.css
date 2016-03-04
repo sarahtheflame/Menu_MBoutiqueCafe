@@ -26,6 +26,15 @@
   background-color: #a04000;
   border: 1px solid #a04000;
 }
+.btn-primary .btn_icon {
+  width: 12px;
+}
+.btn-primary .btn_icon.avant {
+  margin-right: 5px;
+}
+.btn-primary .btn_icon.apres {
+  margin-left: 5px;
+}
 .btn-secondary {
   width: 100%;
   color: #fff;
