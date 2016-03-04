@@ -45,8 +45,8 @@ body {
   height: 100%;
 }
 .row {
-  margin-right: 25px;
-  margin-left: 25px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 .container-fluid {
   margin: 0px;
@@ -68,12 +68,12 @@ body {
   overflow: hidden;
 }
 .crop > * {
+  margin-left: 25px;
   position: relative;
   bottom: -55%;
 }
 #titre_page {
   width: 65%;
-  padding-left: 25px;
   font-size: 36px;
   color: #FFF;
 }
@@ -90,10 +90,13 @@ body {
   text-align: center;
 }
 .nav_icon {
-  width: 10%;
+  width: 20px;
   margin-right: 15px;
   margin-left: 15px;
-  display: inline;
+  display: inline-block;
+}
+.nav_icon img {
+  height: 100%;
 }
 #header {
   display: table;
@@ -146,7 +149,6 @@ body {
   top: 50px;
   overflow-x: hidden;
   overflow-y: auto;
-  text-overflow: ellipsis;
 }
 #sidebar ul li {
   width: 100%;
@@ -210,7 +212,12 @@ body {
   pointer-events: all !important;
 }
 .panel .row {
-  margin-top: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+.panel-heading {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .panel-heading .form-control {
   display: inline-block;
@@ -267,6 +274,17 @@ body {
   #sidebar {
     width: 15vw;
   }
+  #sidebar ul {
+    font-size: 20px;
+    text-align: center;
+  }
+  #sidebar a {
+    width: 70%;
+    text-align: left;
+  }
+  #sidebar .nav_icon {
+    width: 20px;
+  }
 }
 @media only screen and (max-width: 1024px) {
   #content {
@@ -280,31 +298,61 @@ body {
   #sidebar {
     width: 20vw;
   }
+  .crop {
+    height: 200px;
+  }
+  .crop > * {
+    bottom: -45%;
+  }
 }
 @media only screen and (max-width: 970px) {
   #titre_page {
     font-size: 26px;
     width: 100%;
   }
-  .crop > * {
-    margin-left: 15px;
-    bottom: -45%;
-  }
-  #content {
-    width: 100vw;
-    transition: width 0.4s;
-  }
-  #content.show_sidebar {
-    width: 80vw;
-    transition: width 0.4s;
-  }
-  #sidebar {
-    width: 20vw;
-  }
 }
 @media only screen and (max-width: 768px) {
   .crop > * {
-    margin-left: 15px;
+    bottom: -35%;
+  }
+  #content {
+    left: 100vw;
+    width: 100vw;
+    transition: left 0.4s;
+  }
+  #content.show_sidebar {
+    left: 0vw;
+    width: 100vw;
+    transition: left 0.4s;
+  }
+  #sidebar {
+    width: 100vw;
+    text-align: center;
+  }
+  #sidebar ul {
+    font-size: 50px;
+    text-align: center;
+  }
+  #sidebar a {
+    width: 70%;
+    text-align: left;
+  }
+  #sidebar .glyphicon {
+    font-size: 4vw;
+    width: 30%;
+    margin-right: 4vw;
+    text-align: right;
+  }
+  #sidebar .nav_icon {
+    width: 50px;
+  }
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 598px) {
+  .crop > * {
     bottom: -45%;
   }
   #content {
@@ -322,7 +370,7 @@ body {
     text-align: center;
   }
   #sidebar ul {
-    font-size: 5.5vw;
+    font-size: 20px;
     text-align: center;
   }
   #sidebar a {
@@ -334,6 +382,9 @@ body {
     width: 30%;
     margin-right: 4vw;
     text-align: right;
+  }
+  #sidebar .nav_icon {
+    width: 20px;
   }
   #titre_page {
     font-size: 26px;

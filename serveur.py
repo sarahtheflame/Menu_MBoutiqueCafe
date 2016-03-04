@@ -230,13 +230,9 @@ def televerser(db):
     except Exception:
         print("Aucune données 'unmapped'")
     try:
-        print("1")
-        nom = request.files.get('nom')
         televersement = request.files.get('fichier')
         nom_fichier, extension = os.path.splitext(televersement.filename)
-        print("2")
-        if extension in ('.png','.jpg','.jpeg'):
-            print("3")
+        if extension in ('.png','.jpg','.jpeg', '.gif'):
             televersement.save('src\\images')
             retourner_donnees_gestion(db, {
                 'nom_vue' : 'medias',
@@ -244,32 +240,28 @@ def televerser(db):
                     'images' : [
                         {
                             'id' : 0,
-                            'nom' : nom,
+                            'nom' : televersement.filename,
                             'chemin_fichier' : televersement.filename,
                             'type' : 'Image'
                         }
                     ]
                 }
             })
-            print("3.1")
         elif extension in ('.mp4'):
-            print("4")
             televersement.save('src\\videos')
-            print("4.1")
             retourner_donnees_gestion(db, {
                 'nom_vue' : 'medias',
                 'nouvelles_donnees' : {
                     'videos' : [
                         {
                             'id' : 0,
-                            'nom' : nom,
+                            'nom' : televersement.filename,
                             'chemin_fichier' : televersement.filename,
                             'type' : 'Video'
                         }
                     ]
                 }
             })
-            print("4.3")
     except Exception:
         print("Aucun média à téléverser!")
     return get_gestion("medias", db)

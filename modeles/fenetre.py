@@ -109,7 +109,7 @@ class Fenetre(Base):
         if data.get('nom') != None: 
             if data['nom'] != "" :
                 self.nom = data['nom']
-        if data.get('image_fond') == None or data.get('image_fond')['chemin_fichier'] == "undefined" : self.id_image_fond = "undefined"
+        if data.get('image_fond') == None or data.get('image_fond')['chemin_fichier'] == "undefined" : self.id_image_fond = 2
         else: self.image_fond = session.query(Image).filter(Image.id == data['image_fond']['id']).one()
         if data.get('couleur_fond') != None : self.couleur_fond = data['couleur_fond']
         if data.get('theme') != None :

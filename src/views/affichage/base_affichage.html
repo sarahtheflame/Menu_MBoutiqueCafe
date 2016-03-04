@@ -80,7 +80,7 @@
                     width : $data.largeur() + '%', 
                     height : $data.hauteur()  + '%'
                 }">
-                    <video muted autoplay loop>
+                    <video width="100%" height="100%" muted autoplay loop>
                         <source data-bind="attr: { 
                             'src': '../src/' + $data.video.chemin_fichier() 
                         }" type="video/mp4" />
@@ -118,6 +118,16 @@
                                     fontStyle : $root.fenetre.theme.tableau_titre.italique(),
                                     textDecoration : $root.fenetre.theme.tableau_titre.soulignement()
                                 }"></th> 
+                                <!-- /ko -->
+                                <!-- ko if: cellule.type_style() === "tableau_sous_titre" -->
+                                    <th data-bind="text: $data.contenu, style: { 
+                                        fontFamily : $root.fenetre.theme.tableau_sous_titre.police(),
+                                        fontSize : $root.fenetre.theme.tableau_sous_titre.taille() + 'px',
+                                        color : $root.fenetre.theme.tableau_sous_titre.couleur(),
+                                        bold : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                        fontStyle : $root.fenetre.theme.tableau_sous_titre.italique(),
+                                        textDecoration : $root.fenetre.theme.tableau_sous_titre.soulignement()
+                                    }"></th> 
                                 <!-- /ko -->
                                 <!-- ko if: cellule.type_style() === "tableau_texte" -->
                                 <td data-bind="text: $data.contenu, style: { 

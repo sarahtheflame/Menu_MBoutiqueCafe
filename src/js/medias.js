@@ -15,6 +15,7 @@ $("#add_image").submit(function (event) {
         event.preventDefault();
         //grab all form data  
         var formData = new FormData($(this)[0]);
+        formData.append('nom', 'Bonjour');
           console.log(formData);
 
           var formDataSerialized = $(this).serialize();
