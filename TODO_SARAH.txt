@@ -3,22 +3,13 @@ BASE_GESTION :
 - btn_default : changer background-color quand :active
 
 MODIFIER THÈME :
-- arranger colonnes templates (input police plus large que input taille)
 
 MODIFIER ZONE TABLE:
-- sélectionner style texte par défaut
-
-MODIFIER FENETRE:
-- enlever background input du colorpicker
-- aligner éléments (mettre sous-titre fond et image/couleur en dessous) + center bouton apppliquer
-
-MEDIAS :
-- centrer images
 
 divers:
 - limites de caractères dans les inputs
 - page d'accueil
 - modifier fenetre : ne pas considérer changement de zone_focus comme une modification non sauvegardée
 - périodes : deux boutons pour afficher la fenêtre dans l'écran + sur le serveur
-- vérifier les noms des boutons des modals
 - modals form (enter lance ajouter)
+- corriger glyphicon dans les boutons modifier la fenêtre(à partir de modifier_zone)
