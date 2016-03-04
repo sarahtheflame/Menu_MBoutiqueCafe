@@ -12,6 +12,9 @@ MODIFIER FENETRE:
 - enlever background input du colorpicker
 - aligner éléments (mettre sous-titre fond et image/couleur en dessous) + center bouton apppliquer
 
+MEDIAS :
+- centrer images
+
 divers:
 - limites de caractères dans les inputs
 - page d'accueil
