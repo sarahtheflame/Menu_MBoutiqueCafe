@@ -28,6 +28,14 @@ $(document).ready(function(){
      */
     $("#toggle_sidebar").click(function(){
         $("#content").toggleClass("show_sidebar");
+
+        var second = $(this).data("secondtext");
+        var start = $(this).data("starttext");
+        if (second === $(this).text()) {
+          $(this).text(start);
+        } else {
+          $(this).text(second);
+        }
     });
 
     /* ENCORE UTILE? */
