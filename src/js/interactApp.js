@@ -16,7 +16,7 @@ interact('.zone')
     onstart: set_index_zone_focus,
     onmove: dragMoveListener,
     onend: savePosition
-  }).on('tap', set_index_zone_focus(event))
+  })
   .resizable({
     restrict: {
       restriction: "children",
@@ -25,7 +25,6 @@ interact('.zone')
     },
     edges: { left: false, right: true, bottom: true, top: false }
   })
-  .on('down', set_index_zone_focus(event))
   .on('resizemove', function (event) {
     var target = event.target;
 
