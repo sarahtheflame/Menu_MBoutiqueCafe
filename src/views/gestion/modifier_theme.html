@@ -6,8 +6,8 @@
 
 <div class="container-fluid">
 	<div class="crop">
-		<h1 id="titre_page">Modifier le thème « 
-			<div class="nom" data-bind="text: theme.nom, tooltip: { title: theme.nom, placement: 'bottom' }">
+		<h1 id="titre_page">Modifier le thème «
+		<div class="nom" data-bind="text: theme.nom, tooltip: { title: theme.nom, placement: 'bottom' }">
 			</div>
 			»
 		 </h1>	
@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 aligner_verticalement">
 			<label for="nom_theme">Nom du thème : </label>
-			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom"></input>
+			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom" maxlength="250"></input>
 		</div>
 	</div>
 
@@ -38,8 +38,8 @@
 
 	<hr/>
 
-	<div class="row">
-    	<div class="col-xs-12 col-md-7 col-lg-7">
+	<div class="row row-eq-height">
+    	<div class="col-xs-12 col-md-8 col-lg-8">
     		<h2>Tableau</h2>
     		<div data-bind="template: {name: 'styles-tableau-template', data: theme.tableau}">
 			</div>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12 col-md-5 col-lg-5">
+		<div class="col-xs-12 col-md-4 col-lg-4">
 			<div class="exemple_tableau">
 				<table data-bind="style : {
 				                        background : theme.tableau.couleur_fond(),
@@ -153,25 +153,20 @@
 
 <script type="text/html" id="styles-texte-template">
 	<div class="row">
-    	<div class="col-xs-12 col-md-7 col-lg-7">
-          	<div class="col-xs-12 col-md-3 col-lg-3">
+    	<div class="col-xs-12 col-md-9 col-lg-9">
+          	<div class="col-xs-12 col-md-6 col-lg-3">
 	          	<div class="input-group">
-  					<!-- <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
-				    <select class="form-control" data-role="none">
-				    	<option>Arial</option>
-				    	<option>Times New Roman</option>
-				    </select> -->
 				    <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
 					<select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-3 col-lg-3">
+			<div class="col-xs-12 col-md-6 col-lg-3">
 	          	<div class="input-group">
   					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
 				    <input type="number" pattern="^[0-9]*$"  min="0" class="form-control" data-bind="textInput: taille">
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-3 col-lg-3">
+			<div class="col-xs-12 col-md-6 col-lg-3">
 			    <div class="btn-group" role="group" aria-label="..." data-toggle="buttons">
 			    	<label class="btn btn-default">
 						<input type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
@@ -184,7 +179,7 @@
 					</label>
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-3 col-lg-3">
+			<div class="col-xs-12 col-md-6 col-lg-3">
 				<!-- <div class="input-group ">
 			    	<span class="input-group-addon"><img src="../src/icons/text-color.png"></span>
 				    <input type="text" class="form-control choix_couleur_texte" data-bind="value: couleur, style: {
@@ -201,7 +196,7 @@
 			</div>
 	    </div>
 
-	    <div class="col-md-5 col-xs-12">
+	    <div class="col-xs-12 col-md-3 col-lg-3">
 	    	<div class="exemple_style">
 		    	<span data-bind="text: type, style: {
 	                    fontFamily : police,
@@ -219,19 +214,19 @@
 <script type="text/html" id="styles-tableau-template">
     	<div class="row">
         	<div class="col-xs-12 col-md-12 col-lg-12">
-	          	<div class="col-xs-12 col-md-3 col-lg-3">
+	          	<div class="col-xs-12 col-md-6 col-lg-3">
 		          	<div class="input-group">
 	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
 					    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-3 col-lg-3">
+				<div class="col-xs-12 col-md-6 col-lg-3">
 		          	<div class="input-group">
 	  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
 					    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-3 col-lg-3">
+				<div class="col-xs-12 col-md-6 col-lg-3">
 					<div class="input-group">
 						<span class="input-group-addon choix_couleur_bordure"><img src="../src/icons/border-color.png"></span>
 						<span class="input-group-addon exemple_couleur">
@@ -245,7 +240,7 @@
 					</div> -->
 				</div>
 				<!-- ko if: type() == 'tableau' -->
-				<div class="col-xs-12 col-md-3 col-lg-3">
+				<div class="col-xs-12 col-md-6 col-lg-3">
 					<div class="input-group">
 						<span class="input-group-addon choix_couleur_fond"><img src="../src/icons/background.png"></span>
 						<span class="input-group-addon exemple_couleur">

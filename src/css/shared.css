@@ -20,9 +20,20 @@
   background-color: #D35400;
   border: 1px solid #D35400;
 }
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
   background-color: #a04000;
   border: 1px solid #a04000;
+}
+.btn-primary .btn_icon {
+  width: 12px;
+}
+.btn-primary .btn_icon.avant {
+  margin-right: 5px;
+}
+.btn-primary .btn_icon.apres {
+  margin-left: 5px;
 }
 .btn-secondary {
   width: 100%;

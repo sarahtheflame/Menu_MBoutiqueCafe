@@ -15,12 +15,19 @@ $(document).ready(function(){
 	    { nom: "Aucune", attribut: "none" }
 	]);
 
+	
+
 	/**
 	 * Formatte la couleur sélectionnée par le sélecteur de couleur au format rgba et l'attribue à 
 	 * l'attribut couleur de l'élément
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
+		$('.choix_couleur_texte').colorpicker({ align: 'left'}).on('create.colorpicker', function(event){
+			var context = ko.contextFor(this);
+	  		$(this).colorpicker('setValue', context.$data.couleur());
+		});
+
 	    $('.choix_couleur_texte').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
@@ -34,6 +41,11 @@ $(document).ready(function(){
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
+		$('.choix_couleur_bordure').colorpicker({ align: 'left'}).on('create.colorpicker', function(event){
+			var context = ko.contextFor(this);
+	  		$(this).colorpicker('setValue', context.$data.bordure.couleur());
+		});
+
 	    $('.choix_couleur_bordure').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
@@ -47,6 +59,11 @@ $(document).ready(function(){
 	 * Lancé lors d'un changement de couleur du sélecteur de couleur
 	 */
 	$(function(){
+		$('.choix_couleur_fond').colorpicker({ align: 'left'}).on('create.colorpicker', function(event){
+			var context = ko.contextFor(this);
+	  		$(this).colorpicker('setValue', context.$data.couleur_fond());
+		});
+
 	    $('.choix_couleur_fond').colorpicker({ align: 'left'}).on('changeColor.colorpicker', function(event){
 	  		var context = ko.contextFor(this);
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";

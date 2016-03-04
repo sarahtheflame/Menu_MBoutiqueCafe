@@ -11,3 +11,7 @@ select.form-control {
 #image_preview {
   padding-top: 50px;
 }
+.btn-primary .nav_icon {
+  width: 12px;
+  margin: 0px 0px 0px 5px;
+}

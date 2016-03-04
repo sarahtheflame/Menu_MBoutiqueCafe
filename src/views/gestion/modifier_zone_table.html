@@ -9,7 +9,7 @@
             </div>
             »
          </h1>
-        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
     </div>
     <hr>
     <div class="row">
@@ -17,7 +17,7 @@
             <form>
                 <div class="form-group">
                     <label for="contenu_input">Nom : </label>
-                    <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom">
+                    <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
                 </div>
             </form>
         </div>

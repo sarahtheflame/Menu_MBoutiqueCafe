@@ -94,9 +94,24 @@
 }
 #sidebar .badge_button a {
   float: none!important;
+  margin-top: 5px;
 }
 #sidebar .custom_button_gris {
   bottom: 5px;
+}
+#sidebar #infos_fenetre label {
+  width: 60px;
+}
+#sidebar #infos_fenetre input,
+#sidebar #infos_fenetre .input-group {
+  width: 165px;
+}
+#sidebar #fond label {
+  width: 66px;
+}
+#sidebar #fond select,
+#sidebar #fond .input-group {
+  width: 159px;
 }
 #sidebar #position label {
   width: 90px;

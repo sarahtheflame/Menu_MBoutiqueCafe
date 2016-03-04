@@ -8,7 +8,7 @@
 $(document).ready(function(){
     var changes = 0
 	ko.applyBindings(viewModel);
-     viewModel.hasChanges = ko.computed(function() {
+    viewModel.hasChanges = ko.computed(function() {
         ko.toJSON(viewModel);
         changes += 1;
         if (changes > 3){

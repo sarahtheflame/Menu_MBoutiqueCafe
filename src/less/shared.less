@@ -37,11 +37,22 @@
 .btn-primary {
   background-color: @orange;
   border: 1px solid @orange;
-  &:hover {
+  &:hover, &:active, &:focus {
     background-color: darken(@orange, 10%);
     border: 1px solid darken(@orange, 10%);
   }
 }
+
+.btn-primary .btn_icon {
+    width: 12px;
+    &.avant {
+      margin-right: 5px;
+    }
+    &.apres {
+      margin-left: 5px;
+    }
+}
+
 .btn-secondary {
   width: 100%;
   color: #fff;
