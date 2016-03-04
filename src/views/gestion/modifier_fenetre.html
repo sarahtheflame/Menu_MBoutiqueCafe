@@ -168,38 +168,42 @@
                 <div class="sidebar_row text-center">
                     <div class="changer_zone"><h1 data-bind="text: fenetre.nom, tooltip: { title: fenetre.nom, placement: 'bottom' }"></h1></div>
                 </div>
-                <div class="sidebar_row form-inline">
-                    <label class="sidebar_label">Nom : </label>
-                     <input type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom"></input>
+                <div class="sidebar_row form-inline" id="infos_fenetre">
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Nom : </label>
+                         <input type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Thème : </label>
+                        <div class="input-group">
+                            <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
+                            </select>
+                            <span class="input-group-addon">
+                                <a data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
+                            </span>    
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar_row form-inline">
-                    <label class="sidebar_label">Thème : </label>
-                    <div class="input-group">
-                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
+                <div class="sidebar_row form-inline" id="fond">
+                    <h2>Fond</h2>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Image : </label>
+                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
                         </select>
-                        <span class="input-group-addon">
-                            <a data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
-                        </span>    
                     </div>
-                    
-                </div>
-                <div class="sidebar_row form-inline">
-                    <label class="sidebar_label">Image de fond : </label>
-                    <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
-                    </select>
-                </div>
-                <div class="sidebar_row form-inline">
-                    <label class="sidebar_label">Couleur de fond : </label>
-                    <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
-                        backgroundColor : fenetre.couleur_fond}"/> -->
-                    <div class="input-group">
-                        <input type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond, style: {
-                        backgroundColor : fenetre.couleur_fond}"/>
-                        <span class="choix_couleur input-group-addon">
-                            <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
-                        </span>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Couleur : </label>
+                        <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
+                            backgroundColor : fenetre.couleur_fond}"/> -->
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond"/>
+                            <span class="choix_couleur input-group-addon">
+                                <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                
                 <hr>
                 <!-- ko if: $root.index_zone_focus() != -1 -->
                 <div class="sidebar_row form-inline text-center">
@@ -238,9 +242,9 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <div class="sidebar_row">
+                <div class="sidebar_row text-center">
                     <button class="btn btn-primary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
-                    <div class="badge_button text-center">
+                    <div class="badge_button">
                         <a data-bind="attr: { href: '/g/fenetres'}">Retour à la liste des fenêtres</a>
                     </div>
                 </div>
