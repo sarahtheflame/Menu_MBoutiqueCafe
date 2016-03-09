@@ -13,6 +13,7 @@ __version__ = "1.0.0"
 __email__ = "da.junior.du@gmail.com"
 __status__ = "Development"
 
+import socket
 from gevent import monkey; monkey.patch_all()
 import json, os, bottle_sqlalchemy, webbrowser, datetime
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
@@ -50,6 +51,8 @@ app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'),
 host_port = ""
 while not host_port.isdigit():
     host_port = input("Entrez un port sur lequel héberger le serveur : ")
+
+print("\nVoici votre adresse IP : " + socket.gethostbyname(socket.gethostname()) + "\n")
 
 #===============================================================================
 # Authentification
