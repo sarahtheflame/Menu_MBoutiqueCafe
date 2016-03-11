@@ -236,17 +236,17 @@ zone_grillwiches = ZoneTable(
 
 administrateur_1 = Administrateur(
     adresse_courriel='da.junior.du@gmail.com', 
-    mot_de_passe="test"
+    mot_de_passe="213546879"
 )
 
 administrateur_2 = Administrateur(
-    adresse_courriel='test@gmail.com', 
-    mot_de_passe="123"
+    adresse_courriel='michelhoule@teldrummond.net', 
+    mot_de_passe="boutique"
 )
 
 administrateur_3 = Administrateur(
-    adresse_courriel='allo@gmail.com', 
-    mot_de_passe="allo"
+    adresse_courriel='sarahtheflame@gmail.com ', 
+    mot_de_passe="213546879"
 )
 
 ligne_1_grillwiches = Ligne(

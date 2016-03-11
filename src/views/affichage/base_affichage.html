@@ -190,4 +190,15 @@
                                 "</style>");
     }
 
+    setInterval(function() {
+        var feedback = $.ajax({
+            type: "GET",
+            url: "/update",
+            async: false
+        }).responseText;
+        console.log(feedback);
+        if (feedback === "yes"){
+         location.reload();   
+        }
+        }, 5000);
 </script>

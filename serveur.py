@@ -40,6 +40,10 @@ from modeles.ligne import Ligne
 from modeles.cellule import Cellule
 from modeles.administrateur import Administrateur
 from modeles.base import Base
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 
 # Initialisation de l'application «Bottle»
 app = Bottle()
@@ -47,6 +51,8 @@ app = Bottle()
 # Installation du plugin «SQLAlchemy» dans l'application de «Bottle»
 app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', 
     commit=True, use_kwargs=False))
+
+newData = 0
 
 host_port = ""
 while not host_port.isdigit():
@@ -88,7 +94,7 @@ def verifier_session(func):
 # Page de connexion
 #===============================================================================
 
-@app.route('/g/connexion', method='GET')
+@app.route('/connexion', method='GET')
 def get_connexion(db):
     """
         Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
@@ -101,7 +107,7 @@ def get_connexion(db):
     variables = {}
     return template("src\\views\\autre\\connexion.html", variables)
 
-@app.route('/g/connexion', method='POST')
+@app.route('/connexion', method='POST')
 def post_connexion(db):
     """
         Fonction associée à une route 'POST' qui retourne le 'template' de type 
@@ -128,7 +134,7 @@ def post_connexion(db):
     else:
         return template("src\\views\\autre\\connexion.html", variables)
 
-@app.route('/g/deconnexion', method='GET')
+@app.route('/deconnexion', method='GET')
 def deconnexion():
     """
         Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
@@ -146,7 +152,7 @@ def deconnexion():
 # Pages du système de gestion
 #===============================================================================
 
-@app.route('/g/<nom_fichier>', method='GET')
+@app.route('/<nom_fichier>', method='GET')
 @verifier_session
 def get_gestion(nom_fichier, db):
     """
@@ -172,7 +178,7 @@ def get_gestion(nom_fichier, db):
     }
     return template("src\\views\\gestion\\"+donnees_gestion['vue_associe']+".html", variables)
     
-@app.route('/g/<nom_fichier>', method='POST')
+@app.route('/<nom_fichier>', method='POST')
 @verifier_session
 def post_gestion(nom_fichier, db):
     """
@@ -184,6 +190,9 @@ def post_gestion(nom_fichier, db):
             db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
             de données.
     """
+    global newData
+    newData = True 
+    print(newData)
     variables = {
         'nom_vue' : request.forms.getunicode('fileName'),
         'nouvelles_donnees' : json.loads(request.forms.getunicode('unmapped'))
@@ -228,6 +237,24 @@ def afficher_fenetres(db):
     webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_2))
     webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_3))
     webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_4))
+
+@app.route('/update', method='GET')
+def update(db):
+    """
+        Fonction associée à une route 'POST' qui obtient la période actuelle et affiche les fenêtres 
+        qui y sont associées dans le navigateur par défaut du système.
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    global newData
+    if newData == True:
+        newData = False
+        return "yes"
+    else:
+        return "nope"
+
     
 #===============================================================================
 # Téléchargement de fichier
@@ -367,4 +394,4 @@ def erreur_404(error):
 #===============================================================================
 
 if __name__ == "__main__":
-    run(app, host='0.0.0.0', port=host_port, server='gevent', debug=True)
+    run(app, host='0.0.0.0', port=host_port, server='gevent')
