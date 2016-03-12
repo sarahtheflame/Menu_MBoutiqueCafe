@@ -74,7 +74,7 @@
           <div class="panel-heading" role="tab">
             <h4 class="panel-title">
               <div class="row">
-                <div class="col-xs-12 col-md-3 col-lg-2 aligner_verticalement">
+                <div class="col-xs-12 col-md-3 col-lg-3 aligner_verticalement">
                   <h2><a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}"><span class="caret"></span> <span data-bind="text: $data.nom"></span></a></h2>
                 </div>
                 <div class="col-xs-12 col-md-6 col-lg-6 aligner_verticalement">
@@ -82,7 +82,7 @@
                   <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
                   </select>
                 </div>
-                <div class="col-xs-12 col-md-3 col-lg-4 badge_button">
+                <div class="col-xs-12 col-md-3 col-lg-3 badge_button">
                   <!-- ko if: $data.id() != 1 -->
                   <a href="#" class="retirer_fenetre">X</a>
                   <!-- /ko --> 
