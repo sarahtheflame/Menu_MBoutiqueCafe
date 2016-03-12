@@ -1,3 +1,7 @@
+/**
+ * Application du module d'"interact.js" sur la classe "zone". Ce module permet 
+ * de contrôler le déplacement et la redimension des <div> à l'aide de la souris.
+ */
 interact('.zone')
   .draggable({
     inertia: false,
@@ -35,8 +39,6 @@ interact('.zone')
     viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(a_height);
 
     var table = $(target).children('table')[0];
-    // var image = $(target).children('img')[0];
-    // var video = $(target).children('video')[0];
     if (typeof table !== 'undefined') {
       var table_width = $(table).width() / $(document).width() *100;
       var table_height = $(table).height() / $(document).height() *100;
@@ -45,24 +47,12 @@ interact('.zone')
         viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(table_height);
       }
     }
-    // else if (typeof image !== 'undefined') {
-    //   var image_width = ($(image).width() / $(document).width()) *100;
-    //   var image_height = ($(image).height() / $(document).height()) *100;
-    //   if (a_width > image_width || a_height > image_height) {
-    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].largeur(image_width);
-    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(image_height);
-    //   }
-    // }
-    // else if (typeof video !== 'undefined') {
-    //   var video_width = ($(video).width() / $(document).width()) *100;
-    //   var video_height = ($(video).height() / $(document).height()) *100;
-    //   if (a_width > video_width || a_height > video_height) {
-    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].largeur(video_width);
-    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(video_height);
-    //   }
-    // }
   });
 
+/**
+ * Application du module d'"interact.js" sur la classe "zone". Ce module permet 
+ * de contrôler le déplacement et la redimension des <div> à l'aide de la souris.
+ */
   function dragMoveListener (event) {
     var target = event.target,
       x = parseFloat(target.style.left) + parseFloat(parseFloat(event.dx / $(document).width()) *100 ),
@@ -81,9 +71,7 @@ interact('.zone')
   }
 
   function set_index_zone_focus (event) {
-    console.log("in");
     var zone = ko.dataFor(event.target);
-    console.log(zone.nom());
     for (var index in viewModel.fenetre.zones()) {
         if (viewModel.fenetre.zones()[index].id() === zone.id()){
             viewModel.index_zone_focus(parseInt(index));

@@ -27,7 +27,11 @@
                     'top' : $data.position_y() + '%', 
                     'z-index' : $data.position_z(), 
                     width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%'
+                    height : $data.hauteur() + '%',
+                    background : $root.fenetre.theme.tableau.couleur_fond(),
+                    borderColor :  $root.fenetre.theme.tableau.bordure.couleur(),
+                    borderStyle : $root.fenetre.theme.tableau.bordure.style(),
+                    borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
                 }">
                     <!-- ko if: zone.type_style() === "titre" -->
                     <div data-bind="text: contenu, style: {

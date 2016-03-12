@@ -3,7 +3,6 @@
  */
 $(document).ready(function(){
 
-    
 
 	/**
 	 * Formatte la couleur sélectionnée par le sélecteur de couleur au format rgba et l'attribue à 
@@ -13,7 +12,6 @@ $(document).ready(function(){
 	$(function(){
 	    $('.choix_couleur').colorpicker().on('changeColor.colorpicker', function(event){
 	  		var nouvelle_couleur = "rgba("+event.color.toRGB().r+","+event.color.toRGB().g+","+event.color.toRGB().b+","+event.color.toRGB().a+")";
-            console.log(nouvelle_couleur);
 	  		viewModel.fenetre.couleur_fond(nouvelle_couleur);
 		});
 	});
@@ -78,7 +76,6 @@ function appliquer_modifications(fileName) {
     $(window).bind('beforeunload', function(e) {console.log(changes);});
     window.onbeforeunload = null;
     var unmapped = ko.mapping.toJSON(viewModel);
-    console.log(unmapped);
     $.post("/g/" + fileName,
         {
             fileName,
@@ -120,12 +117,9 @@ function mettre_a_jour_index(index) {
 
 
 /**
- * 
- * 
- * 
+ * Déplace l'index correspondant à la zone sélectionné selon la valeur reçue en argument.
  */
 function deplacement_index_zone_focus(val) {
-    console.log(viewModel.index_zone_focus());
     do {
         if (viewModel.index_zone_focus()+val >= viewModel.fenetre.zones().length) {
             viewModel.index_zone_focus(0);
@@ -139,7 +133,6 @@ function deplacement_index_zone_focus(val) {
             viewModel.index_zone_focus(viewModel.index_zone_focus()+val);
             mettre_a_jour_index(viewModel.index_zone_focus());
         }
-        console.log(viewModel.fenetre.zones()[viewModel.index_zone_focus()].id());
     }
     while (viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() <= 0);
 }

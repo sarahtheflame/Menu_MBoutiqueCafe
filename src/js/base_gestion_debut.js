@@ -7,7 +7,6 @@ function appliquer_modifications(fileName) {
     $(window).bind('beforeunload', function(e) {console.log(changes);});
     window.onbeforeunload = null;
     var unmapped = ko.mapping.toJSON(viewModel);
-    console.log(unmapped);
     $.post("/g/" + fileName,
         {
             fileName,
@@ -37,16 +36,6 @@ $(document).ready(function(){
           $(this).text(second);
         }
     });
-
-    /* ENCORE UTILE? */
-    $("body").on("swiperight",function(){
-        $("#content").addClass("show_sidebar");
-    });
-    $("body").on("swipeleft",function(){
-        $("#content").removeClass('show_sidebar');
-    });
-    window.scrollTo(0, 1);
-
     /**
      * Active les « tooltips » présents sur la page
      */

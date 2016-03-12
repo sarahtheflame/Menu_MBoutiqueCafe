@@ -1,10 +1,6 @@
 /**
  * Fonction lancée lorsque la page est prête
  */
-    
-
-   
-
 $(document).ready(function(){
     var changes = 0
 	ko.applyBindings(viewModel);
@@ -16,12 +12,9 @@ $(document).ready(function(){
         }
     });
     $(window).bind('beforeunload', function(e) {
-        console.log(changes);
         if(changes > 1) {
             return "Vous avez des données non-sauvegardées!";
         }
     });
-    // $(':input[type="number"]').keydown(false);
-    // $(':input[type="time"]').keydown(false);
 });
 

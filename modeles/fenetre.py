@@ -22,8 +22,8 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 class Fenetre(Base):
     """
         Description: 
-            Représente l'ensemble des informations qui seront utilisées pour générer une page du
-            système d'affichage.
+            Hérite de la classe 'Base' de SQLAlchemy. Représente l'ensemble des informations qui 
+            seront utilisées pour générer une page du système d'affichage.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.

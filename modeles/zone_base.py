@@ -18,7 +18,7 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 class ZoneBase(Zone):
     """
         Description: 
-            La classe 'ZoneBase' hérite de la classe 'Zone'. Sert à représenter un rectangle
+            Hérite de la classe 'Zone'. Sert à représenter un rectangle
             contenant ou non du texte.
 
         Attributs:

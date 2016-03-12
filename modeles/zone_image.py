@@ -17,7 +17,7 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 class ZoneImage(Zone):
     """
         Description: 
-            La classe 'ZoneImage' hérite de la classe 'Zone'. Contient une 'Image'.
+            Hérite de la classe 'Zone'. Contient une 'Image'.
 
         Attributs:
             __tablename__ (String) : Nom de la table qui sera créée dans la base de données.
