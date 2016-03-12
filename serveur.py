@@ -48,6 +48,7 @@ app = Bottle()
 app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', 
     commit=True, use_kwargs=False))
 
+# Obtention du port à utiliser par le server via la console
 host_port = ""
 while not host_port.isdigit():
     host_port = input("Entrez un port sur lequel héberger le serveur : ")
@@ -237,7 +238,8 @@ def afficher_fenetres(db):
 def televerser(db):
     """
         Fonction associée à une route 'POST' qui permet de téléverser des fichiers de type '.png',
-        '.jpg','.jpeg' dans le répertoire '/src/images' du serveur.
+        '.jpg','.jpeg' dans le répertoire '/src/images' du serveur et permet de téléverser des 
+        fichiers de type '.mp4' dans le répertoire '/src/videos' du serveur.
 
         Argument(s) :
             db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 

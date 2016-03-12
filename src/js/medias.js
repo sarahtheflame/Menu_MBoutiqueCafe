@@ -1,3 +1,6 @@
+/*
+ * Retirer une zone lors de l'évènement de click sur un élément possédant la classe "retirer".
+ */
 $("body").on("click", ".retirer", function() {
     var context = ko.contextFor(this),
         id = context.$data.id();
@@ -6,21 +9,14 @@ $("body").on("click", ".retirer", function() {
     } else {
         context.$parent.zones.remove(context.$data);
     }
-    console.log(context.$data.id());
 });
 
-
+/*
+ * Téléversement d'une image par requête de type "ajax".
+ */
 $("#add_image").submit(function (event) {
-    //disable the default form submission
         event.preventDefault();
-        //grab all form data  
         var formData = new FormData($(this)[0]);
-        formData.append('nom', 'Bonjour');
-          console.log(formData);
-
-          var formDataSerialized = $(this).serialize();
-          console.log(formDataSerialized);
-
         $.ajax({
             url: '/g/televerser',
             type: 'POST',
@@ -37,19 +33,15 @@ $("#add_image").submit(function (event) {
                 location.reload();
             }
         });
-
         return false;
 });
+
+/*
+ * Téléversement d'une vidéo par requête de type "ajax".
+ */
 $("#add_video").submit(function (event) {
-    //disable the default form submission
         event.preventDefault();
-        //grab all form data  
         var formData = new FormData($(this)[0]);
-          console.log(formData);
-
-          var formDataSerialized = $(this).serialize();
-          console.log(formDataSerialized);
-
         $.ajax({
             url: '/g/televerser',
             type: 'POST',
@@ -66,6 +58,5 @@ $("#add_video").submit(function (event) {
                 location.reload();
             }
         });
-
         return false;
 });
