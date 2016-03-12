@@ -8,12 +8,9 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.fenetre import *
 from sqlalchemy import *
+from modeles.base import Base
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Zone(Base):
     """
@@ -39,14 +36,15 @@ class Zone(Base):
     __tablename__ = 'Zones'
     id = Column(Integer, primary_key=True)
     nom = Column(String, default='Zone sans nom')
-    position_x = Column(String, default='0%')
-    position_y = Column(String, default='0%')
-    largeur = Column(String, default='0%')
-    hauteur = Column(String, default='0%')
+    position_x = Column(Integer, default=50)
+    position_y = Column(Integer, default=50)
+    position_z = Column(Integer, default=0)
+    largeur = Column(Integer, default=10)
+    hauteur = Column(Integer, default=10)
     type = Column(String(50))
     id_fenetre = Column(Integer, ForeignKey('Fenetres.id', onupdate='cascade', ondelete='cascade'))
     fenetre = relationship(
-        Fenetre, 
+        "Fenetre", 
         backref=backref(
             'zones', 
             uselist=True, 

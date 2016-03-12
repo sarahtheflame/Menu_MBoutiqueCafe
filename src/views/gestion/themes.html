@@ -1,0 +1,62 @@
+% rebase(path)
+<div class="modal fade" id="modalAjouterTheme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter un thème</h4>
+      </div>
+      <div class="modal-body">
+        <p>Nom du nouveau thème: <input id="nom_theme_input" type="text" class="form-control" maxlength="250"/></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="ajouter_theme btn btn-primary" data-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+    <div class="crop">
+        <h1 id="titre_page">Liste des thèmes</h1>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel-group custom" role="tablist" aria-multiselectable="true" data-bind="foreach: { data: themes, as: 'theme' }">
+            <!-- ko if: $data.id() > -1 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                  <div class="row">
+                    <div class="col-md-6  col-xs-12">
+                      <h2><span data-bind="text: $data.nom"></span></h2>
+                    </div>
+                    
+                    <div class="badge_button col-md-2 col-md-offset-4 col-xs-12">
+                      <!-- ko if: $data.id() != 1 -->
+                      <a href="#" class="retirer">X</a>
+                      <!-- /ko -->
+                      <!-- ko if: $data.id() == 0 -->
+                      <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier ce thème">Modifier</a>
+                      <!-- /ko -->
+                      <!-- ko if: $data.id() > 0 -->
+                       <a data-bind="attr: { href: '/g/modifier_theme?id='+$data.id()}">Modifier</a>
+                      <!-- /ko -->
+                    </div>
+                  </div>
+                </h4>
+              </div>
+            </div>
+            <!-- /ko -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterTheme"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter un thème</button>
+        </div>
+      </div>
+</div>
+
+<script type='text/javascript' src='/src/themes.js'></script>

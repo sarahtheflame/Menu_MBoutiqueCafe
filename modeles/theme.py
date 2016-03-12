@@ -8,12 +8,11 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.style import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.style import Style
+from modeles.bordure import Bordure
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Theme(Base):
     """
@@ -67,7 +66,8 @@ class Theme(Base):
         )
     nom = Column(
         String(250),
-        nullable=False
+        nullable=False,
+        default="Thème sans nom"
         )
     id_titre = Column(
         Integer, 
@@ -111,49 +111,49 @@ class Theme(Base):
         )
 
     titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_titre]
         )
     sous_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_sous_titre]
         )
     texte = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_texte]
         )
     tableau = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau]
         )
     tableau_ligne = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_ligne]
         )
     tableau_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_titre]
         )
     tableau_sous_titre = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_sous_titre]
         )
     tableau_texte = relationship(
-        Style, 
+        "Style", 
         uselist=False, 
         cascade='delete,all', 
         foreign_keys=[id_tableau_texte]
@@ -187,35 +187,31 @@ class Theme(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('nom') != None : self.nom = data['nom']
-        for style in data:
-            print(data[style])
-            if isinstance(data[style], dict):
-                print("in")
-                if (data[style]['id'] == 0):
-                    print('Nouveau style')
-                    nouveau_style = Style(bordure=Bordure())
-                    nouveau_style.deserialiser_de_json(session, data[style])
-                    session.add(nouveau_style)
-                    if data[style]['type'] == 'titre':
-                        self.titre = nouveau_style
-                    elif data[style]['type'] == 'sous_titre':
-                        self.sous_titre = nouveau_style
-                    elif data[style]['type'] == 'texte':
-                        self.texte = nouveau_style
-                    elif data[style]['type'] == 'tableau':
-                        self.tableau = nouveau_style
-                    elif data[style]['type'] == 'tableau_titre': 
-                        self.tableau_titre = nouveau_style
-                    elif data[style]['type'] == 'tableau_sous_titre': 
-                        self.tableau_sous_titre = nouveau_style
-                    elif data[style]['type'] == 'tableau_ligne':
-                        self.tableau_ligne = nouveau_style
-                    elif data[style]['type'] == 'tableau_texte':
-                        self.tableau_texte = nouveau_style
-                    else:
-                        print("Type de style invalide")
-                elif (data[style]['id'] > 0):
-                    self.titre.deserialiser_de_json(session, data[style])
-                else:
-                    print('Impossible de déserialiser le style \'titre\'')
+        #================================ à revérifier!!! ===========================================
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
+        if data.get('titre') != None:
+            self.titre.deserialiser_de_json(session, data['titre'])
+            
+        if data.get('sous_titre') != None:
+            self.sous_titre.deserialiser_de_json(session, data['sous_titre'])
+            
+        if data.get('texte') != None:
+            self.texte.deserialiser_de_json(session, data['texte'])
+            
+        if data.get('tableau') != None:
+            self.tableau.deserialiser_de_json(session, data['tableau'])
+            
+        if data.get('tableau_ligne') != None:
+            self.tableau_ligne.deserialiser_de_json(session, data['tableau_ligne'])
+            
+        if data.get('tableau_titre') != None:
+            self.tableau_titre.deserialiser_de_json(session, data['tableau_titre'])
+            
+        if data.get('tableau_sous_titre') != None:
+            self.tableau_sous_titre.deserialiser_de_json(session, data['tableau_sous_titre'])
+
+        if data.get('tableau_texte') != None:
+            self.tableau_texte.deserialiser_de_json(session, data['tableau_texte'])
+

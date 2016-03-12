@@ -1,0 +1,14 @@
+.aligner_verticalement > * {
+  vertical-align: middle;
+  margin: 0px 5px;
+}
+input.form-control {
+  margin-left: 15px;
+  width: 50%;
+  display: inline-block;
+}
+select.form-control {
+  margin-left: 15px;
+  width: 50%;
+  display: inline-block;
+}

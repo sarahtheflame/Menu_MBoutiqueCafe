@@ -1,0 +1,48 @@
+.badge_button a {
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1;
+  display: inline-block;
+  float: right;
+  min-width: 10px;
+  margin-right: 5px;
+  padding: 5px 9px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 6px;
+  background-color: #444;
+}
+.btn-primary {
+  background-color: #D35400;
+  border: 1px solid #D35400;
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: #a04000;
+  border: 1px solid #a04000;
+}
+.btn-primary .btn_icon {
+  width: 12px;
+}
+.btn-primary .btn_icon.avant {
+  margin-right: 5px;
+}
+.btn-primary .btn_icon.apres {
+  margin-left: 5px;
+}
+.btn-secondary {
+  width: 100%;
+  color: #fff;
+  background-color: #484848;
+  border: 1px solid #484848;
+}
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #3b3b3b;
+  border: 1px solid #3b3b3b;
+}

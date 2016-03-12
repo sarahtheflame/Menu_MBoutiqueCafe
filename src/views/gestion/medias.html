@@ -1,114 +1,170 @@
 % rebase(path)
 <link rel="stylesheet" type="text/css" href="/src/medias.css">
-<div class="container">
-  <h1>Médias</h1>
-<!--   <div class="aide">
-    <a href="">Qu'est-ce qu'un média?</a>
-  </div> -->
-  
-  <div class="row">
-    <button type="button" class="btn btn-primary">+ Ajouter une image</button>
-    <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <div class="row">
-              <div class="col-md-12 col-xs-12">
-                <h2>
-                  <a role="button" data-toggle="collapse" aria-expanded="true" href="#images_panel">
-                  Images
-                  </a>
-                </h2>
-              </div>
+<div class="modal fade" id="modal_image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form name="add_image" id="add_image" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="label_image_titre">Ajouter une image</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+<!--             <div class="form-group">
+              <label for="nom_image_input">Nom de l'image : </label>
+              <input id="nom_image_input" class="form-control" type="text" name="nom" />
+            </div> -->
+            <div class="form-group">
+              <label for="fichier_image_input">Image à téléverser: <br></label>
+              <input id="fichier_image_input" type="file" name="fichier" accept="image/*"/>
             </div>
-          </h4>
+          </div> 
         </div>
-         <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
-          <ul class="list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
-            <li class="list-group-item">
-              <a href="#" class="retirer">X</a>
-              <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
-              <img data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" width="200px">
-              <strong data-bind="text: $data.nom()"></strong>
-            </li>
-          </ul>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
         </div>
-      </div>
+      </form>
     </div>
-    <button type="button" class="btn btn-primary">+ Ajouter une video</button>
-    <div class="panel-group" id="fenetres" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <div class="row">
-              <div class="col-md-12 col-xs-12">
-                <h2>
-                  <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
-                  Videos
-                  </a>
-                </h2>
-              </div>
-            </div>
-          </h4>
-        </div>
-         <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
-          <ul class="list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
-            <li class="list-group-item">
-                    <a href="#" class="retirer">X</a>
-                    <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
-<!--                     <video controls preload="none" width="200px" >
-                        <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type='video/mp4' />
-                    </video> -->
-              <strong data-bind="text: $data.nom()"></strong>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <form action="/upload" method="post" enctype="multipart/form-data" data-ajax="false" >
-      Category:      <input type="text" name="category" />
-      Select a file: <input type="file" name="upload" />
-      <input type="submit" value="Start upload" />
-    </form>
-  </div>  
+  </div>
 </div>
 
+<div class="modal fade" id="modal_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form name="add_video" id="add_video" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="label_video_titre">Ajouter une vidéo</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+<!--             <div class="form-group">
+              <label for="nom_video_input">Nom du vidéo : </label>
+              <input id="nom_video_input" class="form-control" type="text" name="nom" />
+            </div> -->
+            <div class="form-group">
+              <label for="fichier_video_input">Vidéo à téléverser: </label>
+              <input id="fichier_video_input" type="file" name="fichier" accept="video/*"/>
+            </div>
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-<script type="text/javascript" charset="utf-8" defer="defer">
-      $("body").on("click", ".retirer", function() {
-          var context = ko.contextFor(this),
-              id = context.$data.id();
-            if (id != 0) {
-              context.$data.id(-id);
-            } else {
-              context.$parent.zones.remove(context.$data);
-            }
-      });
+<div class="container-fluid">
+  <div class="crop">
+    <h1 id="titre_page">Médias</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel-group custom" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <h2>
+                    <a role="button" data-toggle="collapse" aria-expanded="true" href="#images_panel">
+                    Images <span class="caret"></span>
+                    </a>
+                  </h2>
+                </div>
+              </div>
+            </h4>
+          </div>
+             <div class="panel-collapse collapse" role="tabpanel" id="images_panel">
+              <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: images, as: 'image' }">
+                <!-- ko if: $data.id() > 2 -->
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="text-center">
+                        <img class="img-thumbnail" data-bind="attr: { src: '/src/'+$data.chemin_fichier()}">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="vertical_align">
+                        <strong>Nom de l'image : </strong><span data-bind="text: $data.nom()"></span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <a class="retirer">X</a>
+                      <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                    </div>
+                  </div>
+                </li>
+                <!-- /ko -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une image</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel-group custom" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+              <h4 class="panel-title">
+                <div class="row">
+                  <div class="col-md-12 col-xs-12">
+                    <h2>
+                      <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
+                      Videos <span class="caret"></span>
+                      </a>
+                    </h2>
+                  </div>
+                </div>
+              </h4>
+            </div>
+             <div class="panel-collapse collapse" role="tabpanel" id="videos_panel">
+              <ul class="badge_button list-group" id="zones" data-bind="foreach: { data: videos, as: 'video' }">
+                <!-- ko if: $data.id() > 2 -->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <video class="img-thumbnail" width="100%" controls>
+                          <source data-bind="attr: { src: '/src/'+$data.chemin_fichier()}" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="vertical_align">
+                          <strong>Nom du vidéo : </strong><span data-bind="text: $data.nom()"></span>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                       <a class="retirer">X</a>
+                        <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                      </div>
+                    </div>
+                  </li>
+                <!-- /ko -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une video</button>
+      </div>
+    </div>
+</div>
 
-      $("body").on("click", ".ajouter_fenetre", function() {
-        var context = ko.contextFor(this);
-            var Fenetre = function(){
-              this.id = ko.observable(0);
-              this.nom = ko.observable($("#nom_fenetre_input").val());
-              this.theme = ko.observable(context.$root.themes()[0]);
-              this.zones = ko.observableArray([]);
-            };
-
-            context.$root.fenetres.push(new Fenetre());
-      });
-
-      $("body").on("click", ".ajouter_zone", function() {
-        var context = ko.contextFor(this),
-            nom_zone = prompt("Nom de la nouvelle zone : ", ""),
-            type_zone = prompt("Type de la zone : ", "ZoneBase");
-        if (nom_zone != null) {
-          var Zone = function(nom_zone, type_zone){
-            this.id = ko.observable(0);
-            this.nom = ko.observable(nom_zone);
-            this.type = ko.observable(type_zone);
-          };
-
-          context.$data.zones.push(new Zone(nom_zone, type_zone));
-        }
-      });
-</script>
+<script type='text/javascript' src='/src/medias.js'></script>

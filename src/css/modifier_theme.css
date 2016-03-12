@@ -1,24 +1,23 @@
 h2 {
   text-transform: uppercase;
   font-size: 20px;
-  padding-right: 30px;
-  padding-left: 30px;
   margin-right: auto;
   margin-left: auto;
 }
-table {
-  width: 300px;
+.exemple_tableau table {
+  width: 100%;
+  margin-top: 30px;
   box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.69);
   border-collapse: collapse;
 }
-table tr {
+.exemple_tableau table tr {
   padding: 1vw;
 }
-table tr th {
+.exemple_tableau table tr th {
   padding-left: 1vw;
   padding-right: 1vw;
 }
-table tr td {
+.exemple_tableau table tr td {
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0.2vw;
@@ -30,6 +29,44 @@ table tr td {
 .btn-group img {
   width: 15px;
 }
+.choix_couleur_fond,
+.choix_couleur_texte,
+.choix_couleur_bordure {
+  cursor: pointer;
+  background-color: #e6e6e6;
+}
+.choix_couleur_fond:hover,
+.choix_couleur_texte:hover,
+.choix_couleur_bordure:hover {
+  box-shadow: 1px 1px 40px #bbb inset;
+  border-color: #8c8c8c;
+}
+.exemple_couleur {
+  padding: 0px;
+  margin: 0px;
+  border-left: 1px solid #ccc;
+  border-right: 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.exemple_couleur i {
+  margin: 1px 0px 0px 0px;
+  height: 100%;
+  width: 12px;
+  display: inline-block;
+}
 .spacer {
   margin-bottom: 100px;
+}
+@media only screen and (max-width: 1170px) {
+  .input-group,
+  .btn-group {
+    padding: 5px;
+  }
+  .exemple_style {
+    text-align: center;
+  }
+  .exemple_tableau table {
+    margin: 20px auto;
+  }
 }

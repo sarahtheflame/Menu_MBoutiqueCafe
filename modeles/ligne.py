@@ -8,13 +8,10 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.style import *
-from modeles.zone_table import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.cellule import Cellule
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Ligne(Base):
     """
@@ -38,24 +35,14 @@ class Ligne(Base):
         Integer, 
         ForeignKey('ZonesTable.id', onupdate='cascade', ondelete='cascade')
         )
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=5
-        )
     zone_table = relationship(
-        ZoneTable, 
+        "ZoneTable", 
         backref=backref(
             'lignes', 
             uselist=True, 
             cascade='delete,all'), 
         foreign_keys=[id_zone_table]
         )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
 
     def serialiser_en_json(self):
         """
@@ -64,9 +51,7 @@ class Ligne(Base):
         """
         cellules_data = []
         data = dict(
-            id = self.id,
-            id_style = self.id_style
-            #id_zone_table = self.id_zone_table PAS NECESSAIRE??
+            id = self.id
             )
         for cellule in self.cellules:
             cellules_data.append(cellule.serialiser_en_json())
@@ -83,18 +68,16 @@ class Ligne(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if (self.id_style != data['id_style']):
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
         for cellule in data['cellules']:
             if cellule['id'] == 0:
-                print('Nouvelle cellule')
-                nouvelle_cellule = Cellule(ligne=self)
-                nouvelle_cellule.deserialiser_de_json(session, cellule)
-                session.add(nouvelle_cellule)
+                if len(self.cellules) < self.zone_table.nombre_colonnes:
+                    nouvelle_cellule = Cellule(ligne=self)
+                    nouvelle_cellule.deserialiser_de_json(session, cellule)
+                    session.add(nouvelle_cellule)
             elif cellule['id'] > 0:
                 session.query(Cellule).filter(Cellule.id == cellule['id']).one().deserialiser_de_json(session, cellule)
             elif cellule['id'] < 0:
                 session.delete(session.query(Cellule).filter(Cellule.id == -cellule['id']).one())
             else:
                 print('Impossible de déserialiser la cellule')
-  
+    

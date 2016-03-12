@@ -9,10 +9,8 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 from sqlalchemy import *
+from modeles.base import Base
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Media(Base):
     """
@@ -31,8 +29,14 @@ class Media(Base):
                 la classe.
     """
     __tablename__ = 'Medias'
-    id = Column(Integer, primary_key=True)
-    nom = Column(String, default="Media sans nom")
+    id = Column(
+        Integer, 
+        primary_key=True
+        )
+    nom = Column(
+        String, 
+        default="Media sans nom"
+        )
     chemin_fichier = Column(String)
     type = Column(String)
 
@@ -58,7 +62,9 @@ class Media(Base):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('chemin_fichier') != None : self.chemin_fichier = data['chemin_fichier']
         
     __mapper_args__ = {

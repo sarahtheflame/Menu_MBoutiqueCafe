@@ -15,17 +15,17 @@
             <div class="form-group">
                 <label>Nouveau mot de passe:</label> 
                 <div class="toggle_password">
-                    <input id="mot_de_passe_input" type="password" class="form-control" maxlength="250" data-bind="value: administrateur.mot_de_passe()"/>
+                    <input id="mot_de_passe_input" type="password" class="form-control" maxlength="250" value="" data-bind="value: administrateur.mot_de_passe()"/>
                 </div>
             </div> 
-            <div class="form-group">
+<!--             <div class="form-group">
                 <label>Confimation du mot de:</label> 
                 <div class="toggle_password">
                     <input id="confirmation_mot_de_passe_input" type="password" class="form-control" maxlength="250" data-bind="value: administrateur.mot_de_passe()"/>
                 </div>
-            </div> 
+            </div>  -->
             <div class="form-group">
-                <input type="button" class="toggle_mot_de_passe">toggle</input>
+                <input type="checkbox" onchange="document.getElementById('mot_de_passe_input').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?</input>
             </div> 
         </form>        
       </div>
@@ -36,12 +36,11 @@
     </div>
   </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="entete">
-          <h1>Paramètres</h1>
-        </div>
+<div class="container-fluid">
+    <div class="crop">
+        <h1 id="titre_page">Paramètres</h1>
     </div>
+    <hr>
     <div class="row">
         <form class="col-md-4 col-xs-12">
             <div class="form-group">
@@ -49,11 +48,11 @@
                 <span id="administrateur_adresse_courriel" data-bind="text: administrateur.adresse_courriel()"></span>
             </div>
             <div class="form-group">
-                <label>Mots de passe : </label>
-                <span id="administrateur_mot_de_passe" data-bind="text: administrateur.mot_de_passe()"></span>
+                <label>Mot de passe : </label>
+                <input type="password" class="form-control" id="administrateur_mot_de_passe" data-bind="value: administrateur.mot_de_passe()" disabled></input>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Afficher le mot de passe?
+                        <input type="checkbox" onchange="document.getElementById('administrateur_mot_de_passe').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?
                     </label>
                 </div>
             </div>
@@ -61,27 +60,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    $("body").on("click", ".modifier_parametres", function() {
-        var nouvelle_adresse_courriel = $('#adresse_courriel_input').val();
-        var nouveau_mot_de_passe = $('#mot_de_passe_input').val();
-        if ($('#confirmation_mot_de_passe_input').val() === nouveau_mot_de_passe) {
-            viewModel.administrateur.adresse_courriel(nouvelle_adresse_courriel);
-            viewModel.administrateur.mot_de_passe(nouveau_mot_de_passe);
-            alert("success");
-        } 
-        else {
-            alert("failed");
-        }
-    });
-    $("body").on("click", ".toggle_mot_de_passe", function() {
-        alert(event.target.type);
-        if ($('#mot_de_passe_input').attr('type') == 'password') {
-            $('#mot_de_passe_input').attr('type', 'text');
-        }
-        else {
-            $('#mot_de_passe_input').attr('type', 'password');
-        }
-    });
-</script>
+<script src="/src/parametres.js" type="text/javascript"></script>

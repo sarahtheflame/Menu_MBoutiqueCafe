@@ -8,56 +8,81 @@
 """
 
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
+__license__ = "GPL"
+__version__ = "1.0.0"
+__email__ = "da.junior.du@gmail.com"
+__status__ = "Development"
 
-import json, os
+import socket
+from gevent import monkey; monkey.patch_all()
+import json, os, bottle_sqlalchemy, webbrowser, datetime
 from bottle import Bottle, error, route, run, request, response, template, static_file, abort, get, post, parse_auth, HTTPError
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 from os.path import join, dirname, isfile, abspath
 from controleurs.controleur import *
-from controleurs.modeles_temporaires import *
 from functools import wraps
-# from modeles.media import *
-# from modeles.image import *
-# from modeles.video import *
-# from modeles.bordure import *
-# from modeles.style import *
-# from modeles.theme import *
-# from modeles.fenetre import *
-# from modeles.periode import *
-# from modeles.zone import *
-# from modeles.zone_base import *
-# from modeles.zone_image import *
-# from modeles.zone_video import *
-# from modeles.zone_table import *
-# from modeles.ligne import *
-# from modeles.cellule import *
-# from modeles.administrateur import *
+from modeles.media import Media
+from modeles.image import Image
+from modeles.video import Video
+from modeles.bordure import Bordure
+from modeles.style import Style
+from modeles.theme import Theme
+from modeles.fenetre import Fenetre
+from modeles.periode import Periode
+from modeles.zone import Zone
+from modeles.zone_base import ZoneBase
+from modeles.zone_image import ZoneImage
+from modeles.zone_video import ZoneVideo
+from modeles.zone_table import ZoneTable
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
+from modeles.administrateur import Administrateur
+from modeles.base import Base
 
-appPath = dirname(abspath(__file__)).replace("\\", "\\\\") # Représente le chemin vers le répertoire racine du système.
-app = Bottle() # Représente l'application qui gère les routes de notre système.
+# Initialisation de l'application «Bottle»
+app = Bottle()
 
-Base = declarative_base()
-engine = create_engine('sqlite:///src//data//database.db')
+# Installation du plugin «SQLAlchemy» dans l'application de «Bottle»
+app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'), keyword='db', 
+    commit=True, use_kwargs=False))
 
-plugin = sqlalchemy.Plugin(engine, keyword='db', commit=True, use_kwargs=False)
+# Obtention du port à utiliser par le server via la console
+host_port = ""
+while not host_port.isdigit():
+    host_port = input("Entrez un port sur lequel héberger le serveur : ")
 
-app.install(plugin)
-    
+print("\nVoici votre adresse IP : " + socket.gethostbyname(socket.gethostname()) + "\n")
+
 #===============================================================================
 # Authentification
 #===============================================================================
 
-def check_auth(func):
+def verifier_session(func):
+    """
+        Décorateur de fonction qui vérifie l'authenticité de la session du navigateur.
+
+        Argument(s) :
+            func (function) : Fonction décorée par le décorateur.
+    """
     @wraps(func)
     def check(*args, **kwargs):
-        cookie_courriel = request.get_cookie("administrateur", secret="secret_temporaire")
-        if cookie_courriel:
+        """
+            Fonction lancée par le décorateur sur la fonction décorée.
+
+            Argument(s) :
+                func (function) : Fonction décorée par le décorateur.
+                *args (Arguments) : Liste d'argument reçu par la fonction décorée. ***
+                **kwargs (Arguments) : Liste d'argument reçu par la fonction décorée. ***
+        """
+        id_administrateur = request.get_cookie("administrateur", 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+        print(id_administrateur)
+        if id_administrateur and id_administrateur > 0:
             return func(*args, **kwargs)
         else:
-            variables = {}
-            return template("src\\views\\autre\\connexion.html", variables)
+            return template("src\\views\\autre\\connexion.html", {})
     return check
 
 #===============================================================================
@@ -67,11 +92,12 @@ def check_auth(func):
 @app.route('/g/connexion', method='GET')
 def get_connexion(db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
+        à la page de connexion (connexion.html).
 
         Argument(s) :
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {}
     return template("src\\views\\autre\\connexion.html", variables)
@@ -79,11 +105,14 @@ def get_connexion(db):
 @app.route('/g/connexion', method='POST')
 def post_connexion(db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route 'POST' qui retourne le 'template' de type 
+        'html' correspondant à la page de connexion (connexion.html) si les informations de connexion 
+        sont incorrectes. Sinon, le 'template' de type 'html' correspondant à la page d'accueil 
+        (accueil.html) est retournée.
 
         Argument(s) :
-            nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {
         'titre' : 'accueil',
@@ -93,29 +122,49 @@ def post_connexion(db):
     courriel = request.forms.get('courriel')
     mot_de_passe = request.forms.get('mot_de_passe')
     if est_autorise(db, courriel, mot_de_passe):
-        response.set_cookie("administrateur", courriel, secret="secret_temporaire")
+        administrateur = db.query(Administrateur).filter(Administrateur.adresse_courriel == courriel).one()
+        response.set_cookie("administrateur", administrateur.id, 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
         return template("src\\views\\gestion\\accueil.html", variables)
     else:
         return template("src\\views\\autre\\connexion.html", variables)
 
+@app.route('/g/deconnexion', method='GET')
+def deconnexion():
+    """
+        Fonction associée à une route 'GET' qui retourne le 'template' de type 'html' correspondant 
+        à la page de connexion (connexion.html).
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    id_administrateur = request.get_cookie("administrateur", 0,
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
+    response.set_cookie("administrateur", id_administrateur, secret="...")
+    return template("src\\views\\autre\\connexion.html", {})
 #===============================================================================
 # Pages du système de gestion
 #===============================================================================
 
 @app.route('/g/<nom_fichier>', method='GET')
-@check_auth
+@verifier_session
 def get_gestion(nom_fichier, db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route dynamique 'GET' qui retourne le 'template' de type 
+        'html' correspondant au fichier '<nom_fichier>.html' s'il existe dans le répertoire 
+        '/src/views/gestion'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     donnees_gestion = obtenir_donnees_gestion(db, {
-        'nom_vue' : nom_fichier, 
+        'nom_vue' : nom_fichier,
         'id' : request.query.id, 
-        'courriel_administrateur' : request.get_cookie("administrateur", secret="secret_temporaire")
+        'id_administrateur' : request.get_cookie("administrateur", 
+            secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
     })
     variables = {
         'titre' : nom_fichier,
@@ -125,14 +174,16 @@ def get_gestion(nom_fichier, db):
     return template("src\\views\\gestion\\"+donnees_gestion['vue_associe']+".html", variables)
     
 @app.route('/g/<nom_fichier>', method='POST')
-@check_auth
+@verifier_session
 def post_gestion(nom_fichier, db):
     """
-        Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        Fonction associée à une route dynamique 'POST' d'une page du système de gestion. Exécute 
+        'retourner_donnees_gestion' avec les données reçues par la requête 'POST'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
     variables = {
         'nom_vue' : request.forms.getunicode('fileName'),
@@ -148,29 +199,95 @@ def post_gestion(nom_fichier, db):
 def affichage(id_fenetre, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
-        'html' s'il existe dans le répertoire '<<appPath>>/src/views'.
+        'html' du fichier '<id_fenetre>.html' s'il existe dans le répertoire '/src/views/affichage'.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
     """
-    fenetre = db.query(Fenetre).filter(Fenetre.id == id_fenetre).one().serialiser_en_json()
     variables = {
         'titre' : id_fenetre,
-        'data' : {'fenetre' : fenetre}
+        'data' : get_affichage(db, id_fenetre)
     }
     return template('src\\views\\affichage\\base_affichage.html', variables)
+
+@app.route('/afficher_fenetres', method='POST')
+def afficher_fenetres(db):
+    """
+        Fonction associée à une route 'POST' qui obtient la période actuelle et affiche les fenêtres 
+        qui y sont associées dans le navigateur par défaut du système.
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    now = datetime.time(datetime.datetime.now().hour, datetime.datetime.now().minute)
+    periode = db.query(Periode).filter(Periode.heure_debut < now).order_by(
+        desc(Periode.heure_debut)).first()
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_1))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_2))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_3))
+    webbrowser.open("http://localhost/a/" + str(periode.id_fenetre_4))
     
 #===============================================================================
 # Téléchargement de fichier
 #===============================================================================
 
-@app.route('/upload', method='POST')
-def do_upload(db):
-    category   = request.forms.get('category')
-    upload     = request.files.get('upload')
-    name, ext = os.path.splitext(upload.filename)
-    if ext in ('.png','.jpg','.jpeg'):
-        upload.save('src\\images') # appends upload.filename automatically
+@app.route('/g/televerser', method='POST')
+def televerser(db):
+    """
+        Fonction associée à une route 'POST' qui permet de téléverser des fichiers de type '.png',
+        '.jpg','.jpeg' dans le répertoire '/src/images' du serveur et permet de téléverser des 
+        fichiers de type '.mp4' dans le répertoire '/src/videos' du serveur.
+
+        Argument(s) :
+            db (Session) : Objet de la librairie 'SQLAlchemy' qui relie les objets python à la base 
+            de données.
+    """
+    try:
+        variables = {
+            'nom_vue' : 'medias',
+            'nouvelles_donnees' : json.loads(request.forms.getunicode('unmapped'))
+        }
+        retourner_donnees_gestion(db, variables)
+    except Exception:
+        print("Aucune données 'unmapped'")
+    try:
+        televersement = request.files.get('fichier')
+        nom_fichier, extension = os.path.splitext(televersement.filename)
+        if extension in ('.png','.jpg','.jpeg', '.gif'):
+            televersement.save('src\\images')
+            retourner_donnees_gestion(db, {
+                'nom_vue' : 'medias',
+                'nouvelles_donnees' : {
+                    'images' : [
+                        {
+                            'id' : 0,
+                            'nom' : televersement.filename,
+                            'chemin_fichier' : televersement.filename,
+                            'type' : 'Image'
+                        }
+                    ]
+                }
+            })
+        elif extension in ('.mp4'):
+            televersement.save('src\\videos')
+            retourner_donnees_gestion(db, {
+                'nom_vue' : 'medias',
+                'nouvelles_donnees' : {
+                    'videos' : [
+                        {
+                            'id' : 0,
+                            'nom' : televersement.filename,
+                            'chemin_fichier' : televersement.filename,
+                            'type' : 'Video'
+                        }
+                    ]
+                }
+            })
+    except Exception:
+        print("Aucun média à téléverser!")
     return get_gestion("medias", db)
 
 #===============================================================================
@@ -181,7 +298,7 @@ def do_upload(db):
 def javascripts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
-        'javascripts' s'il existe dans le répertoire '<<appPath>>/src/js'.
+        'javascripts' s'il existe dans le répertoire '/src/js' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -192,18 +309,18 @@ def javascripts(nom_fichier):
 def stylesheets(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 
-        'stylesheets' s'il existe dans le répertoire '<<appPath>>/src/css'.
+        'stylesheets' s'il existe dans le répertoire '/src/css' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
     """
     return static_file(nom_fichier, root="src\\css")
 
-@app.route('/src/<nom_fichier:re:.*\.(jpg|png|gif|ico|jpeg)>')
+@app.route('/src/<nom_fichier:re:.*\.(jpg|png|gif|ico|jpeg|svg)>')
 def images(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'images' 
-        s'il existe dans le répertoire '<<appPath>>/src/images'.
+        s'il existe dans le répertoire '/src/images' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -214,7 +331,7 @@ def images(nom_fichier):
 def videos(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'videos' 
-        s'il existe dans le répertoire '<<appPath>>/src/videos'.
+        s'il existe dans le répertoire '/src/videos' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -225,7 +342,7 @@ def videos(nom_fichier):
 def fonts(nom_fichier):
     """
         Fonction associée à une route dynamique qui retourne le fichier statique de type 'fonts' 
-        s'il existe dans le répertoire '<<appPath>>/src/fonts'.
+        s'il existe dans le répertoire '/src/fonts' du serveur.
 
         Argument(s) :
             nom_fichier (String) : Nom du fichier entrée dans l'URL
@@ -237,7 +354,7 @@ def fonts(nom_fichier):
 #===============================================================================
 
 @app.error(404)
-def notFound(error):
+def erreur_404(error):
     """
         Fonction associée à une route inconnue au système (Erreur 404).
 
@@ -252,4 +369,4 @@ def notFound(error):
 #===============================================================================
 
 if __name__ == "__main__":
-    run(app, host='0.0.0.0', port=80, debug=True)
+    run(app, host='0.0.0.0', port=host_port, server='gevent', debug=True)

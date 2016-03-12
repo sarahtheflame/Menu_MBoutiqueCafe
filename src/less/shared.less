@@ -1,14 +1,67 @@
 
 @blanc: #FFF;
 @orange: #D35400;
-@gris_fonce: #2F2F2F;
-@gris_pale: #DDDDDD;
+@gris_fonce: #202020;
+@gris_pale: #484848;
 
 @fond_contenu: @blanc;
 @fond_menu_navigation_gauche: @gris_fonce;
-@fond_menu_navigation_haut: @gris_fonce;
+@fond_menu_navigation_haut: rgba(0, 0, 0, 0.6);
 
-
+@font_size_xs: 8px;
 @font_size_sm: 12px;
 @font_size_md: 14px;
 @font_size_lg: 18px;
+
+@transition_time: 0.4s;
+
+.badge_button a {
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1;
+    display: inline-block;
+    float: right;
+    min-width: 10px;
+    margin-right: 5px;
+    padding: 5px 9px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 6px;
+    background-color: #444;
+}
+
+.btn-primary {
+  background-color: @orange;
+  border: 1px solid @orange;
+  &:hover, &:active, &:focus {
+    background-color: darken(@orange, 10%);
+    border: 1px solid darken(@orange, 10%);
+  }
+}
+
+.btn-primary .btn_icon {
+    width: 12px;
+    &.avant {
+      margin-right: 5px;
+    }
+    &.apres {
+      margin-left: 5px;
+    }
+}
+
+.btn-secondary {
+  width: 100%;
+  color: #fff;
+  background-color: @gris_pale;
+  border: 1px solid @gris_pale;
+  &:hover {
+    color: #fff;
+    background-color: darken(@gris_pale, 5%);
+    border: 1px solid darken(@gris_pale, 5%);
+  }
+}
+

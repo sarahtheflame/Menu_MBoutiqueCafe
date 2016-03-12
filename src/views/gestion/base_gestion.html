@@ -8,38 +8,24 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="auteurs" content="Daniel-Junior Dubé et Sarah Laflamme">
-<!-- 
+
     <meta content="width=device-width, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes">
- -->
+
     <link rel="shortcut icon" href="/src/tab.ico">
     <script src="/src/jquery-2.1.4.min.js"></script>
-<!-- 
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-     -->
+    <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/base_gestion.css">
+
     <script src="/src/bootstrap.js"></script>
     <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
     <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
-    
+    <script type='text/javascript' src='/src/knockstrap.min.js'></script>
     <script>
-      $(document).ready(function(){
-        $("#toggle_sidebar").click(function(){
-            $("#content").toggleClass("show_sidebar");
-        });
-        $("body").on("swiperight",function(){
-          $("#content").addClass("show_sidebar");
-        });
-        $("body").on("swipeleft",function(){
-          $("#content").removeClass('show_sidebar');
-        });
-        window.scrollTo(0, 1);
-      });
+      var viewModel = ko.mapping.fromJS({{!data}});
     </script>
-    <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/src/base_gestion.css">
-    <link rel="stylesheet" type="text/css" href="/src/principal.css">
+    <script type='text/javascript' src='/src/base_gestion_debut.js'></script>
   </HEAD>
   <BODY>
     <div id="header" class="navbar-fixed-top">
@@ -47,10 +33,10 @@
         <img alt="MBoutique Café" src="/src/logo_mboutique.png">
       </div>
       <div class="toggle_sidebar colonne">
-        <span id="toggle_sidebar">»</span>
+        <span id="toggle_sidebar"  data-starttext="»" data-secondtext="«">»</span>
       </div>
       <div class="appliquer_modifications">
-        <button type="button" class="b_gris" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+        <button type="button" class="btn btn-secondary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
       </div>
     </div>
     
@@ -58,48 +44,48 @@
       <ul>
         <li>
           <a href="accueil" rel="external">
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/home.png" alt="">
             <div class="navigation_element_detail">Accueil</div>
           </a></li>
         <li>
           <a href="periodes" rel="external">
-            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/time.png" alt="">
             <div class="navigation_element_detail">Périodes</div>
           </a>
         </li>
         <li>
-          <a href="lister_fenetres" rel="external">
-            <span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
+          <a href="fenetres" rel="external">
+            <img class="nav_icon" align="left" src="/src/computer.png" alt="">
             <div class="navigation_element_detail">Fenêtres</div>
           </a>
         </li>
         <li>
           <a href="themes" rel="external">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/paintbrush.png" alt="">
             <div class="navigation_element_detail">Thèmes</div>
           </a>
         </li>
         <li>
           <a href="medias" rel="external">
-            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/camera.png" alt="">
             <div class="navigation_element_detail">Médias</div>
           </a>
         </li>
         <li>
           <a href="parametres" rel="external">
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/gears.png" alt="">
             <div class="navigation_element_detail">Paramètres</div>
           </a>
         </li>
         <li>
           <a href="a_propos" rel="external">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <img class="nav_icon" align="left" src="/src/help.png" alt="">
             <div class="navigation_element_detail">À propos</div>
           </a>
         </li>
       </ul>
       <div id="deconnexion">
-        <button class="b_gris" type="submit" onclick="location.href = '/g/connexion';" >
+        <button class="btn btn-secondary" type="submit" onclick="location.href = '/g/deconnexion';" >
           Déconnexion
         </button>
       </div>
@@ -107,21 +93,6 @@
     <div id="content" class="show_sidebar">
       {{!base}}
     </div>
-    <script type='text/javascript' defer="defer">
-      var viewModel = ko.mapping.fromJS({{!data}});
-      ko.applyBindings(viewModel);
-      function appliquer_modifications(fileName) {
-        var unmapped = ko.mapping.toJSON(viewModel);
-        console.log(unmapped);
-        $.post("/g/" + fileName,
-            {
-                fileName,
-                unmapped
-            }
-        ).always(function() {
-            // location.reload();
-        });
-      }
-    </script>
   </BODY>
 </HTML>
+<script type='text/javascript' src='/src/base_gestion_fin.js'></script>

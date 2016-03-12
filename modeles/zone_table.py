@@ -8,13 +8,12 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.zone import *
-from modeles.style import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.zone import Zone
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class ZoneTable(Zone):
     """
@@ -33,21 +32,13 @@ class ZoneTable(Zone):
                 classe 'Ligne').
     """
     __tablename__ = 'ZonesTable'
+
     id = Column(
         Integer, 
         ForeignKey('Zones.id', onupdate='cascade', ondelete='cascade'), 
         primary_key=True
         )
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=4
-        )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
+    nombre_colonnes = Column(Integer, default=1)
 
     __mapper_args__ = {'polymorphic_identity':'ZoneTable'}
 
@@ -60,12 +51,13 @@ class ZoneTable(Zone):
         data = dict(
             id = self.id,
             nom = self.nom,
+            nombre_colonnes = self.nombre_colonnes,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
-            type = self.type,
-            id_style = self.id_style
+            type = self.type
             )
         for ligne in self.lignes:
             lignes_data.append(ligne.serialiser_en_json())
@@ -82,22 +74,24 @@ class ZoneTable(Zone):
                                     à la base de données.
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
-        if data.get('nom') != None : self.nom = data['nom']
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
+        if data.get('nombre_colonnes') != None : self.nombre_colonnes = data['nombre_colonnes']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
-        if self.id_style != data['id_style']:
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
-        for ligne in data['lignes']:
-            if (ligne['id'] == 0):
-                print('Nouvelle ligne')
-                nouvelle_ligne = Ligne(zone_table=self)
-                nouvelle_ligne.deserialiser_de_json(session, ligne)
-                session.add(nouvelle_ligne)
-            elif ligne['id'] > 0:
-                session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
-            elif ligne['id'] < 0:
-                session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
-            else:
-                print('Impossible de déserialiser la ligne')
+        if data.get('lignes') != None : 
+            for ligne in data['lignes']:
+                if (ligne['id'] == 0):
+                    nouvelle_ligne = Ligne(zone_table=self)
+                    nouvelle_ligne.deserialiser_de_json(session, ligne)
+                    session.add(nouvelle_ligne)
+                elif ligne['id'] > 0:
+                    session.query(Ligne).filter(Ligne.id == ligne['id']).one().deserialiser_de_json(session, ligne)
+                elif ligne['id'] < 0:
+                    session.delete(session.query(Ligne).filter(Ligne.id == -ligne['id']).one())
+                else:
+                    print('Impossible de déserialiser la ligne')

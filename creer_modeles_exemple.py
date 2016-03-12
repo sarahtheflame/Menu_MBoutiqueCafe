@@ -9,12 +9,27 @@
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
 import datetime
-from modeles_temporaires import *
-from sqlalchemy import *
+from modeles.media import Media
+from modeles.image import Image
+from modeles.video import Video
+from modeles.bordure import Bordure
+from modeles.style import Style
+from modeles.theme import Theme
+from modeles.fenetre import Fenetre
+from modeles.periode import Periode
+from modeles.zone import Zone
+from modeles.zone_base import ZoneBase
+from modeles.zone_image import ZoneImage
+from modeles.zone_video import ZoneVideo
+from modeles.zone_table import ZoneTable
+from modeles.ligne import Ligne
+from modeles.cellule import Cellule
+from modeles.administrateur import Administrateur
+from modeles.base import Base
+from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('sqlite:///..//src//data//database.db', encoding='utf8', convert_unicode=True)
+engine = create_engine('sqlite:///src//data//database.db', encoding='utf8', convert_unicode=True)
 Base.metadata.create_all(engine)
 
 session = sessionmaker(bind=engine)
@@ -22,238 +37,163 @@ session = sessionmaker(bind=engine)
 s = session()
 
 theme_1 = Theme(
-    nom='Thème principal',
+    nom='Thème de test #1',
     titre=Style(
-        police="'KaushanScript', cursive",
+        police="KaushanScript-Regular",
         couleur="#ff7400",
         taille="28",
-        couleur_fond="#000000",
-        opacite_fond="0.8",
         gras="bold",
         italique="italic",
         soulignement="underline",
         type="titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="1",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="20",
-        couleur_fond="",
-        opacite_fond="1",
         type="sous_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="2",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
-        couleur_fond="",
-        opacite_fond="1",
+        gras="bold",
         type="texte",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="3",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="14",
-        couleur_fond="#000000",
-        opacite_fond="0.8",
+        couleur_fond="rgba(0,0,0,0.8)",
         type="tableau",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="4",
+            taille="0",
             style="solid"
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="14",
-        couleur_fond="",
-        opacite_fond="1",
         type="tableau_ligne",
         bordure=Bordure(
             couleur="#FFFFFF",
-            taille="5",
+            taille="0",
             style="solid"
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="26",
-        couleur_fond="",
-        opacite_fond="1",
         gras="bold",
         soulignement="underline",
         type="tableau_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="6",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#ff8f32",
         taille="18",
-        couleur_fond="",
-        opacite_fond="1",
         italique="italic",
         type="tableau_sous_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="7",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
+        police="Oswald-Regular",
         couleur="#FFFFFF",
         taille="14",
-        couleur_fond="",
-        opacite_fond="1",
         type="tableau_texte",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="8",
-            style="solid"
-        )
+        bordure=Bordure()
     )
 )
 theme_2 = Theme(
-    nom='Thème secondaire',
+    nom='Thème de test #2',
     titre=Style(
-        police="'KaushanScript', cursive",
-        couleur="#ff7400",
-        taille="32",
-        couleur_fond="#000000",
-        opacite_fond="0.8",
+        police="KaushanScript-Regular",
+        couleur="rgba(137,124,114,1)",
+        taille="36",
         gras="bold",
         italique="italic",
         type="titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="9",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     sous_titre=Style(
-        police="'Oswald', sans-serif",
-        couleur="#ff8f32",
+        police="Oswald-Regular",
+        couleur="rgba(255,50,50,1)",
         taille="26",
-        couleur_fond="",
-        opacite_fond="1",
         soulignement="underline",
         type="sous_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="1",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     texte=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="16",
-        couleur_fond="",
-        opacite_fond="1",
+        police="Oswald-Regular",
+        couleur="rgba(57,21,21,1)",
+        taille="20",
+        gras="bold",
         type="texte",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="2",
-            style="solid"
-        )
+        bordure=Bordure()
     ),
     tableau=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="14",
-        couleur_fond="#000000",
-        opacite_fond="0.8",
+        couleur_fond="rgba(255,255,255,0.7)",
         type="tableau",
         bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="3",
+            couleur="rgba(107,107,107,1)",
+            taille="1",
             style="solid"
         )
     ),
     tableau_ligne=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="14",
-        couleur_fond="",
-        opacite_fond="1",
         type="tableau_ligne",
         bordure=Bordure(
-            couleur="#FFFFFF",
+            couleur="rgba(179,179,179,1)",
             taille="1",
-            style="solid"
+            style="dotted"
         )
     ),
     tableau_titre=Style(
-        police="'Oswald', sans-serif",
-        couleur="#ff8f32",
+        police="KaushanScript-Regular",
+        couleur="rgba(137,124,114,1)",
         taille="28",
-        couleur_fond="",
-        opacite_fond="1",
-        type="tableau_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="0",
-            style="solid"
-        )
+        gras="bold",
+        italique="italic",
+        type="titre",
+        bordure=Bordure()
     ),
     tableau_sous_titre=Style(
-        police="'Oswald', sans-serif",
-        couleur="#ff8f32",
+        police="Oswald-Regular",
+        couleur="rgba(255,50,50,1)",
         taille="22",
-        couleur_fond="",
-        opacite_fond="1",
-        italique="italic",
-        type="tableau_sous_titre",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="0",
-            style="solid"
-        )
+        soulignement="underline",
+        type="sous_titre",
+        bordure=Bordure()
     ),
     tableau_texte=Style(
-        police="'Oswald', sans-serif",
-        couleur="#FFFFFF",
-        taille="18",
-        couleur_fond="",
-        opacite_fond="1",
-        type="tableau_texte",
-        bordure=Bordure(
-            couleur="#FFFFFF",
-            taille="1",
-            style="solid"
-        )
+        police="Oswald-Regular",
+        couleur="rgba(57,21,21,1)",
+        taille="20",
+        gras="bold",
+        type="texte",
+        bordure=Bordure()
     )
 )
 
+image_vide = Image(
+    nom='vide', 
+    chemin_fichier='vide.png'
+)
+
 image_sandwich_europeen = Image(
-    nom='sandwich', 
+    nom='Image de test #1', 
     chemin_fichier='sandwich.jpg'
 )
 
 image_sandwich_europeen2 = Image(
-    nom='cafe', 
+    nom='Image de test #2', 
     chemin_fichier='cafe.jpg'
+)
+
+video_vide = Video(
+    nom='vide', 
+    chemin_fichier='vide.mp4'
 )
 
 video_cafe = Video(
@@ -262,34 +202,33 @@ video_cafe = Video(
 )
 
 fenetre_repas = Fenetre(
-    nom='Fenêtre Repas', 
-    image_fond=image_sandwich_europeen, 
-    couleur_fond = "#FFFFFF",
-    theme=theme_2
-)
-
-fenetre_dessert = Fenetre(
-    nom='Fenêtre Dessert', 
+    nom='Fenêtre de test #1', 
     image_fond=image_sandwich_europeen, 
     couleur_fond = "#FFFFFF",
     theme=theme_1
 )
 
+fenetre_dessert = Fenetre(
+    nom='Fenêtre de test #2',
+    couleur_fond = "rgba(195,193,192,1)",
+    theme=theme_2
+)
+
 zone_entete = ZoneBase(
-    nom='zone_grillwiches', 
-    position_x=2,
-    position_y=18,
+    position_x=27,
+    position_y=7,
+    hauteur=7,
     largeur=32,
-    hauteur=78,
     fenetre=fenetre_repas,
     type_style="titre",
     contenu="Nos repas"
 )
 
 zone_grillwiches = ZoneTable(
-    nom='zone_grillwiches', 
-    position_x=2,
-    position_y=18,
+    nom='ZoneTable de test #1', 
+    nombre_colonnes=2,
+    position_x=65,
+    position_y=20,
     largeur=32,
     hauteur=78,
     fenetre=fenetre_repas
@@ -404,10 +343,11 @@ cellule_2_ligne_8_grillwiches = Cellule(
 )
 
 zone_salade = ZoneTable(
-    nom='zone salade', 
+    nom='ZoneTable de test #2', 
+    nombre_colonnes=3,
     position_x=36,
     position_y=18,
-    largeur=37,
+    largeur=24,
     hauteur="",
     fenetre=fenetre_repas
 )
@@ -457,11 +397,11 @@ cellule_2_ligne_4_salade = Cellule(
 )
 
 zone_test = ZoneTable(
-    nom='zone test', 
-    position_x=2,
-    position_y=18,
+    nom='ZoneTable de test #3', 
+    position_x=65,
+    position_y=3,
     largeur=32,
-    hauteur=78,
+    hauteur=10,
     fenetre=fenetre_repas
 )
 ligne_1_test = Ligne(
@@ -472,28 +412,36 @@ cellule_1_ligne_1_test = Cellule(
         ligne=ligne_1_test
 )
 zone_test_image = ZoneImage(
-    nom='zone test', 
-    position_x=2,
-    position_y=18,
+    nom='ZoneImage de test #1', 
+    position_x=22,
+    position_y=47,
     largeur=32,
-    hauteur=78,
+    hauteur=46,
     fenetre=fenetre_repas,
     image=image_sandwich_europeen
 )
 
 periode1 = Periode(
-    heure_debut = datetime.time(10, 21))
+    nom = "Période de test #1",
+    heure_debut = datetime.time(10, 21)
+)
 
 periode2 = Periode(
-    heure_debut = datetime.time(13, 4))
+    nom = "Période de test #2",
+    heure_debut = datetime.time(13, 4)
+)
 
 periode3 = Periode(
-    heure_debut = datetime.time(15, 1))
+    nom = "Période de test #3",
+    heure_debut = datetime.time(15, 1)
+)
 
 s.add_all([
     administrateur_1,
     administrateur_2,
     administrateur_3,
+    video_vide,
+    image_vide,
     video_cafe,
     image_sandwich_europeen,
     image_sandwich_europeen2,
@@ -549,9 +497,3 @@ s.add_all([
 )
 
 s.commit()
-
-# for attr in vars(fenetre_repas):
-#     print(attr)
-# print("------")
-# for attr in vars(zone_1_repas):
-#     print(attr)

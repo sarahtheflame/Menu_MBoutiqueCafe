@@ -8,13 +8,9 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.style import *
-from modeles.ligne import *
 from sqlalchemy import *
+from modeles.base import Base
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 class Cellule(Base):
     """
@@ -35,24 +31,15 @@ class Cellule(Base):
     id = Column(Integer, primary_key=True)
     contenu = Column(String(150), default="")
     id_ligne = Column(Integer, ForeignKey('Lignes.id', onupdate='cascade', ondelete='cascade'))
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=8
-        )
+    type_style = Column(String, default="tableau_texte")
     ligne = relationship(
-        Ligne, 
+        "Ligne", 
         backref=backref(
             'cellules', 
             uselist=True, 
             cascade='delete,all'),
         foreign_keys=[id_ligne]
         )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-    )
 
     def serialiser_en_json(self):
         """
@@ -62,7 +49,7 @@ class Cellule(Base):
         return dict(
             id = self.id,
             contenu = self.contenu,
-            id_style = self.id_style
+            type_style = self.type_style
             )
 
     def deserialiser_de_json(self, session, data):
@@ -76,5 +63,4 @@ class Cellule(Base):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('contenu') != None : self.contenu = data['contenu']
-        if (self.id_style != data['id_style']):
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        if data.get('type_style') != None : self.type_style = data['type_style']

@@ -4,16 +4,81 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
   width: 100%;
+  height: 100%;
 }
+
+.row {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.container-fluid {
+  margin: 0px;
+  padding: 0px;
+}
+
+.vertical_align {
+  padding-top: 15px;
+}
+
+#fond_template {
+  width: 100vw;
+}
+
+.crop {
+  background: url('/src/test.jpg');
+  background-size: 100vw;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  >* {
+    margin-left: 25px;
+    position: relative;
+    bottom: -55%;
+  }
+}
+
+#titre_page {
+  width: 65%;
+  font-size: 36px;
+  color: #FFF;
+  .nom { 
+      margin: 0px;
+      padding: 0px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; 
+      max-width: 35%;
+      height: 100%;
+      vertical-align: middle;
+      text-align: center;
+  } 
+}
+
+.nav_icon {
+  width: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+    display: inline-block;
+  img {
+    height: 100%;
+  }
+}
+
+
+
 //==============================================================================
 // HEADER
 //==============================================================================
 #header {
   display: table;
   width: 100vw;
-  height: 50px;
+  height: 45px;
   background: @fond_menu_navigation_haut;
   
   .toggle_sidebar {
@@ -37,7 +102,7 @@ body {
     float: right;
     height: 100%;
     margin-top: 5px;
-    margin-right: 15px;
+    margin-right: 25px;
   }
   .colonne {
     display: inline-block;
@@ -50,20 +115,20 @@ body {
 //==============================================================================
 #sidebar {
   width: 10vw;
-  height: 100vh;
+  height: 100%;
   display: block;
   position: fixed;
   left: 0px;
   background: @fond_menu_navigation_gauche;
-  transition: width 0.2s;
+  transition: width @transition_time;
   ul {
+    padding: 0px;
     width: 100%;
     height: 80vh;
     position: absolute;
     top: 50px;
     overflow-x: hidden;
     overflow-y: auto;
-    text-overflow: ellipsis;
     li {
       width: 100%;
       height: 25px;
@@ -101,21 +166,20 @@ body {
 // CONTENU
 //==============================================================================
 #content {
+  box-shadow: 0px 0px 40px black;
   width: 100vw;
-  height: 100vh;
   float: right;
+  min-height: 100vh;
   position: relative;
-  margin-top: 50px;
   word-wrap: break-word;
   background: @fond_contenu;
-  overflow-y: auto;
-  transition: width 0.3s;
+  overflow-y: scroll;
+  height: 100%;
+
+  transition: width @transition_time;
   h1 {
-    width: 60%;
-    transition: width 0.2s;
-  }
-  .entete {
-    padding: 10px 25px;
+    display: inline-block;
+    transition: width @transition_time;
   }
   .aide {
     display: inline-block;
@@ -124,31 +188,34 @@ body {
     text-align: right;
     vertical-align: top;
   }
-  .entete {
-    padding: 10px 25px;
-  }
 }
 #content.show_sidebar {
   width: 90vw;
-  transition: width 0.3s;
+  transition: width @transition_time;
+}
+
+.disabled {
+ pointer-events: all !important;
 }
 
 //==============================================================================
 // LISTES
 //==============================================================================
-.panel-group {
-  // overflow: auto;
-  // height: 72vh;
-  padding: 0 25px;
-  .panel {
-    margin: 20px 0;
-  }
+
+.panel .row {
+  margin: 0px;
+  padding: 0px;
+}
+.panel-heading {
+  padding-left: 0px;
+  padding-right: 0px;
+  
 }
 .panel-heading .form-control {
   display: inline-block;
-  width: 75%;
+
 }
-#fenetres {
+.panel-group.custom {
   h2 {
     font-size: 18px;
     margin-top: 10px;
@@ -160,66 +227,160 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
   }
-  .list-group-item a,
-  .boutons a {
-    font-size: 11px;
-    font-weight: normal;
-    line-height: 1;
-    display: inline-block;
-    float: right;
-    min-width: 10px;
-    margin-right: 5px;
-    padding: 5px 9px;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-    border-radius: 6px;
-    background-color: #444;
-  }
 }
 .panel-collapse > .list-group-item {
   background-color: #efefef;
 }
-@media only screen and (max-width: 1170px) {
-  #content.show_sidebar {
-    width: 70vw;
-  }
-  #sidebar {
-    width: 20vw;
-  }
-}
-@media only screen and (max-width: 970px) {
-  #content.show_sidebar {
-    width: 60vw;
-  }
-  #sidebar {
-    width: 40vw;
-  }
-}
-@media only screen and (max-width: 768px) {
+
+@media only screen and (max-width: 1366px) {
   #content {
-    left: 0;
     width: 100vw;
-    transition: left .2s;
+    transition: width @transition_time;
   }
   #content.show_sidebar {
-    left: 100vw;
-    width: 100vw;
-    transition: left .2s;
+    width: 85vw;
+    transition: width @transition_time;
   }
   #sidebar {
+    width: 15vw;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  #content {
     width: 100vw;
-    text-align: center;
+    transition: width @transition_time;
+  }
+  #content.show_sidebar {
+    width: 85vw;
+    transition: width @transition_time;
+  }
+  #sidebar {
+    width: 15vw;
+  }
+}
+
+@media only screen and (max-width: 1170px) {
+  #content {
+    width: 100vw;
+    transition: width @transition_time;
+  }
+  #content.show_sidebar {
+    width: 85vw;
+    transition: width @transition_time;
+  }
+  #sidebar {
+    width: 15vw;
     ul {
-      font-size: 6vw;
+      font-size: 20px;
       text-align: center;
     }
     a {
       width: 70%;
       text-align: left;
+    }
+    .nav_icon {
+      width: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #content {
+    width: 100vw;
+    transition: width @transition_time;
+  }
+  #content.show_sidebar {
+    width: 80vw;
+    transition: width @transition_time;
+  }  
+  #sidebar {
+    width: 20vw;
+  }
+  .crop {
+    height: 200px;
+    >* {
+      bottom: -45%;
+    }
+  }
+}
+
+@media only screen and (max-width: 970px) {
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .crop {
+    >* {
+      bottom: -35%;
+    }
+  }
+  #content {
+    left: 100vw;
+    width: 100vw;
+    transition: left @transition_time;
+  }
+  #content.show_sidebar {
+    left: 0vw;
+    width: 100vw;
+    transition: left @transition_time;
+  }
+  #sidebar {
+    width: 100vw;
+    text-align: center;
+    ul {
+      font-size: 50px;
+    }
+    a {
+      width: 70%;
+      text-align: center;
+    }
+    .glyphicon {
+      font-size: 4vw;
+      width: 30%;
+      margin-right: 4vw;
+      text-align: center;
+    }
+    .nav_icon {
+      width: 50px;
+    }
+  }
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+
+}
+@media only screen and (max-width: 598px) {
+
+  .crop {
+    >* {
+      bottom: -45%;
+    }
+  }
+
+
+  #content {
+    left: 100vw;
+    width: 100vw;
+    transition: left @transition_time;
+  }
+  #content.show_sidebar {
+    left: 0vw;
+    width: 100vw;
+    transition: left @transition_time;
+  }
+  #sidebar {
+    width: 100vw;
+    text-align: center;
+    ul {
+      font-size: 20px;
+    }
+    a {
+      width: 70%;
     }
     .glyphicon {
       font-size: 4vw;
@@ -227,8 +388,13 @@ body {
       margin-right: 4vw;
       text-align: right;
     }
-    .navigation_element_detail {
-      visibility: visible;
+    .nav_icon {
+      width: 20px;
     }
   }
+  #titre_page {
+    font-size: 26px;
+    width: 100%;
+  }
+
 }

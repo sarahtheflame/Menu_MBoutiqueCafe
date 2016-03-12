@@ -11,270 +11,249 @@
         <meta name="auteur" content="Daniel-Junior Dubé et Sarah Laflamme">
         <link rel="shortcut icon" href="/src/tab.ico">
         <link rel="stylesheet" href="/src/affichage.css">
-        <link rel="stylesheet" href="/src/modifier_fenetre.css">
         <script type='text/javascript' src='/src/interact-1.2.5.min.js'></script>
         <script type='text/javascript' src='/src/interactApp.js'></script>
         <script type='text/javascript' src='/src/jquery-2.1.4.min.js'></script>
+        <script src="/src/bootstrap.js"></script>
         <script type='text/javascript' src='/src/knockout-3.3.0.js'></script>
         <script type='text/javascript' src='/src/knockout.mapping-latest.js'></script>
+        <script type='text/javascript' src='/src/knockstrap.min.js'></script>
+        <link rel="stylesheet" type="text/css" href="/src/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/src/bootstrap-colorpicker.min.css">
+        <script src="/src/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/src/modifier_fenetre.css">
+
+        <script>
+            var viewModel = ko.mapping.fromJS({{!data}});
+        </script>
+        
     </HEAD>
-        <BODY data-bind="attr: { 'background': choose_background }">
-            <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
-                <!-- ko if: zone.type() === "ZoneBase" -->
-                <div class="zone base" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
-                    width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%'
-                }">
-                    <!-- ko if: zone.type_style() === "titre" -->
-                    <div data-bind="text: contenu, style: {
-                        fontFamily : $root.fenetre.theme.titre.police(),
-                        fontSize : $root.fenetre.theme.titre.taille() + 'px',
-                        color : $root.fenetre.theme.titre.couleur(),
-                        background : $root.fenetre.theme.titre.couleur_fond(),
-                        opacity : $root.fenetre.theme.titre.opacite_fond(),
-                        bold : $root.fenetre.theme.titre.gras(),
-                        fontStyle : $root.fenetre.theme.titre.gras(),
-                        textDecoration : $root.fenetre.theme.titre.soulignement(),
-                        borderColor :  $root.fenetre.theme.titre.bordure.couleur(),
-                        borderStyle : $root.fenetre.theme.titre.bordure.style(),
-                        borderWidth : $root.fenetre.theme.titre.bordure.taille()
-                    }"></div>
-                    <!-- /ko -->
-                    <!-- ko if: zone.type_style() === "sous_titre" -->
-                    <div data-bind="text: contenu, style: {
-                        fontFamily : $root.fenetre.theme.sous_titre.police(),
-                        fontSize : $root.fenetre.theme.sous_titre.taille() + 'px',
-                        color : $root.fenetre.theme.sous_titre.couleur(),
-                        background : $root.fenetre.theme.sous_titre.couleur_fond(),
-                        opacity : $root.fenetre.theme.sous_titre.opacite_fond(),
-                        bold : $root.fenetre.theme.sous_titre.gras(),
-                        fontStyle : $root.fenetre.theme.sous_titre.gras(),
-                        textDecoration : $root.fenetre.theme.sous_titre.soulignement(),
-                        borderColor :  $root.fenetre.theme.sous_titre.bordure.couleur(),
-                        borderStyle : $root.fenetre.theme.sous_titre.bordure.style(),
-                        borderWidth : $root.fenetre.theme.sous_titre.bordure.taille()
-                    }"></div>
-                    <!-- /ko -->
-                    <!-- ko if: zone.type_style() === "texte" -->
-                    <div data-bind="text: contenu, style: {
-                        fontFamily : $root.fenetre.theme.texte.police(),
-                        fontSize : $root.fenetre.theme.texte.taille() + 'px',
-                        color : $root.fenetre.theme.texte.couleur(),
-                        background : $root.fenetre.theme.texte.couleur_fond(),
-                        opacity : $root.fenetre.theme.texte.opacite_fond(),
-                        bold : $root.fenetre.theme.texte.gras(),
-                        fontStyle : $root.fenetre.theme.texte.gras(),
-                        textDecoration : $root.fenetre.theme.texte.soulignement(),
-                        borderColor :  $root.fenetre.theme.texte.bordure.couleur(),
-                        borderStyle : $root.fenetre.theme.texte.bordure.style(),
-                        borderWidth : $root.fenetre.theme.texte.bordure.taille()
-                    }"></div>
-                    <!-- /ko -->
-                </div>
-                <!-- /ko -->
-                <!-- ko if: zone.type() === "ZoneImage" -->
-                <div class="zone media" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
-                    width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%', 
-                    background : 'rgb(0,0,0)' 
-                }">
-                    <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
-                </div>
-                <!-- /ko -->
-                <!-- ko if: zone.type() === "ZoneVideo" -->
-                <div class="zone media" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
-                    width : $data.largeur() + '%', 
-                    height : $data.hauteur()  + '%'
-                }">
-                    <video width="100%" height="100%" muted autoplay loop>
-                        <source data-bind="attr: { 
-                            'src': $data.video.chemin_fichier() 
-                        }" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: zone.type() === "ZoneTable" -->
-                <div class="zone" data-bind="style: { 
-                    left : $data.position_x() + '%', 
-                    top : $data.position_y() + '%', 
-                    width : $data.largeur() + '%', 
-                    height : $data.hauteur() + '%' 
-                }">
-                    <table data-bind="attr : {
-                        fontFamily : $root.fenetre.theme.tableau.police(),
-                        fontSize : $root.fenetre.theme.tableau.taille() + 'px',
-                        color : $root.fenetre.theme.tableau.couleur(),
-                        background : $root.fenetre.theme.tableau.couleur_fond(),
-                        opacity : $root.fenetre.theme.tableau.opacite_fond(),
-                        bold : $root.fenetre.theme.tableau.gras(),
-                        fontStyle : $root.fenetre.theme.tableau.gras(),
-                        textDecoration : $root.fenetre.theme.tableau.soulignement(),
-                        borderColor :  $root.fenetre.theme.tableau.bordure.couleur(),
-                        borderStyle : $root.fenetre.theme.tableau.bordure.style(),
-                        borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
-                        }">
-                        <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
-                            <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, attr : {
-                                fontFamily : $root.fenetre.theme.tableau_ligne.police(),
-                                fontSize : $root.fenetre.theme.tableau_ligne.taille() + 'px',
-                                color : $root.fenetre.theme.tableau_ligne.couleur(),
-                                background : $root.fenetre.theme.tableau_ligne.couleur_fond(),
-                                opacity : $root.fenetre.theme.tableau_ligne.opacite_fond(),
-                                bold : $root.fenetre.theme.tableau_ligne.gras(),
-                                fontStyle : $root.fenetre.theme.tableau_ligne.gras(),
-                                textDecoration : $root.fenetre.theme.tableau_ligne.soulignement(),
-                                borderColor :  $root.fenetre.theme.tableau_ligne.bordure.couleur(),
-                                borderStyle : $root.fenetre.theme.tableau_ligne.bordure.style(),
-                                borderWidth : $root.fenetre.theme.tableau_ligne.bordure.taille() + 'px'
+        <BODY data-bind="style: { backgroundColor: $root.fenetre.couleur_fond(), 
+                                backgroundImage: 'url(\'/src/' + $root.fenetre.image_fond.chemin_fichier() + '\')'  
                             }">
-                                <!-- Définir le style selon les attributs json -->
-                                <!-- ko if: cellule.type_style() === "tableau_titre" -->
-                                <th data-bind="text: $data.contenu, style: { 
-                                    fontFamily : $root.fenetre.theme.tableau_titre.police(),
-                                    fontSize : $root.fenetre.theme.tableau_titre.taille() + 'px',
-                                    color : $root.fenetre.theme.tableau_titre.couleur(),
-                                    background : $root.fenetre.theme.tableau_titre.couleur_fond(),
-                                    opacity : $root.fenetre.theme.tableau_titre.opacite_fond(),
-                                    bold : $root.fenetre.theme.tableau_titre.gras(),
-                                    fontStyle : $root.fenetre.theme.tableau_titre.gras(),
-                                    textDecoration : $root.fenetre.theme.tableau_titre.soulignement(),
-                                    borderColor :  $root.fenetre.theme.tableau_titre.bordure.couleur(),
-                                    borderStyle : $root.fenetre.theme.tableau_titre.bordure.style(),
-                                    borderWidth : $root.fenetre.theme.tableau_titre.bordure.taille() + 'px'
-                                }"></th> 
-                                <!-- /ko -->
-                                <!-- ko if: cellule.type_style() === "tableau_texte" -->
-                                <td data-bind="text: $data.contenu, style: { 
-                                    fontFamily : $root.fenetre.theme.tableau_texte.police(),
-                                    fontSize : $root.fenetre.theme.tableau_texte.taille() + 'px',
-                                    color : $root.fenetre.theme.tableau_texte.couleur(),
-                                    background : $root.fenetre.theme.tableau_texte.couleur_fond(),
-                                    opacity : $root.fenetre.theme.tableau_texte.opacite_fond(),
-                                    bold : $root.fenetre.theme.tableau_texte.gras(),
-                                    fontStyle : $root.fenetre.theme.tableau_texte.gras(),
-                                    textDecoration : $root.fenetre.theme.tableau_texte.soulignement(),
-                                    borderColor :  $root.fenetre.theme.tableau_texte.bordure.couleur(),
-                                    borderStyle : $root.fenetre.theme.tableau_texte.bordure.style(),
-                                    borderWidth : $root.fenetre.theme.tableau_texte.bordure.taille() + 'px'
-                                }"></td> 
-                                <!-- /ko -->
-  
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
+                <!-- ko if: zone.id() > -1 -->
+                    <!-- ko if: zone.type() === "ZoneBase" -->
+                    <div class="zone base" data-bind="css: {zone_focus: $root.is_selected($data.id())}, style: { 
+                        'left' : $data.position_x() + '%', 
+                        'top' : $data.position_y() + '%', 
+                        'z-index' : $data.position_z(), 
+                        width : $data.largeur() + '%', 
+                        height : $data.hauteur() + '%',
+                        background : $root.fenetre.theme.tableau.couleur_fond(),
+                            borderColor :  $root.fenetre.theme.tableau.bordure.couleur(),
+                            borderStyle : $root.fenetre.theme.tableau.bordure.style(),
+                            borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
+                    }">
+                        <!-- ko if: zone.type_style() === "titre" -->
+                        <div data-bind="text: contenu, style: {
+                            fontFamily : $root.fenetre.theme.titre.police(),
+                            fontSize : $root.fenetre.theme.titre.taille() + 'px',
+                            color : $root.fenetre.theme.titre.couleur(),
+                            bold : $root.fenetre.theme.titre.gras(),
+                            fontStyle : $root.fenetre.theme.titre.italique(),
+                            textDecoration : $root.fenetre.theme.titre.soulignement()
+                        }"></div>
+                        <!-- /ko -->
+                        <!-- ko if: zone.type_style() === "sous_titre" -->
+                        <div data-bind="text: contenu, style: {
+                            fontFamily : $root.fenetre.theme.sous_titre.police(),
+                            fontSize : $root.fenetre.theme.sous_titre.taille() + 'px',
+                            color : $root.fenetre.theme.sous_titre.couleur(),
+                            bold : $root.fenetre.theme.sous_titre.gras(),
+                            fontStyle : $root.fenetre.theme.sous_titre.italique(),
+                            textDecoration : $root.fenetre.theme.sous_titre.soulignement()
+                        }"></div>
+                        <!-- /ko -->
+                        <!-- ko if: zone.type_style() === "texte" -->
+                        <div data-bind="text: contenu, style: {
+                            fontFamily : $root.fenetre.theme.texte.police(),
+                            fontSize : $root.fenetre.theme.texte.taille() + 'px',
+                            color : $root.fenetre.theme.texte.couleur(),
+                            bold : $root.fenetre.theme.texte.gras(),
+                            fontStyle : $root.fenetre.theme.texte.italique(),
+                            textDecoration : $root.fenetre.theme.texte.soulignement()
+                        }"></div>
+                        <!-- /ko -->
+                        <span class="bouton_retirer_zone">X</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: zone.type() === "ZoneImage" -->
+                    <div class="zone media" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                        left : $data.position_x() + '%', 
+                        top : $data.position_y() + '%', 
+                        'z-index' : $data.position_z(), 
+                        width : $data.largeur() + '%', 
+                        height : $data.hauteur() + '%'
+                    }">
+                        <img data-bind="attr: { 'src': '../src/'+$data.image.chemin_fichier() }">
+                        <span class="bouton_retirer_zone">X</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: zone.type() === "ZoneVideo" -->
+                    <div class="zone media" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                        left : $data.position_x() + '%', 
+                        top : $data.position_y() + '%', 
+                        'z-index' : $data.position_z(), 
+                        width : $data.largeur() + '%', 
+                        height : $data.hauteur()  + '%'
+                    }">
+                        <video volume="0" width="100%" height="100%" muted="muted" autoplay loop>
+                            <source data-bind="attr: { 
+                                'src': '../src/'+$data.video.chemin_fichier() }" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <span class="bouton_retirer_zone">X</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: zone.type() === "ZoneTable" -->
+                    <div class="zone" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                        left : $data.position_x() + '%', 
+                        top : $data.position_y() + '%', 
+                        'z-index' : $data.position_z(), 
+                        width : $data.largeur() + '%', 
+                        height : $data.hauteur() + '%' 
+                    }">
+                        <table data-bind="style : {
+                            background : $root.fenetre.theme.tableau.couleur_fond(),
+                            borderColor :  $root.fenetre.theme.tableau.bordure.couleur(),
+                            borderStyle : $root.fenetre.theme.tableau.bordure.style(),
+                            borderWidth : $root.fenetre.theme.tableau.bordure.taille() + 'px'
+                            }">
+                            <tbody data-bind="foreach: { data: $data.lignes, as: 'ligne' }">
+                                <tr data-bind="foreach: { data: $data.cellules, as: 'cellule' }, style : {
+                                    borderColor :  $root.fenetre.theme.tableau_ligne.bordure.couleur(),
+                                    borderStyle : $root.fenetre.theme.tableau_ligne.bordure.style(),
+                                    borderWidth : $root.fenetre.theme.tableau_ligne.bordure.taille() + 'px'
+                                }">
+                                    <!-- Définir le style selon les attributs json -->
+                                    <!-- ko if: cellule.type_style() === "tableau_titre" -->
+                                    <th data-bind="text: $data.contenu, style: { 
+                                        fontFamily : $root.fenetre.theme.tableau_titre.police(),
+                                        fontSize : $root.fenetre.theme.tableau_titre.taille() + 'px',
+                                        color : $root.fenetre.theme.tableau_titre.couleur(),
+                                        bold : $root.fenetre.theme.tableau_titre.gras(),
+                                        fontStyle : $root.fenetre.theme.tableau_titre.italique(),
+                                        textDecoration : $root.fenetre.theme.tableau_titre.soulignement()
+                                    }"></th> 
+                                    <!-- /ko -->
+                                    <!-- ko if: cellule.type_style() === "tableau_sous_titre" -->
+                                    <th data-bind="text: $data.contenu, style: { 
+                                        fontFamily : $root.fenetre.theme.tableau_sous_titre.police(),
+                                        fontSize : $root.fenetre.theme.tableau_sous_titre.taille() + 'px',
+                                        color : $root.fenetre.theme.tableau_sous_titre.couleur(),
+                                        bold : $root.fenetre.theme.tableau_sous_titre.gras(),
+                                        fontStyle : $root.fenetre.theme.tableau_sous_titre.italique(),
+                                        textDecoration : $root.fenetre.theme.tableau_sous_titre.soulignement()
+                                    }"></th> 
+                                    <!-- /ko -->
+                                    <!-- ko if: cellule.type_style() === "tableau_texte" -->
+                                    <td data-bind="text: $data.contenu, style: { 
+                                        fontFamily : $root.fenetre.theme.tableau_texte.police(),
+                                        fontSize : $root.fenetre.theme.tableau_texte.taille() + 'px',
+                                        color : $root.fenetre.theme.tableau_texte.couleur(),
+                                        bold : $root.fenetre.theme.tableau_texte.gras(),
+                                        fontStyle : $root.fenetre.theme.tableau_texte.italique(),
+                                        textDecoration : $root.fenetre.theme.tableau_texte.soulignement()
+                                    }"></td> 
+                                    <!-- /ko -->
+      
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span class="bouton_retirer_zone">X</span>
+                    </div>
+                    <!-- /ko -->
                 <!-- /ko -->
             </div>
+            <span class="toggle_sidebar option_left">»</span>
             <div id="sidebar">
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Thème de la fenêtre : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
-                    </select>
+                <span class="toggle_sidebar option_right">«</span>
+                <div class="sidebar_row text-center">
+                    <div class="changer_zone"><h1 data-bind="text: fenetre.nom, tooltip: { title: fenetre.nom, placement: 'bottom' }"></h1></div>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Image de fond : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: fenetre.image_fond.id">
-                    </select>
+                <div class="sidebar_row form-inline" id="infos_fenetre">
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Nom : </label>
+                         <input type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom" maxlength="250"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Thème : </label>
+                        <div class="input-group">
+                            <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
+                            </select>
+                            <span class="input-group-addon">
+                                <a data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
+                            </span>    
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Couleur de fond : </label>
-                    <br>
-                    <button type="">
-                        Choisir
-                    </button>
+                <div class="sidebar_row form-inline" id="fond">
+                    <h2>Fond</h2>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Image : </label>
+                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
+                        </select>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Couleur : </label>
+                        <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
+                            backgroundColor : fenetre.couleur_fond}"/> -->
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond"/>
+                            <span class="choix_couleur input-group-addon">
+                                <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Zone sélectionnée : </label>
-                    <br>
-                    <select data-role="none" data-bind="options: $root.fenetre.zones, optionsText: 'nom', optionsValue: 'id', value: $root.zone_focus">
-                    </select>
+                
+                <hr>
+                <!-- ko if: $root.index_zone_focus() != -1 -->
+                <div class="sidebar_row form-inline text-center">
+                    <div class="changer_zone badge_button" id="changer_zone-gauche" width="20"><a onclick="deplacement_index_zone_focus(-1)"><</a></div>
+                    <div class="changer_zone center"><h1 data-bind="text: $root.fenetre.zones()[$root.index_zone_focus()].nom(), tooltip: { title: $root.fenetre.zones()[$root.index_zone_focus()].nom(), placement: 'bottom' }"></h1></div>
+                    <div class="changer_zone badge_button" id="changer_zone-droite" width="20"><a onclick="deplacement_index_zone_focus(1)">></a></div>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Positions : </label>
-                    <br>
-                    <ul>
-                        <li>
+                <div class="sidebar_row badge_button text-center">
+                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
+                    <a href="#" class="retirer_zone">Supprimer</a> 
+                </div>
+                <div class="sidebar_row form-inline" id="position">
+                    <h2>Position</h2>
+                    <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Horizontale : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_x"></input>
-                        </li>
-                        <li>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Verticale : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].position_y"></input>
-                        </li>
-                    </ul>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                            <label class="sidebar_label">Profondeur : </label>
+                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
+                    </div>
                 </div>
-                <div class="sidebar_row">
-                    <label class="sidebar_label">Dimensions : </label>
-                    <br>
-                    <ul>
-                        <li>
-                            <label class="sidebar_label">Hauteur : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].hauteur"></input>
-                        </li>
-                        <li>
-                            <label class="sidebar_label">Largeur : </label>
-                            <input type="text" data-bind="textInput: $root.fenetre.zones()[$root.zone_focus()-1].largeur"></input>
-                        </li>
-                    </ul>
+                <div class="sidebar_row" id="dimensions">
+                    <h2>Dimensions</h2>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Hauteur : </label>
+                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
+                    </div>
+                    <div class="sidebar_row form-inline">
+                        <label class="sidebar_label">Largeur : </label>
+                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
+                    </div>
                 </div>
-                <div class="sidebar_row">
-                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.zone_focus()}">Modifier la zone</a>
-                </div>
-                <div class="sidebar_row">
-                    <button onclick="show_zone_focus()">Ajouter une nouvelle zone</button>
-                </div>
-                <div class="sidebar_row">
-                    <button onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                <!-- /ko -->
+                <div class="sidebar_row text-center">
+                    <button class="btn btn-primary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                    <div class="badge_button">
+                        <a data-bind="attr: { href: '/g/fenetres'}">Retour à la liste des fenêtres</a>
+                    </div>
                 </div>
             </div>
     </BODY>
 </html>
-
-<script type='text/javascript' defer="defer">
-    var viewModel = ko.mapping.fromJS({{!data}});
-    viewModel.zone_focus = ko.observable();
-    viewModel.choose_background = ko.computed(function() {
-        if (viewModel.fenetre.image_fond === 'undefined') {
-            return viewModel.fenetre.couleur_fond();
-        }
-        else {
-            return '../src/' + viewModel.fenetre.image_fond.chemin_fichier();
-        }
-    });
-    $("body").on("mousedown", ".zone", function() {
-        var zone = ko.dataFor(this);
-        viewModel.zone_focus(zone.id());
-    });
-    ko.applyBindings(viewModel);
-    function appliquer_modifications(fileName) {
-        var unmapped = ko.mapping.toJSON(viewModel);
-        console.log(unmapped);
-        $.post("/g/" + fileName,
-            {
-                fileName,
-                unmapped
-            }
-        ).always(function() {
-            location.reload();
-        });
-      }
-    function show_zone_focus(){
-        alert(viewModel.fenetre.zones);
-    }
-    function ajouter_une_zone(){
-        var Zone = function(nom_zone, type_zone){
-            this.id = ko.observable(0);
-            this.nom = ko.observable(nom_zone);
-            this.type = ko.observable(type_zone);
-        };
-    }
-</script>
+<script src="/src/modifier_fenetre.js" type="text/javascript"></script>
+<script type='text/javascript' src='/src/base_gestion_fin.js'></script>

@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -8,18 +9,16 @@
 """
 __author__ = 'Daniel-Junior Dubé & Sarah Laflamme'
 
-from modeles.zone import *
-from modeles.style import *
 from sqlalchemy import *
+from modeles.base import Base
+from modeles.zone import Zone
 from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
-
+#=========================MODIFIER STYLE POUR REMPLACER PAR TYPE_DE_STYLE (TITRE, ETC)
 class ZoneBase(Zone):
     """
         Description: 
-            La classe 'ZoneBase' hérite de la classe 'Zone'. Sert à représenter un rectangle
+            Hérite de la classe 'Zone'. Sert à représenter un rectangle
             contenant ou non du texte.
 
         Attributs:
@@ -38,16 +37,7 @@ class ZoneBase(Zone):
         primary_key=True
         )
     contenu = Column(String, default="")
-    id_style = Column(
-        Integer, 
-        ForeignKey('Styles.id', onupdate='cascade', ondelete='set default'), 
-        default=3
-        )
-    style = relationship(
-        Style,
-        uselist=False,
-        foreign_keys=[id_style]
-        )
+    type_style = Column(String, default="texte")
 
     def serialiser_en_json(self):
         """
@@ -60,10 +50,11 @@ class ZoneBase(Zone):
             nom = self.nom,
             position_x = self.position_x,
             position_y = self.position_y,
+            position_z = self.position_z,
             largeur = self.largeur,
             hauteur = self.hauteur,
             type = self.type,
-            id_style = self.id_style
+            type_style = self.type_style
             )
 
     def deserialiser_de_json(self, session, data):
@@ -77,13 +68,16 @@ class ZoneBase(Zone):
                 data (Dict) : Dictionnaire qui contient les valeurs à assigner.
         """
         if data.get('contenu') != None : self.contenu = data['contenu']
-        if data.get('nom') != None : self.nom = data['nom']
+        print("nom : " + data.get('nom'))
+        if data.get('nom') != None: 
+            if data['nom'] != "" :
+                self.nom = data['nom']
         if data.get('position_x') != None : self.position_x = data['position_x']
         if data.get('position_y') != None : self.position_y = data['position_y']
+        if data.get('position_z') != None : self.position_z = data['position_z']
         if data.get('largeur') != None : self.largeur = data['largeur']
         if data.get('hauteur') != None : self.hauteur = data['hauteur']
-        if (self.id_style != data['id_style']): # Ne peut être null...
-            self.style = session.query(Style).filter(Style.id == data['id_style']).one()
+        if data.get('type_style') != None : self.type_style = data['type_style']
 
     __mapper_args__ = {
         'polymorphic_identity':'ZoneBase',

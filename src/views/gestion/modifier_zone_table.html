@@ -1,6 +1,85 @@
 % rebase(path)
-{{!data}}
+<link rel="stylesheet" type="text/css" href="/src/modifier_zone_table.css">
+<script src="/src/modifier_zone_table.js" type="text/javascript"></script>
 
-<div class="entete">
-  <h1>Modifier la zone « <span data-bind="text: zone.nom"></span> »</h1>
+<div class="container-fluid">
+    <div class="crop">
+        <h1 id="titre_page">Modifier la zone « 
+            <div class="nom" data-bind="text: zone.nom, tooltip: { title: zone.nom, placement: 'bottom' }">
+            </div>
+            »
+         </h1>
+        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <label for="contenu_input">Nom : </label>
+                    <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
+                    <th>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-lg-12">
+                                Colonne <span data-bind="text: $index()+1"></span>
+                            </div>
+                        </div>
+                    </th>
+                    <!-- /ko -->
+                </tr>
+                <tr>
+                    <!-- ko foreach: new Array(zone.nombre_colonnes()) -->
+                    <th>
+                        <div class="row">
+                            <div class="col-xs-9 col-md-9 col-lg-9">
+                                <label>Contenu : </label>
+                            </div>
+                            <div class="col-xs-3 col-md-3 col-lg-3">
+                                <label>Style : </label>
+                            </div>
+                        </div>
+                    </th>
+                    <!-- /ko -->
+                </tr>
+                
+                <!-- ko foreach: { data: $data.zone.lignes, as: 'ligne' } -->
+                    <!-- ko if: $data.id() > -1 -->
+                	<tr>
+                         <!-- ko foreach: { data: ligne.cellules, as: 'cellule' } -->
+                		<td>
+                            <div class="row">
+                                <div class="col-xs-9 col-md-9 col-lg-9">
+                                    <textarea rows="2" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
+                                </div>
+                                <div class="col-xs-3 col-md-3 col-lg-3">
+                                    <select class="form-control" data-bind="options: $root.choix_style_cellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
+                                </div>
+                            </div>
+                		</td>
+                        <!-- /ko -->
+                        <td class="colonne_retirer">
+                            <div class="badge_button">
+                                <a href="#" class="retirer">X</a>
+                            </div>
+                        </td>
+                	</tr>
+                    <!-- /ko -->
+                <!-- /ko -->
+                <tr>
+                    <th class="badge_button" data-bind="attr: {colspan : $root.zone.nombre_colonnes()+1}">
+                        <a href="#" class="ajouter_ligne">+ Ajouter une ligne</a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
