@@ -88,8 +88,28 @@ class ZoneImage(Zone):
         if data.get('nom') != None: 
             if data['nom'] != "" :
                 self.nom = data['nom']
-        if data.get('position_x') != None : self.position_x = data['position_x']
-        if data.get('position_y') != None : self.position_y = data['position_y']
-        if data.get('position_z') != None : self.position_z = data['position_z']
-        if data.get('largeur') != None : self.largeur = data['largeur']
-        if data.get('hauteur') != None : self.hauteur = data['hauteur']
+        if data.get('position_x') != None : 
+            try:
+                self.position_x = float(data['position_x'])
+            except:
+                print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
+        if data.get('position_y') != None : 
+            try:
+                self.position_y = float(data['position_y'])
+            except:
+                print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
+        if data.get('position_z') != None : 
+            try:
+                self.position_z = float(data['position_z'])
+            except:
+                print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
+        if data.get('largeur') != None : 
+            try:
+                self.largeur = float(data['largeur'])
+            except:
+                print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
+        if data.get('hauteur') != None : 
+            try:
+                self.hauteur = float(data['hauteur'])
+            except:
+                print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")

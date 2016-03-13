@@ -5,24 +5,20 @@
     <div class="modal-content">
       <form name="add_image" id="add_image" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button name="fermer_modal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="label_image_titre">Ajouter une image</h4>
         </div>
         <div class="modal-body">
           <div>
-<!--             <div class="form-group">
-              <label for="nom_image_input">Nom de l'image : </label>
-              <input id="nom_image_input" class="form-control" type="text" name="nom" />
-            </div> -->
             <div class="form-group">
               <label for="fichier_image_input">Image à téléverser: <br></label>
-              <input id="fichier_image_input" type="file" name="fichier" accept="image/*"/>
+              <input name="fichier_image_input" id="fichier_image_input" type="file" name="fichier" accept="image/*"/>
             </div>
           </div> 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
+          <button name="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button name="ajouter" type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
         </div>
       </form>
     </div>
@@ -34,24 +30,20 @@
     <div class="modal-content">
       <form name="add_video" id="add_video" action="javascript:;" enctype="multipart/form-data" data-ajax="false" >
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button name="fermer_modal_video" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="label_video_titre">Ajouter une vidéo</h4>
         </div>
         <div class="modal-body">
           <div>
-<!--             <div class="form-group">
-              <label for="nom_video_input">Nom du vidéo : </label>
-              <input id="nom_video_input" class="form-control" type="text" name="nom" />
-            </div> -->
             <div class="form-group">
               <label for="fichier_video_input">Vidéo à téléverser: </label>
-              <input id="fichier_video_input" type="file" name="fichier" accept="video/*"/>
+              <input name="fichier_video_input" id="fichier_video_input" type="file" name="fichier" accept="video/*"/>
             </div>
           </div> 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-          <button type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
+          <button name="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button name="ajouter" type="submit" class="ajouter_image btn btn-primary" value="Start upload">Ajouter</button>
         </div>
       </form>
     </div>
@@ -72,7 +64,7 @@
               <div class="row">
                 <div class="col-md-12 col-xs-12">
                   <h2>
-                    <a role="button" data-toggle="collapse" aria-expanded="true" href="#images_panel">
+                    <a name="afficher_images" role="button" data-toggle="collapse" aria-expanded="true" href="#images_panel">
                     Images <span class="caret"></span>
                     </a>
                   </h2>
@@ -96,8 +88,8 @@
                       </div>
                     </div>
                     <div class="col-lg-4">
-                      <a class="retirer">X</a>
-                      <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                      <a name="retirer_image" class="retirer">X</a>
+                      <a name="visualiser_image" class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
                     </div>
                   </div>
                 </li>
@@ -110,7 +102,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une image</button>
+        <button name="ajouter_image" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_image"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une image</button>
       </div>
     </div>
     <hr>
@@ -123,7 +115,7 @@
                 <div class="row">
                   <div class="col-md-12 col-xs-12">
                     <h2>
-                      <a role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
+                      <a name="afficher_videos" role="button" data-toggle="collapse" aria-expanded="true" href="#videos_panel">
                       Videos <span class="caret"></span>
                       </a>
                     </h2>
@@ -148,8 +140,8 @@
                         </div>
                       </div>
                       <div class="col-lg-4">
-                       <a class="retirer">X</a>
-                        <a class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
+                       <a name="retirer_video" class="retirer">X</a>
+                        <a name="visualiser_video" class="btn" data-bind="attr: { href: '/src/'+$data.chemin_fichier()}">Visualiser</a>
                       </div>
                     </div>
                   </li>
@@ -162,7 +154,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une video</button>
+        <button name="ajouter_video" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_video"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une video</button>
       </div>
     </div>
 </div>

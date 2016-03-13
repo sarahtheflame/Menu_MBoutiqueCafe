@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12 aligner_verticalement">
 			<label for="nom_theme">Nom du thème : </label>
-			<input type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom" maxlength="250"></input>
+			<input name="nom_theme" type="text" id="nom_theme" class="form-control" data-bind="textInput: theme.nom" maxlength="250"></input>
 		</div>
 	</div>
 
@@ -157,25 +157,25 @@
           	<div class="col-xs-12 col-md-6 col-lg-3">
 	          	<div class="input-group">
 				    <span class="input-group-addon" id="basic-addon1"><img src="../src/icons/text-font.png"></span>
-					<select class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
+					<select name="choix_police" class="form-control" data-role="none" data-bind="options: $root.polices, value: police"></select>
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-6 col-lg-3">
 	          	<div class="input-group">
   					<span class="input-group-addon"><img src="../src/icons/text-size.png"></span>
-				    <input type="number" pattern="^[0-9]*$"  min="0" class="form-control" data-bind="textInput: taille">
+				    <input name="taille_police" type="number" pattern="^[0-9]*$"  min="0" class="form-control" data-bind="textInput: taille">
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-6 col-lg-3">
 			    <div class="btn-group" role="group" aria-label="..." data-toggle="buttons">
 			    	<label class="btn btn-default">
-						<input type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
+						<input name="gras" type="checkbox" autocomplete="off" class="checkbox_gras"><img src="../src/icons/text-bold.png">
 					</label>
 					<label class="btn btn-default">
-						<input type="checkbox" autocomplete="off" class="checkbox_italique"><img src="../src/icons/text-italic.png">
+						<input name="italique" type="checkbox" autocomplete="off" class="checkbox_italique"><img src="../src/icons/text-italic.png">
 					</label>
 					<label class="btn btn-default">
-						<input type="checkbox" autocomplete="off" class="checkbox_soulignement"><img src="../src/icons/text-underline.png">
+						<input name="soulignement" type="checkbox" autocomplete="off" class="checkbox_soulignement"><img src="../src/icons/text-underline.png">
 					</label>
 				</div>
 			</div>
@@ -190,7 +190,7 @@
 					<span class="input-group-addon exemple_couleur">
                         <i data-bind="style: { backgroundColor : couleur}"></i>
                     </span>
-                    <input type="text" class="form-control" data-bind="value: couleur"/>
+                    <input name="couleur" type="text" class="form-control" data-bind="value: couleur"/>
                     
                 </div>
 			</div>
@@ -217,13 +217,13 @@
 	          	<div class="col-xs-12 col-md-6 col-lg-3">
 		          	<div class="input-group">
 	  					<span class="input-group-addon" id="basic-addon1"><img src="../src/icons/border-style.png"></span>
-					    <select class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
+					    <select name="choix_style_bordure" class="form-control" id="styleBordure" data-bind="options: $root.choix_style_bordure, optionsText: 'nom', optionsValue: 'attribut', value: bordure.style"></select>
 					</div>
 				</div>
 				<div class="col-xs-12 col-md-6 col-lg-3">
 		          	<div class="input-group">
 	  					<span class="input-group-addon"><img src="../src/icons/border-size.png"></span>
-					    <input type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
+					    <input name="taille_bordure" type="number" pattern="^[0-9]*$" placeholder="0" min="0" class="form-control" data-bind="textInput: bordure.taille">
 					</div>
 				</div>
 				<div class="col-xs-12 col-md-6 col-lg-3">
@@ -232,7 +232,7 @@
 						<span class="input-group-addon exemple_couleur">
 	                        <i data-bind="style: { backgroundColor : bordure.couleur}"></i>
 	                    </span>
-	                    <input type="text" class="form-control" data-bind="value: bordure.couleur"/>
+	                    <input name="couleur_bordure" type="text" class="form-control" data-bind="value: bordure.couleur"/>
 	                </div>
 					<!-- <div class="input-group ">
 				    	<span class="input-group-addon"><img src="../src/icons/border-color.png"></span>
@@ -246,7 +246,7 @@
 						<span class="input-group-addon exemple_couleur">
 	                        <i data-bind="style: { backgroundColor : couleur_fond}"></i>
 	                    </span>
-	                    <input type="text" class="form-control" data-bind="value: couleur_fond"/>
+	                    <input name="couleur_fond" type="text" class="form-control" data-bind="value: couleur_fond"/>
 	                </div>
 				</div>
 				<!-- /ko -->

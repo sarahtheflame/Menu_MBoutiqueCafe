@@ -3,6 +3,10 @@
  */
 $(document).ready(function(){
 
+    /**
+     * Id de la zone actuellement sélectionnée
+     */
+    viewModel.id_zone_focus = ko.observable();
 
 	/**
 	 * Formatte la couleur sélectionnée par le sélecteur de couleur au format rgba et l'attribue à 
@@ -15,7 +19,6 @@ $(document).ready(function(){
 	  		viewModel.fenetre.couleur_fond(nouvelle_couleur);
 		});
 	});
-
 
     /**
      * 
@@ -30,11 +33,6 @@ $(document).ready(function(){
             });
         }
     };
-
-    /**
-     * Id de la zone actuellement sélectionnée
-     */
-    viewModel.id_zone_focus = ko.observable();
 
     /**
      * @param  {integer} id : id de la zone à vérifier
@@ -66,6 +64,16 @@ $(document).ready(function(){
         viewModel.id_zone_focus(zone.id());
     });
 });
+
+/**
+ * Variable représentant l'image de fond sélectionnée
+ */
+viewModel.image_fond_focus = ko.observable(viewModel.fenetre.image_fond.id());
+
+/**
+ * Variable représentant le thème sélectionné
+ */
+viewModel.theme_focus = ko.observable(viewModel.fenetre.theme.id());
 
 /**
  * Sauvegarde les données dans le serveur par un post et rafraîchit la page avec les nouvelles 
@@ -115,7 +123,6 @@ function mettre_a_jour_index(index) {
     }
 }
 
-
 /**
  * Déplace l'index correspondant à la zone sélectionné selon la valeur reçue en argument.
  */
@@ -136,7 +143,6 @@ function deplacement_index_zone_focus(val) {
     }
     while (viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() <= 0);
 }
-
 
 /**
  * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
@@ -187,11 +193,6 @@ for (i = 0; i < viewModel.polices().length; i++) {
 }
 
 /**
- * Variable représentant l'image de fond sélectionnée
- */
-viewModel.image_fond_focus = ko.observable(viewModel.fenetre.image_fond.id());
-
-/**
  * Attribue les valeurs de l'image de fond sélectionnée à l'image de fond de la fenêtre
  */
 viewModel.image_fond_focus.subscribe(function (data) {
@@ -203,11 +204,6 @@ viewModel.image_fond_focus.subscribe(function (data) {
         }
     }
 });
-
-/**
- * Variable représentant le thème sélectionné
- */
-viewModel.theme_focus = ko.observable(viewModel.fenetre.theme.id());
 
 /**
  * Attribue les valeurs du thème sélectionné au thème de la zone
@@ -272,4 +268,3 @@ viewModel.theme_focus.subscribe(function (data) {
         }
     }
 });
-

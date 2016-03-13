@@ -10,28 +10,22 @@
         <form>
             <div class="form-group">
                 <label>Nouvelle adresse courriel:</label> 
-                <input id="adresse_courriel_input" type="text" class="form-control" maxlength="250" data-bind="value: administrateur.adresse_courriel()"/>
+                <input name="adresse_courriel_input" id="adresse_courriel_input" type="text" class="form-control" maxlength="250" data-bind="value: administrateur.adresse_courriel()"/>
             </div> 
             <div class="form-group">
                 <label>Nouveau mot de passe:</label> 
                 <div class="toggle_password">
-                    <input id="mot_de_passe_input" type="password" class="form-control" maxlength="250" value="" data-bind="value: administrateur.mot_de_passe()"/>
+                    <input name="mot_de_passe_input" id="mot_de_passe_input" type="password" class="form-control" maxlength="250" value="" data-bind="value: administrateur.mot_de_passe()"/>
                 </div>
             </div> 
-<!--             <div class="form-group">
-                <label>Confimation du mot de:</label> 
-                <div class="toggle_password">
-                    <input id="confirmation_mot_de_passe_input" type="password" class="form-control" maxlength="250" data-bind="value: administrateur.mot_de_passe()"/>
-                </div>
-            </div>  -->
             <div class="form-group">
-                <input type="checkbox" onchange="document.getElementById('mot_de_passe_input').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?</input>
+                <input name="afficher_mot_de_passe_input" type="checkbox" onchange="document.getElementById('mot_de_passe_input').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?</input>
             </div> 
         </form>        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="button" class="modifier_parametres btn btn-primary" data-dismiss="modal">Modifier les informations</button>
+        <button name="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button name="modifier_les_informations" type="button" class="modifier_parametres btn btn-primary" data-dismiss="modal">Modifier les informations</button>
       </div>
     </div>
   </div>
@@ -49,14 +43,14 @@
             </div>
             <div class="form-group">
                 <label>Mot de passe : </label>
-                <input type="password" class="form-control" id="administrateur_mot_de_passe" data-bind="value: administrateur.mot_de_passe()" disabled></input>
+                <input name="mot_de_passe" type="password" class="form-control" id="administrateur_mot_de_passe" data-bind="value: administrateur.mot_de_passe()" disabled></input>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" onchange="document.getElementById('administrateur_mot_de_passe').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?
+                        <input name="afficher_mot_de_passe" type="checkbox" onchange="document.getElementById('administrateur_mot_de_passe').type = this.checked ? 'text' : 'password'"> Afficher le mot de passe?
                     </label>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_modifier_informations">Modifier les informations de connexion</button>
+            <button name="modifier_informations" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_modifier_informations">Modifier les informations de connexion</button>
         </form>
     </div>
 </div>

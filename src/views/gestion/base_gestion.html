@@ -36,56 +36,56 @@
         <span id="toggle_sidebar"  data-starttext="»" data-secondtext="«">»</span>
       </div>
       <div class="appliquer_modifications">
-        <button type="button" class="btn btn-secondary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+        <button name="appliquer_modifications" type="button" class="btn btn-secondary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
       </div>
     </div>
     
     <div id="sidebar">
       <ul>
         <li>
-          <a href="accueil" rel="external">
+          <a name="accueil" href="accueil" rel="external">
             <img class="nav_icon" align="left" src="/src/home.png" alt="">
             <div class="navigation_element_detail">Accueil</div>
           </a></li>
         <li>
-          <a href="periodes" rel="external">
+          <a name="periodes" href="periodes" rel="external">
             <img class="nav_icon" align="left" src="/src/time.png" alt="">
             <div class="navigation_element_detail">Périodes</div>
           </a>
         </li>
         <li>
-          <a href="fenetres" rel="external">
+          <a name="fenetres" href="fenetres" rel="external">
             <img class="nav_icon" align="left" src="/src/computer.png" alt="">
             <div class="navigation_element_detail">Fenêtres</div>
           </a>
         </li>
         <li>
-          <a href="themes" rel="external">
+          <a name="themes" href="themes" rel="external">
             <img class="nav_icon" align="left" src="/src/paintbrush.png" alt="">
             <div class="navigation_element_detail">Thèmes</div>
           </a>
         </li>
         <li>
-          <a href="medias" rel="external">
+          <a name="medias" href="medias" rel="external">
             <img class="nav_icon" align="left" src="/src/camera.png" alt="">
             <div class="navigation_element_detail">Médias</div>
           </a>
         </li>
         <li>
-          <a href="parametres" rel="external">
+          <a name="parametres" href="parametres" rel="external">
             <img class="nav_icon" align="left" src="/src/gears.png" alt="">
             <div class="navigation_element_detail">Paramètres</div>
           </a>
         </li>
         <li>
-          <a href="a_propos" rel="external">
+          <a name="a_propos" href="a_propos" rel="external">
             <img class="nav_icon" align="left" src="/src/help.png" alt="">
             <div class="navigation_element_detail">À propos</div>
           </a>
         </li>
       </ul>
       <div id="deconnexion">
-        <button class="btn btn-secondary" type="submit" onclick="location.href = '/g/deconnexion';" >
+        <button name="deconnexion" class="btn btn-secondary" type="submit" onclick="location.href = '/g/deconnexion';" >
           Déconnexion
         </button>
       </div>

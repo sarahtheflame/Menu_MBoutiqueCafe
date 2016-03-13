@@ -9,7 +9,7 @@
             </div>
             »
          </h1>
-        <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
+        <a name="modifier_fenetre" class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
     </div>
     <hr>
     <div class="row">
@@ -17,7 +17,7 @@
             <form>
                 <div class="form-group">
                     <label for="contenu_input">Nom : </label>
-                    <input id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
+                    <input name="nom_zone" id="contenu_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
                 </div>
             </form>
         </div>
@@ -58,17 +58,17 @@
                 		<td>
                             <div class="row">
                                 <div class="col-xs-9 col-md-9 col-lg-9">
-                                    <textarea rows="2" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
+                                    <textarea name="contenu" rows="2" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
                                 </div>
                                 <div class="col-xs-3 col-md-3 col-lg-3">
-                                    <select class="form-control" data-bind="options: $root.choix_style_cellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
+                                    <select name="choix_style_contenu" class="form-control" data-bind="options: $root.choix_style_cellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>
                                 </div>
                             </div>
                 		</td>
                         <!-- /ko -->
                         <td class="colonne_retirer">
                             <div class="badge_button">
-                                <a href="#" class="retirer">X</a>
+                                <a name="retirer" href="#" class="retirer">X</a>
                             </div>
                         </td>
                 	</tr>
@@ -76,7 +76,7 @@
                 <!-- /ko -->
                 <tr>
                     <th class="badge_button" data-bind="attr: {colspan : $root.zone.nombre_colonnes()+1}">
-                        <a href="#" class="ajouter_ligne">+ Ajouter une ligne</a>
+                        <a name="ajouter_ligne" href="#" class="ajouter_ligne">+ Ajouter une ligne</a>
                     </th>
                 </tr>
             </table>

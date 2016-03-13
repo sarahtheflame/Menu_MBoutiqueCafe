@@ -175,15 +175,15 @@
                 <div class="sidebar_row form-inline" id="infos_fenetre">
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Nom : </label>
-                         <input type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom" maxlength="250"></input>
+                         <input name="nom_fenetre" type="text" class="form-control input-sm" data-bind="textInput: $root.fenetre.nom" maxlength="250"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Thème : </label>
                         <div class="input-group">
-                            <select data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
+                            <select name="choix_theme" data-role="none" class="form-control input-sm" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: $root.theme_focus">
                             </select>
                             <span class="input-group-addon">
-                                <a data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
+                                <a name="modifier_theme" data-bind="attr: { href: '/g/modifier_theme?id='+$root.fenetre.theme.id()}"><img src="../src/icons/edit.png"></a>
                             </span>    
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                     <h2>Fond</h2>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Image : </label>
-                        <select data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
+                        <select name="choix_image_fond" data-role="none" class="form-control input-sm" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.image_fond_focus">
                         </select>
                     </div>
                     <div class="sidebar_row form-inline">
@@ -200,7 +200,7 @@
                         <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
                             backgroundColor : fenetre.couleur_fond}"/> -->
                         <div class="input-group">
-                            <input type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond"/>
+                            <input name="couleur_fond" type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond"/>
                             <span class="choix_couleur input-group-addon">
                                 <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
                             </span>
@@ -211,45 +211,45 @@
                 <hr>
                 <!-- ko if: $root.index_zone_focus() != -1 -->
                 <div class="sidebar_row form-inline text-center">
-                    <div class="changer_zone badge_button" id="changer_zone-gauche" width="20"><a onclick="deplacement_index_zone_focus(-1)"><</a></div>
+                    <div class="changer_zone badge_button" id="changer_zone-gauche" width="20"><a name="deplacement_index_zone_focus_gauche" onclick="deplacement_index_zone_focus(-1)"><</a></div>
                     <div class="changer_zone center"><h1 data-bind="text: $root.fenetre.zones()[$root.index_zone_focus()].nom(), tooltip: { title: $root.fenetre.zones()[$root.index_zone_focus()].nom(), placement: 'bottom' }"></h1></div>
-                    <div class="changer_zone badge_button" id="changer_zone-droite" width="20"><a onclick="deplacement_index_zone_focus(1)">></a></div>
+                    <div class="changer_zone badge_button" id="changer_zone-droite" width="20"><a name="deplacement_index_zone_focus_droite" onclick="deplacement_index_zone_focus(1)">></a></div>
                 </div>
                 <div class="sidebar_row badge_button text-center">
-                    <a data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
-                    <a href="#" class="retirer_zone">Supprimer</a> 
+                    <a name="modifier_zone_focus" data-bind="attr: { href: '/g/modifier_zone?id='+$root.fenetre.zones()[$root.index_zone_focus()].id()}">Modifier</a>
+                    <a name="supprimer_zone_focus" href="#" class="retirer_zone">Supprimer</a> 
                 </div>
                 <div class="sidebar_row form-inline" id="position">
                     <h2>Position</h2>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Horizontale : </label>
-                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
+                            <input name="position_x" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Verticale : </label>
-                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
+                            <input name="position_y" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Profondeur : </label>
-                            <input type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
+                            <input name="position_z" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
                     </div>
                 </div>
                 <div class="sidebar_row" id="dimensions">
                     <h2>Dimensions</h2>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Hauteur : </label>
-                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
+                        <input name="hauteur" type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Largeur : </label>
-                        <input type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
+                        <input name="largeur" type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
                     </div>
                 </div>
                 <!-- /ko -->
                 <div class="sidebar_row text-center">
-                    <button class="btn btn-primary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
+                    <button name="appliquer_modifications" class="btn btn-primary" onclick="appliquer_modifications('{{!titre}}')">Appliquer les modifications</button>
                     <div class="badge_button">
-                        <a data-bind="attr: { href: '/g/fenetres'}">Retour à la liste des fenêtres</a>
+                        <a name="retour_liste_fenetres" data-bind="attr: { href: '/g/fenetres'}">Retour à la liste des fenêtres</a>
                     </div>
                 </div>
             </div>
