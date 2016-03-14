@@ -2,9 +2,9 @@
  * Supprime la période en mettant son id négatif si la zone est enregistrée ou en le retirant
  * directement de la liste si elle a été créée sans être 
  * appliquée
- * Lancé lors d'un clic sur un élément qui porte la classe retirer
+ * Lancé lors d'un clic sur un élément qui porte la classe retirer_periode
  */
-$("body").on("click", ".retirer", function() {
+$("body").on("click", ".retirer_periode", function() {
     var context = ko.contextFor(this),
       id = context.$data.id();
     var confirmation = confirm("Êtes-vous sûr de vouloir supprimer " + context.$data.nom() +"?");
@@ -19,6 +19,7 @@ $("body").on("click", ".retirer", function() {
         console.log("suppression annulée");
     }
 });
+
 $("body").on("click", ".afficher_periode_actuelle", function() {
     $.post("/afficher_fenetres", {} );
 });

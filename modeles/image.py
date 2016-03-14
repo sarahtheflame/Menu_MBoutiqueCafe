@@ -31,7 +31,7 @@ class Image(Media):
         ForeignKey('Medias.id', onupdate="cascade", ondelete="cascade"), 
         primary_key=True
         )
-        
+    
     __mapper_args__ = {
         'polymorphic_identity':'Image'
     }

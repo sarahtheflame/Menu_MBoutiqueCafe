@@ -38,15 +38,15 @@ $(document).ready(function(){
      * @param  {integer} id : id de la zone à vérifier
      * @return {Boolean} : indique si la zone est sélectionnée
      */
-    viewModel.is_selected = function (id) {
+    viewModel.est_selectionne = function (id) {
         return viewModel.fenetre.zones()[viewModel.index_zone_focus()].id() == id;
     };
 
     /**
      * Affiche ou cache la barre de navigation
-     * Lancé par un clic sur un élément portant la classe toggle_sidebar
+     * Lancé par un clic sur un élément portant la classe basculer_sidebar
      */
-    $("body").on("click", ".toggle_sidebar", function() {
+    $("body").on("click", ".basculer_sidebar", function() {
         $("#sidebar").toggleClass("show_sidebar");
     });
 

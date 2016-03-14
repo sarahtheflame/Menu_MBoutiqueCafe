@@ -23,9 +23,9 @@ function appliquer_modifications(fileName) {
 $(document).ready(function(){
     /**
      * Affiche ou cache la barre de navigation
-     * Lancé lors d'un clic sur un élément portant l'id toggle_sidebar
+     * Lancé lors d'un clic sur un élément portant l'id basculer_sidebar
      */
-    $("#toggle_sidebar").click(function(){
+    $("#basculer_sidebar").click(function(){
         $("#content").toggleClass("show_sidebar");
 
         var second = $(this).data("secondtext");
