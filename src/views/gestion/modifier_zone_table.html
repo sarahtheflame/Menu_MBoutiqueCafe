@@ -58,7 +58,7 @@
                 		<td>
                             <div class="row">
                                 <div class="col-xs-9 col-md-9 col-lg-9">
-                                    <textarea name="contenu" rows="2" class="form-control" data-bind="textInput: cellule.contenu"> </textarea>
+                                    <textarea name="contenu" rows="2" class="form-control" maxlength="250" data-bind="textInput: cellule.contenu"> </textarea>
                                 </div>
                                 <div class="col-xs-3 col-md-3 col-lg-3">
                                     <select name="choix_style_contenu" class="form-control" data-bind="options: $root.choix_style_cellule, optionsText: 'nom', optionsValue: 'attribut', value: cellule.type_style"></select>

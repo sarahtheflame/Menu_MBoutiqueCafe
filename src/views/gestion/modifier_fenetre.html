@@ -200,7 +200,7 @@
                         <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
                             backgroundColor : fenetre.couleur_fond}"/> -->
                         <div class="input-group">
-                            <input name="couleur_fond" type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond"/>
+                            <input name="couleur_fond" type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond" maxlength="250"/>
                             <span class="choix_couleur input-group-addon">
                                 <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
                             </span>
@@ -223,26 +223,26 @@
                     <h2>Position</h2>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Horizontale : </label>
-                            <input name="position_x" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
+                            <input name="position_x" type="number" min="0" max="100" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_x"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Verticale : </label>
-                            <input name="position_y" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
+                            <input name="position_y" type="number" min="0" max="100"class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_y"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                             <label class="sidebar_label">Profondeur : </label>
-                            <input name="position_z" type="number" min="0" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
+                            <input name="position_z" type="number" min="0" max="100" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].position_z"></input>
                     </div>
                 </div>
                 <div class="sidebar_row" id="dimensions">
                     <h2>Dimensions</h2>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Hauteur : </label>
-                        <input name="hauteur" type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
+                        <input name="hauteur" type="number" min="5" max="100" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].hauteur"></input>
                     </div>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Largeur : </label>
-                        <input name="largeur" type="number" min="5" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
+                        <input name="largeur" type="number" min="5" max="100" class="form-control input-sm" data-bind="textInput: $root.fenetre.zones()[$root.index_zone_focus()].largeur"></input>
                     </div>
                 </div>
                 <!-- /ko -->
