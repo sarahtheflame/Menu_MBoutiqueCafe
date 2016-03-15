@@ -75,35 +75,35 @@ class ZoneBase(Zone):
         if data.get('position_x') != None :
             try:
                 temp = float(data['position_x'])
-                if (temp <= 100 and temp > 0):
+                if (temp <= 100 and temp >= 0):
                     self.position_x = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_y') != None : 
             try:
                 temp = float(data['position_y'])
-                if (temp <= 100 and temp > 0):
+                if (temp <= 100 and temp >= 0):
                     self.position_y = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_z') != None :
             try:
                 temp = float(data['position_z'])
-                if (temp > 0):
+                if (temp >= 0):
                     self.position_z = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('largeur') != None : 
             try:
                 temp = float(data['largeur'])
-                if (temp <= 100 and temp > 5):
+                if (temp <= 100 and temp >= 5):
                     self.largeur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('hauteur') != None :
             try:
                 temp = float(data['hauteur'])
-                if (temp <= 100 and temp > 5):
+                if (temp <= 100 and temp >= 5):
                     self.hauteur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
