@@ -197,10 +197,8 @@
                     </div>
                     <div class="sidebar_row form-inline">
                         <label class="sidebar_label">Couleur : </label>
-                        <!-- <input type="text" class="form-control input-sm choix_couleur" data-bind="value: fenetre.couleur_fond, style: {
-                            backgroundColor : fenetre.couleur_fond}"/> -->
                         <div class="input-group">
-                            <input name="couleur_fond" type="text" class="form-control input-sm" data-bind="value: fenetre.couleur_fond" maxlength="250"/>
+                            <input name="couleur_fond" type="text" class="form-control input-sm" data-bind="textInput: fenetre.couleur_fond" maxlength="250"/>
                             <span class="choix_couleur input-group-addon">
                                 <i data-bind="style: { backgroundColor : fenetre.couleur_fond}"></i>
                             </span>
