@@ -4,16 +4,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button name="fermer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Ajouter une fenêtre</h4>
       </div>
       <div class="modal-body">
         <label>Nom de la nouvelle fenêtre:</label>
-        <input id="nom_fenetre_input" type="text" class="form-control" maxlength="250"/>
+        <input name="nom_fenetre_input" id="nom_fenetre_input" type="text" class="form-control" maxlength="250"/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="button" class="ajouter_fenetre btn btn-primary" data-dismiss="modal">Ajouter</button>
+        <button name="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button name="ajouter" type="button" class="ajouter_fenetre btn btn-primary" data-dismiss="modal">Ajouter</button>
       </div>
     </div>
   </div>
@@ -23,20 +23,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button name="fermer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Ajouter une zone</h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-12">
             <label>Nom de la nouvelle zone:</label>
-            <input id="nom_zone_input" type="text" class="form-control" maxlength="250"/>
+            <input name="nom_zone_input" id="nom_zone_input" type="text" class="form-control" maxlength="250"/>
           </div>
         </div> 
         <div class="row">
           <div class="col-lg-12">
             <label>Type de zone :</label>
-            <select class="form-control" id="choix_type_zone" data-bind="options: $root.choix_type_zone, optionsText: 'nom', optionsValue: 'attribut', value: $root.type_zone_focus">
+            <select name="choix_type_zone" class="form-control" id="choix_type_zone" data-bind="options: $root.choix_type_zone, optionsText: 'nom', optionsValue: 'attribut', value: $root.type_zone_focus">
             </select>
           </div>
         </div> 
@@ -44,15 +44,15 @@
           <div class="col-lg-12">
             <!-- ko if: $root.type_zone_focus() === 'ZoneTable' -->
             <label>Nombre de colonnes :</label>
-            <input type="number" class="form-control" id="choix_nb_colonnes" min="1" max="10" value="2"></input>
+            <input name="choix_nb_colonnes" type="number" class="form-control" id="choix_nb_colonnes" min="1" max="10" value="2"></input>
             <!-- /ko --> 
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="button" class="ajouter_zone btn btn-primary" data-dismiss="modal">Ajouter</button>
+        <button name="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button name="ajouter" type="button" class="ajouter_zone btn btn-primary" data-dismiss="modal">Ajouter</button>
       </div>
     </div>
   </div>
@@ -61,9 +61,6 @@
 <div class="container-fluid">
   <div class="crop">
     <h1 id="titre_page">Liste des fenêtres</h1>
-    <!-- <div class="aide">
-    	<a href="">Qu'est-ce qu'une fenêtre?</a>
-    </div> -->
   </div>
   <hr>
   <div class="row">
@@ -75,25 +72,24 @@
             <h4 class="panel-title">
               <div class="row">
                 <div class="col-xs-12 col-md-3 col-lg-3 aligner_verticalement">
-                  <h2><a role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}"><span class="caret"></span> <span data-bind="text: $data.nom"></span></a></h2>
+                  <h2><a name="afficher_zones" role="button" data-toggle="collapse" aria-expanded="true" data-bind="attr: { href: '#'+$data.id()}"><span class="caret"></span> <span data-bind="text: $data.nom"></span></a></h2>
                 </div>
                 <div class="col-xs-12 col-md-6 col-lg-6 aligner_verticalement">
                   <label>Thème : </label>
-                  <select class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
+                  <select name="choix_theme" class="form-control" data-role="none" data-bind="options: $root.themes, optionsText: 'nom', optionsValue: 'id', value: fenetre.theme.id">
                   </select>
                 </div>
                 <div class="col-xs-12 col-md-3 col-lg-3 badge_button">
                   <!-- ko if: $data.id() != 1 -->
-                  <a href="#" class="retirer_fenetre">X</a>
+                  <a name="retirer_fenetre" href="#" class="retirer_fenetre">X</a>
                   <!-- /ko --> 
                   <!-- ko if: $data.id() == 0 -->
-                  <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette fenêtre">Modifier</a>
+                  <a name="modifier_fenetre_disabled" class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette fenêtre">Modifier</a>
                   <!-- /ko -->
                   <!-- ko if: $data.id() > 0 -->
-                  <a data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier</a>
+                  <a name="modifier_fenetre" data-bind="attr: { href: '/g/modifier_fenetre?id='+$data.id()}">Modifier</a>
                   <!-- /ko -->
                 </div>
-              
               </div>
             </h4>
           </div>
@@ -101,19 +97,19 @@
             <ul class="list-group" id="zones" data-bind="foreach: { data: $data.zones, as: 'zone' }">
               <!-- ko if: $data.id() > -1 -->
               <li class="list-group-item badge_button">
-                  <a href="#" class="retirer_zone">X</a>
+                  <a name="retirer_zone" href="#" class="retirer_zone">X</a>
                   <!-- ko if: $data.id() == 0 -->
-                  <a class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette zone">Modifier</a>
+                  <a name="modifier_zone_disabled" class="btn disabled" href="#" data-toggle="tooltip" title="Vous devez appliquer les modifications pour modifier cette zone">Modifier</a>
                   <!-- /ko -->
                   <!-- ko if: $data.id() > 0 -->
-                   <a class="modifier" data-bind="attr: { href: '/g/modifier_zone?id='+$data.id()}">Modifier</a>
+                   <a name="modifier_zone" class="modifier" data-bind="attr: { href: '/g/modifier_zone?id='+$data.id()}">Modifier</a>
                   <!-- /ko -->
                 <strong data-bind="text: $data.nom()"></strong> (<span data-bind="text: $data.type()"></span>)
               </li>
               <!-- /ko -->
             </ul>
             <div class="list-group-item badge_button">
-                <a href="#" class="selecteur_fenetre" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une zone</a>
+                <a name="ajouter_zone" href="#" class="selecteur_fenetre" data-toggle="modal" data-target="#modalAjouterZone">+ Ajouter une zone</a>
                 Nouvelle zone
             </div>
           </div>
@@ -124,9 +120,8 @@
   </div>
   <div class="row">
     <div class="col-lg-12">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterFenetre"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une fenêtre</button>
+      <button name="ajouter_fenetre" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterFenetre"><img src="/src/plus.png" class="btn_icon avant"/> Ajouter une fenêtre</button>
     </div>
-
   </div>
 </div>
 <script type='text/javascript' src='/src/fenetres.js'></script>

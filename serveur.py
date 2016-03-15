@@ -49,9 +49,9 @@ app.install(sqlalchemy.Plugin(create_engine('sqlite:///src//data//database.db'),
     commit=True, use_kwargs=False))
 
 # Obtention du port à utiliser par le server via la console
-host_port = ""
-while not host_port.isdigit():
-    host_port = input("Entrez un port sur lequel héberger le serveur : ")
+port_choisi = ""
+while not port_choisi.isdigit():
+    port_choisi = input("Entrez un port sur lequel héberger le serveur : ")
 
 print("\nVoici votre adresse IP : " + socket.gethostbyname(socket.gethostname()) + "\n")
 
@@ -119,7 +119,7 @@ def post_connexion(db):
         'path' : "src\\views\\gestion\\base_gestion.html",
         'data' : obtenir_donnees_gestion(db, {'nom_vue' : 'accueil'})
     }
-    courriel = request.forms.get('courriel')
+    courriel = request.forms.get('adresse_courriel')
     mot_de_passe = request.forms.get('mot_de_passe')
     if est_autorise(db, courriel, mot_de_passe):
         administrateur = db.query(Administrateur).filter(Administrateur.adresse_courriel == courriel).one()
@@ -143,6 +143,7 @@ def deconnexion():
             secret="JxLZ2UztqHT1MtD72a8T1gmTnXpsvghC0XsR231rdwW8YtLt936N47gQ74PN15Eox")
     response.set_cookie("administrateur", id_administrateur, secret="...")
     return template("src\\views\\autre\\connexion.html", {})
+    
 #===============================================================================
 # Pages du système de gestion
 #===============================================================================
@@ -196,7 +197,7 @@ def post_gestion(nom_fichier, db):
 #===============================================================================
 
 @app.route('/a/<id_fenetre>')
-def affichage(id_fenetre, db):
+def afficher_fenetre(id_fenetre, db):
     """
         Fonction associée à une route dynamique qui retourne le 'template' de type 
         'html' du fichier '<id_fenetre>.html' s'il existe dans le répertoire '/src/views/affichage'.
@@ -369,4 +370,4 @@ def erreur_404(error):
 #===============================================================================
 
 if __name__ == "__main__":
-    run(app, host='0.0.0.0', port=host_port, server='gevent', debug=True)
+    run(app, host='0.0.0.0', port=port_choisi, server='gevent', debug=True)

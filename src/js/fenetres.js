@@ -1,4 +1,26 @@
 /**
+ * Variable servant à déterminée la fenêtre choisie lors de la création d'une nouvelle zone
+ */
+viewModel.fenetre_focus = ko.observable();
+
+/**
+ * Liste contenant les choix de types possibles pour une zone. 
+ * nom : Nom affiché pour l'utilisateur
+ * attribut : Valeur attribuée à l'attribut type de la zone
+ */
+viewModel.choix_type_zone = ko.observableArray([
+    { nom: "Zone Table", attribut: "ZoneTable" },
+    { nom: "Zone Image", attribut: "ZoneImage" },
+    { nom: "Zone Vidéo", attribut: "ZoneVideo" },
+    { nom: "Zone Base", attribut: "ZoneBase" }
+]);
+
+/**
+ * Variable correspondant au type de zone sélectionné lors de la création d'une nouvelle zone
+ */
+viewModel.type_zone_focus = ko.observable();
+
+/**
  * Supprime la zone de la liste des zones de la fenêtre associée en mettant son id négatif si la 
  * zone est enregistrée ou en le retirant directement de la liste si elle a été créée sans être 
  * appliquée
@@ -101,31 +123,9 @@ $('body').on('shown.bs.modal', '#modalAjouterZone', function () {
 })
 
 /**
- * Variable servant à déterminée la fenêtre choisie lors de la création d'une nouvelle zone
- */
-viewModel.fenetre_focus = ko.observable();
-
-/**
  * Attribue la fenêtre focus
  * Lancé lors d'un clic sur un élément portant la classe selecteur_fenetre
  */
 $('body').on('click', '.selecteur_fenetre', function () {
     viewModel.fenetre_focus = ko.contextFor(this).$data;
 })
-
-/**
- * Liste contenant les choix de types possibles pour une zone. 
- * nom : Nom affiché pour l'utilisateur
- * attribut : Valeur attribuée à l'attribut type de la zone
- */
-viewModel.choix_type_zone = ko.observableArray([
-    { nom: "Zone Table", attribut: "ZoneTable" },
-    { nom: "Zone Image", attribut: "ZoneImage" },
-    { nom: "Zone Vidéo", attribut: "ZoneVideo" },
-    { nom: "Zone Base", attribut: "ZoneBase" }
-]);
-
-/**
- * Variable correspondant au type de zone sélectionné lors de la création d'une nouvelle zone
- */
-viewModel.type_zone_focus = ko.observable();

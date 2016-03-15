@@ -7,7 +7,7 @@
         </div>
         »
      </h1>
-      <a class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
+      <a name="modifier_fenetre" class="btn btn-primary" data-bind="attr: { href: '/g/modifier_fenetre?id='+$root.fenetre_id()}">Modifier la fenêtre <img src="/src/arrow2.png" class="btn_icon apres"/></a>
     </div>
     <hr>
     <div class="row">
@@ -16,11 +16,11 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label>Nom : </label>
-                        <input id="nom_de_zone_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
+                        <input name="nom_de_zone_input" id="nom_de_zone_input" type="text" class="form-control" placeholder="Nom de la zone..." data-bind="textInput: zone.nom" maxlength="250">
                     </div>
                     <div class="form-group">
                         <label for="image_select">Image de la zone : </label>
-                        <select id="image_select" class="form-control" data-role="none" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.media_focus">
+                        <select name="choix_image" id="image_select" class="form-control" data-role="none" data-bind="options: $root.images, optionsText: 'nom', optionsValue: 'id', value: $root.media_focus">
                         </select>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-xs-12 col-md-6 col-lg-6">
             <img id="image_preview" data-bind="attr: { src: '/src/'+ zone.image.chemin_fichier()}" width="100%">
-            <a data-bind="attr: { href: '/src/'+ zone.image.chemin_fichier()}" >Visualiser</a>
+            <a name="visualiser" data-bind="attr: { href: '/src/'+ zone.image.chemin_fichier()}" >Visualiser</a>
         </div>
     </div>
 </div>
