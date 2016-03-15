@@ -80,27 +80,37 @@ class ZoneTable(Zone):
         if data.get('nombre_colonnes') != None : self.nombre_colonnes = data['nombre_colonnes']
         if data.get('position_x') != None : 
             try:
-                self.position_x = data['position_x']
+                temp = float(data['position_x'])
+                if (temp < 100 and temp > 0):
+                    self.position_x = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_y') != None : 
             try:
-                self.position_y = data['position_y']
+                temp = float(data['position_y'])
+                if (temp < 100 and temp > 0):
+                    self.position_y = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_z') != None : 
             try:
-                self.position_z = data['position_z']
+                temp = float(data['position_z'])
+                if (temp > 0):
+                    self.position_z = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('largeur') != None : 
             try:
-                self.largeur = data['largeur']
+                temp = float(data['largeur'])
+                if (temp < 100 and temp > 0):
+                    self.largeur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('hauteur') != None : 
             try:
-                self.hauteur = data['hauteur']
+                temp = float(data['hauteur'])
+                if (temp < 100 and temp > 0):
+                    self.hauteur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('lignes') != None : 

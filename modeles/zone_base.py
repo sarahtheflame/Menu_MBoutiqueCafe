@@ -74,27 +74,37 @@ class ZoneBase(Zone):
                 self.nom = data['nom']
         if data.get('position_x') != None :
             try:
-                self.position_x = float(data['position_x'])
+                temp = float(data['position_x'])
+                if (temp < 100 and temp > 0):
+                    self.position_x = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_y') != None : 
             try:
-                self.position_y = float(data['position_y'])
+                temp = float(data['position_y'])
+                if (temp < 100 and temp > 0):
+                    self.position_y = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('position_z') != None :
             try:
-                self.position_z = float(data['position_z'])
+                temp = float(data['position_z'])
+                if (temp > 0):
+                    self.position_z = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('largeur') != None : 
             try:
-                self.largeur = float(data['largeur'])
+                temp = float(data['largeur'])
+                if (temp < 100 and temp > 5):
+                    self.largeur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('hauteur') != None :
             try:
-                self.hauteur = float(data['hauteur'])
+                temp = float(data['hauteur'])
+                if (temp < 100 and temp > 5):
+                    self.hauteur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('type_style') != None : self.type_style = data['type_style']

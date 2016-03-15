@@ -38,15 +38,15 @@ interact('.zone')
     viewModel.fenetre.zones()[viewModel.index_zone_focus()].largeur(a_width);
     viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(a_height);
 
-    var table = $(target).children('table')[0];
-    if (typeof table !== 'undefined') {
-      var table_width = $(table).width() / $(document).width() *100;
-      var table_height = $(table).height() / $(document).height() *100;
-      if (a_width < table_width || a_height < table_height) {
-        viewModel.fenetre.zones()[viewModel.index_zone_focus()].largeur(table_width);
-        viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(table_height);
-      }
-    }
+    // var table = $(target).children('table')[0];
+    // if (typeof table !== 'undefined') {
+    //   var table_width = $(table).width() / $(document).width() *100;
+    //   var table_height = $(table).height() / $(document).height() *100;
+    //   if (a_width < table_width || a_height < table_height) {
+    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].largeur(table_width);
+    //     viewModel.fenetre.zones()[viewModel.index_zone_focus()].hauteur(table_height);
+    //   }
+    // }
   });
 
 /**
