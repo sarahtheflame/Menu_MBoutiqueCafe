@@ -112,14 +112,14 @@ class ZoneVideo(Zone):
         if data.get('largeur') != None : 
             try:
                 temp = float(data['largeur'])
-                if (temp < 100 and temp > 0):
+                if (temp < 100 and temp > 5):
                     self.largeur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
         if data.get('hauteur') != None : 
             try:
                 temp = float(data['hauteur'])
-                if (temp < 100 and temp > 0):
+                if (temp < 100 and temp > 5):
                     self.hauteur = temp
             except:
                 print("Impossible d'enregistrer la valeur car celle-ci ne correspond pas à un float")
