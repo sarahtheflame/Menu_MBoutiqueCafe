@@ -44,9 +44,9 @@ $("body").on("click", ".ajouter_ligne", function() {
 /**
  * Supprime la ligne en mettant son id négatif si la ligne est enregistrée ou en la retirant
  * directement de la liste si elle a été créée sans être appliquée
- * Lancé lors d'un clic sur un élément qui porte la classe retirer
+ * Lancé lors d'un clic sur un élément qui porte la classe retirer_ligne
  */
-$("body").on("click", ".retirer", function() {
+$("body").on("click", ".retirer_ligne", function() {
     var context = ko.contextFor(this),
         id = context.$data.id();
     if (id != 0) {

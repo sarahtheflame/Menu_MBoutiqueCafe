@@ -34,7 +34,7 @@
             <div class="interact-container" data-bind="foreach: { data: fenetre.zones, as: 'zone' }">
                 <!-- ko if: zone.id() > -1 -->
                     <!-- ko if: zone.type() === "ZoneBase" -->
-                    <div class="zone base" data-bind="css: {zone_focus: $root.is_selected($data.id())}, style: { 
+                    <div class="zone base" data-bind="css: {zone_focus: $root.est_selectionne($data.id())}, style: { 
                         'left' : $data.position_x() + '%', 
                         'top' : $data.position_y() + '%', 
                         'z-index' : $data.position_z(), 
@@ -79,7 +79,7 @@
                     </div>
                     <!-- /ko -->
                     <!-- ko if: zone.type() === "ZoneImage" -->
-                    <div class="zone media" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                    <div class="zone media" data-bind="css: {zone_focus: $root.est_selectionne(zone.id())}, style: { 
                         left : $data.position_x() + '%', 
                         top : $data.position_y() + '%', 
                         'z-index' : $data.position_z(), 
@@ -91,7 +91,7 @@
                     </div>
                     <!-- /ko -->
                     <!-- ko if: zone.type() === "ZoneVideo" -->
-                    <div class="zone media" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                    <div class="zone media" data-bind="css: {zone_focus: $root.est_selectionne(zone.id())}, style: { 
                         left : $data.position_x() + '%', 
                         top : $data.position_y() + '%', 
                         'z-index' : $data.position_z(), 
@@ -107,7 +107,7 @@
                     </div>
                     <!-- /ko -->
                     <!-- ko if: zone.type() === "ZoneTable" -->
-                    <div class="zone" data-bind="css: {zone_focus: $root.is_selected(zone.id())}, style: { 
+                    <div class="zone" data-bind="css: {zone_focus: $root.est_selectionne(zone.id())}, style: { 
                         left : $data.position_x() + '%', 
                         top : $data.position_y() + '%', 
                         'z-index' : $data.position_z(), 
@@ -166,9 +166,9 @@
                     <!-- /ko -->
                 <!-- /ko -->
             </div>
-            <span class="toggle_sidebar option_left">»</span>
+            <span class="basculer_sidebar option_left">»</span>
             <div id="sidebar">
-                <span class="toggle_sidebar option_right">«</span>
+                <span class="basculer_sidebar option_right">«</span>
                 <div class="sidebar_row text-center">
                     <div class="changer_zone"><h1 data-bind="text: fenetre.nom, tooltip: { title: fenetre.nom, placement: 'bottom' }"></h1></div>
                 </div>

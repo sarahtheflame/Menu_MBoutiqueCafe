@@ -14,7 +14,7 @@ $("body").on("click", ".retirer", function() {
 /*
  * Téléversement d'une image par requête de type "ajax".
  */
-$("#add_image").submit(function (event) {
+$("#ajouter_image").submit(function (event) {
         event.preventDefault();
         var formData = new FormData($(this)[0]);
         $.ajax({
@@ -39,7 +39,7 @@ $("#add_image").submit(function (event) {
 /*
  * Téléversement d'une vidéo par requête de type "ajax".
  */
-$("#add_video").submit(function (event) {
+$("#ajouter_video").submit(function (event) {
         event.preventDefault();
         var formData = new FormData($(this)[0]);
         $.ajax({
